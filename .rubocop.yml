@@ -17,3 +17,8 @@ AllCops:
 
 Style/Documentation:
   Enabled: false
+
+RSpec/IndexedLet:
+  AllowedIdentifiers:
+    - p1
+    - p2

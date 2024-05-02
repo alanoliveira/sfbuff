@@ -10,8 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_02_053408) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "battles", force: :cascade do |t|
+    t.integer "battle_type", null: false
+    t.integer "battle_subtype"
+    t.datetime "played_at", null: false
+    t.string "replay_id", null: false
+    t.text "raw_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["battle_type"], name: "index_battles_on_battle_type"
+    t.index ["played_at"], name: "index_battles_on_played_at"
+    t.index ["replay_id"], name: "index_battles_on_replay_id", unique: true
+  end
+
+  create_table "challangers", force: :cascade do |t|
+    t.decimal "player_sid", precision: 20, null: false
+    t.integer "character", null: false
+    t.integer "control_type", null: false
+    t.integer "master_rating"
+    t.integer "league_point"
+    t.integer "side"
+    t.string "name"
+    t.integer "rounds", null: false, array: true
+    t.bigint "battle_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["battle_id"], name: "index_challangers_on_battle_id"
+    t.index ["character"], name: "index_challangers_on_character"
+    t.index ["control_type"], name: "index_challangers_on_control_type"
+    t.index ["player_sid"], name: "index_challangers_on_player_sid"
+  end
 
 end
