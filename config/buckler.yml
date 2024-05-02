@@ -1,0 +1,9 @@
+# config/buckler.yml
+
+shared:
+  base_url:
+  user_agent:
+
+production:
+  base_url: <%= ENV.fetch("BUCKLER_BASE_URL") %>
+  user_agent: <%= ENV.fetch("BUCKLER_USER_AGENT") %>

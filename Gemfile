@@ -60,6 +60,9 @@ group :development, :test do
   gem "rubocop", "~> 1.60"
   gem "rubocop-rails", "~> 2.23"
   gem "rubocop-rspec", "~> 2.26"
+
+  # Mock web requests
+  gem "webmock", "~> 3.23"
 end
 
 group :development do
@@ -73,3 +76,5 @@ group :development do
   # gem "spring"
 end
 
+
+gem "faraday", "~> 2.9"
