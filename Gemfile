@@ -47,6 +47,19 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+
+  # Unit test
+  gem "rspec", "~> 3.13"
+  gem "rspec-rails", "~> 6.1"
+
+  # Create test data
+  gem "factory_bot", "~> 6.4"
+  gem "factory_bot_rails", "~> 6.4"
+
+  # Code analysis
+  gem "rubocop", "~> 1.60"
+  gem "rubocop-rails", "~> 2.23"
+  gem "rubocop-rspec", "~> 2.26"
 end
 
 group :development do
