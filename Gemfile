@@ -78,3 +78,5 @@ end
 
 
 gem "faraday", "~> 2.9"
+
+gem "selenium-webdriver", "~> 4.20"

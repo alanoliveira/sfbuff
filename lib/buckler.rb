@@ -4,11 +4,13 @@ module Buckler
   Credentials = Struct.new(:build_id, :cookies)
 
   class Configuration
-    attr_accessor :base_url, :user_agent
+    attr_accessor :base_url, :user_agent, :email, :password
 
     def initialize
       @base_url = nil
       @user_agent = nil
+      @email = nil
+      @password = nil
     end
   end
 
