@@ -3,6 +3,12 @@
 module Buckler
   Credentials = Struct.new(:build_id, :cookies)
 
+  def self.build_api(credentials, config = {})
+    credentials = Credentials.new(**credentials) if credentials.is_a? Hash
+    client = Client.new(credentials, config)
+    Api.new(client)
+  end
+
   class Configuration
     attr_accessor :base_url, :user_agent, :email, :password
 
