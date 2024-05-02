@@ -18,6 +18,9 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV["SFBUFF_DATABASE_HOST"] %>
+  username: <%= ENV["SFBUFF_DATABASE_USERNAME"] %>
+  password: <%= ENV["SFBUFF_DATABASE_PASSWORD"] %>
 
 development:
   <<: *default
@@ -80,5 +83,3 @@ test:
 production:
   <<: *default
   database: sfbuff_production
-  username: sfbuff
-  password: <%= ENV["SFBUFF_DATABASE_PASSWORD"] %>
