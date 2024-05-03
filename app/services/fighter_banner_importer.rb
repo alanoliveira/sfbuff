@@ -7,7 +7,7 @@ class FighterBannerImporter
 
   def import!
     player.name = @fighter_banner.dig('personal_info', 'fighter_id')
-    player.save!
+    player.tap(&:save!)
   end
 
   private

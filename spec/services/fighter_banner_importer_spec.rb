@@ -17,6 +17,10 @@ RSpec.describe FighterBannerImporter do
   end
 
   describe '#import!' do
+    it 'returns the player' do
+      expect(fighter_banner_importer.import!).to have_attributes(sid: short_id)
+    end
+
     context 'when the player do not exists' do
       it 'creates a new player' do
         expect { fighter_banner_importer.import! }.to change(Player, :count).by(1)
