@@ -14,22 +14,18 @@ module PlayerBattles
   end
 
   def using_character(character)
-    character = Challanger.characters[character] if character.is_a?(String)
     character.present? ? where(player: { character: }) : self
   end
 
   def using_control_type(control_type)
-    control_type = Challanger.control_types[control_type] if control_type.is_a?(String)
     control_type.present? ? where(player: { control_type: }) : self
   end
 
   def vs_character(character)
-    character = Challanger.characters[character] if character.is_a?(String)
     character.present? ? where(opponent: { character: }) : self
   end
 
   def vs_control_type(control_type)
-    control_type = Challanger.control_types[control_type] if control_type.is_a?(String)
     control_type.present? ? where(opponent: { control_type: }) : self
   end
 

@@ -42,11 +42,11 @@ RSpec.describe Parsers::BattlelogParser do
     end
 
     it 'parses the battle_type' do
-      expect(parsed_battle.battle_type_before_type_cast).to eq(4)
+      expect(parsed_battle.battle_type).to eq(4)
     end
 
     it 'parses the battle_sub_type' do
-      expect(parsed_battle.battle_subtype_before_type_cast).to eq(1)
+      expect(parsed_battle.battle_subtype).to eq(1)
     end
 
     it 'parses the uploaded_at' do
@@ -62,15 +62,15 @@ RSpec.describe Parsers::BattlelogParser do
     end
 
     it 'parses the player1 round_results' do
-      expect(parsed_battle.challanger(1).rounds_before_type_cast).to eq([1, 1])
+      expect(parsed_battle.challanger(1).rounds).to eq([1, 1])
     end
 
     it 'parses the player1 playing_character_id' do
-      expect(parsed_battle.challanger(1).character_before_type_cast).to eq(3)
+      expect(parsed_battle.challanger(1).character).to eq(3)
     end
 
     it 'parses the player1 battle_input_type' do
-      expect(parsed_battle.challanger(1).control_type_before_type_cast).to eq(0)
+      expect(parsed_battle.challanger(1).control_type).to eq(0)
     end
 
     it 'parses the player1 master_rating' do
@@ -90,15 +90,15 @@ RSpec.describe Parsers::BattlelogParser do
     end
 
     it 'parses the player2 round_results' do
-      expect(parsed_battle.challanger(2).rounds_before_type_cast).to eq([0, 0])
+      expect(parsed_battle.challanger(2).rounds).to eq([0, 0])
     end
 
     it 'parses the player2 playing_character_id' do
-      expect(parsed_battle.challanger(2).character_before_type_cast).to eq(4)
+      expect(parsed_battle.challanger(2).character).to eq(4)
     end
 
     it 'parses the player2 battle_input_type' do
-      expect(parsed_battle.challanger(2).control_type_before_type_cast).to eq(1)
+      expect(parsed_battle.challanger(2).control_type).to eq(1)
     end
 
     it 'parses the player2 master_rating' do

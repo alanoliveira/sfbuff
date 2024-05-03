@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :battle do
-    battle_type { Battle.battle_types.keys.sample }
-    battle_subtype { Battle.battle_subtypes.keys.sample }
+    battle_type { 1 }
+    battle_subtype { 1 }
     played_at { (Time.zone.local(2023, 1, 1) + rand(1.year.to_i)) }
     sequence :replay_id, 'FACBOTAAA'
     raw_data { 'raw_data' }
