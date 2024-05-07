@@ -1,0 +1,7 @@
+<div id="player-sync">
+  <%= form_with url: player_syncs_path, data: { controller: 'form-auto-submit' } do |f| %>
+    <%= f.hidden_field :player_sid, value: params[:sid] %>
+  <% end %>
+</div>
+
+<%= render 'player' if @player.present? %>
