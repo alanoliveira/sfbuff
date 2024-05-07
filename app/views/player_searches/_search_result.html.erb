@@ -1,0 +1,26 @@
+<table>
+  <thead>
+    <tr>
+      <th><%= t '.name' %></th>
+      <th><%= t '.main_char' %></th>
+      <th><%= t '.mr_lp' %></th>
+      <th><%= t '.country' %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% data.each do |fighter| %>
+      <tr>
+        <td><%= fighter.dig('personal_info', 'fighter_id') %></td>
+        <td><%= fighter.dig('favorite_character_name') %></td>
+        <td>
+          <%= fighter.dig('favorite_character_league_info', 'master_rating') %>
+          /
+          <%= fighter.dig('favorite_character_league_info', 'league_point') %>
+        </td>
+        <td><%= fighter.dig('home_name') %></td>
+        <td><%= button_to t('.select'), player_path(fighter.dig('personal_info', 'short_id')), method: :get %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

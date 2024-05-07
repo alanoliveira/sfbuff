@@ -4,5 +4,7 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import IntervalReloaderController from "./interval_reloader_controller"
+import FormAutoSubmitController from "./form_auto_submit_controller"
+application.register("interval-reloader", IntervalReloaderController)
+application.register("form-auto-submit", FormAutoSubmitController)

@@ -38,7 +38,5 @@ module Sfbuff
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-
-    config.action_dispatch.rescue_responses['CacheableJob::JobCacheNotFound'] = :not_found
   end
 end

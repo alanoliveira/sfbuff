@@ -11,6 +11,16 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <div>
+        <%= form_with url: players_path, method: :get do |f| %>
+          <%= f.text_field :q, minlength: 4, value: params[:q] %>
+          <%= f.submit t('.search'), name: nil %>
+        <% end %>
+      </div>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>
