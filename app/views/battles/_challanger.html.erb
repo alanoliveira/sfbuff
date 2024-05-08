@@ -1,0 +1,16 @@
+<div class="text-center col-4">
+  <small>
+    <% if challanger.master_rating > 0 %>
+      <%= challanger.master_rating %> AM
+    <% else %>
+      <%= challanger.league_point %> LP
+    <% end %>
+  </small>
+  <div class="fs-1 fw-bold">
+    <%= link_to_player challanger.name, challanger.player_sid %>
+  </div>
+  <small>
+    <%= character_name challanger.character %> 
+    <%= control_type challanger.control_type %> 
+  </small>
+</div>

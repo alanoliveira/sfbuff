@@ -7,6 +7,8 @@ class PlayersController < ApplicationController
   # GET /players/:sid
   def show
     @player = Player.find(params[:sid])
+    @battles = PlayerBattles.fetch(@player.sid)
+    @rivals = Rivals.fetch(@battles)
   rescue ActiveRecord::RecordNotFound
   end
 end

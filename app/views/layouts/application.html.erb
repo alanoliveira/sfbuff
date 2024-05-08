@@ -10,17 +10,12 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
-    <header>
-      <div>
-        <%= form_with url: players_path, method: :get do |f| %>
-          <%= f.text_field :q, minlength: 4, value: params[:q] %>
-          <%= f.submit t('.search'), name: nil %>
-        <% end %>
-      </div>
-    </header>
-    <main>
-      <%= yield %>
+  <body data-bs-theme="dark" class="min-vh-100">
+    <header><%= render 'layouts/nav' %></header>
+    <main class="container h-100 py-3">
+      <%= turbo_frame_tag 'main' do %>
+        <%= yield %>
+      <% end %>
     </main>
   </body>
 </html>

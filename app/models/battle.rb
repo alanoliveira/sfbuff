@@ -8,4 +8,9 @@ class Battle < ApplicationRecord
   def challanger(side)
     challangers.find { |c| c.side == "p#{side}" }
   end
+
+  # TODO: implement
+  def winner
+    challanger(1)
+  end
 end

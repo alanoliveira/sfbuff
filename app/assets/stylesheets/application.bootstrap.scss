@@ -1,2 +1,34 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+$result-bg-colors: (
+  v: purple,
+  od: green,
+  p: yellow,
+  sa: pink,
+  c: lightblue,
+  t: orange,
+  ca: red,
+  d: blue,
+  l: grey,
+);
+
+$result-text-colors: (
+  v: white,
+  od: white,
+  p: black,
+  sa: black,
+  c: black,
+  t: black,
+  ca: white,
+  d: white,
+  l: black,
+);
+
+@each $result in map-keys($result-bg-colors) {
+  .round-#{$result} {
+    width: 2.8em;
+    background-color: map-get($result-bg-colors, $result);
+    color: map-get($result-text-colors, $result);
+  }
+}

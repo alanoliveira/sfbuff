@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex">
+      <div class="col-1"><%= battle.replay_id %></div>
+      <div class="col-10 text-center"><%= time_ago battle.played_at %></div>
+      <div class="col-1"><%= battle_type_span battle.battle_type %></div>
+    </div>
+  </div>
+  <div class="card-body d-flex align-items-center text-center">
+    <%= render 'battles/challanger', challanger: battle.challanger(1) %>
+    <%= render 'battles/rounds', rounds: battle.challanger(1).rounds %>
+    <div class="col-2 fs-1 fw-bold">VS</div>
+    <%= render 'battles/rounds', rounds: battle.challanger(2).rounds %>
+    <%= render 'battles/challanger', challanger: battle.challanger(2) %>
+  </div>
+  <div class="card-footer text-center">
+    <% if pov.present? %>
+      <% if battle.winner.player_sid == pov.sid %>
+        <span class="text-success"><%= t '.win' %></span>
+      <% elsif battle.winner.present? %>
+        <span class="text-danger"><%= t '.lose' %></span>
+      <% else %>
+        <span class="text-secondary"><%= t '.draw' %></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>

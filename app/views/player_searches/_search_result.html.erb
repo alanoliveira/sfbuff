@@ -1,4 +1,4 @@
-<table>
+<table class="table">
   <thead>
     <tr>
       <th><%= t '.name' %></th>
@@ -21,7 +21,7 @@
         <td><%= fighter.dig('home_name') %></td>
         <td>
           <%= button_to t('.select'), player_path(fighter.dig('personal_info', 'short_id')), 
-            method: :get, data: { turbo_frame: :_top }%>
+            method: :get, data: { turbo_frame: :_top }, class: 'btn btn-outline-primary' %>
         </td>
       </tr>
     <% end %>

@@ -1,0 +1,38 @@
+<div class="d-flex flex-md-column flex-lg-row justify-content-between">
+  <% [:favorites, :victims, :tormentors].each do |kind| %>
+    <div class="flex-fill p-2">
+      <div class="card">
+        <div class="card-header text-center">
+          <%= t ".#{kind}" %>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr class="text-center">
+                <th colspan="2"><%= t '.opponent' %></th>
+                <th><%= t '.total' %></th>
+                <th><%= t '.score' %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @rivals.public_send(kind, 5).each do |r| %>
+                <tr>
+                  <td>
+                    <%= link_to_player r.opponent_name, r.opponent_sid %>
+                  </td>
+                  <td class="text-center">
+                    <%= character_name(r.opponent_character) %>
+                    <%= control_type(r.opponent_control_type) %>
+                  </td>
+                  <td class="text-center"><%= r.total %></td>
+                  <td class="text-center"><%= rival_score_span(r.score) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
