@@ -84,3 +84,5 @@ gem "selenium-webdriver", "~> 4.20"
 gem "cssbundling-rails", "~> 1.4"
 
 gem "kaminari", "~> 1.2"
+
+gem "solid_queue", "~> 0.3.0"
