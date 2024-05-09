@@ -25,7 +25,9 @@ module Buckler
       validate_name!(name)
 
       data = client.fighterslist(fighter_id: name)
-      data.fetch('pageProps').fetch('fighter_banner_list')
+      data.fetch('pageProps').fetch('fighter_banner_list').filter do |fbl|
+        fbl.dig('favorite_character_league_info', 'league_point') != -1
+      end
     end
 
     private
