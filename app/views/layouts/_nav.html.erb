@@ -1,23 +1,10 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary">
   <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <%= form_with url: players_path, method: :get, class: 'd-flex me-auto', role: 'search' do |f| %>
-        <div class="input-group">
-          <%= f.text_field :q, value: params[:q], class: 'form-control', type: 'search', required: true, minlength: 4 %>
-          <%= f.submit t('common.search'), name: nil, class: 'btn btn-outline-primary' %>
-        </div>
-      <% end %>
-      <ul class="navbar-nav mb-2 mb-md-0">
-        <li class="nav-item">
-          <a class="nav-link" href="<%= ENV['REPO_URL'] %>">
-            <i class="bi bi-github"></i>
-            github
-          </a>
-        </li>
-      </ul>
-    </div>
+    <%= form_with url: players_path, method: :get, class: 'd-flex me-auto', role: 'search' do |f| %>
+      <div class="input-group">
+        <%= f.text_field :q, value: params[:q], class: 'form-control', type: 'search', required: true, minlength: 4 %>
+        <%= f.submit t('common.search'), name: nil, class: 'btn btn-outline-primary' %>
+      </div>
+    <% end %>
   </div>
 </nav>

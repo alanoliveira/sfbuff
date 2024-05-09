@@ -27,7 +27,6 @@ $result-text-colors: (
 
 @each $result in map-keys($result-bg-colors) {
   .round-#{$result} {
-    width: 2.8em;
     background-color: map-get($result-bg-colors, $result);
     color: map-get($result-text-colors, $result);
   }

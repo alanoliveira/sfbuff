@@ -64,6 +64,6 @@ module ApplicationHelper
 
   def round_result(round_id)
     round = Buckler::ROUNDS[round_id]
-    content_tag :span, round, class: "badge round-#{round.downcase}"
+    content_tag :span, round, style: 'width: 20px', class: "badge px-0 text-center round-#{round.downcase}"
   end
 end

@@ -11,12 +11,20 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body data-bs-theme="dark" class="min-vh-100">
+  <body data-bs-theme="dark" class="min-vh-100 d-flex flex-column">
     <header><%= render 'layouts/nav' %></header>
     <main class="container h-100 py-3">
       <%= turbo_frame_tag 'main' do %>
         <%= yield %>
       <% end %>
     </main>
+    <footer class="footer mt-auto py-3 bg-body-tertiary">
+      <div class="container-fluid text-end">
+        <a target="_blank" class="link-light link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="<%= ENV['REPO_URL'] %>">
+          <i class="bi bi-github"></i>
+          github
+        </a>
+      </div>
+    </footer>
   </body>
 </html>

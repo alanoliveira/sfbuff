@@ -6,7 +6,10 @@
       <%= challanger.league_point %> LP
     <% end %>
   </small>
-  <div class="fs-1 fw-bold">
+  <div class="d-none d-lg-block fs-1 fw-bold">
+    <%= link_to_player challanger.name, challanger.player_sid %>
+  </div>
+  <div class="d-lg-none d-sm-block fw-bold">
     <%= link_to_player challanger.name, challanger.player_sid %>
   </div>
   <small>
