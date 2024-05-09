@@ -7,8 +7,4 @@
 <%= render 'rivals' %>
 
 <h3><%= t('.battles') %></h3>
-<div class="d-flex flex-column gap-3">
-  <% @battles.each do |battle| %>
-    <%= render 'battles/battle', battle:, pov: @player %>
-  <% end %>
-</div>
+<%= render 'battles' %>

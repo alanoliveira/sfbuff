@@ -82,3 +82,5 @@ gem "faraday", "~> 2.9"
 gem "selenium-webdriver", "~> 4.20"
 
 gem "cssbundling-rails", "~> 1.4"
+
+gem "kaminari", "~> 1.2"
