@@ -9,8 +9,13 @@ class Battle < ApplicationRecord
     challangers.find { |c| c.side == "p#{side}" }
   end
 
-  # TODO: implement
   def winner
-    challanger(1)
+    p1 = challanger(1)
+    p2 = challanger(2)
+
+    case p1.rounds.filter(&:win?).length - p2.rounds.filter(&:win?).length
+    when 1.. then p1
+    when ..-1 then p2
+    end
   end
 end
