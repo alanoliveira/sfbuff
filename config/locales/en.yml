@@ -30,6 +30,7 @@
 en:
   common:
     search: Search
+    filter: Filter
   views:
     pagination:
       previous: Previous
