@@ -92,6 +92,7 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.4.0)
       railties (>= 6.0.0)
+    dalli (3.2.8)
     date (3.3.4)
     debug (1.9.2)
       irb (~> 1.10)
@@ -345,6 +346,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   cssbundling-rails (~> 1.4)
+  dalli (~> 3.2)
   debug
   factory_bot (~> 6.4)
   factory_bot_rails (~> 6.4)
