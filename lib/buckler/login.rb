@@ -2,7 +2,7 @@
 
 module Buckler
   class Login
-    CONFIG_ATTRS = %i[base_url user_agent email password].freeze
+    CONFIG_ATTRS = %i[base_url cid_domain user_agent email password].freeze
 
     attr_accessor :driver, *CONFIG_ATTRS
 
@@ -14,10 +14,12 @@ module Buckler
     end
 
     def execute
+      age_check
       visit_login
+      sleep 1
       execute_login
       sleep 3
-      visit_main_page
+      visit_support_page
       create_credentials
     ensure
       driver.quit
@@ -27,7 +29,7 @@ module Buckler
 
     def default_driver
       options = Selenium::WebDriver::Options.chrome(
-        args: ['--headless=new', "--user-agent=#{user_agent}"]
+        args: ['--headless', "--user-agent=#{user_agent}", '--no-sandbox']
       )
 
       Selenium::WebDriver.for(:chrome, options:)
@@ -46,8 +48,8 @@ module Buckler
       driver.find_element(name: 'submit').click
     end
 
-    def visit_main_page
-      driver.navigate.to("#{base_url}/6/buckler")
+    def visit_support_page
+      driver.navigate.to("#{base_url}/6/buckler/support/en-us/")
     end
 
     def create_credentials
@@ -63,6 +65,10 @@ module Buckler
 
     def fetch_build_id
       driver.page_source[/"buildId":"([^"]*)"/, 1]
+    end
+
+    def age_check
+      driver.execute_cdp('Network.setCookie', domain: cid_domain, name: 'agecheck', value: 'true')
     end
   end
 end

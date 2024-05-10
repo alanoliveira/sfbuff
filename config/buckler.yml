@@ -2,6 +2,7 @@
 
 shared:
   base_url: <%= ENV["BUCKLER_BASE_URL"] %>
+  cid_domain: <%= ENV["BUCKLER_CID_DOMAIN"] %>
   user_agent: <%= ENV["BUCKLER_USER_AGENT"] %>
   email: <%= ENV["BUCKLER_EMAIL"] %>
   password: <%= ENV["BUCKLER_PASSWORD"] %>
