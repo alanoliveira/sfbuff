@@ -1,9 +1,16 @@
 # frozen_string_literal: true
 
 class BucklerCredential
+  class Error < StandardError; end
+  class CredentialdNotReady < Error; end
+
   class << self
-    def fetch
+    def read
       Model.pick
+    end
+
+    def fetch
+      read || raise(CredentialdNotReady)
     end
 
     def store(credentials)

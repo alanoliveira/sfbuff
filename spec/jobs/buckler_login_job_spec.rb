@@ -13,7 +13,7 @@ RSpec.describe BucklerLoginJob do
 
   context 'when BucklerCredential is not set' do
     before do
-      allow(BucklerCredential).to receive(:fetch).and_return(nil)
+      allow(BucklerCredential).to receive(:read).and_return(nil)
       allow(BucklerCredential).to receive(:store)
     end
 
@@ -30,7 +30,7 @@ RSpec.describe BucklerLoginJob do
 
   context 'when BucklerCredential is set' do
     before do
-      allow(BucklerCredential).to receive(:fetch).and_return(credentials)
+      allow(BucklerCredential).to receive(:read).and_return(credentials)
       allow(BucklerCredential).to receive(:store)
     end
 

@@ -10,14 +10,54 @@ RSpec.describe BucklerCredential do
     }
   end
 
-  it 'stores and fetch credentials' do
-    described_class.store(credentials)
-    expect(described_class.fetch).to eq(credentials)
+  describe '.store' do
+    it 'store the credentials' do
+      expect { described_class.store(credentials) }
+        .to change(BucklerCredential::Model, :first)
+        .from(nil)
+        .to(an_object_having_attributes(credentials:))
+    end
   end
 
-  it 'cleans the credentials' do
-    described_class.store(credentials)
-    described_class.clean
-    expect(described_class.fetch).to be_nil
+  describe '.clean' do
+    before { BucklerCredential::Model.create(credentials:) }
+
+    it 'clean the credentials' do
+      expect { described_class.clean }
+        .to change(BucklerCredential::Model, :first)
+        .to(nil)
+    end
+  end
+
+  describe '.read' do
+    context 'when there is credentials' do
+      before { BucklerCredential::Model.create(credentials:) }
+
+      it 'returns the stored credentials' do
+        expect(described_class.read).to eq(credentials)
+      end
+    end
+
+    context 'when there is no credentials' do
+      it 'returns the stored credentials' do
+        expect(described_class.read).to be_nil
+      end
+    end
+  end
+
+  describe '.fetch' do
+    context 'when there is credentials' do
+      before { BucklerCredential::Model.create(credentials:) }
+
+      it 'returns the stored credentials' do
+        expect(described_class.fetch).to eq(credentials)
+      end
+    end
+
+    context 'when there is no credentials' do
+      it 'returns the stored credentials' do
+        expect { described_class.fetch }.to raise_error(BucklerCredential::CredentialdNotReady)
+      end
+    end
   end
 end
