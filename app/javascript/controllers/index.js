@@ -6,5 +6,7 @@ import { application } from "./application"
 
 import IntervalReloaderController from "./interval_reloader_controller"
 import FormAutoSubmitController from "./form_auto_submit_controller"
+import TimeTitleController from "./time_title_controller"
 application.register("interval-reloader", IntervalReloaderController)
 application.register("form-auto-submit", FormAutoSubmitController)
+application.register("time-title", TimeTitleController)

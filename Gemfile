@@ -88,3 +88,5 @@ gem "kaminari", "~> 1.2"
 gem "solid_queue", "~> 0.3.0"
 
 gem "dalli", "~> 3.2"
+
+gem "rails-i18n", "~> 7.0"

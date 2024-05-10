@@ -29,8 +29,40 @@
 
 en:
   common:
+    time_ago: '%{time} ago'
     search: Search
     filter: Filter
+    loading: Loading
+    option_any: Any
+  player_searches:
+    search_result:
+      name: Name
+      main_char: Main
+      country: Country
+      select: Select
+  players:
+    player:
+      synchronized: 'Last sync:'
+      player_character: Using char
+      player_control_type: Using control
+      vs_character: VS char
+      vs_control_type: VS control
+      rivals: Rivals
+      battles: Matches
+    rivals:
+      opponent: Opponent
+      total: Total
+      score: Score
+      favorites: Favorites
+      victims: Victims
+      tormentors: Tormentors
+  battles:
+    battle:
+      lose: Lose
+      win: Win
+  errors:
+    player_not_found: Player not found
+    generic: An error occurred while trying to get the data from the official website
   views:
     pagination:
       previous: Previous

@@ -1,0 +1,40 @@
+pt-BR:
+  common:
+    search: Pesquisar
+    filter: Filtrar
+    loading: Carregando
+    option_any: Qualquer
+    time_ago: '%{time} atrás'
+  player_searches:
+    search_result:
+      name: Nome
+      main_char: Main
+      country: País
+      select: Selecione
+  players:
+    player:
+      synchronized: 'Última sincronização:'
+      player_character: Personagem usado
+      player_control_type: Controle usado
+      vs_character: Personagem enfrentado
+      vs_control_type: Controle enfrentado
+      rivals: Rivais
+      battles: Matches
+    rivals:
+      opponent: Oponente
+      total: Total
+      score: Saldo
+      favorites: Favoritos
+      victims: Vítimas
+      tormentors: Carrascos
+  battles:
+    battle:
+      lose: Derrota
+      win: Vitória
+  errors:
+    player_not_found: Jogador não encontrado
+    generic: Ocorreu um erro ao tentar obter os dados do site oficial
+  views:
+    pagination:
+      previous: Anterior
+      next: Próxima

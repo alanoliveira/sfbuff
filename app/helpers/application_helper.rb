@@ -9,7 +9,8 @@ module ApplicationHelper
   end
 
   def time_ago(time)
-    content_tag :span, time_ago_in_words(time), title: l(time, format: :long)
+    content_tag :span, t('common.time_ago', time: time_ago_in_words(time)),
+                data: { controller: 'time-title', time_title_time_value: time.iso8601 }
   end
 
   def alert(message = nil, kind: :info, dismissible: false)
@@ -32,7 +33,7 @@ module ApplicationHelper
 
   def spinner
     content_tag :div, class: 'spinner-border', role: 'status' do
-      content_tag :span, t('loading'), class: 'visually-hidden'
+      content_tag :span, t('common.loading'), class: 'visually-hidden'
     end
   end
 

@@ -10,19 +10,19 @@
         <div class="row mb-3">
           <div class="col-md-3">
             <%= f.label :player_character, t('.player_character'), class: "form-label" %>
-            <%= f.select :player_character, Buckler::CHARACTERS.invert, { include_blank: t('views.form.option.any'), selected: params['player_character'] }, { class: 'form-select' } %>
+            <%= f.select :player_character, Buckler::CHARACTERS.invert, { include_blank: t('common.option_any'), selected: params['player_character'] }, { class: 'form-select' } %>
           </div>
           <div class="col-md-3">
             <%= f.label :player_control_type, t('.player_control_type'), class: "form-label" %>
-            <%= f.select :player_control_type, Buckler::CONTROL_TYPES.invert, { include_blank: t('views.form.option.any'), selected: params['player_control_type'] }, { class: 'form-select' } %>
+            <%= f.select :player_control_type, Buckler::CONTROL_TYPES.invert, { include_blank: t('common.option_any'), selected: params['player_control_type'] }, { class: 'form-select' } %>
           </div>
           <div class="col-md-3">
             <%= f.label :vs_character, t('.vs_character'), class: "form-label" %>
-            <%= f.select :vs_character, Buckler::CHARACTERS.invert, { include_blank: t('views.form.option.any'), selected: params['vs_character'] }, { class: 'form-select' } %>
+            <%= f.select :vs_character, Buckler::CHARACTERS.invert, { include_blank: t('common.option_any'), selected: params['vs_character'] }, { class: 'form-select' } %>
           </div>
           <div class="col-md-3">
             <%= f.label :vs_control_type, t('.vs_control_type'), class: "form-label" %>
-            <%= f.select :vs_control_type, Buckler::CONTROL_TYPES.invert, { include_blank: t('views.form.option.any'), selected: params['vs_control_type'] }, { class: 'form-select' } %>
+            <%= f.select :vs_control_type, Buckler::CONTROL_TYPES.invert, { include_blank: t('common.option_any'), selected: params['vs_control_type'] }, { class: 'form-select' } %>
           </div>
         </div>
         <div class="row">
