@@ -5,6 +5,7 @@ pt-BR:
     loading: Carregando
     option_any: Qualquer
     time_ago: '%{time} atrás'
+    reset: Reset
   player_searches:
     search_result:
       name: Nome
@@ -14,12 +15,16 @@ pt-BR:
   players:
     player:
       synchronized: 'Última sincronização:'
-      player_character: Personagem usado
-      player_control_type: Controle usado
-      vs_character: Personagem enfrentado
-      vs_control_type: Controle enfrentado
       rivals: Rivais
       battles: Matches
+    battles_filter:
+      using_character: Personagem usado
+      using_control_type: Controle usado
+      vs_character: Personagem enfrentado
+      vs_control_type: Controle enfrentado
+      battle_type: Tipo de match
+      played_at_from: Jogado de
+      played_at_to: Jogado até
     rivals:
       opponent: Oponente
       total: Total

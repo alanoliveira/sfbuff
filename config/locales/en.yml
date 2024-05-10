@@ -34,6 +34,7 @@ en:
     filter: Filter
     loading: Loading
     option_any: Any
+    reset: Reset
   player_searches:
     search_result:
       name: Name
@@ -43,12 +44,16 @@ en:
   players:
     player:
       synchronized: 'Last sync:'
-      player_character: Using char
-      player_control_type: Using control
-      vs_character: VS char
-      vs_control_type: VS control
       rivals: Rivals
       battles: Matches
+    battles_filter:
+      using_character: Using char
+      using_control_type: Using control
+      vs_character: VS char
+      vs_control_type: VS control
+      battle_type: Match type
+      played_at_from: Played from
+      played_at_to: Played to
     rivals:
       opponent: Opponent
       total: Total
