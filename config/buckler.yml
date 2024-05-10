@@ -1,7 +1,7 @@
 # config/buckler.yml
 
 shared:
-  base_url: <%= ENV.fetch("BUCKLER_BASE_URL") %>
-  user_agent: <%= ENV.fetch("BUCKLER_USER_AGENT") %>
-  email: <%= ENV.fetch("BUCKLER_EMAIL") %>
-  password: <%= ENV.fetch("BUCKLER_PASSWORD") %>
+  base_url: <%= ENV["BUCKLER_BASE_URL"] %>
+  user_agent: <%= ENV["BUCKLER_USER_AGENT"] %>
+  email: <%= ENV["BUCKLER_EMAIL"] %>
+  password: <%= ENV["BUCKLER_PASSWORD"] %>
