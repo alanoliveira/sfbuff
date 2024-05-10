@@ -296,6 +296,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.17.3)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.17.3)
+    sentry-ruby (5.17.3)
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     solid_queue (0.3.0)
       activejob (>= 7.1)
       activerecord (>= 7.1)
@@ -367,6 +373,7 @@ DEPENDENCIES
   rubocop-rails (~> 2.23)
   rubocop-rspec (~> 2.26)
   selenium-webdriver (~> 4.20)
+  sentry-rails (~> 5.17)
   solid_queue (~> 0.3.0)
   sprockets-rails
   stimulus-rails

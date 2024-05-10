@@ -10,5 +10,6 @@ class PlayerSyncJob < ApplicationJob
     cache(:success)
   rescue StandardError => e
     cache(:error, { class: e.class.name, message: e.message })
+    raise e
   end
 end

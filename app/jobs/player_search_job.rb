@@ -11,5 +11,6 @@ class PlayerSearchJob < ApplicationJob
     cache(:success, response)
   rescue StandardError => e
     cache(:error, { class: e.class.name, message: e.message })
+    raise e
   end
 end
