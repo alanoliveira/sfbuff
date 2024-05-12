@@ -14,7 +14,6 @@ RSpec.describe BucklerCredential do
     it 'store the credentials' do
       expect { described_class.store(credentials) }
         .to change(BucklerCredential::Model, :first)
-        .from(nil)
         .to(an_object_having_attributes(credentials:))
     end
   end
@@ -31,7 +30,7 @@ RSpec.describe BucklerCredential do
 
   describe '.read' do
     context 'when there is credentials' do
-      before { BucklerCredential::Model.create(credentials:) }
+      before { described_class.store(credentials) }
 
       it 'returns the stored credentials' do
         expect(described_class.read).to eq(credentials)
@@ -39,6 +38,8 @@ RSpec.describe BucklerCredential do
     end
 
     context 'when there is no credentials' do
+      before { described_class.clean }
+
       it 'returns the stored credentials' do
         expect(described_class.read).to be_nil
       end
@@ -47,7 +48,7 @@ RSpec.describe BucklerCredential do
 
   describe '.fetch' do
     context 'when there is credentials' do
-      before { BucklerCredential::Model.create(credentials:) }
+      before { described_class.store(credentials) }
 
       it 'returns the stored credentials' do
         expect(described_class.fetch).to eq(credentials)
@@ -55,6 +56,8 @@ RSpec.describe BucklerCredential do
     end
 
     context 'when there is no credentials' do
+      before { described_class.clean }
+
       it 'returns the stored credentials' do
         expect { described_class.fetch }.to raise_error(BucklerCredential::CredentialdNotReady)
       end

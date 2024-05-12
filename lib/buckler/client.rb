@@ -51,7 +51,9 @@ module Buckler
     end
 
     def cookies
-      credentials.cookies.map { |k, v| "#{k}=#{v}" }.join('; ')
+      credentials.cookies.try do |cookies|
+        cookies.map { |k, v| "#{k}=#{v}" }.join('; ')
+      end
     end
   end
 end

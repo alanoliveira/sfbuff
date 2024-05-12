@@ -5,12 +5,20 @@ require 'rails_helper'
 RSpec.describe Buckler::Client do
   let(:client) do
     described_class.new(
-      Buckler::Credentials.new(build_id: '123', cookies: {}),
+      credentials,
       { base_url: 'http://www.example.com' }
     )
   end
+  let(:credentials) { Buckler::Credentials.new(build_id: '123', cookies: { foo: 'bar' }) }
 
   shared_examples 'a buckler request' do
+    it 'uses the credentials' do
+      stub_request(:any, /.*/).to_return(status: 200, body: '{}')
+      subject
+      expect(WebMock).to have_requested(:get, Regexp.new("/6/buckler/_next/data/#{credentials.build_id}/en/"))
+        .with(headers: { cookie: credentials.cookies.to_query })
+    end
+
     context 'when api returns a unauthorized response status' do
       it 'raises an AccessDeniedError' do
         stub_request(:any, /.*/).to_return(status: 401)
