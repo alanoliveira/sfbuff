@@ -47,10 +47,10 @@ en:
       rivals: Rivals
       battles: Matches
     battles_filter:
-      using_character: Using char
-      using_control_type: Using control
-      vs_character: VS char
-      vs_control_type: VS control
+      player_character: Using char
+      player_control_type: Using control
+      opponent_character: VS char
+      opponent_control_type: VS control
       battle_type: Match type
       played_at_from: Played from
       played_at_to: Played to

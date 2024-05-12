@@ -4,20 +4,20 @@
       <%= form_with model: @filter, scope: '', url: '', method: :get, class: '', data: { turbo_frame: :_top } do |f| %>
         <div class="row mb-3">
           <div class="col-md-3">
-            <%= f.label :using_character, t('.using_character'), class: "form-label" %>
-            <%= f.select :using_character, Buckler::CHARACTERS.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
+            <%= f.label :player_character, t('.player_character'), class: "form-label" %>
+            <%= f.select :player_character, Buckler::CHARACTERS.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
           </div>
           <div class="col-md-3">
-            <%= f.label :using_control_type, t('.using_control_type'), class: "form-label" %>
-            <%= f.select :using_control_type, Buckler::CONTROL_TYPES.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
+            <%= f.label :player_control_type, t('.player_control_type'), class: "form-label" %>
+            <%= f.select :player_control_type, Buckler::CONTROL_TYPES.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
           </div>
           <div class="col-md-3">
-            <%= f.label :vs_character, t('.vs_character'), class: "form-label" %>
-            <%= f.select :vs_character, Buckler::CHARACTERS.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
+            <%= f.label :opponent_character, t('.opponent_character'), class: "form-label" %>
+            <%= f.select :opponent_character, Buckler::CHARACTERS.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
           </div>
           <div class="col-md-3">
-            <%= f.label :vs_control_type, t('.vs_control_type'), class: "form-label" %>
-            <%= f.select :vs_control_type, Buckler::CONTROL_TYPES.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
+            <%= f.label :opponent_control_type, t('.opponent_control_type'), class: "form-label" %>
+            <%= f.select :opponent_control_type, Buckler::CONTROL_TYPES.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
           </div>
         </div>
         <div class="row mb-3">

@@ -18,10 +18,10 @@ pt-BR:
       rivals: Rivais
       battles: Matches
     battles_filter:
-      using_character: Personagem usado
-      using_control_type: Controle usado
-      vs_character: Personagem enfrentado
-      vs_control_type: Controle enfrentado
+      player_character: Personagem usado
+      player_control_type: Controle usado
+      opponent_character: Personagem enfrentado
+      opponent_control_type: Controle enfrentado
       battle_type: Tipo de match
       played_at_from: Jogado de
       played_at_to: Jogado até
