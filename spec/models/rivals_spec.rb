@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Rivals do
-  subject(:rivals) { described_class.fetch(player.battles) }
+  subject(:rivals) { described_class.new(player.battles) }
 
   let(:player) { create(:player) }
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Rivals
+class Rivals
   SELECT_STATEMENT = %{
     opponent.player_sid as opponent_sid,
     ANY_VALUE(opponent.name) as opponent_name,
@@ -19,23 +19,22 @@ module Rivals
     )) AS score
   }
 
-  def self.fetch(battle_relation)
-    battle_relation
-      .reselect(SELECT_STATEMENT)
-      .group('opponent.player_sid', 'opponent.character', 'opponent.control_type')
-      .reorder(nil)
-      .extending(self)
+  def initialize(battle_pov)
+    @rel = battle_pov
+           .reselect(SELECT_STATEMENT)
+           .group('opponent.player_sid', 'opponent.character', 'opponent.control_type')
+           .reorder(nil)
   end
 
   def favorites(top = 5)
-    order('total DESC').limit(top)
+    @rel.order('total DESC').limit(top)
   end
 
   def tormentors(top = 5)
-    order('score ASC').limit(top)
+    @rel.order('score ASC').limit(top)
   end
 
   def victims(top = 5)
-    order('score DESC').limit(top)
+    @rel.order('score DESC').limit(top)
   end
 end

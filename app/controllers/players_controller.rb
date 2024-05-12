@@ -9,7 +9,7 @@ class PlayersController < ApplicationController
     @player = Player.find(params[:sid])
     @filter = PlayerBattlesFilter.new(filter_params)
     battles = @filter.inject(@player.battles)
-    @rivals = Rivals.fetch(battles)
+    @rivals = Rivals.new(battles)
     @battles = battles.page(params[:page])
 
     render partial: 'battles' if turbo_frame_request_id == 'battle-list'
