@@ -8,15 +8,16 @@ of information for players to track their own performance.
 
 ### General environment variables
 
-| variable             | description                                                          |
-| -------------------- | -------------------------------------------------------------------- |
-| `BUCKLER_BASE_URL`   | Official site url (`www.str...ter.com`)                              |
-| `BUCKLER_EMAIL`      | Email used to access the official site                               |
-| `BUCKLER_PASSWORD`   | Password used to access the official site                            |
-| `BUCKLER_USER_AGENT` | HTTP header `User-Agent` used to make requests to the official site¹ |
-| `BUCKLER_CID_DOMAIN` | Domain used to set cookies necessary to login (`cid.ca...m.com`)     |
-| `REPO_URL`           | Url used in the github link on the frontend (optional)               |
-| `SENTRY_DSN`         | Sentry DSN, used for reporting errors to Sentry (optional)           |
+| variable              | description                                                          |
+| --------------------  | -------------------------------------------------------------------- |
+| `BUCKLER_BASE_URL`    | Official site url (`www.str...ter.com`)                              |
+| `BUCKLER_EMAIL`       | Email used to access the official site                               |
+| `BUCKLER_PASSWORD`    | Password used to access the official site                            |
+| `BUCKLER_USER_AGENT`  | HTTP header `User-Agent` used to make requests to the official site¹ |
+| `BUCKLER_CID_DOMAIN`  | Domain used to set cookies necessary to login (`cid.ca...m.com`)     |
+| `REPO_URL`            | Url used in the github link on the frontend (optional)               |
+| `SENTRY_DSN`          | Sentry DSN, used for reporting errors to Sentry (optional)           |
+| `DATA_SYNC_THRESHOLD` | Minimum interval between players synchronization (in seconds)        |
 
 1. The official site is quite restrictive about it. Be sure to use something valid.
 

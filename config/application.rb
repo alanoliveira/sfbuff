@@ -40,5 +40,7 @@ module Sfbuff
     config.generators.system_tests = nil
 
     config.i18n.available_locales = [:en, 'pt-BR']
+
+    config.sfbuff = config_for(:sfbuff)
   end
 end

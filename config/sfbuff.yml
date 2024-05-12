@@ -1,0 +1,4 @@
+# config/sfbuff.yml
+
+shared:
+  data_sync_threshold: <%= ENV.fetch("DATA_SYNC_THRESHOLD", 10.minutes).to_i %>
