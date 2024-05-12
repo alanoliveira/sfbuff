@@ -8,7 +8,7 @@ class PlayersController < ApplicationController
   def show
     @player = Player.find(params[:sid])
     @filter = PlayerBattlesFilter.new(filter_params)
-    battles = @filter.inject(@player.battles)
+    battles = @filter.inject(@player.battles.reorder(played_at: :desc))
     @rivals = Rivals.new(battles)
     @battles = battles.page(params[:page])
 
