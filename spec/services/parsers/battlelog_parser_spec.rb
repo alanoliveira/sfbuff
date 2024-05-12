@@ -54,61 +54,61 @@ RSpec.describe Parsers::BattlelogParser do
     end
 
     it 'parses the player1 short_id' do
-      expect(parsed_battle.challanger(1).player_sid).to eq(123_456)
+      expect(parsed_battle.p1.player_sid).to eq(123_456)
     end
 
     it 'parses the player1 fighter_id' do
-      expect(parsed_battle.challanger(1).name).to eq('TEST_FIGHTER_1')
+      expect(parsed_battle.p1.name).to eq('TEST_FIGHTER_1')
     end
 
     it 'parses the player1 round_results' do
-      expect(parsed_battle.challanger(1).rounds)
+      expect(parsed_battle.p1.rounds)
         .to match([an_object_having_attributes(raw: 1), an_object_having_attributes(raw: 1)])
     end
 
     it 'parses the player1 playing_character_id' do
-      expect(parsed_battle.challanger(1).character).to eq(3)
+      expect(parsed_battle.p1.character).to eq(3)
     end
 
     it 'parses the player1 battle_input_type' do
-      expect(parsed_battle.challanger(1).control_type).to eq(0)
+      expect(parsed_battle.p1.control_type).to eq(0)
     end
 
     it 'parses the player1 master_rating' do
-      expect(parsed_battle.challanger(1).master_rating).to eq(2000)
+      expect(parsed_battle.p1.master_rating).to eq(2000)
     end
 
     it 'parses the player1 league_point' do
-      expect(parsed_battle.challanger(1).league_point).to eq(30_000)
+      expect(parsed_battle.p1.league_point).to eq(30_000)
     end
 
     it 'parses the player2 short_id' do
-      expect(parsed_battle.challanger(2).player_sid).to eq(123_457)
+      expect(parsed_battle.p2.player_sid).to eq(123_457)
     end
 
     it 'parses the player2 fighter_id' do
-      expect(parsed_battle.challanger(2).name).to eq('TEST_FIGHTER_2')
+      expect(parsed_battle.p2.name).to eq('TEST_FIGHTER_2')
     end
 
     it 'parses the player2 round_results' do
-      expect(parsed_battle.challanger(2).rounds)
+      expect(parsed_battle.p2.rounds)
         .to match([an_object_having_attributes(raw: 0), an_object_having_attributes(raw: 0)])
     end
 
     it 'parses the player2 playing_character_id' do
-      expect(parsed_battle.challanger(2).character).to eq(4)
+      expect(parsed_battle.p2.character).to eq(4)
     end
 
     it 'parses the player2 battle_input_type' do
-      expect(parsed_battle.challanger(2).control_type).to eq(1)
+      expect(parsed_battle.p2.control_type).to eq(1)
     end
 
     it 'parses the player2 master_rating' do
-      expect(parsed_battle.challanger(2).master_rating).to eq(2001)
+      expect(parsed_battle.p2.master_rating).to eq(2001)
     end
 
     it 'parses the player2 league_point' do
-      expect(parsed_battle.challanger(2).league_point).to eq(30_001)
+      expect(parsed_battle.p2.league_point).to eq(30_001)
     end
   end
 end

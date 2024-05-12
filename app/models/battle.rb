@@ -5,14 +5,15 @@ class Battle < ApplicationRecord
 
   default_scope { order(:played_at) }
 
-  def challanger(side)
-    challangers.find { |c| c.side == "p#{side}" }
+  def p1
+    challangers.find { |c| c.side == 'p1' }
+  end
+
+  def p2
+    challangers.find { |c| c.side == 'p2' }
   end
 
   def winner
-    p1 = challanger(1)
-    p2 = challanger(2)
-
     case p1.rounds.filter(&:win?).length - p2.rounds.filter(&:win?).length
     when 1.. then p1
     when ..-1 then p2
