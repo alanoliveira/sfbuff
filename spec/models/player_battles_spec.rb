@@ -10,29 +10,29 @@ RSpec.describe PlayerBattles do
   let(:opponent2_sid) { 333 }
 
   before do
-    create(:battle, :with_challangers,
+    create(:battle,
            battle_type: 4,
            played_at: Time.utc(2024, 1, 1, 13, 0),
-           p1: build(:challanger, player_sid:, character: 1, control_type: 0),
-           p2: build(:challanger, player_sid: opponent1_sid, character: 2, control_type: 0))
+           p1: { player_sid:, character: 1, control_type: 0 },
+           p2: { player_sid: opponent1_sid, character: 2, control_type: 0 })
 
-    create(:battle, :with_challangers,
+    create(:battle,
            battle_type: 1,
            played_at: Time.utc(2024, 1, 1, 13, 10),
-           p1: build(:challanger, player_sid:, character: 1, control_type: 1),
-           p2: build(:challanger, player_sid: opponent1_sid, character: 3, control_type: 0))
+           p1: { player_sid:, character: 1, control_type: 1 },
+           p2: { player_sid: opponent1_sid, character: 3, control_type: 0 })
 
-    create(:battle, :with_challangers,
+    create(:battle,
            battle_type: 1,
            played_at: Time.utc(2024, 1, 2, 14, 0),
-           p1: build(:challanger, player_sid: opponent1_sid, character: 2, control_type: 1),
-           p2: build(:challanger, player_sid:, character: 4, control_type: 0))
+           p1: { player_sid: opponent1_sid, character: 2, control_type: 1 },
+           p2: { player_sid:, character: 4, control_type: 0 })
 
-    create(:battle, :with_challangers,
+    create(:battle,
            battle_type: 1,
            played_at: Time.utc(2024, 1, 2, 14, 30),
-           p1: build(:challanger, player_sid: opponent2_sid, character: 3, control_type: 1),
-           p2: build(:challanger, player_sid: opponent1_sid, character: 2, control_type: 0))
+           p1: { player_sid: opponent2_sid, character: 3, control_type: 1 },
+           p2: { player_sid: opponent1_sid, character: 2, control_type: 0 })
   end
 
   it 'returns battles where the player participated' do

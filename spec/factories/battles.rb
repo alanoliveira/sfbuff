@@ -8,15 +8,16 @@ FactoryBot.define do
     sequence :replay_id, 'FACBOTAAA'
     raw_data { 'raw_data' }
 
-    trait :with_challangers do
-      # rubocop:disable FactoryBot/FactoryAssociationWithStrategy
-      transient do
-        p1 { build(:challanger, player_sid: 123_456_789, side: 'p1', battle: nil) }
-        p2 { build(:challanger, player_sid: 123_456_788, side: 'p2', battle: nil) }
-      end
-      # rubocop:enable FactoryBot/FactoryAssociationWithStrategy
+    transient do
+      p1 { attributes_for(:p1) }
+      p2 { attributes_for(:p2) }
+    end
 
-      challangers { [p1, p2] }
+    after(:build) do |battle, context|
+      battle.challangers = [
+        build(:p1, battle:, **context.p1),
+        build(:p2, battle:, **context.p2)
+      ]
     end
   end
 end

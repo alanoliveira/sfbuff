@@ -10,11 +10,11 @@ RSpec.describe Rivals do
   before do
     def create_battle(opponent_sid, opponent_char, opponent_ctrl, win)
       player_rounds, opponent_rounds = win ? [[1, 1], [0, 0]] : [[0, 0], [1, 1]]
-      player = build(:challanger, player_sid:, rounds: player_rounds)
-      opponent = build(:challanger,
-                       player_sid: opponent_sid, character: opponent_char,
-                       control_type: opponent_ctrl, rounds: opponent_rounds)
-      create(:battle, :with_challangers, p1: player, p2: opponent)
+      opponent = {
+        player_sid: opponent_sid, character: opponent_char,
+        control_type: opponent_ctrl, rounds: opponent_rounds
+      }
+      create(:battle, p1: { player_sid:, rounds: player_rounds }, p2: opponent)
     end
 
     10.times { create_battle(222, 1, 0, true) }

@@ -2,14 +2,22 @@
 
 FactoryBot.define do
   factory :challanger do
-    player_sid { 1 }
-    character { 1 }
-    control_type { 1 }
+    sequence(:player_sid, 123_456_001)
+    character { Buckler::CHARACTERS.keys.sample }
+    control_type { Buckler::CONTROL_TYPES.keys.sample }
     master_rating { 1 }
     league_point { 1 }
     side { Challanger.sides.keys.sample }
     name { "Player #{player_sid}" }
     rounds { [1, 1] }
-    battle { association(:battle) }
+    battle { nil }
+
+    factory :p1 do
+      side { 'p1' }
+    end
+
+    factory :p2 do
+      side { 'p2' }
+    end
   end
 end
