@@ -2,3 +2,4 @@
 
 shared:
   data_sync_threshold: <%= ENV.fetch("DATA_SYNC_THRESHOLD", 10.minutes).to_i %>
+  repo_url: <%= ENV['REPO_URL'] %>

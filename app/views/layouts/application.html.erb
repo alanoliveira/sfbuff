@@ -20,10 +20,12 @@
     </main>
     <footer class="footer mt-auto py-3 bg-body-tertiary">
       <div class="container-fluid text-end">
-        <a target="_blank" class="link-light link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="<%= ENV['REPO_URL'] %>">
-          <i class="bi bi-github"></i>
-          github
-        </a>
+        <% Rails.configuration.sfbuff[:repo_url].try do |url| %>
+          <a target="_blank" class="link-light link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="<%= url %>">
+            <i class="bi bi-github"></i>
+            github
+          </a>
+        <% end %>
       </div>
     </footer>
   </body>
