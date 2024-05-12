@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Rivals do
-  subject(:rivals) { described_class.fetch(PlayerBattles.fetch(player_sid)) }
+  subject(:rivals) { described_class.fetch(player.battles) }
 
-  let(:player_sid) { 111 }
+  let(:player) { create(:player) }
 
   before do
     def create_battle(opponent_sid, opponent_char, opponent_ctrl, win)
@@ -14,7 +14,7 @@ RSpec.describe Rivals do
         player_sid: opponent_sid, character: opponent_char,
         control_type: opponent_ctrl, rounds: opponent_rounds
       }
-      create(:battle, p1: { player_sid:, rounds: player_rounds }, p2: opponent)
+      create(:battle, p1: { player_sid: player.sid, rounds: player_rounds }, p2: opponent)
     end
 
     10.times { create_battle(222, 1, 0, true) }
