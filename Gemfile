@@ -92,3 +92,5 @@ gem "dalli", "~> 3.2"
 gem "rails-i18n", "~> 7.0"
 
 gem "sentry-rails", "~> 5.17"
+
+gem "nokogiri", "~> 1.16", :group => :test
