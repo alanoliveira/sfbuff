@@ -36,7 +36,8 @@ module Parsers
       Challanger.new(
         player_sid: rcd.fetch('player').fetch('short_id'),
         name: rcd.fetch('player').fetch('fighter_id'),
-        character: rcd.fetch('playing_character_id'),
+        character: rcd.fetch('character_id'),
+        playing_character: rcd.fetch('playing_character_id'),
         control_type: rcd.fetch('battle_input_type'),
         master_rating: rcd.fetch('master_rating'),
         league_point: rcd.fetch('league_point'),

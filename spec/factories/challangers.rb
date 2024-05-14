@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :challanger do
     sequence(:player_sid, 123_456_001)
     character { Buckler::CHARACTERS.keys.sample }
+    playing_character { character }
     control_type { Buckler::CONTROL_TYPES.keys.sample }
     master_rating { 1 }
     league_point { 1 }

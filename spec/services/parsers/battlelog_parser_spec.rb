@@ -18,6 +18,7 @@ RSpec.describe Parsers::BattlelogParser do
             'fighter_id' => 'TEST_FIGHTER_1'
           },
           'round_results' => [1, 1],
+          'character_id' => 254,
           'playing_character_id' => 3,
           'battle_input_type' => 0,
           'master_rating' => 2000,
@@ -29,6 +30,7 @@ RSpec.describe Parsers::BattlelogParser do
             'fighter_id' => 'TEST_FIGHTER_2'
           },
           'round_results' => [0, 0],
+          'character_id' => 4,
           'playing_character_id' => 4,
           'battle_input_type' => 1,
           'master_rating' => 2001,
@@ -66,8 +68,12 @@ RSpec.describe Parsers::BattlelogParser do
         .to match([an_object_having_attributes(raw: 1), an_object_having_attributes(raw: 1)])
     end
 
+    it 'parses the player1 character_id' do
+      expect(parsed_battle.p1.character).to eq(254)
+    end
+
     it 'parses the player1 playing_character_id' do
-      expect(parsed_battle.p1.character).to eq(3)
+      expect(parsed_battle.p1.playing_character).to eq(3)
     end
 
     it 'parses the player1 battle_input_type' do
@@ -95,8 +101,12 @@ RSpec.describe Parsers::BattlelogParser do
         .to match([an_object_having_attributes(raw: 0), an_object_having_attributes(raw: 0)])
     end
 
-    it 'parses the player2 playing_character_id' do
+    it 'parses the player2 character_id' do
       expect(parsed_battle.p2.character).to eq(4)
+    end
+
+    it 'parses the player2 playing_character_id' do
+      expect(parsed_battle.p2.playing_character).to eq(4)
     end
 
     it 'parses the player2 battle_input_type' do
