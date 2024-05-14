@@ -40,11 +40,29 @@ RSpec.describe Battle do
       end
     end
 
-    context 'when it is a draw' do
-      let(:p1_rounds) { [4, 4] }
-      let(:p2_rounds) { [4, 4] }
+    context 'when it is a draw and both players have same number of wins' do
+      let(:p1_rounds) { [0, 1, 4] }
+      let(:p2_rounds) { [1, 0, 4] }
 
       it { is_expected.to be_nil }
+    end
+
+    context 'when it is a draw and p1 have more wins' do
+      let(:p1_rounds) { [1, 4] }
+      let(:p2_rounds) { [0, 4] }
+
+      it 'returns p1' do
+        expect(winner).to be battle.p1
+      end
+    end
+
+    context 'when it is a draw and p2 have more wins' do
+      let(:p1_rounds) { [0, 4] }
+      let(:p2_rounds) { [1, 4] }
+
+      it 'returns p1' do
+        expect(winner).to be battle.p2
+      end
     end
   end
 end

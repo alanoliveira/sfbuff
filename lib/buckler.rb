@@ -74,8 +74,8 @@ module Buckler
     0 => 'L',
     1 => 'V',
     2 => 'C',
-    3 => 'T', # TODO: check if this is correct
-    4 => 'D', # TODO: check if this is correct
+    3 => 'T',
+    4 => 'D',
     5 => 'OD',
     6 => 'SA',
     7 => 'CA',
