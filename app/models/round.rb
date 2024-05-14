@@ -8,10 +8,10 @@ class Round
   end
 
   def win?
-    !(loss? || draw?)
+    !(lose? || draw?)
   end
 
-  def loss?
+  def lose?
     raw.zero?
   end
 
