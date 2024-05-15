@@ -8,7 +8,7 @@ class BucklerGateway
 
   def method_missing(name, *, &)
     @api.public_send(name, *, &)
-  rescue Buckler::Client::AccessDeniedError
+  rescue Buckler::Client::AccessDeniedError, Buckler::Client::NotFoundError
     BucklerCredential.clean
     BucklerLoginJob.perform_later
   end
