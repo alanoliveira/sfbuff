@@ -18,13 +18,10 @@ RSpec.describe Battle do
   describe '#winner' do
     subject(:winner) { battle.winner }
 
-    let(:p1) { { rounds: p1_rounds } }
-    let(:p2) { { rounds: p2_rounds } }
-    let(:battle) { create(:battle, p1:, p2:) }
+    let(:battle) { create(:battle, winner_side:) }
 
     context 'when p1 is the winner' do
-      let(:p1_rounds) { [1, 1] }
-      let(:p2_rounds) { [0, 0] }
+      let(:winner_side) { 1 }
 
       it 'returns p1' do
         expect(winner).to be battle.p1
@@ -32,37 +29,17 @@ RSpec.describe Battle do
     end
 
     context 'when p2 is the winner' do
-      let(:p1_rounds) { [0, 0] }
-      let(:p2_rounds) { [1, 1] }
+      let(:winner_side) { 2 }
 
       it 'returns p2' do
         expect(winner).to be battle.p2
       end
     end
 
-    context 'when it is a draw and both players have same number of wins' do
-      let(:p1_rounds) { [0, 1, 4] }
-      let(:p2_rounds) { [1, 0, 4] }
+    context 'when there is no winner (a draw)' do
+      let(:winner_side) { nil }
 
       it { is_expected.to be_nil }
-    end
-
-    context 'when it is a draw and p1 have more wins' do
-      let(:p1_rounds) { [1, 4] }
-      let(:p2_rounds) { [0, 4] }
-
-      it 'returns p1' do
-        expect(winner).to be battle.p1
-      end
-    end
-
-    context 'when it is a draw and p2 have more wins' do
-      let(:p1_rounds) { [0, 4] }
-      let(:p2_rounds) { [1, 4] }
-
-      it 'returns p1' do
-        expect(winner).to be battle.p2
-      end
     end
   end
 end

@@ -120,5 +120,9 @@ RSpec.describe Parsers::BattlelogParser do
     it 'parses the player2 league_point' do
       expect(parsed_battle.p2.league_point).to eq(30_001)
     end
+
+    it 'sets the winner_side' do
+      expect(parsed_battle.winner_side).to eq(1)
+    end
   end
 end

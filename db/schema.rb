@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_14_085013) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_15_085206) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "battles", force: :cascade do |t|
@@ -22,6 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_085013) do
     t.text "raw_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "winner_side"
     t.index ["battle_type"], name: "index_battles_on_battle_type"
     t.index ["played_at"], name: "index_battles_on_played_at"
     t.index ["replay_id"], name: "index_battles_on_replay_id", unique: true
