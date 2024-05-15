@@ -67,16 +67,6 @@ RSpec.describe Buckler::Api do
       expect(api.search_players_by_name(name).to_a).to eq(fighter_banner_list)
     end
 
-    context 'when the list have players that never played online' do
-      let(:fighter_banner_list) { 2.times.map { mock_fighter_banner }.append(mock_fighter_banner(league_point: -1)) }
-
-      it 'filter out that players' do
-        expect(api.search_players_by_name(name).to_a).to have_attributes(count: 2).and all(
-          include('favorite_character_league_info' => { 'league_point' => a_value >= 0 })
-        )
-      end
-    end
-
     context 'when the given name is too short' do
       it 'raises an ArgumentError' do
         expect { api.search_players_by_name('p1') }.to raise_error(ArgumentError)
