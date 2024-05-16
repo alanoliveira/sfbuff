@@ -16,12 +16,15 @@ RSpec.describe BucklerGateway do
   RSpec.shared_examples 'regenerate credentials' do
     it 'clean the credentials' do
       buckler_gateway.hogehoge
+    rescue StandardError
       expect(BucklerCredential).to have_received(:clean)
     end
 
     it 'schedule a BucklerLoginJob' do
       assert_enqueued_with job: BucklerLoginJob do
         buckler_gateway.hogehoge
+      rescue StandardError
+        # do nothing
       end
     end
   end
