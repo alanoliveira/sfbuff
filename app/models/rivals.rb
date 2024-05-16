@@ -6,17 +6,11 @@ class Rivals
     ANY_VALUE(opponent.name) as opponent_name,
     opponent.character as opponent_character,
     opponent.control_type as opponent_control_type,
-    SUM(1) as total,
-    SUM ((
-      WITH player_wins as (SELECT COUNT(*) FROM UNNEST(player.rounds) AS r WHERE r != 0),
-         opponent_wins as (SELECT COUNT(*) FROM UNNEST(opponent.rounds) AS r WHERE r != 0)
-      SELECT CASE
-        WHEN player_wins > opponent_wins THEN 1
-        WHEN player_wins < opponent_wins THEN -1
-        ELSE 0
-      END
-      FROM player_wins, opponent_wins
-    )) AS score
+    COUNT(1) as total,
+    (
+      COUNT(CASE WHEN player.side = battles.winner_side THEN 1 END) -
+      COUNT(CASE WHEN opponent.side = battles.winner_side THEN 1 END)
+    ) AS score
   }
 
   def initialize(battle_pov)
