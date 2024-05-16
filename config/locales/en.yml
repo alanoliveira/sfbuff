@@ -56,8 +56,9 @@ en:
       played_at_to: Played to
     rivals:
       opponent: Opponent
-      total: Total
-      score: Score
+      wins: W
+      loses: L
+      total: T
       favorites: Favorites
       victims: Victims
       tormentors: Tormentors

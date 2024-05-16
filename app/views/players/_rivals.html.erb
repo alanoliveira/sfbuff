@@ -11,7 +11,9 @@
               <tr class="text-center">
                 <th colspan="2"><%= t '.opponent' %></th>
                 <th><%= t '.total' %></th>
-                <th><%= t '.score' %></th>
+                <th><%= t '.wins' %></th>
+                <th><%= t '.loses' %></th>
+                <th>Σ</th>
               </tr>
             </thead>
             <tbody>
@@ -24,8 +26,10 @@
                     <%= character_name(r.opponent_character) %>
                     <%= control_type(r.opponent_control_type) %>
                   </td>
-                  <td class="text-center"><%= r.total %></td>
-                  <td class="text-center"><%= rival_score_span(r.score) %></td>
+                  <td class="text-center"><small><%= r.total %></small></td>
+                  <td class="text-center"><small><%= r.wins %></small></td>
+                  <td class="text-center"><small><%= r.loses %></small></td>
+                  <td class="text-center"><%= rival_score_span(r.wins - r.loses) %></td>
                 </tr>
               <% end %>
             </tbody>

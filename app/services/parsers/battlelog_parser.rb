@@ -16,11 +16,18 @@ module Parsers
         parse_challanger_data(1),
         parse_challanger_data(2)
       ]
+      battle.winner_side = eval_winner
       battle.raw_data = @raw_data.to_json
       battle
     end
 
     private
+
+    def eval_winner
+      p1_rounds = @raw_data.dig('player1_info', 'round_results')
+      p2_rounds = @raw_data.dig('player2_info', 'round_results')
+      WinnerEvaluator.evaluate_winner(p1_rounds, p2_rounds)
+    end
 
     def parse_battle
       Battle.new(
