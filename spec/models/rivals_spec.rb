@@ -8,39 +8,55 @@ RSpec.describe Rivals do
   let(:player) { create(:player) }
 
   before do
-    def create_battle(opponent_sid, opponent_char, opponent_ctrl, win)
-      player_rounds, opponent_rounds = win ? [[1, 1], [0, 0]] : [[0, 0], [1, 1]]
-      opponent = {
-        player_sid: opponent_sid, character: opponent_char,
-        control_type: opponent_ctrl, rounds: opponent_rounds
-      }
-      create(:battle, p1: { player_sid: player.sid, rounds: player_rounds }, p2: opponent)
-    end
-
-    10.times { create_battle(222, 1, 0, true) }
-    6.times { create_battle(222, 4, 0, false) }
-    3.times { create_battle(222, 1, 0, false) }
-    7.times { create_battle(333, 3, 1, true) }
-    2.times { create_battle(333, 3, 1, false) }
-    8.times { create_battle(444, 2, 0, true) }
+    me = { player_sid: player.sid }
+    create_list(:battle, 8, winner_side: 1, p1: me, p2: { player_sid: 222, character: 1, control_type: 0 })
+    create_list(:battle, 2, winner_side: 2, p1: me, p2: { player_sid: 222, character: 1, control_type: 0 })
+    create_list(:battle, 1, winner_side: 1, p1: me, p2: { player_sid: 222, character: 2, control_type: 0 })
+    create_list(:battle, 7, winner_side: 1, p1: me, p2: { player_sid: 333, character: 2, control_type: 1 })
+    create_list(:battle, 9, winner_side: 1, p1: me, p2: { player_sid: 444, character: 3, control_type: 1 })
+    create_list(:battle, 9, winner_side: 2, p1: me, p2: { player_sid: 444, character: 3, control_type: 1 })
+    create_list(:battle, 2, winner_side: nil, p1: me, p2: { player_sid: 444, character: 3, control_type: 1 })
+    create_list(:battle, 4, winner_side: 1, p1: me, p2: { player_sid: 555, character: 4, control_type: 0 })
+    create_list(:battle, 4, winner_side: 2, p1: me, p2: { player_sid: 555, character: 4, control_type: 0 })
+    create_list(:battle, 8, winner_side: 2, p1: me, p2: { player_sid: 666, character: 3, control_type: 0 })
+    create_list(:battle, 6, winner_side: 2, p1: me, p2: { player_sid: 777, character: 2, control_type: 0 })
+    create_list(:battle, 1, winner_side: 1, p1: me, p2: { player_sid: 777, character: 2, control_type: 0 })
+    create_list(:battle, 1, winner_side: 1, p1: me, p2: { player_sid: 888, character: 3, control_type: 0 })
+    create_list(:battle, 9, winner_side: 1, p1: me, p2: { player_sid: 999, character: 1, control_type: 0 })
+    create_list(:battle, 9, winner_side: 1, p1: me, p2: { player_sid: 999, character: 1, control_type: 0 })
   end
 
-  RSpec::Matchers.define :a_rival do |opponent_sid, opponent_character, opponent_control_type, total, score|
+  RSpec::Matchers.define :the_opponent do |sid:, character:, control_type:|
     match do |actual|
-      actual.opponent_sid == opponent_sid &&
-        actual.opponent_character == opponent_character &&
-        actual.opponent_control_type == opponent_control_type &&
-        actual.total == total &&
-        actual.score == score
+      matcher = have_attributes(
+        opponent_sid: sid,
+        opponent_character: character,
+        opponent_control_type: control_type
+      )
+
+      matcher = matcher.and(@stats) if @stats.present?
+
+      matcher.matches?(actual)
+    end
+
+    chain(:with_stats) do |stats|
+      @stats = have_attributes(
+        {
+          wins: stats[:w],
+          loses: stats[:l],
+          total: stats[:t],
+          score: stats[:s]
+        }
+      )
     end
   end
 
   describe '#favorites' do
     it 'returns the most played opponents' do
       expect(rivals.favorites(3)).to contain_exactly(
-        a_rival(222, 1, 0, 13, 7),
-        a_rival(333, 3, 1, 9, 5),
-        a_rival(444, 2, 0, 8, 8)
+        the_opponent(sid: 999, character: 1, control_type: 0).with_stats(w: 18, l: 0, t: 18, s: 18),
+        the_opponent(sid: 444, character: 3, control_type: 1).with_stats(w: 9, l: 9, t: 20, s: 0),
+        the_opponent(sid: 222, character: 1, control_type: 0).with_stats(w: 8, l: 2, t: 10, s: 6)
       )
     end
   end
@@ -48,9 +64,9 @@ RSpec.describe Rivals do
   describe '#tormentors' do
     it 'returns the opponents that won the most' do
       expect(rivals.tormentors(3)).to contain_exactly(
-        a_rival(222, 4, 0, 6, -6),
-        a_rival(333, 3, 1, 9, 5),
-        a_rival(222, 1, 0, 13, 7)
+        the_opponent(sid: 666, character: 3, control_type: 0).with_stats(w: 0, l: 8, t: 8, s: -8),
+        the_opponent(sid: 777, character: 2, control_type: 0).with_stats(w: 1, l: 6, t: 7, s: -5),
+        the_opponent(sid: 444, character: 3, control_type: 1).with_stats(w: 9, l: 9, t: 20, s: 0)
       )
     end
   end
@@ -58,9 +74,9 @@ RSpec.describe Rivals do
   describe '#victims' do
     it 'returns the opponents that lost the most' do
       expect(rivals.victims(3)).to contain_exactly(
-        a_rival(444, 2, 0, 8, 8),
-        a_rival(333, 3, 1, 9, 5),
-        a_rival(222, 1, 0, 13, 7)
+        the_opponent(sid: 999, character: 1, control_type: 0).with_stats(w: 18, l: 0, t: 18, s: 18),
+        the_opponent(sid: 333, character: 2, control_type: 1).with_stats(w: 7, l: 0, t: 7, s: 7),
+        the_opponent(sid: 222, character: 1, control_type: 0).with_stats(w: 8, l: 2, t: 10, s: 6)
       )
     end
   end
