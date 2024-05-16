@@ -27,8 +27,9 @@ pt-BR:
       played_at_to: Jogado até
     rivals:
       opponent: Oponente
-      total: Total
-      score: Saldo
+      wins: V
+      loses: D
+      total: T
       favorites: Favoritos
       victims: Vítimas
       tormentors: Carrascos

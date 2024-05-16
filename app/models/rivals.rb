@@ -6,6 +6,8 @@ class Rivals
     ANY_VALUE(opponent.name) as opponent_name,
     opponent.character as opponent_character,
     opponent.control_type as opponent_control_type,
+    COUNT(CASE WHEN player.side = battles.winner_side THEN 1 END) as wins,
+    COUNT(CASE WHEN opponent.side = battles.winner_side THEN 1 END) as loses,
     COUNT(1) as total,
     (
       COUNT(CASE WHEN player.side = battles.winner_side THEN 1 END) -
