@@ -7,7 +7,7 @@ class PlayerSearchesController < ApplicationController
     return head :accepted if @result[:status] == :waiting
 
     render
-  rescue CacheableJob::JobCacheNotFound
+  rescue JobCache::NotFound
     redirect_to root_url
   end
 

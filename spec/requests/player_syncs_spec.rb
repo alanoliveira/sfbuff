@@ -89,7 +89,7 @@ RSpec.describe '/buckler/player_syncs' do
       before do
         psj = spy
         stub_const('PlayerSyncJob', psj)
-        allow(psj).to receive(:find_job_status!).and_raise(CacheableJob::JobCacheNotFound)
+        allow(psj).to receive(:find_job_status!).and_raise(JobCache::NotFound)
       end
 
       it 'redirects to root_path' do
