@@ -11,8 +11,5 @@ class PlayerSyncJob < ApplicationJob
       PlayerSynchronizer.new(player_sid, BucklerGateway.new).synchronize
     end
     cache(:success)
-  rescue StandardError => e
-    cache(:error, { class: e.class.name, message: e.message })
-    raise e
   end
 end
