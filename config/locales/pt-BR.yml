@@ -41,6 +41,7 @@ pt-BR:
     battle:
       lose: Derrota
       win: Vitória
+      draw: Empate
   errors:
     player_not_found: Jogador não encontrado
     generic: Ocorreu um erro ao tentar obter os dados do site oficial

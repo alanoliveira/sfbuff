@@ -70,6 +70,7 @@ en:
     battle:
       lose: Lose
       win: Win
+      draw: Draw
   errors:
     player_not_found: Player not found
     generic: An error occurred while trying to get the data from the official website

@@ -15,12 +15,12 @@
   </div>
   <div class="card-footer text-center">
     <% if pov.present? %>
-      <% if battle.winner.player_sid == pov.sid %>
-        <span class="text-success"><%= t '.win' %></span>
-      <% elsif battle.winner.present? %>
-        <span class="text-danger"><%= t '.lose' %></span>
-      <% else %>
+      <% if battle.winner.nil? %>
         <span class="text-secondary"><%= t '.draw' %></span>
+      <% elsif battle.winner.player_sid == pov.sid %>
+        <span class="text-success"><%= t '.win' %></span>
+      <% else %>
+        <span class="text-danger"><%= t '.lose' %></span>
       <% end %>
     <% end %>
   </div>
