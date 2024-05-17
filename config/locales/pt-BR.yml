@@ -17,6 +17,10 @@ pt-BR:
       synchronized: 'Última sincronização:'
       rivals: Rivais
       battles: Matches
+      battles_count: 
+        zero: Nenhuma match encontrada
+        one: 1 match encontrada
+        other: '%{count} matches encontradas'
     battles_filter:
       player_character: Personagem usado
       player_control_type: Controle usado

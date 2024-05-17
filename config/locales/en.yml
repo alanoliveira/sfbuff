@@ -46,6 +46,10 @@ en:
       synchronized: 'Last sync:'
       rivals: Rivals
       battles: Matches
+      battles_count: 
+        zero: No matches found
+        one: 1 match found
+        other: '%{count} matches found'
     battles_filter:
       player_character: Using char
       player_control_type: Using control

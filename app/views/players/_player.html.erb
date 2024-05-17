@@ -7,6 +7,8 @@
 
 <%= render 'battles_filter' %>
 
+<%= alert t('.battles_count', count: @battles.except(:limit, :offset).count), dismissible: true %>
+
 <h3><%= t('.rivals') %></h3>
 <%= render 'rivals' %>
 
