@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_15_085206) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_20_073722) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_085206) do
     t.jsonb "credentials"
   end
 
-  create_table "challangers", force: :cascade do |t|
+  create_table "challengers", force: :cascade do |t|
     t.decimal "player_sid", precision: 20, null: false
     t.integer "character", null: false
     t.integer "control_type", null: false
@@ -46,10 +46,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_085206) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "playing_character", null: false
-    t.index ["battle_id"], name: "index_challangers_on_battle_id"
-    t.index ["character"], name: "index_challangers_on_character"
-    t.index ["control_type"], name: "index_challangers_on_control_type"
-    t.index ["player_sid"], name: "index_challangers_on_player_sid"
+    t.index ["battle_id"], name: "index_challengers_on_battle_id"
+    t.index ["character"], name: "index_challengers_on_character"
+    t.index ["control_type"], name: "index_challengers_on_control_type"
+    t.index ["player_sid"], name: "index_challengers_on_player_sid"
   end
 
   create_table "players", primary_key: "sid", id: { type: :decimal, precision: 20 }, force: :cascade do |t|

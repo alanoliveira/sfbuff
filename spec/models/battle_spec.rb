@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Battle do
-  describe '#challanger' do
+  describe '#challenger' do
     let(:battle) { create(:battle) }
 
     it 'returns the player 1' do

@@ -12,9 +12,9 @@ module Parsers
 
     def parse
       battle = parse_battle
-      battle.challangers = [
-        parse_challanger_data(1),
-        parse_challanger_data(2)
+      battle.challengers = [
+        parse_challenger_data(1),
+        parse_challenger_data(2)
       ]
       battle.winner_side = eval_winner
       battle.raw_data = @raw_data.to_json
@@ -38,9 +38,9 @@ module Parsers
       )
     end
 
-    def parse_challanger_data(side) # rubocop:disable Metrics/MethodLength
+    def parse_challenger_data(side) # rubocop:disable Metrics/MethodLength
       rcd = @raw_data.fetch("player#{side}_info")
-      Challanger.new(
+      Challenger.new(
         player_sid: rcd.fetch('player').fetch('short_id'),
         name: rcd.fetch('player').fetch('fighter_id'),
         character: rcd.fetch('character_id'),

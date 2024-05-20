@@ -14,7 +14,7 @@ FactoryBot.define do
     end
 
     after(:build) do |battle, context|
-      battle.challangers = [
+      battle.challengers = [
         build(:p1, battle:, **context.p1),
         build(:p2, battle:, **context.p2)
       ]
