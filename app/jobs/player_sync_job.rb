@@ -8,7 +8,7 @@ class PlayerSyncJob < ApplicationJob
 
   def perform(player_sid)
     unless Player.find_by(sid: player_sid).try(&:synchronized?)
-      PlayerSynchronizer.new(player_sid, BucklerGateway.new).synchronize
+      PlayerSynchronizer.new(player_sid:, api: BucklerGateway.new).call
     end
     cache(:success)
   end

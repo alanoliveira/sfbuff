@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe PlayerSynchronizer do
-  let(:player_synchronizer) { described_class.new(player.sid, api) }
+  let(:player_synchronizer) { described_class.new(player_sid: player.sid, api:) }
 
   let(:api) { spy }
   let(:battles) { create_list(:battle, 3) }
@@ -14,17 +14,17 @@ RSpec.describe PlayerSynchronizer do
     battlelog_importer = spy
     allow(FighterBannerImporter).to receive(:new).and_return(fighter_banner_importer)
     allow(BattlelogImporter).to receive(:new).and_return(battlelog_importer)
-    allow(fighter_banner_importer).to receive(:import!).and_return(player)
-    allow(battlelog_importer).to receive(:import_while!).and_return(battles)
+    allow(fighter_banner_importer).to receive(:call).and_return(player)
+    allow(battlelog_importer).to receive(:call).and_return(battles)
   end
 
-  describe '#synchronize' do
+  describe '#call' do
     it 'updates the player synchronized_at' do
-      expect { player_synchronizer.synchronize }.to change(player, :synchronized_at)
+      expect { player_synchronizer.call }.to change(player, :synchronized_at)
     end
 
     it 'updates the player latest_replay_id' do
-      expect { player_synchronizer.synchronize }
+      expect { player_synchronizer.call }
         .to change(player, :latest_replay_id).to(battles.first.replay_id)
     end
 
@@ -32,7 +32,7 @@ RSpec.describe PlayerSynchronizer do
       let(:battles) { [] }
 
       it 'do not updates the player latest_replay_id' do
-        expect { player_synchronizer.synchronize }.not_to change(player, :latest_replay_id)
+        expect { player_synchronizer.call }.not_to change(player, :latest_replay_id)
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe PlayerSynchronizer do
       before { allow(api).to receive(:search_player_by_sid).and_return(nil) }
 
       it 'raises a PlayerNotFoundError' do
-        expect { player_synchronizer.synchronize }.to raise_error(PlayerSynchronizer::PlayerNotFoundError)
+        expect { player_synchronizer.call }.to raise_error(PlayerSynchronizer::PlayerNotFoundError)
       end
     end
   end

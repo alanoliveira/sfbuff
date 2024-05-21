@@ -7,11 +7,11 @@ RSpec.describe PlayerSyncJob do
 
   let(:job) { described_class.perform_later(player_sid) }
   let(:player_sid) { 123_456_789 }
-  let(:synchronizer) { instance_double(PlayerSynchronizer, synchronize: nil) }
+  let(:synchronizer) { instance_double(PlayerSynchronizer, call: nil) }
 
   before do
     allow(PlayerSynchronizer).to receive(:new)
-      .with(player_sid, anything).and_return(synchronizer)
+      .with(player_sid:, api: anything).and_return(synchronizer)
     class_spy(JobCache).as_stubbed_const
     class_spy(BucklerGateway).as_stubbed_const
   end
@@ -30,7 +30,7 @@ RSpec.describe PlayerSyncJob do
 
     it 'synchronize the player' do
       perform_enqueued_jobs { job }
-      expect(synchronizer).to have_received(:synchronize)
+      expect(synchronizer).to have_received(:call)
     end
   end
 
@@ -48,7 +48,7 @@ RSpec.describe PlayerSyncJob do
 
     it 'synchronize the player' do
       perform_enqueued_jobs { job }
-      expect(synchronizer).to have_received(:synchronize)
+      expect(synchronizer).to have_received(:call)
     end
   end
 
@@ -66,7 +66,7 @@ RSpec.describe PlayerSyncJob do
 
     it 'do not synchronize the player' do
       perform_enqueued_jobs { job }
-      expect(synchronizer).not_to have_received(:synchronize)
+      expect(synchronizer).not_to have_received(:call)
     end
   end
 end

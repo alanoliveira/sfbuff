@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe FighterBannerImporter do
-  subject(:fighter_banner_importer) { described_class.new(fighter_banner) }
+  subject(:fighter_banner_importer) { described_class.new(fighter_banner:) }
 
   let(:fighter_id) { 'fighter1' }
   let(:short_id) { 123_456_789 }
@@ -16,14 +16,14 @@ RSpec.describe FighterBannerImporter do
     }
   end
 
-  describe '#import!' do
+  describe '#call' do
     it 'returns the player' do
-      expect(fighter_banner_importer.import!).to have_attributes(sid: short_id)
+      expect(fighter_banner_importer.call).to have_attributes(sid: short_id)
     end
 
     context 'when the player do not exists' do
       it 'creates a new player' do
-        expect { fighter_banner_importer.import! }.to change(Player, :count).by(1)
+        expect { fighter_banner_importer.call }.to change(Player, :count).by(1)
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe FighterBannerImporter do
       end
 
       it 'updates the player name' do
-        expect { fighter_banner_importer.import! }.to change { Player.find(short_id).name }.to(fighter_id)
+        expect { fighter_banner_importer.call }.to change { Player.find(short_id).name }.to(fighter_id)
       end
     end
   end
