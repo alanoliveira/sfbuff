@@ -12,15 +12,15 @@ class PlayerBattlesFilter
   attribute :played_at_from, :date, default: 7.days.ago
   attribute :played_at_to, :date
 
-  def inject(battles_pov)
-    battles_pov.where(
-      {
-        player: player_cond,
-        opponent: opponent_cond,
-        **battle_cond
-      }.compact_blank
-    )
+  def as_where
+    {
+      player: player_cond,
+      opponent: opponent_cond,
+      **battle_cond
+    }.compact_blank
   end
+
+  private
 
   def played_at
     from = played_at_from.try(:beginning_of_day)
@@ -29,8 +29,6 @@ class PlayerBattlesFilter
 
     from..to
   end
-
-  private
 
   def player_cond
     {

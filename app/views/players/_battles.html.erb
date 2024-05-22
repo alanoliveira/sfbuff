@@ -1,10 +1,10 @@
 <%= turbo_frame_tag 'battle-list' do %>
   <div class="d-flex flex-column gap-3">
-    <% @battles.each do |battle| %>
+    <% @page_battles.each do |battle| %>
       <%= render 'battles/battle', battle:, pov: @player %>
     <% end %>
   </div>
   <div class="mt-4">
-    <%= paginate @battles %>
+    <%= paginate @page_battles %>
   </div>
 <% end %>
