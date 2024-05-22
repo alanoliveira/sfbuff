@@ -53,6 +53,7 @@ module Buckler
     19 => 'ED',
     20 => 'HON',
     21 => 'JAM',
+    22 => 'AKU',
     254 => 'RDN'
   }.freeze
 
