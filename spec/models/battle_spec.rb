@@ -3,16 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe Battle do
-  describe '#challenger' do
-    let(:battle) { create(:battle) }
+  let(:battle) { create(:battle) }
 
-    it 'returns the player 1' do
-      expect(battle.p1).to have_attributes(side: 'p1')
-    end
+  it 'returns the player 1' do
+    expect(battle.p1).to have_attributes(side: 'p1')
+  end
 
-    it 'returns the player 2' do
-      expect(battle.p2).to have_attributes(side: 'p2')
-    end
+  it 'returns the player 2' do
+    expect(battle.p2).to have_attributes(side: 'p2')
   end
 
   describe '#winner' do

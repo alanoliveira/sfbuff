@@ -6,7 +6,7 @@ class Player < ApplicationRecord
   end
 
   def battles
-    Battle.pov.where(player: { player_sid: sid })
+    Battle.joins(:challengers).where(challengers: { player_sid: sid })
   end
 
   private
