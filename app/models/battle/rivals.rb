@@ -27,10 +27,10 @@ class Battle
 
     def initialize(pov, *grouping_by)
       @pov = pov.unscope(:order).reselect(
-        Arel.sql('COUNT(nullif(winner_side = player.side, true)) wins'),
-        Arel.sql('COUNT(nullif(winner_side = opponent.side, true)) loses'),
-        Arel.sql('COUNT(nullif(winner_side = player.side, true)) -
-                COUNT(nullif(winner_side = opponent.side, true)) diff'),
+        Arel.sql('COUNT(nullif(winner_side = opponent.side, true)) wins'),
+        Arel.sql('COUNT(nullif(winner_side = player.side, true)) loses'),
+        Arel.sql('COUNT(nullif(winner_side = opponent.side, true)) -
+                COUNT(nullif(winner_side = player.side, true)) diff'),
         'COUNT(1) total'
       ).extending(Grouping).grouping(*grouping_by)
     end

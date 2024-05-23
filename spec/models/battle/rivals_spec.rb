@@ -31,9 +31,9 @@ RSpec.describe Battle::Rivals do
   describe '#favorites' do
     it 'returns the most played matches' do
       expect(rivals.favorites(3)).to contain_exactly(
-        a_hash_including(total: 29, wins: 17, loses: 10, diff: 7, character: 3),
-        a_hash_including(total: 28, wins: 2, loses: 26, diff: -24, character: 1),
-        a_hash_including(total: 15, wins: 6, loses: 9, diff: -3, character: 2)
+        a_hash_including(wins: 10, loses: 17, diff: -7, total: 29, character: 3),
+        a_hash_including(wins: 26, loses: 2, diff: 24, total: 28, character: 1),
+        a_hash_including(wins: 9, loses: 6, diff: 3, total: 15, character: 2)
       )
     end
   end
@@ -41,9 +41,9 @@ RSpec.describe Battle::Rivals do
   describe '#tormentors' do
     it 'returns the opponents that won the most' do
       expect(rivals.tormentors(3)).to contain_exactly(
-        a_hash_including(total: 28, wins: 2, loses: 26, diff: -24, character: 1),
-        a_hash_including(total: 15, wins: 6, loses: 9, diff: -3, character: 2),
-        a_hash_including(total: 8, wins: 4, loses: 4, diff: 0, character: 4)
+        a_hash_including(wins: 10, loses: 17, diff: -7, total: 29, character: 3),
+        a_hash_including(wins: 4, loses: 4, diff: 0, total: 8, character: 4),
+        a_hash_including(wins: 9, loses: 6, diff: 3, total: 15, character: 2)
       )
     end
   end
@@ -51,9 +51,9 @@ RSpec.describe Battle::Rivals do
   describe '#victims' do
     it 'returns the opponents that lost the most' do
       expect(rivals.victims(3)).to contain_exactly(
-        a_hash_including(total: 29, wins: 17, loses: 10, diff: 7, character: 3),
-        a_hash_including(total: 8, wins: 4, loses: 4, diff: 0, character: 4),
-        a_hash_including(total: 15, wins: 6, loses: 9, diff: -3, character: 2)
+        a_hash_including(wins: 26, loses: 2, diff: 24, total: 28, character: 1),
+        a_hash_including(wins: 9, loses: 6, diff: 3, total: 15, character: 2),
+        a_hash_including(wins: 4, loses: 4, diff: 0, total: 8, character: 4)
       )
     end
   end

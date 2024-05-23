@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Battle < ApplicationRecord
-  with_options class_name: 'Challenger', dependent: false, inverse_of: :battle do
+  with_options class_name: 'Challenger', dependent: :destroy, inverse_of: :battle do
     has_one :p1, -> { where(side: 1) }
     has_one :p2, -> { where(side: 2) }
   end
