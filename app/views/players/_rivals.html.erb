@@ -20,16 +20,16 @@
               <% send(kind, @battles).each do |r| %>
                 <tr>
                   <td>
-                    <%= link_to_player r.name, r.sid %>
+                    <%= link_to_player r['name'], r['sid'] %>
                   </td>
                   <td class="text-center">
-                    <%= character_name(r.character) %>
-                    <%= control_type(r.control_type) %>
+                    <%= character_name(r['character']) %>
+                    <%= control_type(r['control_type']) %>
                   </td>
-                  <td class="text-center"><small><%= r.total %></small></td>
-                  <td class="text-center"><small><%= r.wins %></small></td>
-                  <td class="text-center"><small><%= r.loses %></small></td>
-                  <td class="text-center"><%= rival_score_span(r.wins - r.loses) %></td>
+                  <td class="text-center"><small><%= r['total'] %></small></td>
+                  <td class="text-center"><small><%= r['wins'] %></small></td>
+                  <td class="text-center"><small><%= r['loses'] %></small></td>
+                  <td class="text-center"><%= rival_score_span(r['diff']) %></td>
                 </tr>
               <% end %>
             </tbody>

@@ -4,15 +4,15 @@ module BattlesHelper
   RIVALS_ROWS = 5
 
   def favorites(battles)
-    battles.rivals(order: 'total DESC', limit: RIVALS_ROWS)
+    battles.rivals(:character, :control_type, :opponent).favorites(RIVALS_ROWS)
   end
 
   def victims(battles)
-    battles.rivals(order: 'diff DESC', limit: RIVALS_ROWS)
+    battles.rivals(:character, :control_type, :opponent).victims(RIVALS_ROWS)
   end
 
   def tormentors(battles)
-    battles.rivals(order: 'diff ASC', limit: RIVALS_ROWS)
+    battles.rivals(:character, :control_type, :opponent).tormentors(RIVALS_ROWS)
   end
 
   def battle_type_span(battle_type_id)
