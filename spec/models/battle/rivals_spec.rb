@@ -2,9 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe Rivals do
-  subject(:rivals) { described_class.new(player.battles) }
+RSpec.describe Battle::Rivals do
+  subject(:rivals) { described_class.new(pov, *grouping_by) }
 
+  let(:pov) { Battle.pov.where(player: { player_sid: player.sid }) }
+  let(:grouping_by) { [:character] }
   let(:player) { create(:player) }
 
   before do
@@ -26,37 +28,12 @@ RSpec.describe Rivals do
     create_list(:battle, 9, winner_side: 1, p1: me, p2: { player_sid: 999, character: 1, control_type: 0 })
   end
 
-  RSpec::Matchers.define :the_opponent do |sid:, character:, control_type:|
-    match do |actual|
-      matcher = have_attributes(
-        opponent_sid: sid,
-        opponent_character: character,
-        opponent_control_type: control_type
-      )
-
-      matcher = matcher.and(@stats) if @stats.present?
-
-      matcher.matches?(actual)
-    end
-
-    chain(:with_stats) do |stats|
-      @stats = have_attributes(
-        {
-          wins: stats[:w],
-          loses: stats[:l],
-          total: stats[:t],
-          score: stats[:s]
-        }
-      )
-    end
-  end
-
   describe '#favorites' do
-    it 'returns the most played opponents' do
+    it 'returns the most played matches' do
       expect(rivals.favorites(3)).to contain_exactly(
-        the_opponent(sid: 999, character: 1, control_type: 0).with_stats(w: 18, l: 0, t: 18, s: 18),
-        the_opponent(sid: 444, character: 3, control_type: 1).with_stats(w: 9, l: 9, t: 20, s: 0),
-        the_opponent(sid: 222, character: 1, control_type: 0).with_stats(w: 8, l: 2, t: 10, s: 6)
+        a_hash_including(total: 29, wins: 17, loses: 10, diff: 7, character: 3),
+        a_hash_including(total: 28, wins: 2, loses: 26, diff: -24, character: 1),
+        a_hash_including(total: 15, wins: 6, loses: 9, diff: -3, character: 2)
       )
     end
   end
@@ -64,9 +41,9 @@ RSpec.describe Rivals do
   describe '#tormentors' do
     it 'returns the opponents that won the most' do
       expect(rivals.tormentors(3)).to contain_exactly(
-        the_opponent(sid: 666, character: 3, control_type: 0).with_stats(w: 0, l: 8, t: 8, s: -8),
-        the_opponent(sid: 777, character: 2, control_type: 0).with_stats(w: 1, l: 6, t: 7, s: -5),
-        the_opponent(sid: 444, character: 3, control_type: 1).with_stats(w: 9, l: 9, t: 20, s: 0)
+        a_hash_including(total: 28, wins: 2, loses: 26, diff: -24, character: 1),
+        a_hash_including(total: 15, wins: 6, loses: 9, diff: -3, character: 2),
+        a_hash_including(total: 8, wins: 4, loses: 4, diff: 0, character: 4)
       )
     end
   end
@@ -74,9 +51,9 @@ RSpec.describe Rivals do
   describe '#victims' do
     it 'returns the opponents that lost the most' do
       expect(rivals.victims(3)).to contain_exactly(
-        the_opponent(sid: 999, character: 1, control_type: 0).with_stats(w: 18, l: 0, t: 18, s: 18),
-        the_opponent(sid: 333, character: 2, control_type: 1).with_stats(w: 7, l: 0, t: 7, s: 7),
-        the_opponent(sid: 222, character: 1, control_type: 0).with_stats(w: 8, l: 2, t: 10, s: 6)
+        a_hash_including(total: 29, wins: 17, loses: 10, diff: 7, character: 3),
+        a_hash_including(total: 8, wins: 4, loses: 4, diff: 0, character: 4),
+        a_hash_including(total: 15, wins: 6, loses: 9, diff: -3, character: 2)
       )
     end
   end

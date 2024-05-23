@@ -12,10 +12,8 @@ module Parsers
 
     def parse
       battle = parse_battle
-      battle.challengers = [
-        parse_challenger_data(1),
-        parse_challenger_data(2)
-      ]
+      battle.p1 = parse_challenger_data(1)
+      battle.p2 = parse_challenger_data(2)
       battle.winner_side = eval_winner
       battle.raw_data = @raw_data.to_json
       battle

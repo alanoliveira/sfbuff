@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class FighterBannerImporter
-  def initialize(fighter_banner)
-    @fighter_banner = fighter_banner
+  def initialize(**params)
+    @fighter_banner = params[:fighter_banner]
   end
 
-  def import!
+  def call
     player.name = @fighter_banner.dig('personal_info', 'fighter_id')
     player.tap(&:save!)
   end

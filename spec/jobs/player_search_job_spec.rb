@@ -10,7 +10,7 @@ RSpec.describe PlayerSearchJob do
 
   before do
     class_spy(JobCache).as_stubbed_const
-    buckler_gw = spy(search_players_by_name: data) # rubocop:disable RSPec/VerifiedDoubles
+    buckler_gw = spy(search_players_by_name: data) # rubocop:disable RSpec/VerifiedDoubles
     allow(BucklerGateway).to receive(:new).and_return(buckler_gw)
   end
 

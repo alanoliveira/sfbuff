@@ -1,23 +1,15 @@
 # frozen_string_literal: true
 
 class Battle < ApplicationRecord
-  has_many :challengers, dependent: :destroy
+  with_options class_name: 'Challenger', dependent: false, inverse_of: :battle do
+    has_one :p1, -> { where(side: 1) }
+    has_one :p2, -> { where(side: 2) }
+  end
 
   default_scope { order(:played_at) }
 
-  def p1
-    challengers.find { |c| c.side == 'p1' }
-  end
-
-  def p2
-    challengers.find { |c| c.side == 'p2' }
-  end
-
   def self.pov
-    includes(:challengers)
-      .joins('INNER JOIN challengers AS player ON battles.id = player.battle_id')
-      .joins('INNER JOIN challengers AS opponent ON battles.id = opponent.battle_id
-              AND player.player_sid != opponent.player_sid')
+    extending(Pov)
   end
 
   def winner

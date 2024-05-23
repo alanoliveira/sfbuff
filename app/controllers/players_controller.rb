@@ -8,9 +8,8 @@ class PlayersController < ApplicationController
   def show
     @player = Player.find(params[:sid])
     @filter = PlayerBattlesFilter.new(filter_params)
-    battles = @filter.inject(@player.battles.reorder(played_at: :desc))
-    @rivals = Rivals.new(battles)
-    @battles = battles.page(params[:page])
+    @battles = @player.battles.includes(:p1, :p2).where(@filter.as_where)
+    @page_battles = @battles.page(params[:page])
 
     render partial: 'battles' if turbo_frame_request_id == 'battle-list'
   rescue ActiveRecord::RecordNotFound
