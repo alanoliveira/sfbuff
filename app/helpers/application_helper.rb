@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def nav_link(name, url)
+    classes = ['nav-link']
+    classes << 'active' if current_page? url
+    link_to name, url, class: classes
+  end
+
   def reloader(url)
     content_tag :div, spinner, class: 'text-center', data: {
       controller: 'interval-reloader',
