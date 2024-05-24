@@ -56,6 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_26_070852) do
     t.datetime "synchronized_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "main_character"
     t.index ["sid"], name: "index_players_on_sid"
   end
 
