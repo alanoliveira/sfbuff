@@ -15,7 +15,7 @@
     <header><%= render 'layouts/nav' %></header>
     <main class="container h-100 py-3">
       <%= turbo_frame_tag 'main' do %>
-        <%= yield %>
+        <%= content_for?(:content) ? yield(:content) : yield %>
       <% end %>
     </main>
     <footer class="footer mt-auto py-3 bg-body-tertiary">

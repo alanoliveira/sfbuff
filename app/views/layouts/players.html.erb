@@ -1,0 +1,22 @@
+<% content_for :content do %>
+  <% if @player.try { |p| !p.synchronized? } %>
+    <div id="player-sync">
+      <%= form_with url: player_syncs_path, data: { controller: 'form-auto-submit' } do |f| %>
+        <%= f.hidden_field :player_sid, value: @player.sid %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @player.present? %>
+    <header class="pb-3">
+      <h1><%= @player.name %></h1>
+      <% @player.synchronized_at.try do |date| %>
+        <small><%= t '.synchronized' %> <%= time_ago @player.synchronized_at %></small>
+      <% end %>
+    </header>
+  <% end %>
+
+  <%= yield %>
+<% end %>
+
+<%= render template: "layouts/application" %>

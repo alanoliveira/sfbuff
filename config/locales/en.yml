@@ -42,7 +42,7 @@ en:
       country: Country
       select: Select
   players:
-    player:
+    battles:
       synchronized: 'Last sync:'
       rivals: Rivals
       battles: Matches
