@@ -1,8 +1,8 @@
 <div class="text-center col-4">
   <small>
-    <% if challenger.master_rating > 0 %>
+    <% if challenger.master_rating.positive? %>
       <%= challenger.master_rating %> <%= t('buckler.mr').upcase %>
-    <% else %>
+    <% elsif challenger.league_point.positive? %>
       <%= challenger.league_point %> <%= t('buckler.lp').upcase %>
     <% end %>
   </small>
