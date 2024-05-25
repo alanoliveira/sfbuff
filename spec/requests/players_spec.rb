@@ -6,7 +6,7 @@ RSpec.describe '/players' do
   let(:player) { create(:player) }
 
   RSpec::Matchers.define :has_player_sync_div do
-    match { |subject| values_match?(match_xpath("//div[@id='player-sync']"), subject) }
+    match { |subject| values_match?(contain_xpath("//div[@id='player-sync']"), subject) }
     failure_message { 'body do not contains the player sync div' }
     failure_message_when_negated { 'body should not contains the player sync div' }
   end
@@ -46,7 +46,7 @@ RSpec.describe '/players' do
 
       it 'not renders the player-search component' do
         get players_url(q: '')
-        expect(response.body).not_to match_xpath('//div[@id="player-search"]')
+        expect(response.body).not_to contain_xpath('//div[@id="player-search"]')
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe '/players' do
 
       it 'renders the player-search component' do
         get players_url(q: 'hello')
-        expect(response.body).to match_xpath('//div[@id="player-search"]')
+        expect(response.body).to contain_xpath('//div[@id="player-search"]')
       end
     end
   end
@@ -86,43 +86,45 @@ RSpec.describe '/players' do
 
     it do
       get battles_player_url(player)
-      expect(response.body).to match_xpath('//h3[text()="Rivals"]')
+      expect(response.body).to contain_xpath('//h3[text()="Rivals"]')
     end
 
     it do
       get battles_player_url(player)
-      expect(response.body).to match_xpath('//h3[text()="Matches"]')
+      expect(response.body).to contain_xpath('//h3[text()="Matches"]')
     end
 
-    context 'when player have no matches' do
+    context 'when player have no battles' do
       it 'render an alert with the number of battles found' do
         get battles_player_url(player)
-        expect(response.body).to match_xpath('//div[@role="alert" and text()="No matches found"]')
+        expect(response.body).to match_xpath('//div[@role="alert"]').with(/no matches found/)
       end
     end
 
-    context 'when player have matches' do
+    context 'when player have battles' do
       before do
-        create(:battle, winner_side: 1, battle_type: 1, played_at: 1.minute.ago,
+        create(:battle, winner_side: 1, battle_type: 1, replay_id: 'AAAAAAA1', played_at: 1.minute.ago,
                         p1: { player_sid: player.sid, rounds: [0, 1, 2] },
                         p2: { rounds: [3, 4, 5] })
 
-        create(:battle, winner_side: 2, battle_type: 2, played_at: 1.minute.ago,
+        create(:battle, winner_side: 2, battle_type: 2, replay_id: 'AAAAAAA2', played_at: 2.minutes.ago,
                         p1: { player_sid: player.sid, rounds: [6, 7] },
                         p2: { rounds: [8, 8] })
 
-        create(:battle, winner_side: nil, battle_type: 3, played_at: 1.minute.ago,
+        create(:battle, winner_side: nil, battle_type: 3, replay_id: 'AAAAAAA3', played_at: 3.minutes.ago,
                         p1: {},
                         p2: { player_sid: player.sid })
 
-        create(:battle, battle_type: 4, played_at: 1.minute.ago,
+        create(:battle, battle_type: 4, replay_id: 'AAAAAAA4', played_at:  4.minutes.ago,
                         p1: {},
                         p2: { player_sid: player.sid })
       end
 
       it 'render an alert with the number of battles found' do
         get battles_player_url(player)
-        expect(response.body).to match_xpath('//div[@role="alert" and text()="4 matches found"]')
+        expect(response.body).to contain_xpath('//div[@role="alert" and text()="4 matches found"]')
+          .and match_xpath('//turbo-frame[@id="battle-list"]//div[@class="card"][1]').with(/AAAAAAA1/)
+          .and match_xpath('//turbo-frame[@id="battle-list"]//div[@class="card"][2]').with(/AAAAAAA2/)
       end
     end
   end
