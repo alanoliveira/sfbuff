@@ -11,7 +11,7 @@
     <header class="pb-3">
       <h1><%= @player.name %></h1>
       <% @player.synchronized_at.try do |date| %>
-        <small><%= t '.synchronized' %> <%= time_ago @player.synchronized_at %></small>
+        <small><%= t '.synchronized' %>: <%= time_ago @player.synchronized_at %></small>
       <% end %>
     </header>
   <% end %>

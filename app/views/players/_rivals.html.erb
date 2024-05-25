@@ -3,16 +3,16 @@
     <div class="flex-fill p-2">
       <div class="card">
         <div class="card-header text-center">
-          <%= t ".#{kind}" %>
+          <%= t(".#{kind}").titlecase %>
         </div>
         <div class="card-body">
           <table class="table">
             <thead>
               <tr class="text-center">
-                <th colspan="2"><%= t '.opponent' %></th>
-                <th><%= t '.total' %></th>
-                <th><%= t '.wins' %></th>
-                <th><%= t '.loses' %></th>
+                <th colspan="2"><%= t('.opponent').titlecase %></th>
+                <th><%= t('.total').upcase %></th>
+                <th><%= t('.wins').upcase %></th>
+                <th><%= t('.loses').upcase %></th>
                 <th>Σ</th>
               </tr>
             </thead>

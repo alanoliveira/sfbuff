@@ -1,80 +1,64 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  common:
+  datetime:
     time_ago: '%{time} ago'
-    search: Search
-    filter: Filter
-    loading: Loading
-    option_any: Any
-    reset: Reset
-  player_searches:
-    search_result:
-      name: Name
-      main_char: Main
-      country: Country
-      select: Select
+  layouts:
+    players:
+      synchronized: synchronized
+    nav:
+      battles: matches
+      search: search
+  player_syncs:
+    show:
+      errors:
+        player_not_found: player not found
+        generic: an error occurred while trying to get the data from the official website
   players:
+    battles_filter:
+      player_character: player character
+      player_control_type: player control type
+      opponent_character: opponent character
+      opponent_control_type: opponent control type
+      battle_type: battle type
+      played_at_from: played from
+      played_at_to: played to
+      filter: filter
+      reset: reset
     battles:
-      synchronized: 'Last sync:'
-      rivals: Rivals
-      battles: Matches
+      battles: matches
+      rivals: rivals
       battles_count: 
-        zero: No matches found
+        zero: no matches found
         one: 1 match found
         other: '%{count} matches found'
-    battles_filter:
-      player_character: Using char
-      player_control_type: Using control
-      opponent_character: VS char
-      opponent_control_type: VS control
-      battle_type: Match type
-      played_at_from: Played from
-      played_at_to: Played to
     rivals:
-      opponent: Opponent
-      wins: W
-      loses: L
-      total: T
-      favorites: Favorites
-      victims: Victims
-      tormentors: Tormentors
+      opponent: opponent
+      wins: v
+      loses: d
+      total: t
+      favorites: favorites
+      victims: victims
+      tormentors: tormentors
   battles:
     battle:
-      lose: Lose
-      win: Win
-      draw: Draw
-  errors:
-    player_not_found: Player not found
-    generic: An error occurred while trying to get the data from the official website
+      lose: lose
+      win: win
+      draw: draw
+  helpers:
+    loading: loading
+    select:
+      any: any
+  buckler:
+    mr: mr
+    lp: lp
+    control_type:
+      0: classic
+      1: modern
+    battle_type:
+      1: ranked
+      2: casual match
+      3: battle hub
+      4: custom room
   views:
     pagination:
-      previous: Previous
-      next: Next
+      previous: previous
+      next: next

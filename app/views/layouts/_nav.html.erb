@@ -14,7 +14,7 @@
       <%= form_with url: players_path, method: :get, class: 'd-flex ms-auto', role: 'search' do |f| %>
         <div class="input-group">
           <%= f.text_field :q, value: params[:q], class: 'form-control', type: 'search', required: true, minlength: 4 %>
-          <%= f.submit t('common.search'), name: nil, class: 'btn btn-outline-primary' %>
+          <%= f.submit t('.search').titlecase, name: nil, class: 'btn btn-outline-primary' %>
         </div>
       <% end %>
     </div>

@@ -2,8 +2,8 @@
 
 <%= alert t('.battles_count', count: @battles.count), dismissible: true %>
 
-<h3><%= t('.rivals') %></h3>
+<h3><%= t('.rivals').titlecase %></h3>
 <%= render 'rivals' %>
 
-<h3><%= t('.battles') %></h3>
+<h3><%= t('.battles').titlecase %></h3>
 <%= render 'battles' %>

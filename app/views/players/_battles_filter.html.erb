@@ -5,39 +5,39 @@
         <div class="row mb-3">
           <div class="col-md-3">
             <%= f.label :player_character, t('.player_character'), class: "form-label" %>
-            <%= f.select :player_character, Buckler::CHARACTERS.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
+            <%= character_select f, :player_character, include_any: true, class: 'form-select' %>
           </div>
           <div class="col-md-3">
             <%= f.label :player_control_type, t('.player_control_type'), class: "form-label" %>
-            <%= f.select :player_control_type, Buckler::CONTROL_TYPES.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
+            <%= control_type_select f, :player_control_type, include_any: true, class: 'form-select' %>
           </div>
           <div class="col-md-3">
             <%= f.label :opponent_character, t('.opponent_character'), class: "form-label" %>
-            <%= f.select :opponent_character, Buckler::CHARACTERS.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
+            <%= character_select f, :opponent_character, include_any: true, class: 'form-select' %>
           </div>
           <div class="col-md-3">
             <%= f.label :opponent_control_type, t('.opponent_control_type'), class: "form-label" %>
-            <%= f.select :opponent_control_type, Buckler::CONTROL_TYPES.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
+            <%= control_type_select f, :opponent_control_type, include_any: true, class: 'form-select' %>
           </div>
         </div>
         <div class="row mb-3">
           <div class="col-md-3">
             <%= f.label :battle_type, t('.battle_type'), class: "form-label" %>
-            <%= f.select :battle_type, Buckler::BATTLE_TYPES.invert, { include_blank: t('common.option_any') }, { class: 'form-select' } %>
+            <%= battle_type_select f, :battle_type, include_any: true, class: 'form-select' %>
           </div>
           <div class="col-md-3">
             <%= f.label :played_at_from, t('.played_at_from'), class: "form-label" %>
-            <%= date_local_field :played_at_from, class: "form-control", value: @battles_action.played_at_from %>
+            <%= date_local_field f, :played_at_from, class: "form-control" %>
           </div>
           <div class="col-md-3">
             <%= f.label :played_at_to, t('.played_at_to'), class: "form-label" %>
-            <%= date_local_field :played_at_to, class: "form-control", value: @battles_action.played_at_to %>
+            <%= date_local_field f, :played_at_to, class: "form-control" %>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <%= submit_tag t("common.filter"), class: "btn btn-primary" %>
-            <%= link_to t("common.reset"), url_for(only_path: true), data: { turbo_frame: :_top }, class: "btn btn-secondary" %>
+            <%= submit_tag t(".filter"), class: "btn btn-primary" %>
+            <%= link_to t(".reset"), url_for(only_path: true), data: { turbo_frame: :_top }, class: "btn btn-secondary" %>
           </div>
         </div>
       <% end %>

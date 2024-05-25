@@ -4,7 +4,7 @@ module ApplicationHelper
   def nav_link(name, url)
     classes = ['nav-link']
     classes << 'active' if current_page? url
-    link_to name, url, class: classes
+    link_to name.titlecase, url, class: classes
   end
 
   def reloader(url)
@@ -15,7 +15,7 @@ module ApplicationHelper
   end
 
   def time_ago(time)
-    content_tag :span, t('common.time_ago', time: time_ago_in_words(time)),
+    content_tag :span, t('datetime.time_ago', time: time_ago_in_words(time)),
                 data: { controller: 'time-title', time_title_time_value: time.iso8601 }
   end
 
@@ -29,24 +29,24 @@ module ApplicationHelper
     end
   end
 
-  def date_local_field(object_name, method = nil, **options)
+  def date_local_field(form, attribute, **opts)
     content_tag :span, data: { controller: 'date-local' } do
-      concat date_field_tag(object_name, nil, data: { date_local_target: 'input' }, **options.slice(:class))
-      concat hidden_field_tag(nil, method, data: { date_local_target: 'hidden' }, **options)
+      concat form.date_field(nil, data: { date_local_target: 'input' }, **opts)
+      concat form.hidden_field(attribute, data: { date_local_target: 'hidden' })
     end
   end
 
   def job_error_alert(error)
     message = case error[:class]
-              when 'PlayerSynchronizer::PlayerNotFoundError' then t('errors.player_not_found')
-              else t('errors.generic')
+              when 'PlayerSynchronizer::PlayerNotFoundError' then t('.errors.player_not_found')
+              else t('.errors.generic')
               end
     alert(message, kind: :danger)
   end
 
   def spinner
     content_tag :div, class: 'spinner-border', role: 'status' do
-      content_tag :span, t('common.loading'), class: 'visually-hidden'
+      content_tag :span, t('helpers.loading'), class: 'visually-hidden'
     end
   end
 
