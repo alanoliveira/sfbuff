@@ -4,7 +4,9 @@ class PlayersController < ApplicationController
   before_action :set_player, only: %i[show battles]
 
   # GET /players
-  def index; end
+  def index
+    @search_term = params[:q]
+  end
 
   # GET /players/:sid
   def show

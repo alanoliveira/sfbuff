@@ -1,7 +1,7 @@
-<% if params.include? :q %>
+<% if @search_term.present?  %>
   <div id="player-search">
     <%= form_with url: player_searches_path, data: { controller: 'form-auto-submit' } do |f| %>
-      <%= f.hidden_field :term, value: params[:q] %>
+      <%= f.hidden_field :term, value: @search_term %>
     <% end %>
   </div>
 <% end %>

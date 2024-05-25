@@ -37,6 +37,32 @@ RSpec.describe '/players' do
     end
   end
 
+  describe 'GET /players' do
+    context 'when a search parameter is not sent' do
+      it 'renders a successful response' do
+        get players_url(q: '')
+        expect(response).to be_successful
+      end
+
+      it 'not renders the player-search component' do
+        get players_url(q: '')
+        expect(response.body).not_to match_xpath('//div[@id="player-search"]')
+      end
+    end
+
+    context 'when a search parameter is sent' do
+      it 'renders a successful response' do
+        get players_url(q: 'search')
+        expect(response).to be_successful
+      end
+
+      it 'renders the player-search component' do
+        get players_url(q: 'hello')
+        expect(response.body).to match_xpath('//div[@id="player-search"]')
+      end
+    end
+  end
+
   describe 'GET /players/:sid' do
     it_behaves_like 'a layout/players page' do
       before { get player_url(player) }
