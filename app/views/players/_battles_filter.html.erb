@@ -1,7 +1,7 @@
 <div class="py-3">
   <div class="card">
     <div class="card-body">
-      <%= form_with model: @filter, scope: '', url: '', method: :get, class: '', data: { turbo_frame: :_top } do |f| %>
+      <%= form_with model: @battles_action, scope: '', url: '', method: :get, class: '', data: { turbo_frame: :_top } do |f| %>
         <div class="row mb-3">
           <div class="col-md-3">
             <%= f.label :player_character, t('.player_character'), class: "form-label" %>
@@ -27,11 +27,11 @@
           </div>
           <div class="col-md-3">
             <%= f.label :played_at_from, t('.played_at_from'), class: "form-label" %>
-            <%= date_local_field :played_at_from, class: "form-control", value: @filter.played_at_from %>
+            <%= date_local_field :played_at_from, class: "form-control", value: @battles_action.played_at_from %>
           </div>
           <div class="col-md-3">
             <%= f.label :played_at_to, t('.played_at_to'), class: "form-label" %>
-            <%= date_local_field :played_at_to, class: "form-control", value: @filter.played_at_to %>
+            <%= date_local_field :played_at_to, class: "form-control", value: @battles_action.played_at_to %>
           </div>
         </div>
         <div class="row">

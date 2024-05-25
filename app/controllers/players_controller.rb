@@ -14,8 +14,8 @@ class PlayersController < ApplicationController
   end
 
   def battles
-    @filter = PlayerBattlesFilter.new(filter_params)
-    @battles = @player.battles.includes(:p1, :p2).where(@filter.as_where).reorder(played_at: :desc)
+    @battles_action = BattlesAction.new(params, player: @player)
+    @battles = @battles_action.battles
     @page_battles = @battles.page(params[:page])
 
     return render partial: 'battles' if turbo_frame_request_id == 'battle-list'
