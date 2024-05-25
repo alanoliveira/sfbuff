@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     get :battles, on: :member
   end
 
+  resources :battles, only: [:show], param: :replay_id
+
   scope "/buckler" do
     resources :player_searches, only: [:create, :show]
     resources :player_syncs, only: [:create, :show]

@@ -1,3 +1,4 @@
+<%# locals: (pov: nil, battle:) -%>
 <div class="card">
   <div class="card-header">
     <div class="d-flex">
@@ -13,15 +14,15 @@
     <%= render 'battles/rounds', rounds: battle.p2.rounds %>
     <%= render 'battles/challenger', challenger: battle.p2 %>
   </div>
-  <div class="card-footer text-center">
-    <% if pov.present? %>
-      <% if battle.winner.nil? %>
-        <span class="text-secondary"><%= t '.draw' %></span>
-      <% elsif battle.winner.player_sid == pov.sid %>
-        <span class="text-success"><%= t '.win' %></span>
-      <% else %>
-        <span class="text-danger"><%= t '.lose' %></span>
-      <% end %>
-    <% end %>
-  </div>
+  <% if pov.present? %>
+    <div class="card-footer text-center">
+        <% if battle.winner.nil? %>
+          <span class="text-secondary"><%= t '.draw' %></span>
+        <% elsif battle.winner.player_sid == pov.sid %>
+          <span class="text-success"><%= t '.win' %></span>
+        <% else %>
+          <span class="text-danger"><%= t '.lose' %></span>
+        <% end %>
+    </div>
+  <% end %>
 </div>

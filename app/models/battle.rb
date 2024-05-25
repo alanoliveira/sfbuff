@@ -19,4 +19,8 @@ class Battle < ApplicationRecord
     when 2 then p2
     end
   end
+
+  def to_param
+    replay_id
+  end
 end
