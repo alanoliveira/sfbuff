@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  get "/players" => "players#index", as: :players
-  get "/players/:sid" => "players#show", as: :player, sid: /\d{9,}/
+  resources :players, only: [:index, :show], param: :sid, constraints: { sid: /\d{9,}/ } do
+    get :battles, on: :member
+  end
 
   scope "/buckler" do
     resources :player_searches, only: [:create, :show]

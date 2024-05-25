@@ -3,14 +3,28 @@
 require 'rails_helper'
 
 RSpec.describe Battle do
-  let(:battle) { create(:battle) }
+  describe '#valid?' do
+    subject { battle.valid? }
 
-  it 'returns the player 1' do
-    expect(battle.p1).to have_attributes(side: 'p1')
+    context 'with an unexpected battle_type' do
+      before { stub_const('Buckler::BATTLE_TYPES', Buckler::BATTLE_TYPES.except(2)) }
+
+      let(:battle) { build(:battle, battle_type: 2) }
+
+      it { is_expected.to be_truthy }
+    end
   end
 
-  it 'returns the player 2' do
-    expect(battle.p2).to have_attributes(side: 'p2')
+  describe '#p1' do
+    subject { create(:battle).p1 }
+
+    it { is_expected.to be_a(Challenger).and have_attributes(side: 'p1') }
+  end
+
+  describe '#p2' do
+    subject { create(:battle).p2 }
+
+    it { is_expected.to be_a(Challenger).and have_attributes(side: 'p2') }
   end
 
   describe '#winner' do

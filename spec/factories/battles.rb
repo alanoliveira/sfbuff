@@ -14,8 +14,8 @@ FactoryBot.define do
     end
 
     after(:build) do |battle, context|
-      battle.p1 = build(:p1, battle:, **context.p1)
-      battle.p2 = build(:p2, battle:, **context.p2)
+      battle.p1 = build(:p1, battle:, **context.p1) if context.p1
+      battle.p2 = build(:p2, battle:, **context.p2) if context.p2
     end
   end
 end

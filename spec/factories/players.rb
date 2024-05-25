@@ -6,5 +6,13 @@ FactoryBot.define do
     sid { 123_456_789 }
     latest_replay_id { nil }
     synchronized_at { nil }
+
+    trait :synchronized do
+      synchronized_at { Time.now.utc }
+    end
+
+    trait :desynchronized do
+      synchronized_at { 1.year.ago }
+    end
   end
 end

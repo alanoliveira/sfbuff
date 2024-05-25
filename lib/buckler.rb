@@ -59,6 +59,8 @@ module Buckler
 
   BATTLE_TYPES = {
     1 => 'Ranked',
+    2 => 'Casual Match',
+    3 => 'Battle Hub',
     4 => 'Custom Room'
   }.freeze
 

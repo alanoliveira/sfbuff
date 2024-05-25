@@ -1,51 +1,64 @@
 pt-BR:
-  common:
-    search: Pesquisar
-    filter: Filtrar
-    loading: Carregando
-    option_any: Qualquer
+  datetime:
     time_ago: '%{time} atrás'
-    reset: Reset
-  player_searches:
-    search_result:
-      name: Nome
-      main_char: Main
-      country: País
-      select: Selecione
+  layouts:
+    players:
+      synchronized: sincronizado
+    nav:
+      battles: matches
+      search: pesquisar
+  player_syncs:
+    show:
+      errors:
+        player_not_found: jogador não encontrado
+        generic: ocorreu um erro ao tentar obter os dados do site oficial
   players:
-    player:
-      synchronized: 'Última sincronização:'
-      rivals: Rivais
-      battles: Matches
+    battles_filter:
+      player_character: personagem usado
+      player_control_type: controle usado
+      opponent_character: personagem enfrentado
+      opponent_control_type: controle enfrentado
+      battle_type: tipo de match
+      played_at_from: jogado de
+      played_at_to: jogado até
+      filter: filtrar
+      reset: reset
+    battles:
+      battles: matches
+      rivals: rivais
       battles_count: 
-        zero: Nenhuma match encontrada
+        zero: nenhuma match encontrada
         one: 1 match encontrada
         other: '%{count} matches encontradas'
-    battles_filter:
-      player_character: Personagem usado
-      player_control_type: Controle usado
-      opponent_character: Personagem enfrentado
-      opponent_control_type: Controle enfrentado
-      battle_type: Tipo de match
-      played_at_from: Jogado de
-      played_at_to: Jogado até
     rivals:
-      opponent: Oponente
-      wins: V
-      loses: D
-      total: T
-      favorites: Favoritos
-      victims: Vítimas
-      tormentors: Carrascos
+      opponent: opponent
+      wins: w
+      loses: l
+      total: t
+      favorites: favoritos
+      victims: vítimas
+      tormentors: carrascos
   battles:
     battle:
-      lose: Derrota
-      win: Vitória
-      draw: Empate
-  errors:
-    player_not_found: Jogador não encontrado
-    generic: Ocorreu um erro ao tentar obter os dados do site oficial
+      lose: derrota
+      win: vitória
+      draw: empate
+  helpers:
+    loading: carregando
+    select:
+      any: qualquer
+  buckler:
+    mr: am
+    lp: lp
+    control_type:
+      0: clássico
+      1: moderno
+    battle_type:
+      1: ranked
+      2: casual match
+      3: battle hub
+      4: custom room
   views:
     pagination:
-      previous: Anterior
-      next: Próxima
+      previous: anterior
+      next: próxima

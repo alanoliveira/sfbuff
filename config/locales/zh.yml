@@ -1,0 +1,64 @@
+zh:
+  datetime:
+    time_ago: "%{time} 以前"
+  layouts:
+    players:
+      synchronized: "已同步"
+    nav:
+      battles: "比赛"
+      search: "搜索"
+  player_syncs:
+    show:
+      errors:
+        player_not_found: "未找到玩家"
+        generic: "尝试从官方网站获取数据时发生错误"
+  players:
+    battles_filter:
+      player_character: "玩家角色"
+      player_control_type: "玩家控制类型"
+      opponent_character: "对手角色"
+      opponent_control_type: "对手控制类型"
+      battle_type: "战斗类型"
+      played_at_from: "开始时间"
+      played_at_to: "结束时间"
+      filter: "过滤"
+      reset: "重置"
+    battles:
+      battles: "比赛"
+      rivals: "对手"
+      battles_count:
+        zero: "未找到比赛"
+        one: "找到 1 场比赛"
+        other: "找到 %{count} 场比赛"
+    rivals:
+      opponent: "对手"
+      wins: "胜"
+      loses: "负"
+      total: "总计"
+      favorites: "收藏"
+      victims: "受害者"
+      tormentors: "折磨者"
+  battles:
+    battle:
+      lose: "失败"
+      win: "胜利"
+      draw: "平局"
+  helpers:
+    loading: "加载中"
+    select:
+      any: "任何"
+  buckler:
+    mr: mr
+    lp: lp
+    control_type:
+      0: classic
+      1: modern
+    battle_type:
+      1: ranked
+      2: casual match
+      3: battle hub
+      4: custom room
+  views:
+    pagination:
+      previous: previous
+      next: next

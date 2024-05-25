@@ -1,10 +1,22 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary">
-  <div class="container-fluid">
-    <%= form_with url: players_path, method: :get, class: 'd-flex me-auto', role: 'search' do |f| %>
-      <div class="input-group">
-        <%= f.text_field :q, value: params[:q], class: 'form-control', type: 'search', required: true, minlength: 4 %>
-        <%= f.submit t('common.search'), name: nil, class: 'btn btn-outline-primary' %>
-      </div>
+  <div class="container">
+    <% if @player %>
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <%= nav_link t('.battles'), battles_player_path(@player) %>
+        </li>
+      </ul>
     <% end %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse mt-4 mt-md-0" id="navbarCollapse">
+      <%= form_with url: players_path, method: :get, class: 'd-flex ms-auto', role: 'search' do |f| %>
+        <div class="input-group">
+          <%= f.text_field :q, value: params[:q], class: 'form-control', type: 'search', required: true, minlength: 4 %>
+          <%= f.submit t('.search').titlecase, name: nil, class: 'btn btn-outline-primary' %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </nav>

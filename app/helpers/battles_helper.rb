@@ -41,4 +41,32 @@ module BattlesHelper
     round = Buckler::ROUNDS[round_id]
     content_tag :span, round, style: 'width: 20px', class: "badge px-0 text-center round-#{round.downcase}"
   end
+
+  def character_select(form, attribute, include_any: false, **)
+    choises = Buckler::CHARACTERS.invert
+    select_list(form, attribute, choises, include_any:, **)
+  end
+
+  def control_type_select(form, attribute, include_any: false, **)
+    choises = Buckler::CONTROL_TYPES.keys.index_by { |k| t("buckler.control_type.#{k}").titlecase }
+    select_list(form, attribute, choises, include_any:, **)
+  end
+
+  def battle_type_select(form, attribute, include_any: false, **)
+    choises = Buckler::BATTLE_TYPES.keys.index_by { |k| t("buckler.battle_type.#{k}").titlecase }
+    select_list(form, attribute, choises, include_any:, **)
+  end
+
+  private
+
+  def select_list(form, attribute, choises, include_any: false, **)
+    opts = {}
+    opts[:include_blank] = t('helpers.select.any').titlecase if include_any
+    form.select(
+      attribute,
+      choises,
+      opts,
+      **
+    )
+  end
 end
