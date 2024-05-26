@@ -2,9 +2,6 @@
 
 class PlayersController
   class BattlesAction < BaseAction
-    include ActiveModel::Model
-    include ActiveModel::Attributes
-
     attribute :player_character, :integer
     attribute :player_control_type, :integer
     attribute :opponent_character, :integer
