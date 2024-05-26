@@ -25,7 +25,9 @@ class PlayersController < ApplicationController
   end
 
   # GET /players/:sid/ranked
-  def ranked; end
+  def ranked
+    @ranked_action = RankedAction.new(params, player: @player)
+  end
 
   private
 

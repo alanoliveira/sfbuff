@@ -39,6 +39,13 @@ en:
       favorites: favorites
       victims: victims
       tormentors: tormentors
+    ranked:
+      ranked: ranked
+      character: character
+      period: period
+      filter: filter
+      master_rating: Master Rating
+      league_point: League Point
   battles:
     battle:
       lose: lose
