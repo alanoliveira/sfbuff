@@ -5,6 +5,7 @@ class Battle < ApplicationRecord
     has_one :p1, -> { where(side: 1) }
     has_one :p2, -> { where(side: 2) }
   end
+  has_one :raw_battle, dependent: :destroy, primary_key: :replay_id, foreign_key: :replay_id, inverse_of: false
 
   default_scope { order(:played_at) }
 
