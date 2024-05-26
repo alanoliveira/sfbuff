@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PlayersController < ApplicationController
-  before_action :set_player, only: %i[show battles]
+  before_action :set_player, only: %i[show battles ranked]
 
   # GET /players
   def index
@@ -13,6 +13,7 @@ class PlayersController < ApplicationController
     redirect_to battles_player_url(@player)
   end
 
+  # GET /players/:sid/battles
   def battles
     @battles_action = BattlesAction.new(params, player: @player)
     @battles = @battles_action.battles
@@ -22,6 +23,9 @@ class PlayersController < ApplicationController
 
     render 'battles'
   end
+
+  # GET /players/:sid/ranked
+  def ranked; end
 
   private
 

@@ -6,6 +6,7 @@ ja:
       synchronized: "同期済み"
     nav:
       battles: "試合"
+      ranked: ranked
       search: "検索"
   player_syncs:
     show:

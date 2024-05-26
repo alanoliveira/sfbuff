@@ -6,6 +6,7 @@ zh:
       synchronized: "已同步"
     nav:
       battles: "比赛"
+      ranked: ranked
       search: "搜索"
   player_syncs:
     show:

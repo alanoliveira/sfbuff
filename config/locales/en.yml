@@ -6,6 +6,7 @@ en:
       synchronized: synchronized
     nav:
       battles: matches
+      ranked: ranked
       search: search
   player_syncs:
     show:
