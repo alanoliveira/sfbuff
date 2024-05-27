@@ -2,6 +2,7 @@
 
 module Buckler
   class Api
+    SHORT_ID_REGEX = /\d{9,}/
     attr_reader :client
 
     def initialize(client)
@@ -31,7 +32,7 @@ module Buckler
     private
 
     def validate_player_sid!(player_sid)
-      raise ArgumentError unless player_sid.to_s.match(/\A\d{9,}\z/)
+      raise ArgumentError unless player_sid.to_s.match(SHORT_ID_REGEX)
     end
 
     def validate_name!(name)

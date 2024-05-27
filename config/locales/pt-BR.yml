@@ -8,6 +8,19 @@ pt-BR:
       battles: matches
       ranked: ranked
       search: pesquisar
+  player_searches:
+    search_result:
+      name: name
+      id: id
+      main_char: main char
+      country: country
+      mr: mr
+      lp: lp
+      select: select
+    show:
+      errors:
+        player_not_found: player not found
+        generic: an error occurred while trying to get the data from the official website
   player_syncs:
     show:
       errors:
@@ -51,7 +64,7 @@ pt-BR:
       periods:
         day: one day
         week: one week
-        month: one_month
+        month: one month
       battle_modal:
   battles:
     battle:
