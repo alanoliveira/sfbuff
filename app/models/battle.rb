@@ -9,6 +9,8 @@ class Battle < ApplicationRecord
 
   default_scope { order(:played_at) }
 
+  scope :ranked, -> { where(battle_type: 1) }
+
   def self.pov
     extending(Pov)
   end
@@ -18,5 +20,13 @@ class Battle < ApplicationRecord
     when 1 then p1
     when 2 then p2
     end
+  end
+
+  def to_param
+    replay_id
+  end
+
+  def ranked?
+    battle_type == 1
   end
 end

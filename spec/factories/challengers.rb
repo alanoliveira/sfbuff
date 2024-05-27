@@ -12,6 +12,7 @@ FactoryBot.define do
     name { "Player #{player_sid}" }
     rounds { [1, 1] }
     battle { nil }
+    mr_variation { nil }
 
     factory :p1 do
       side { 'p1' }

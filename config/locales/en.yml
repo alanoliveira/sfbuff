@@ -6,6 +6,7 @@ en:
       synchronized: synchronized
     nav:
       battles: matches
+      ranked: ranked
       search: search
   player_syncs:
     show:
@@ -38,6 +39,20 @@ en:
       favorites: favorites
       victims: victims
       tormentors: tormentors
+    ranked:
+      ranked: ranked
+      character: character
+      period: period
+      filter: filter
+      master_rating: master rating
+      league_point: league point
+      close: close
+      no_matches: no match found
+      periods:
+        day: one day
+        week: one week
+        month: one_month
+      battle_modal:
   battles:
     battle:
       lose: lose

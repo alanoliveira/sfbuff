@@ -6,6 +6,7 @@ pt-BR:
       synchronized: sincronizado
     nav:
       battles: matches
+      ranked: ranked
       search: pesquisar
   player_syncs:
     show:
@@ -38,6 +39,20 @@ pt-BR:
       favorites: favoritos
       victims: vítimas
       tormentors: carrascos
+    ranked:
+      ranked: ranked
+      character: personagem
+      period: período
+      filter: filtrar
+      master_rating: master rating
+      league_point: league point
+      close: fechar
+      no_matches: nenhuma match encontrada
+      periods:
+        day: one day
+        week: one week
+        month: one_month
+      battle_modal:
   battles:
     battle:
       lose: derrota

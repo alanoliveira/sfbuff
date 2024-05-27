@@ -7,8 +7,10 @@ RSpec.describe FighterBannerImporter do
 
   let(:fighter_id) { 'fighter1' }
   let(:short_id) { 123_456_789 }
+  let(:main_character) { 1 }
   let(:fighter_banner) do
     {
+      'favorite_character_id' => main_character,
       'personal_info' => {
         'fighter_id' => fighter_id,
         'short_id' => short_id
@@ -29,11 +31,12 @@ RSpec.describe FighterBannerImporter do
 
     context 'when the player already exists' do
       before do
-        create(:player, sid: short_id, name: 'old_name')
+        create(:player, sid: short_id, name: 'old_name', main_character: 2)
       end
 
-      it 'updates the player name' do
-        expect { fighter_banner_importer.call }.to change { Player.find(short_id).name }.to(fighter_id)
+      it 'updates the player data' do
+        expect { fighter_banner_importer.call }.to change { Player.find(short_id).attributes }
+          .to(a_hash_including('name' => fighter_id, 'main_character' => 1))
       end
     end
   end

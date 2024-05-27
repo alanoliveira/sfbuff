@@ -9,7 +9,7 @@ RSpec.describe Parsers::BattlelogParser do
     let(:raw_battle_data) do
       {
         'replay_id' => 'TESTAAABBB',
-        'replay_battle_type' => 4,
+        'replay_battle_type' => battle_type,
         'replay_battle_sub_type' => 1,
         'uploaded_at' => 1_712_537_824,
         'player1_info' => {
@@ -38,6 +38,7 @@ RSpec.describe Parsers::BattlelogParser do
         }
       }
     end
+    let(:battle_type) { 4 }
 
     it 'parses the replay_id' do
       expect(parsed_battle.replay_id).to eq('TESTAAABBB')
@@ -123,6 +124,30 @@ RSpec.describe Parsers::BattlelogParser do
 
     it 'sets the winner_side' do
       expect(parsed_battle.winner_side).to eq(1)
+    end
+
+    context 'when it is a ranked match' do
+      let(:battle_type) { 1 }
+
+      before do
+        allow(Parsers::MasterRatingCalculator).to receive(:new).and_return(
+          instance_double(
+            Parsers::MasterRatingCalculator,
+            {
+              p1_variation: 111,
+              p2_variation: 222
+            }
+          )
+        )
+      end
+
+      it 'sets the player1 mr_variation' do
+        expect(parsed_battle.p1.mr_variation).to eq(111)
+      end
+
+      it 'sets the player2 mr_variation' do
+        expect(parsed_battle.p2.mr_variation).to eq(222)
+      end
     end
   end
 end

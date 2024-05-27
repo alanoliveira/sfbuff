@@ -6,6 +6,7 @@ zh:
       synchronized: "已同步"
     nav:
       battles: "比赛"
+      ranked: ranked
       search: "搜索"
   player_syncs:
     show:
@@ -38,6 +39,20 @@ zh:
       favorites: "收藏"
       victims: "受害者"
       tormentors: "折磨者"
+    ranked:
+      ranked: ranked
+      character: character
+      period: period
+      filter: filter
+      master_rating: master rating
+      league_point: league point
+      close: close
+      no_matches: no match found
+      periods:
+        day: one day
+        week: one week
+        month: one_month
+      battle_modal:
   battles:
     battle:
       lose: "失败"

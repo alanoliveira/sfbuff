@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :players, only: [:index, :show], param: :sid, constraints: { sid: /\d{9,}/ } do
     get :battles, on: :member
+    get :ranked, on: :member
   end
+
+  resources :battles, only: [:show], param: :replay_id
 
   scope "/buckler" do
     resources :player_searches, only: [:create, :show]

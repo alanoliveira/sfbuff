@@ -6,6 +6,7 @@ ja:
       synchronized: "同期済み"
     nav:
       battles: "試合"
+      ranked: ranked
       search: "検索"
   player_syncs:
     show:
@@ -38,6 +39,20 @@ ja:
       favorites: "お気に入り"
       victims: "犠牲者"
       tormentors: "苦痛を与える者"
+    ranked:
+      ranked: ranked
+      character: character
+      period: period
+      filter: filter
+      master_rating: master rating
+      league_point: league point
+      close: close
+      no_matches: no match found
+      periods:
+        day: one day
+        week: one week
+        month: one_month
+      battle_modal:
   battles:
     battle:
       lose: "敗北"
