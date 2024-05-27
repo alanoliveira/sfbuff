@@ -4,6 +4,7 @@ module Buckler
   class Client
     class Error < StandardError; end
     class AccessDeniedError < Error; end
+    class NotFoundError < Error; end
 
     class RequestError < Error
       attr_reader :response
@@ -45,6 +46,7 @@ module Buckler
         req.headers['Cookie'] = cookies
       end
       raise AccessDeniedError, response if [403, 401].include?(response.status)
+      raise NotFoundError, response.env.url if response.status == 404
       raise RequestError, response unless response.success?
 
       JSON.parse(response.body)

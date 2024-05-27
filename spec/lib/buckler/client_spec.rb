@@ -26,6 +26,13 @@ RSpec.describe Buckler::Client do
       end
     end
 
+    context 'when api returns a not_found response status' do
+      it 'raises an AccessDeniedError' do
+        stub_request(:any, /.*/).to_return(status: 404)
+        expect { subject }.to raise_error(Buckler::Client::NotFoundError)
+      end
+    end
+
     context 'when api returns some error' do
       it 'raises an RequestError' do
         stub_request(:any, /.*/).to_return(status: 500)

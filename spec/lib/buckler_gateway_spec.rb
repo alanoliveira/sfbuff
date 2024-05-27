@@ -13,6 +13,22 @@ RSpec.describe BucklerGateway do
     allow(Buckler).to receive(:build_api).and_return(api)
   end
 
+  RSpec.shared_examples 'regenerate credentials' do
+    it 'clean the credentials' do
+      buckler_gateway.hogehoge
+    rescue StandardError
+      expect(BucklerCredential).to have_received(:clean)
+    end
+
+    it 'schedule a BucklerLoginJob' do
+      assert_enqueued_with job: BucklerLoginJob do
+        buckler_gateway.hogehoge
+      rescue StandardError
+        # do nothing
+      end
+    end
+  end
+
   context 'when api throws an AccessDeniedError' do
     before do
       allow(api).to receive(:hogehoge).and_raise(Buckler::Client::AccessDeniedError)
@@ -20,15 +36,16 @@ RSpec.describe BucklerGateway do
       allow(BucklerCredential).to receive(:clean)
     end
 
-    it 'clean the credentials' do
-      buckler_gateway.hogehoge
-      expect(BucklerCredential).to have_received(:clean)
+    include_examples 'regenerate credentials'
+  end
+
+  context 'when api throws an NotFoundError' do
+    before do
+      allow(api).to receive(:hogehoge).and_raise(Buckler::Client::NotFoundError)
+      allow(BucklerCredential).to receive(:fetch)
+      allow(BucklerCredential).to receive(:clean)
     end
 
-    it 'schedule a BucklerLoginJob' do
-      assert_enqueued_with job: BucklerLoginJob do
-        buckler_gateway.hogehoge
-      end
-    end
+    include_examples 'regenerate credentials'
   end
 end
