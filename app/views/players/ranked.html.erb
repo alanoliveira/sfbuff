@@ -26,12 +26,16 @@
 
 <%= turbo_frame_tag 'battle' %>
 
-<h3><%= t('.master_rating').titlecase %></h3>
-<div class="p-2">
-  <%= battle_points_chart @ranked_action.master_rating_data, frame: 'battle' %>
-</div>
-
-<h3><%= t('.league_point').titlecase %></h3>
-<div class="p-2">
-  <%= battle_points_chart @ranked_action.league_point_data, frame: 'battle' %>
-</div>
+<% if @ranked_action.master_rating_data.present? %>
+  <h3><%= t '.master_rating' %></h3>
+  <div class="p-2">
+    <%= battle_points_chart @ranked_action.master_rating_data, frame: 'battle' %>
+  </div>
+<% elsif @ranked_action.league_point_data.present? %>
+  <h3><%= t '.league_point' %></h3>
+  <div class="p-2">
+    <%= battle_points_chart @ranked_action.league_point_data, frame: 'battle' %>
+  </div>
+<% else %>
+  <%= alert t('.no_matches'), kind: :warning %>
+<% end %>
