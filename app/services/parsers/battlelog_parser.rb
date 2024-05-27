@@ -11,24 +11,36 @@ module Parsers
     end
 
     def parse
-      battle = parse_battle
-      battle.p1 = parse_challenger_data(1)
-      battle.p2 = parse_challenger_data(2)
-      battle.winner_side = eval_winner
-      battle.raw_battle = RawBattle.new(data: @raw_data)
-      battle
+      battle.tap do |b|
+        b.p1 = p1
+        b.p2 = p2
+        b.winner_side = winner
+        b.raw_battle = RawBattle.new(data: @raw_data)
+      end
     end
 
     private
 
-    def eval_winner
+    def winner
+      return @winner if @winner.present?
+
       p1_rounds = @raw_data.dig('player1_info', 'round_results')
       p2_rounds = @raw_data.dig('player2_info', 'round_results')
-      WinnerEvaluator.evaluate_winner(p1_rounds, p2_rounds)
+      @winner = WinnerEvaluator.evaluate_winner(p1_rounds, p2_rounds)
     end
 
-    def parse_battle
-      Battle.new(
+    def mr_calculator
+      return unless battle.ranked?
+
+      @mr_calculator ||= MasterRatingCalculator.new(
+        @raw_data.dig('player1_info', 'master_rating'),
+        @raw_data.dig('player2_info', 'master_rating'),
+        winner
+      )
+    end
+
+    def battle
+      @battle ||= Battle.new(
         replay_id: @raw_data.fetch('replay_id'),
         battle_type: @raw_data.fetch('replay_battle_type'),
         battle_subtype: @raw_data.fetch('replay_battle_sub_type'),
@@ -36,18 +48,32 @@ module Parsers
       )
     end
 
-    def parse_challenger_data(side) # rubocop:disable Metrics/MethodLength
-      rcd = @raw_data.fetch("player#{side}_info")
+    def p1
+      @p1 ||=
+        parse_challenger_data(@raw_data.fetch('player1_info')).tap do |c|
+          c.side = 1
+          c.mr_variation = mr_calculator.try(:p1_variation)
+        end
+    end
+
+    def p2
+      @p2 ||=
+        parse_challenger_data(@raw_data.fetch('player2_info')).tap do |c|
+          c.side = 2
+          c.mr_variation = mr_calculator.try(:p2_variation)
+        end
+    end
+
+    def parse_challenger_data(info)
       Challenger.new(
-        player_sid: rcd.fetch('player').fetch('short_id'),
-        name: rcd.fetch('player').fetch('fighter_id'),
-        character: rcd.fetch('character_id'),
-        playing_character: rcd.fetch('playing_character_id'),
-        control_type: rcd.fetch('battle_input_type'),
-        master_rating: rcd.fetch('master_rating'),
-        league_point: rcd.fetch('league_point'),
-        rounds: rcd.fetch('round_results'),
-        side:
+        player_sid: info.fetch('player').fetch('short_id'),
+        name: info.fetch('player').fetch('fighter_id'),
+        character: info.fetch('character_id'),
+        playing_character: info.fetch('playing_character_id'),
+        control_type: info.fetch('battle_input_type'),
+        master_rating: info.fetch('master_rating'),
+        league_point: info.fetch('league_point'),
+        rounds: info.fetch('round_results')
       )
     end
   end
