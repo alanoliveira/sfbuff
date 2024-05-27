@@ -4,6 +4,12 @@
 
 import { application } from "./application"
 
+import BattleModalController from "./battle_modal_controller"
+application.register("battle-modal", BattleModalController)
+
+import BattlePointsChartController from "./battle_points_chart_controller"
+application.register("battle-points-chart", BattlePointsChartController)
+
 import DateLocalController from "./date_local_controller"
 application.register("date-local", DateLocalController)
 
@@ -12,9 +18,6 @@ application.register("form-auto-submit", FormAutoSubmitController)
 
 import IntervalReloaderController from "./interval_reloader_controller"
 application.register("interval-reloader", IntervalReloaderController)
-
-import BattlePointsChartController from "./battle_points_chart_controller"
-application.register("battle-points-chart", BattlePointsChartController)
 
 import TimeTitleController from "./time_title_controller"
 application.register("time-title", TimeTitleController)

@@ -24,7 +24,18 @@
   </div>
 </div>
 
-<%= turbo_frame_tag 'battle' %>
+<div class="modal" tabindex="-1" data-controller="battle-modal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-body">
+        <%= turbo_frame_tag 'battle' %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t('.close') %></button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% if @ranked_action.master_rating_data.present? %>
   <h3><%= t '.master_rating' %></h3>
