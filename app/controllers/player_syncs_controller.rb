@@ -14,7 +14,7 @@ class PlayerSyncsController < ApplicationController
   # POST /buckler/player_syncs
   def create
     player_sid = params.fetch(:player_sid)
-    return head :unprocessable_entity unless player_sid[/\d{9,}/]
+    return head :unprocessable_entity unless player_sid[Buckler::Api::SHORT_ID_REGEX]
 
     return head :ok if Player.find_by(sid: player_sid).try(&:synchronized?)
 
