@@ -37,6 +37,15 @@ module BattlesHelper
     content_tag(:span, format('%+d', diff), class: css_class)
   end
 
+  def mr_variation_span(variation)
+    css_class = case variation
+                when ..-1 then 'text-danger'
+                when 1.. then 'text-success'
+                else ''
+                end
+    content_tag(:span, format('%+d', variation), class: css_class)
+  end
+
   def round_result(round_id)
     round = Buckler::ROUNDS[round_id]
     content_tag :span, round, style: 'width: 20px', class: "badge px-0 text-center round-#{round.downcase}"

@@ -9,9 +9,19 @@
   </div>
   <div class="card-body d-flex align-items-center text-center">
     <%= render 'battles/challenger', challenger: battle.p1 %>
-    <%= render 'battles/rounds', rounds: battle.p1.rounds %>
+    <div class="col-1 ">
+      <%= render 'battles/rounds', rounds: battle.p1.rounds %>
+      <% battle.p1.mr_variation.try do |variation| %>
+        <div><%= mr_variation_span variation %></div>
+      <% end %>
+    </div>
     <div class="col-2 fs-1 text-center fw-bold">VS</div>
-    <%= render 'battles/rounds', rounds: battle.p2.rounds %>
+    <div class="col-1 ">
+      <%= render 'battles/rounds', rounds: battle.p2.rounds %>
+      <% battle.p2.mr_variation.try do |variation| %>
+        <div><%= mr_variation_span variation %></div>
+      <% end %>
+    </div>
     <%= render 'battles/challenger', challenger: battle.p2 %>
   </div>
   <% if pov.present? %>
