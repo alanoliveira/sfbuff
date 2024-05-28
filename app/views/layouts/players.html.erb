@@ -9,7 +9,7 @@
 
   <% if @player.present? %>
     <header class="pb-3">
-      <h1><%= @player.name %></h1>
+      <%= page_title @player.name %>
       <% @player.synchronized_at.try do |date| %>
         <small><%= t '.synchronized' %>: <%= time_ago @player.synchronized_at %></small>
       <% end %>

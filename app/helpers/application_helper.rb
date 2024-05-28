@@ -1,6 +1,17 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def page_title(title)
+    content_for(:title) { title }
+    content_tag :h1, title
+  end
+
+  def head_title
+    title = 'SFBUFF'
+    title += " - #{content_for(:title)}" if content_for?(:title)
+    content_tag :title, title
+  end
+
   def nav_link(name, url)
     classes = ['nav-link']
     classes << 'active' if current_page? url
