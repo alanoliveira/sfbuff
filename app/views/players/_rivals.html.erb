@@ -1,15 +1,15 @@
-<div class="d-flex flex-column flex-lg-row justify-content-between">
+<div class="d-flex flex-column flex-lg-row justify-content-center">
   <% [:favorites, :victims, :tormentors].each do |kind| %>
     <div class="flex-fill p-2">
       <div class="card">
         <div class="card-header text-center">
           <%= t(".#{kind}").titlecase %>
         </div>
-        <div class="card-body">
-          <table class="table">
+        <div class="card-body table-responsive">
+          <table class="table text-truncate">
             <thead>
               <tr class="text-center">
-                <th colspan="2"><%= t('.opponent').titlecase %></th>
+                <th clas="text-truncate" colspan="2"><%= t('.opponent').titlecase %></th>
                 <th><%= t('.total').upcase %></th>
                 <th><%= t('.wins').upcase %></th>
                 <th><%= t('.loses').upcase %></th>

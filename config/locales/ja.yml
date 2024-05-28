@@ -61,7 +61,7 @@ ja:
       league_point: "リーグポイント"
       close: "閉じる"
       no_matches: "対戦履歴が見つかりませんでした"
-      periods: "統計期間"
+      periods:
         day: "一日"
         week: "一週間"
         month: "一ヶ月"
