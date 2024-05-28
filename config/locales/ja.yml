@@ -5,8 +5,8 @@ ja:
     players:
       synchronized: "同期済み"
     nav:
-      battles: "試合"
-      ranked: ranked
+      battles: "試合統計"
+      ranked: "ランク統計"
       search: "検索"
   player_searches:
     search_result:
@@ -25,20 +25,20 @@ ja:
     show:
       errors:
         player_not_found: "プレイヤーが見つかりません"
-        generic: "公式サイトからデータを取得しようとしたときにエラーが発生しました"
+        generic: "公式サイトからのデータ取得時にエラーが発生しました"
   players:
     battles_filter:
       player_character: "プレイヤーキャラクター"
       player_control_type: "プレイヤーの操作タイプ"
       opponent_character: "対戦相手のキャラクター"
       opponent_control_type: "対戦相手の操作タイプ"
-      battle_type: "バトルタイプ"
-      played_at_from: "からプレイされた"
-      played_at_to: "までプレイされた"
+      battle_type: "ゲームモード"
+      played_at_from: "集計開始日"
+      played_at_to: "集計終了日"
       filter: "フィルター"
       reset: "リセット"
     battles:
-      battles: "試合"
+      battles: "対戦統計"
       rivals: "ライバル"
       battles_count:
         zero: "試合が見つかりません"
@@ -46,25 +46,25 @@ ja:
         other: "%{count} 試合が見つかりました"
     rivals:
       opponent: "対戦相手"
-      wins: "勝"
-      loses: "敗"
+      wins: "勝利数"
+      loses: "敗北数"
       total: "合計"
-      favorites: "お気に入り"
-      victims: "犠牲者"
-      tormentors: "苦痛を与える者"
+      favorites: "多く戦った対戦相手"
+      victims: "勝率が高い対戦相手"
+      tormentors: "勝率が低い対戦相手"
     ranked:
-      ranked: ranked
-      character: character
-      period: period
-      filter: filter
-      master_rating: master rating
-      league_point: league point
-      close: close
-      no_matches: no match found
-      periods:
-        day: one day
-        week: one week
-        month: one month
+      ranked: "ランク統計"
+      character: "キャラクター"
+      period: "統計期間"
+      filter: "フィルター"
+      master_rating: "マスターレート"
+      league_point: "リーグポイント"
+      close: "閉じる"
+      no_matches: "対戦履歴が見つかりませんでした"
+      periods: "統計期間"
+        day: "一日"
+        week: "一週間"
+        month: "一ヶ月"
       battle_modal:
   battles:
     battle:
@@ -74,7 +74,7 @@ ja:
   helpers:
     loading: "読み込み中"
     select:
-      any: "任意"
+      any: "全て"
   buckler:
     mr: mr 
     lp: lp
