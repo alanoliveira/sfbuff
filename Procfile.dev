@@ -1,3 +1,4 @@
 web: env RUBY_DEBUG_OPEN=true bin/rails server
+worker: bin/worker
 js: yarn build --watch
 css: yarn watch:css
