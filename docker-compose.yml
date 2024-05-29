@@ -13,17 +13,29 @@ sfbuff: &default-sfbuff
     - SENTRY_DSN
     - REPO_URL
   depends_on:
-    - db
-    - memcached
+    db:
+      condition: service_healthy
+    memcached:
+      condition: service_started
 
 services:
   web:
     <<: *default-sfbuff
     ports:
       - "3000:3000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://web:3000/up"]
+        interval: 60s
+        timeout: 10s
+        start_period: 10s
+        retries: 5
   worker:
+    <<: *default-sfbuff
     entrypoint: []
     command: ./bin/worker
+    depends_on:
+      web:
+        condition: service_healthy
   db:
     image: postgres:16.2-alpine
     environment:
@@ -32,6 +44,11 @@ services:
       POSTGRES_USER: ${SFBUFF_DATABASE_USERNAME}
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "sfbuff", "-U", $SFBUFF_DATABASE_USERNAME]
+      interval: 60s
+      timeout: 10s
+      retries: 5
   memcached:
     image: memcached:1.6.27-alpine
     ports:
