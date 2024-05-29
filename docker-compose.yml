@@ -1,7 +1,8 @@
 version: "3"
 
 sfbuff: &default-sfbuff
-  build: .
+  # build: .
+  image: docker.io/alanoliveira89/sfbuff:latest
   environment:
     - SECRET_KEY_BASE
     - DATABASE_URL=postgres://${SFBUFF_DATABASE_USERNAME}:${SFBUFF_DATABASE_PASSWORD}@db/sfbuff
