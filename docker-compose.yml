@@ -13,6 +13,7 @@ sfbuff: &default-sfbuff
     - MEMCACHED_HOST=memcached
     - SENTRY_DSN
     - REPO_URL
+    - RAILS_FORCE_SSL=false
   depends_on:
     db:
       condition: service_healthy
