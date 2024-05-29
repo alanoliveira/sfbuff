@@ -94,3 +94,5 @@ gem "rails-i18n", "~> 7.0"
 gem "sentry-rails", "~> 5.17"
 
 gem "nokogiri", "~> 1.16", :group => :test
+
+gem "stackprof", "~> 0.2.26"
