@@ -23,7 +23,7 @@ services:
       - "3000:3000"
   worker:
     entrypoint: []
-    command: bundle exec rake solid_queue:start
+    command: ./bin/worker
   db:
     image: postgres:16.2-alpine
     environment:

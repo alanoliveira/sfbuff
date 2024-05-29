@@ -60,7 +60,7 @@ Start the web server
 
 Start the job worker
 ```bash
-./bin/bundle exec rake solid_queue:start
+./bin/worker
 ```
 
 ### Build and run using Docker
