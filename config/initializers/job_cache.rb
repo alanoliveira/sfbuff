@@ -4,7 +4,7 @@ Rails.application.config.to_prepare do
   JobCache.cache_provider =
     if Rails.env.production?
       ActiveSupport::Cache::MemCacheStore.new(
-        ENV.fetch('MEMCACHED_HOST'),
+        ENV.fetch('MEMCACHED_HOST', nil),
         {
           username: ENV.fetch('MEMCACHED_USERNAME', nil),
           password: ENV.fetch('MEMCACHED_PASSWORD', nil)
