@@ -27,5 +27,6 @@ class BucklerCredential
 
   class Model < ApplicationRecord
     self.table_name = 'buckler_credentials'
+    encrypts :credentials, deterministic: true
   end
 end

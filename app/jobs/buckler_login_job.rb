@@ -6,8 +6,8 @@ class BucklerLoginJob < ApplicationJob
 
   queue_as :default
 
-  def perform
-    return if BucklerCredential.read.present?
+  def perform(force: false)
+    return if !force && BucklerCredential.read.present?
 
     credentials = Buckler::Login.new.execute
     BucklerCredential.store(credentials)

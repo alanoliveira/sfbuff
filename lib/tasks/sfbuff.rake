@@ -3,6 +3,6 @@
 namespace :sfbuff do
   desc 'perform login on buckler server'
   task buckler_login: :environment do
-    BucklerLoginJob.perform_now
+    BucklerLoginJob.perform_now(force: ARGV.include?('-f'))
   end
 end
