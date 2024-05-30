@@ -48,11 +48,12 @@ module ApplicationHelper
   end
 
   def job_error_alert(error)
-    message = case error[:class]
-              when 'PlayerSynchronizer::PlayerNotFoundError' then t('.errors.player_not_found')
-              else t('.errors.generic')
-              end
-    alert(message, kind: :danger)
+    kind = case error[:class]
+           when 'PlayerSynchronizer::PlayerNotFoundError' then 'player_not_found'
+           when 'Buckler::Client::ServerUnderMaintenance' then 'server_under_maintenance'
+           else 'generic'
+           end
+    alert(t("helpers.job_error_alert.#{kind}"), kind: :danger)
   end
 
   def spinner
