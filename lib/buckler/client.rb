@@ -33,6 +33,11 @@ module Buckler
       get("fighterslist/search/result.json?#{args.to_query}")
     end
 
+    def under_maintenance?
+      response = connection.head('/6/buckler/fighterslist/friend')
+      response.status == 503
+    end
+
     private
 
     def connection
@@ -61,7 +66,8 @@ module Buckler
     def handle_unexpected_response_status!(response)
       case response.status
       when 403, 401 then raise AccessDeniedError, response
-      when 404 then raise NotFoundError, response.env.url
+      when 404
+        under_maintenance? ? raise(ServerUnderMaintenance) : raise(NotFoundError, response.env.url)
       when 503 then raise ServerUnderMaintenance
       else raise RequestError, response
       end
