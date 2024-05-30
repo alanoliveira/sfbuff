@@ -27,11 +27,11 @@
           </div>
           <div class="col-md-3">
             <%= f.label :played_at_from, t('.played_at_from'), class: "form-label" %>
-            <%= date_local_field f, :played_at_from, class: "form-control" %>
+            <%= f.date_field :played_at_from, class: "form-control" %>
           </div>
           <div class="col-md-3">
             <%= f.label :played_at_to, t('.played_at_to'), class: "form-label" %>
-            <%= date_local_field f, :played_at_to, class: "form-control" %>
+            <%= f.date_field :played_at_to, class: "form-control" %>
           </div>
         </div>
         <div class="row">

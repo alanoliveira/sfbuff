@@ -40,13 +40,6 @@ module ApplicationHelper
     end
   end
 
-  def date_local_field(form, attribute, **opts)
-    content_tag :span, data: { controller: 'date-local' } do
-      concat form.date_field(nil, data: { date_local_target: 'input' }, **opts)
-      concat form.hidden_field(attribute, data: { date_local_target: 'hidden' })
-    end
-  end
-
   def job_error_alert(error)
     kind = case error[:class]
            when 'PlayerSynchronizer::PlayerNotFoundError' then 'player_not_found'

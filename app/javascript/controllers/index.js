@@ -10,9 +10,6 @@ application.register("battle-modal", BattleModalController)
 import BattlePointsChartController from "./battle_points_chart_controller"
 application.register("battle-points-chart", BattlePointsChartController)
 
-import DateLocalController from "./date_local_controller"
-application.register("date-local", DateLocalController)
-
 import FormAutoSubmitController from "./form_auto_submit_controller"
 application.register("form-auto-submit", FormAutoSubmitController)
 
