@@ -59,4 +59,20 @@ RSpec.describe Buckler::Client do
 
     it_behaves_like 'a buckler request'
   end
+
+  describe '#under_maintenance?' do
+    subject { client.under_maintenance? }
+
+    context 'when under maintenance' do
+      before { stub_request(:any, /.*/).to_return(status: 503) }
+
+      it { expect(client).to be_under_maintenance }
+    end
+
+    context 'when not under maintenance' do
+      before { stub_request(:any, /.*/).to_return(status: 200) }
+
+      it { expect(client).not_to be_under_maintenance }
+    end
+  end
 end
