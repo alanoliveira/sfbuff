@@ -17,15 +17,6 @@ pt-BR:
       mr: mr
       lp: lp
       select: select
-    show:
-      errors:
-        player_not_found: player not found
-        generic: an error occurred while trying to get the data from the official website
-  player_syncs:
-    show:
-      errors:
-        player_not_found: jogador não encontrado
-        generic: ocorreu um erro ao tentar obter os dados do site oficial
   players:
     battles_filter:
       player_character: personagem usado
@@ -75,6 +66,10 @@ pt-BR:
     loading: carregando
     select:
       any: qualquer
+    job_error_alert:
+      player_not_found: jogador não encontrado
+      generic: ocorreu um erro ao tentar obter os dados do site oficial
+      server_under_maintenance: servidor em manutenção
   buckler:
     mr: am
     lp: lp

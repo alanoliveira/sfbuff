@@ -17,15 +17,6 @@ ja:
       mr: mr
       lp: lp
       select: select
-    show:
-      errors:
-        player_not_found: player not found
-        generic: an error occurred while trying to get the data from the official website
-  player_syncs:
-    show:
-      errors:
-        player_not_found: "プレイヤーが見つかりません"
-        generic: "公式サイトからのデータ取得時にエラーが発生しました"
   players:
     battles_filter:
       player_character: "プレイヤーキャラクター"
@@ -75,6 +66,10 @@ ja:
     loading: "読み込み中"
     select:
       any: "全て"
+    job_error_alert:
+      player_not_found: "プレイヤーが見つかりません"
+      generic: "公式サイトからのデータ取得時にエラーが発生しました"
+      server_under_maintenance: "サーバーはメンテナンス中です"
   buckler:
     mr: mr 
     lp: lp

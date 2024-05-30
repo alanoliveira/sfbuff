@@ -33,6 +33,13 @@ RSpec.describe Buckler::Client do
       end
     end
 
+    context 'when api is in maintenance (returns a service_unavailable response status)' do
+      it 'raises an ServerUnderMaintenance' do
+        stub_request(:any, /.*/).to_return(status: 503)
+        expect { subject }.to raise_error(Buckler::Client::ServerUnderMaintenance)
+      end
+    end
+
     context 'when api returns some error' do
       it 'raises an RequestError' do
         stub_request(:any, /.*/).to_return(status: 500)

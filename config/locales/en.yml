@@ -17,15 +17,6 @@ en:
       mr: mr
       lp: lp
       select: select
-    show:
-      errors:
-        player_not_found: player not found
-        generic: an error occurred while trying to get the data from the official website
-  player_syncs:
-    show:
-      errors:
-        player_not_found: player not found
-        generic: an error occurred while trying to get the data from the official website
   players:
     battles_filter:
       player_character: player character
@@ -75,6 +66,10 @@ en:
     loading: loading
     select:
       any: any
+    job_error_alert:
+      player_not_found: player not found
+      generic: an error occurred while trying to get the data from the official website
+      server_under_maintenance: the server is under maintenance
   buckler:
     mr: mr
     lp: lp

@@ -5,6 +5,7 @@ module Buckler
     class Error < StandardError; end
     class AccessDeniedError < Error; end
     class NotFoundError < Error; end
+    class ServerUnderMaintenance < Error; end
 
     class RequestError < Error
       attr_reader :response
@@ -45,9 +46,8 @@ module Buckler
       response = connection.get path do |req|
         req.headers['Cookie'] = cookies
       end
-      raise AccessDeniedError, response if [403, 401].include?(response.status)
-      raise NotFoundError, response.env.url if response.status == 404
-      raise RequestError, response unless response.success?
+
+      handle_unexpected_response_status!(response) unless response.success?
 
       JSON.parse(response.body)
     end
@@ -55,6 +55,15 @@ module Buckler
     def cookies
       credentials.cookies.try do |cookies|
         cookies.map { |k, v| "#{k}=#{v}" }.join('; ')
+      end
+    end
+
+    def handle_unexpected_response_status!(response)
+      case response.status
+      when 403, 401 then raise AccessDeniedError, response
+      when 404 then raise NotFoundError, response.env.url
+      when 503 then raise ServerUnderMaintenance
+      else raise RequestError, response
       end
     end
   end

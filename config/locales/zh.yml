@@ -17,15 +17,6 @@ zh:
       mr: mr
       lp: lp
       select: select
-    show:
-      errors:
-        player_not_found: player not found
-        generic: an error occurred while trying to get the data from the official website
-  player_syncs:
-    show:
-      errors:
-        player_not_found: "未找到玩家"
-        generic: "尝试从官方网站获取数据时发生错误"
   players:
     battles_filter:
       player_character: "玩家角色"
@@ -75,6 +66,10 @@ zh:
     loading: "加载中"
     select:
       any: "任何"
+    job_error_alert:
+      player_not_found: jogador não encontrado
+      generic: ocorreu um erro ao tentar obter os dados do site oficial
+      server_under_maintenance: servidor em manutenção
   buckler:
     mr: mr
     lp: lp
