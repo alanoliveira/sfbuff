@@ -15,6 +15,8 @@ sfbuff: &default-sfbuff
     - SENTRY_DSN
     - REPO_URL
     - RAILS_FORCE_SSL=false
+    - ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY
+    - ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT
   depends_on:
     db:
       condition: service_healthy
