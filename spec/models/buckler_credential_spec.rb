@@ -13,17 +13,17 @@ RSpec.describe BucklerCredential do
   describe '.store' do
     it 'store the credentials' do
       expect { described_class.store(credentials) }
-        .to change(BucklerCredential::Model, :first)
-        .to(an_object_having_attributes(credentials:))
+        .to change(described_class, :read)
+        .to(credentials)
     end
   end
 
   describe '.clean' do
-    before { BucklerCredential::Model.create(credentials:) }
+    before { described_class.store(credentials) }
 
     it 'clean the credentials' do
       expect { described_class.clean }
-        .to change(BucklerCredential::Model, :first)
+        .to change(described_class, :read)
         .to(nil)
     end
   end

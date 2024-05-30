@@ -42,5 +42,11 @@ module Sfbuff
     config.i18n.available_locales = [:en, 'pt-BR', :ja, :zh]
 
     config.sfbuff = config_for(:sfbuff)
+
+    # production values are set in production.rb
+    config.active_record.encryption.deterministic_key =
+      ENV.fetch('ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY', 'secret')
+    config.active_record.encryption.key_derivation_salt =
+      ENV.fetch('ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT', '1234')
   end
 end
