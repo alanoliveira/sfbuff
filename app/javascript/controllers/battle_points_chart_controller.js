@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 import Chart from 'chart.js/auto';
-import 'chartjs-adapter-date-fns';
 
 export default class extends Controller {
   static targets = ["canvas"]
@@ -24,15 +23,9 @@ export default class extends Controller {
         scales: {
           x: {
             display: true,
-            type: 'timeseries',
-            time: {
-              unit: 'day',
-              displayFormats: {
-                day: 'yyyy-MM-dd HH:mm',
-              }
-            },
             ticks: {
               maxTicksLimit: 5,
+              callback: this.fmtXTick.bind(this),
             },
           },
         },
@@ -42,6 +35,7 @@ export default class extends Controller {
             displayColors: false,
             callbacks: {
               label: ctx => ctx.raw.tooltip,
+              title: ctxs => ctxs[0].raw.title,
             }
           }
         }
@@ -51,10 +45,14 @@ export default class extends Controller {
 
   chartClick(evt) {
     const elements = this.chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true });
-    if(elements.length > 0) {
+    if (elements.length > 0) {
       const element = elements[0];
       const data = this.dataValue[element.index];
       Turbo.visit(data['battle_url'], { frame: this.frameValue })
     }
+  }
+
+  fmtXTick(_val, idx, _ticks) {
+    return this.dataValue[idx].title
   }
 }

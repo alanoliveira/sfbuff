@@ -27,7 +27,7 @@ module ApplicationHelper
 
   def time_ago(time)
     content_tag :span, t('datetime.time_ago', time: time_ago_in_words(time)),
-                data: { controller: 'time-title', time_title_time_value: time.iso8601 }
+                title: l(time, format: :short)
   end
 
   def alert(message = nil, kind: :info, dismissible: false)

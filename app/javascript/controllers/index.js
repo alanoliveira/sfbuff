@@ -15,6 +15,3 @@ application.register("form-auto-submit", FormAutoSubmitController)
 
 import IntervalReloaderController from "./interval_reloader_controller"
 application.register("interval-reloader", IntervalReloaderController)
-
-import TimeTitleController from "./time_title_controller"
-application.register("time-title", TimeTitleController)
