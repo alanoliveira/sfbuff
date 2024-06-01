@@ -10,13 +10,13 @@ ja:
       search: "検索"
   player_searches:
     search_result:
-      name: name
-      id: id
-      main_char: main char
-      country: country
-      mr: mr
-      lp: lp
-      select: select
+      name: "名前"
+      id: "ID"
+      main_char: "メインキャラクター"
+      country: "国"
+      mr: "MR"
+      lp: "LP"
+      select: "選択"
   players:
     battles_filter:
       player_character: "プレイヤーキャラクター"
@@ -77,11 +77,11 @@ ja:
       0: "クラシック"
       1: "モダン"
     battle_type:
-      1: ranked
-      2: casual match
-      3: battle hub
-      4: custom room
+      1: "ランクマッチ"
+      2: "カジュアルマッチ"
+      3: "バトルハブ"
+      4: "カスタムルーム"
   views:
     pagination:
-      previous: previous
-      next: next
+      previous: "前へ"
+      next: "次へ"
