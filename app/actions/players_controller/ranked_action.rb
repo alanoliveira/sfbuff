@@ -13,25 +13,13 @@ class PlayersController
 
     def master_rating_data
       challengers.where.not(mr_variation: nil).map do |challenger|
-        tooltip = format('%<points>d %<variation>+d', points: challenger.master_rating,
-                                                      variation: challenger.mr_variation)
-        {
-          points: challenger.master_rating + challenger.mr_variation,
-          tooltip:,
-          played_at: challenger.battle.played_at,
-          battle_url: battle_path(challenger.battle.replay_id)
-        }
+        format_master_rating_data(challenger)
       end
     end
 
     def league_point_data
       challengers.map do |challenger|
-        {
-          points: challenger.league_point,
-          tooltip: challenger.league_point,
-          played_at: challenger.battle.played_at,
-          battle_url: battle_path(challenger.battle.replay_id)
-        }
+        format_league_point_data(challenger)
       end
     end
 
@@ -57,6 +45,28 @@ class PlayersController
         )
         .order(:played_at)
         .includes(:battle)
+    end
+
+    def format_league_point_data(challenger)
+      {
+        points: challenger.league_point,
+        tooltip: challenger.league_point,
+        title: I18n.l(challenger.battle.played_at, format: :short),
+        played_at: challenger.battle.played_at,
+        battle_url: battle_path(challenger.battle.replay_id)
+      }
+    end
+
+    def format_master_rating_data(challenger)
+      tooltip = format('%<points>d %<variation>+d', points: challenger.master_rating,
+                                                    variation: challenger.mr_variation)
+      {
+        points: challenger.master_rating + challenger.mr_variation,
+        tooltip:,
+        title: I18n.l(challenger.battle.played_at, format: :short),
+        played_at: challenger.battle.played_at,
+        battle_url: battle_path(challenger.battle.replay_id)
+      }
     end
   end
 end

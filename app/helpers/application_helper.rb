@@ -27,7 +27,7 @@ module ApplicationHelper
 
   def time_ago(time)
     content_tag :span, t('datetime.time_ago', time: time_ago_in_words(time)),
-                data: { controller: 'time-title', time_title_time_value: time.iso8601 }
+                title: l(time, format: :short)
   end
 
   def alert(message = nil, kind: :info, dismissible: false)
@@ -37,13 +37,6 @@ module ApplicationHelper
       concat message if message.present?
       concat yield if block_given?
       concat content_tag(:button, '', class: 'btn-close', type: 'button', data: { bs_dismiss: 'alert' }) if dismissible
-    end
-  end
-
-  def date_local_field(form, attribute, **opts)
-    content_tag :span, data: { controller: 'date-local' } do
-      concat form.date_field(nil, data: { date_local_target: 'input' }, **opts)
-      concat form.hidden_field(attribute, data: { date_local_target: 'hidden' })
     end
   end
 
