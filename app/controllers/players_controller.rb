@@ -17,6 +17,7 @@ class PlayersController < ApplicationController
   def battles
     @battles_action = BattlesAction.new(params, player: @player)
     @battles = @battles_action.battles
+    @rivals = @battles.rivals.limit(5)
     @page_battles = @battles.page(params[:page])
 
     return render partial: 'battles' if turbo_frame_request_id == 'battle-list'
