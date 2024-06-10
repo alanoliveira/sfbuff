@@ -65,8 +65,7 @@ RSpec.describe Parsers::BattlelogParser do
     end
 
     it 'parses the player1 round_results' do
-      expect(parsed_battle.p1.rounds)
-        .to match([an_object_having_attributes(raw: 1), an_object_having_attributes(raw: 1)])
+      expect(parsed_battle.p1.rounds).to eq [1, 1]
     end
 
     it 'parses the player1 character_id' do
@@ -98,8 +97,7 @@ RSpec.describe Parsers::BattlelogParser do
     end
 
     it 'parses the player2 round_results' do
-      expect(parsed_battle.p2.rounds)
-        .to match([an_object_having_attributes(raw: 0), an_object_having_attributes(raw: 0)])
+      expect(parsed_battle.p2.rounds).to eq [0, 0]
     end
 
     it 'parses the player2 character_id' do
