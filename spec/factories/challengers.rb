@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :challenger do
-    sequence(:player_sid, 123_456_001)
+    player_sid
     character { Buckler::CHARACTERS.keys.sample }
     playing_character { character }
     control_type { Buckler::CONTROL_TYPES.keys.sample }
