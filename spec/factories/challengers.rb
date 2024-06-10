@@ -6,8 +6,8 @@ FactoryBot.define do
     character { Buckler::CHARACTERS.keys.sample }
     playing_character { character }
     control_type { Buckler::CONTROL_TYPES.keys.sample }
-    master_rating { 1 }
-    league_point { 1 }
+    master_rating { 0 }
+    league_point { -1 }
     side { Challenger.sides.keys.sample }
     name { "Player #{player_sid}" }
     rounds { [1, 1] }
