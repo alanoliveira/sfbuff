@@ -11,12 +11,12 @@
           </div>
           <div class="col-md-3">
             <%= f.label :period, t('.period'), class: "form-label" %>
-            <%= f.select :period, @action.periods.map {|k, v| [t(".periods.#{k}"), v] }, {}, { class: 'form-select' } %>
+            <%= period_select f, :period, class: 'form-select' %>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <%= submit_tag t(".filter"), class: "btn btn-primary" %>
+            <%= submit_tag t(".filter").titlecase, class: "btn btn-primary" %>
           </div>
         </div>
       <% end %>
@@ -31,7 +31,7 @@
         <%= turbo_frame_tag 'battle' %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t('.close') %></button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t('.close').titlecase %></button>
       </div>
     </div>
   </div>

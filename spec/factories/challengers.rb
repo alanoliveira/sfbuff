@@ -3,9 +3,11 @@
 FactoryBot.define do
   factory :challenger do
     player_sid
-    character { Buckler::CHARACTERS.keys.sample }
-    playing_character { character }
-    control_type { Buckler::CONTROL_TYPES.keys.sample }
+    playing_character { Buckler::CHARACTERS.values.sample }
+    traits_for_enum :playing_character, Buckler::CONTROL_TYPES
+    character { playing_character }
+    control_type { Buckler::CONTROL_TYPES.values.sample }
+    traits_for_enum :control_type, Buckler::CONTROL_TYPES
     master_rating { 0 }
     league_point { -1 }
     side { Challenger.sides.keys.sample }
@@ -14,12 +16,16 @@ FactoryBot.define do
     battle { nil }
     mr_variation { nil }
 
+    trait :random do
+      character { Buckler::CHARACTERS[:random] }
+    end
+
     factory :p1 do
-      side { 'p1' }
+      side { :p1 }
     end
 
     factory :p2 do
-      side { 'p2' }
+      side { :p2 }
     end
   end
 end

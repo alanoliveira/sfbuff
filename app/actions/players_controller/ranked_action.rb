@@ -23,7 +23,7 @@ class PlayersController
       Challenger
         .where(player_sid:, character:)
         .joins(:battle).where(
-          battle: { played_at: period_range, battle_type: 1 }
+          battle: { played_at: period_range, battle_type: Buckler::BATTLE_TYPES[:ranked] }
         )
         .order(:played_at)
         .includes(:battle)

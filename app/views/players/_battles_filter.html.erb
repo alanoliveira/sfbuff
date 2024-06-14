@@ -36,8 +36,8 @@
         </div>
         <div class="row">
           <div class="col">
-            <%= submit_tag t(".filter"), class: "btn btn-primary" %>
-            <%= link_to t(".reset"), url_for(only_path: true), data: { turbo_frame: :_top }, class: "btn btn-secondary" %>
+            <%= submit_tag t(".filter").titlecase, class: "btn btn-primary" %>
+            <%= link_to t(".reset").titlecase, url_for(only_path: true), data: { turbo_frame: :_top }, class: "btn btn-secondary" %>
           </div>
         </div>
       <% end %>
