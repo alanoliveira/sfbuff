@@ -24,8 +24,8 @@ en:
       opponent_character: opponent character
       opponent_control_type: opponent control type
       battle_type: battle type
-      played_at_from: played from
-      played_at_to: played to
+      played_from: played from
+      played_to: played to
       filter: filter
       reset: reset
     battles:

@@ -37,17 +37,6 @@ module BattlesHelper
     content_tag :span, round, style: 'width: 20px', class: "badge px-0 text-center round-#{round.downcase}"
   end
 
-  def battle_points_chart(data, frame:, width: '100%', height: '100%')
-    div_data = {
-      controller: 'battle-points-chart',
-      battle_points_chart_frame_value: frame,
-      battle_points_chart_data_value: data.to_json
-    }
-    content_tag(:div, style: "position: relative; width: #{width}; height: #{height};", data: div_data) do
-      content_tag :canvas, '', data: { battle_points_chart_target: 'canvas' }
-    end
-  end
-
   def character_select(form, attribute, include_any: false, **)
     choises = Buckler::CHARACTERS.invert
     select_list(form, attribute, choises, include_any:, **)

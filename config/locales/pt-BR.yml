@@ -24,8 +24,8 @@ pt-BR:
       opponent_character: personagem enfrentado
       opponent_control_type: controle enfrentado
       battle_type: tipo de match
-      played_at_from: jogado de
-      played_at_to: jogado até
+      played_from: jogado de
+      played_to: jogado até
       filter: filtrar
       reset: reset
     battles:

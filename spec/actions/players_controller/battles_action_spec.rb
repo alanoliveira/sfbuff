@@ -16,8 +16,8 @@ RSpec.describe PlayersController::BattlesAction do
         opponent_character: 3,
         opponent_control_type: 4,
         battle_type: 5,
-        played_at_from: '2000-01-01 00:00:00',
-        played_at_to: '2000-01-02 00:00:00'
+        played_from: '2000-01-01 00:00:00',
+        played_to: '2000-01-02 00:00:00'
       }
     end
 

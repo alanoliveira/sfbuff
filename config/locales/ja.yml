@@ -24,8 +24,8 @@ ja:
       opponent_character: "対戦相手のキャラクター"
       opponent_control_type: "対戦相手の操作タイプ"
       battle_type: "ゲームモード"
-      played_at_from: "集計開始日"
-      played_at_to: "集計終了日"
+      played_from: "集計開始日"
+      played_to: "集計終了日"
       filter: "フィルター"
       reset: "リセット"
     battles:

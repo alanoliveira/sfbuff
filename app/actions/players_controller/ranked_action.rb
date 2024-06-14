@@ -2,71 +2,31 @@
 
 class PlayersController
   class RankedAction < BaseAction
-    include Rails.application.routes.url_helpers
-
-    PERIOD = { day: 1, week: 2, month: 3 }.freeze
+    include PeriodSearchable
 
     attribute :character, :integer
-    attribute :period, :integer
+    attribute :period, :integer, default: 1
 
-    attr_accessor :player
+    attr_accessor :player_sid
 
-    def master_rating_data
-      challengers.where.not(mr_variation: nil).map do |challenger|
-        format_master_rating_data(challenger)
-      end
+    def master_rating
+      @master_rating ||= challengers.where.not(mr_variation: nil)
     end
 
-    def league_point_data
-      challengers.map do |challenger|
-        format_league_point_data(challenger)
-      end
-    end
-
-    def character
-      attributes['character'] || @player.main_character
+    def league_point
+      @league_point ||= challengers
     end
 
     private
 
-    def period_range
-      case period
-      when PERIOD[:week] then (1.week.ago..)
-      when PERIOD[:month] then (1.month.ago..)
-      else (1.day.ago..)
-      end
-    end
-
     def challengers
       Challenger
-        .where(player_sid: @player.sid, character:)
+        .where(player_sid:, character:)
         .joins(:battle).where(
           battle: { played_at: period_range, battle_type: 1 }
         )
         .order(:played_at)
         .includes(:battle)
-    end
-
-    def format_league_point_data(challenger)
-      {
-        points: challenger.league_point,
-        tooltip: challenger.league_point,
-        title: I18n.l(challenger.battle.played_at, format: :short),
-        played_at: challenger.battle.played_at,
-        battle_url: battle_path(challenger.battle.replay_id)
-      }
-    end
-
-    def format_master_rating_data(challenger)
-      tooltip = format('%<points>d %<variation>+d', points: challenger.master_rating,
-                                                    variation: challenger.mr_variation)
-      {
-        points: challenger.master_rating + challenger.mr_variation,
-        tooltip:,
-        title: I18n.l(challenger.battle.played_at, format: :short),
-        played_at: challenger.battle.played_at,
-        battle_url: battle_path(challenger.battle.replay_id)
-      }
     end
   end
 end

@@ -24,8 +24,8 @@ zh:
       opponent_character: "对手角色"
       opponent_control_type: "对手控制类型"
       battle_type: "战斗类型"
-      played_at_from: "开始时间"
-      played_at_to: "结束时间"
+      played_from: "开始时间"
+      played_to: "结束时间"
       filter: "过滤"
       reset: "重置"
     battles:

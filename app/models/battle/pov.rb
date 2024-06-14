@@ -22,7 +22,7 @@ class Battle
         Arel.sql('COUNT(nullif(winner_side = opponent.side, true)) -
                     COUNT(nullif(winner_side = player.side, true)) diff'),
         'COUNT(1) total'
-      ).unscope(:order)
+      ).unscope(:order, :limit, :offset)
     end
   end
 end

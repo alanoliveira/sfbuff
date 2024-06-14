@@ -3,7 +3,7 @@
 <div class="py-3">
   <div class="card">
     <div class="card-body">
-      <%= form_with model: @ranked_action, scope: '', url: '', method: :get, class: '', data: { turbo_frame: :_top } do |f| %>
+      <%= form_with model: @action, url: '', method: :get, class: '', data: { turbo_frame: :_top } do |f| %>
         <div class="row mb-3">
           <div class="col-md-3">
             <%= f.label :character, t('.character'), class: "form-label" %>
@@ -11,7 +11,7 @@
           </div>
           <div class="col-md-3">
             <%= f.label :period, t('.period'), class: "form-label" %>
-            <%= f.select :period, @ranked_action.class::PERIOD.map {|k, v| [t(".periods.#{k}"), v] }, {}, { class: 'form-select' } %>
+            <%= f.select :period, @action.periods.map {|k, v| [t(".periods.#{k}"), v] }, {}, { class: 'form-select' } %>
           </div>
         </div>
         <div class="row">
@@ -37,15 +37,15 @@
   </div>
 </div>
 
-<% if @ranked_action.master_rating_data.present? %>
+<% if @action.master_rating.present? %>
   <h3><%= t '.master_rating' %></h3>
   <div class="p-2">
-    <%= battle_points_chart @ranked_action.master_rating_data, frame: 'battle' %>
+    <%= master_rating_chart @action.master_rating, frame: 'battle' %>
   </div>
-<% elsif @ranked_action.league_point_data.present? %>
+<% elsif @action.league_point.present? %>
   <h3><%= t '.league_point' %></h3>
   <div class="p-2">
-    <%= battle_points_chart @ranked_action.league_point_data, frame: 'battle' %>
+    <%= league_point_chart @action.league_point, frame: 'battle' %>
   </div>
 <% else %>
   <%= alert t('.no_matches'), kind: :warning %>
