@@ -53,6 +53,17 @@ pt-BR:
       league_point: league point
       close: fechar
       no_matches: nenhuma match encontrada
+    matchup_chart:
+      matchup_chart: matchup chart
+      character: personagem
+      battle_type: tipo de match
+      period: período
+      wins: vitórias
+      loses: derrotas
+      draws: empates
+      total: total
+      all: all
+      filter: filtrar
   battles:
     battle:
       lose: derrota

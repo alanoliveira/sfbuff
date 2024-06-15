@@ -3,7 +3,7 @@
 class Battle
   module Rivals
     Rival = Data.define(:player_sid, :name, :character, :control_type,
-                        :wins, :loses, :diff, :total)
+                        :wins, :loses, :draws, :diff, :total)
 
     def self.extended(base)
       base.group_values += ['opponent.character', 'opponent.control_type', 'opponent.player_sid']

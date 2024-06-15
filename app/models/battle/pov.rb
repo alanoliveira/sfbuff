@@ -13,6 +13,10 @@ class Battle
       statistics.extending(Rivals)
     end
 
+    def matchup_chart
+      statistics.extending(MatchupChart)
+    end
+
     protected
 
     def statistics
@@ -21,6 +25,7 @@ class Battle
         Arel.sql('COUNT(nullif(winner_side = player.side, true)) loses'),
         Arel.sql('COUNT(nullif(winner_side = opponent.side, true)) -
                     COUNT(nullif(winner_side = player.side, true)) diff'),
+        Arel.sql('COUNT(nullif(winner_side IS NOT NULL, true)) draws'),
         'COUNT(1) total'
       ).unscope(:order, :limit, :offset)
     end

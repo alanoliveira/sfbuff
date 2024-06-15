@@ -1,0 +1,66 @@
+<div class="py-3">
+  <div class="card">
+    <div class="card-body">
+      <%= form_with model: @action, url: '', method: :get, class: '', data: { turbo_frame: :_top } do |f| %>
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <%= f.label :character, t('.character'), class: "form-label" %>
+            <%= character_select f, :character, include_any: false, class: 'form-select' %>
+          </div>
+          <div class="col-md-3">
+            <%= f.label :period, t('.battle_type'), class: "form-label" %>
+            <%= battle_type_select f, :battle_type, include_any: true, class: 'form-select' %>
+          </div>
+          <div class="col-md-3">
+            <%= f.label :period, t('.period'), class: "form-label" %>
+            <%= period_select f, :period, class: 'form-select' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <%= submit_tag t(".filter").titlecase, class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<h3><%= t('.matchup_chart').titlecase %></h3>
+<div class="p-2">
+  <table class="table text-truncate">
+    <thead>
+      <tr class="text-center">
+        <th>VS</th>
+        <th><%= t('.total').upcase %></th>
+        <th><%= t('.wins').upcase %></th>
+        <th><%= t('.loses').upcase %></th>
+        <th><%= t('.draws').upcase %></th>
+        <th>Σ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @action.matchup_chart.fetch.each do |char, row| %>
+        <tr>
+          <th class="text-center"><%= char.present? ? character(char) : t('.total').upcase %></th>
+          <td class="text-center"><%= row.present? ? row.total : '-' %></td>
+          <td class="text-center"><%= row.present? ? row.wins : '-' %></td>
+          <td class="text-center"><%= row.present? ? row.loses : '-' %></td>
+          <td class="text-center"><%= row.present? ? row.draws : '-' %></td>
+          <td class="text-center"><%= row.present? ? diff_span(row.diff) : '-' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <% sum = @action.matchup_chart.sum %>
+      <tr>
+        <th class="text-center"><%= t('.all') %></th>
+        <td class="text-center"><%= sum.total %></td>
+        <td class="text-center"><%= sum.wins %></td>
+        <td class="text-center"><%= sum.loses %></td>
+        <td class="text-center"><%= sum.draws %></td>
+        <td class="text-center"><%= diff_span(sum.diff) %></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

@@ -53,6 +53,17 @@ en:
       league_point: league point
       close: close
       no_matches: no match found
+    matchup_chart:
+      matchup_chart: matchup chart
+      character: character
+      battle_type: battle type
+      period: period
+      wins: wins
+      loses: loses
+      draws: draws
+      total: total
+      all: all
+      filter: filter
   battles:
     battle:
       lose: lose

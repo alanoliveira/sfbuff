@@ -53,6 +53,17 @@ ja:
       league_point: "リーグポイント"
       close: "閉じる"
       no_matches: "対戦履歴が見つかりませんでした"
+    matchup_chart:
+      matchup_chart: matchup chart
+      character: "キャラクター"
+      battle_type: "ゲームモード"
+      period: "統計期間"
+      wins: "勝利数"
+      loses: "敗北数"
+      draws: draws
+      total: "合計"
+      all: all
+      filter: "フィルター"
   battles:
     battle:
       lose: "敗北"

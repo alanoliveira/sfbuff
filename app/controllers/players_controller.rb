@@ -35,6 +35,11 @@ class PlayersController < ApplicationController
 
   # GET /players/:sid/matchup_chart
   def matchup_chart
+    @action = MatchupChartAction.new(
+      params,
+      player_sid: @player.sid,
+      character: @player.main_character
+    )
   end
 
   private
