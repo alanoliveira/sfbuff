@@ -20,11 +20,13 @@ of information for players to track their own performance.
 | `ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT` | Salt used to encrypt AR sensitive data                               |
 | `REPO_URL`                                     | Url used in the github link on the frontend (optional)               |
 | `SENTRY_DSN`                                   | Sentry DSN, used for reporting errors to Sentry (optional)           |
+| `SOLID_QUEUE_ON_PUMA`                          | Set it to use puma to process solid queue jobs²                      |
 
-  config.active_record.encryption.deterministic_key = ENV.fetch('ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY')
-  config.active_record.encryption.key_derivation_salt = ENV.fetch('ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT')
+config.active_record.encryption.deterministic_key = ENV.fetch('ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY')
+config.active_record.encryption.key_derivation_salt = ENV.fetch('ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT')
 
 1. The official site is quite restrictive about it. Be sure to use something valid.
+2. Used to keep infrastructure as cheap as possible
 
 ### Build and running local
 
@@ -39,12 +41,12 @@ of information for players to track their own performance.
 
 ### Environment variables
 
-| variable             | description                                                          |
-| -------------------- | -------------------------------------------------------------------- |
-| `DATABASE_URL`       | Postgres database url                                                |
-| `MEMCACHED_HOST`     | Memcached server host                                                |
-| `MEMCACHED_USERNAME` | Memcached server user                                                |
-| `MEMCACHED_PASSWORD` | Memcached server password                                            |
+| variable             | description               |
+| -------------------- | ------------------------- |
+| `DATABASE_URL`       | Postgres database url     |
+| `MEMCACHED_HOST`     | Memcached server host     |
+| `MEMCACHED_USERNAME` | Memcached server user     |
+| `MEMCACHED_PASSWORD` | Memcached server password |
 
 #### Building
 
@@ -59,11 +61,13 @@ export RAILS_ENV=production
 #### Running
 
 Start the web server
+
 ```bash
 ./bin/rails server
 ```
 
 Start the job worker
+
 ```bash
 ./bin/worker
 ```
