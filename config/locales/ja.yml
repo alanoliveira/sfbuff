@@ -54,15 +54,15 @@ ja:
       close: "閉じる"
       no_matches: "対戦履歴が見つかりませんでした"
     matchup_chart:
-      matchup_chart: matchup chart
+      matchup_chart: "キャラ別統計"
       character: "キャラクター"
       battle_type: "ゲームモード"
       period: "統計期間"
       wins: "勝利数"
       loses: "敗北数"
-      draws: draws
+      draws: "引き分け"
       total: "合計"
-      all: all
+      all: "合計"
       filter: "フィルター"
   battles:
     battle:
@@ -85,33 +85,33 @@ ja:
     mr: mr 
     lp: lp
     characters:
-      ryu: Ryu
-      luke: Luke
-      kimberly: Kimberly
-      chun_li: Chun-Li
-      mannon: Mannon
-      zangief: Zangief
+      ryu: "リュウ"
+      luke: "ルーク"
+      kimberly: "キンバリー"
+      chun_li: "春麗"
+      mannon: "マノン"
+      zangief: "ザンギエフ"
       jp: JP
-      dhalsim: Dhalsim
-      cammy: Cammy
-      ken: Ken
-      dee_jay: Dee Jay
-      lilly: Lilly
+      dhalsim: "ダルシム"
+      cammy: "キャミィ"
+      ken: "ケン"
+      dee_jay: "ディージェイ"
+      lilly: "リリー"
       aki: A.K.I.
-      rashid: Rashid
-      blanka: Blanka
-      juri: Juri
-      marisa: Marisa
-      guile: Guile
-      ed: Ed
-      e_honda: E. Honda
-      jamie: Jamie
-      akuma: Akuma
-      m_bison: M. Bison
-      terry: Terry
-      mai: Mai
-      elena: Elena
-      random: Random
+      rashid: "ラシード"
+      blanka: "ブランカ"
+      juri: "ジュリ"
+      marisa: "マリーザ"
+      guile: "ガイル"
+      ed: ED
+      e_honda: "エドモンド本田"
+      jamie: "ジェイミー"
+      akuma: "豪鬼"
+      m_bison: "ベガ"
+      terry: "テリー"
+      mai: "舞"
+      elena: "エレナ"
+      random: "ランダム"
     control_types:
       classic: "クラシック"
       modern: "モダン"
