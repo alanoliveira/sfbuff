@@ -7,9 +7,7 @@ class Battle < ApplicationRecord
   end
   has_one :raw_battle, dependent: :destroy, primary_key: :replay_id, foreign_key: :replay_id, inverse_of: false
 
-  default_scope { order(:played_at) }
-
-  scope :ranked, -> { where(battle_type: 1) }
+  scope :ranked, -> { where(battle_type: Buckler::BATTLE_TYPES[:ranked]) }
 
   def self.pov
     extending(Pov)
@@ -27,6 +25,6 @@ class Battle < ApplicationRecord
   end
 
   def ranked?
-    battle_type == 1
+    battle_type == Buckler::BATTLE_TYPES[:ranked]
   end
 end

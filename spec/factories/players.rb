@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :player do
     name { 'MyString' }
-    sid { 123_456_789 }
+    sid { generate(:player_sid) }
     main_character { 1 }
     latest_replay_id { nil }
     synchronized_at { nil }

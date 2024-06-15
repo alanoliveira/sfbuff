@@ -7,6 +7,7 @@ pt-BR:
     nav:
       battles: matches
       ranked: ranked
+      matchup_chart: matchup chart
       search: pesquisar
   player_searches:
     search_result:
@@ -24,8 +25,8 @@ pt-BR:
       opponent_character: personagem enfrentado
       opponent_control_type: controle enfrentado
       battle_type: tipo de match
-      played_at_from: jogado de
-      played_at_to: jogado até
+      played_from: jogado de
+      played_to: jogado até
       filter: filtrar
       reset: reset
     battles:
@@ -52,11 +53,17 @@ pt-BR:
       league_point: league point
       close: fechar
       no_matches: nenhuma match encontrada
-      periods:
-        day: one day
-        week: one week
-        month: one month
-      battle_modal:
+    matchup_chart:
+      matchup_chart: matchup chart
+      character: personagem
+      battle_type: tipo de match
+      period: período
+      wins: vitórias
+      loses: derrotas
+      draws: empates
+      total: total
+      all: all
+      filter: filtrar
   battles:
     battle:
       lose: derrota
@@ -70,17 +77,49 @@ pt-BR:
       player_not_found: jogador não encontrado
       generic: ocorreu um erro ao tentar obter os dados do site oficial
       server_under_maintenance: servidor em manutenção
+    periods:
+      day: um dia
+      week: uma semana
+      month: um mês
   buckler:
     mr: am
     lp: lp
-    control_type:
-      0: clássico
-      1: moderno
-    battle_type:
-      1: ranked
-      2: casual match
-      3: battle hub
-      4: custom room
+    characters:
+      ryu: Ryu
+      luke: Luke
+      kimberly: Kimberly
+      chun_li: Chun-Li
+      mannon: Mannon
+      zangief: Zangief
+      jp: JP
+      dhalsim: Dhalsim
+      cammy: Cammy
+      ken: Ken
+      dee_jay: Dee Jay
+      lilly: Lilly
+      aki: A.K.I.
+      rashid: Rashid
+      blanka: Blanka
+      juri: Juri
+      marisa: Marisa
+      guile: Guile
+      ed: Ed
+      e_honda: E. Honda
+      jamie: Jamie
+      akuma: Akuma
+      m_bison: M. Bison
+      terry: Terry
+      mai: Mai
+      elena: Elena
+      random: Random
+    control_types:
+      classic: clássico
+      modern: moderno
+    battle_types:
+      ranked: ranked
+      casuel_match: casual match
+      battle_hub: battle hub
+      custom_room: custom room
   views:
     pagination:
       previous: anterior

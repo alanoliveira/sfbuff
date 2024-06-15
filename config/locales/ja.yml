@@ -7,6 +7,7 @@ ja:
     nav:
       battles: "試合統計"
       ranked: "ランク統計"
+      matchup_chart: matchup chart
       search: "検索"
   player_searches:
     search_result:
@@ -24,8 +25,8 @@ ja:
       opponent_character: "対戦相手のキャラクター"
       opponent_control_type: "対戦相手の操作タイプ"
       battle_type: "ゲームモード"
-      played_at_from: "集計開始日"
-      played_at_to: "集計終了日"
+      played_from: "集計開始日"
+      played_to: "集計終了日"
       filter: "フィルター"
       reset: "リセット"
     battles:
@@ -52,11 +53,17 @@ ja:
       league_point: "リーグポイント"
       close: "閉じる"
       no_matches: "対戦履歴が見つかりませんでした"
-      periods:
-        day: "一日"
-        week: "一週間"
-        month: "一ヶ月"
-      battle_modal:
+    matchup_chart:
+      matchup_chart: matchup chart
+      character: "キャラクター"
+      battle_type: "ゲームモード"
+      period: "統計期間"
+      wins: "勝利数"
+      loses: "敗北数"
+      draws: draws
+      total: "合計"
+      all: all
+      filter: "フィルター"
   battles:
     battle:
       lose: "敗北"
@@ -70,17 +77,49 @@ ja:
       player_not_found: "プレイヤーが見つかりません"
       generic: "公式サイトからのデータ取得時にエラーが発生しました"
       server_under_maintenance: "サーバーはメンテナンス中です"
+    periods:
+      day: "一日"
+      week: "一週間"
+      month: "一ヶ月"
   buckler:
     mr: mr 
     lp: lp
-    control_type:
-      0: "クラシック"
-      1: "モダン"
-    battle_type:
-      1: "ランクマッチ"
-      2: "カジュアルマッチ"
-      3: "バトルハブ"
-      4: "カスタムルーム"
+    characters:
+      ryu: Ryu
+      luke: Luke
+      kimberly: Kimberly
+      chun_li: Chun-Li
+      mannon: Mannon
+      zangief: Zangief
+      jp: JP
+      dhalsim: Dhalsim
+      cammy: Cammy
+      ken: Ken
+      dee_jay: Dee Jay
+      lilly: Lilly
+      aki: A.K.I.
+      rashid: Rashid
+      blanka: Blanka
+      juri: Juri
+      marisa: Marisa
+      guile: Guile
+      ed: Ed
+      e_honda: E. Honda
+      jamie: Jamie
+      akuma: Akuma
+      m_bison: M. Bison
+      terry: Terry
+      mai: Mai
+      elena: Elena
+      random: Random
+    control_types:
+      classic: "クラシック"
+      modern: "モダン"
+    battle_types:
+      ranked: "ランクマッチ"
+      casual_match: "カジュアルマッチ"
+      battle_hub: "バトルハブ"
+      custom_room: "カスタムルーム"
   views:
     pagination:
       previous: "前へ"

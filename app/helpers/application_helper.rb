@@ -58,4 +58,29 @@ module ApplicationHelper
   def link_to_player(name, sid)
     link_to name, player_path(sid), data: { turbo_frame: :_top }
   end
+
+  def diff_span(diff)
+    css_class = case diff
+                when ..-1 then 'text-danger'
+                when 1.. then 'text-success'
+                else ''
+                end
+    content_tag(:span, format('%+d', diff), class: css_class)
+  end
+
+  def period_select(form, attribute, **)
+    choises = PeriodSearchable::PERIODS.transform_keys { t("helpers.periods.#{_1}").titlecase }
+    select_list(form, attribute, choises, include_any: false, **)
+  end
+
+  def select_list(form, attribute, choises, include_any: false, **)
+    opts = {}
+    opts[:include_blank] = t('helpers.select.any').titlecase if include_any
+    form.select(
+      attribute,
+      choises,
+      opts,
+      **
+    )
+  end
 end

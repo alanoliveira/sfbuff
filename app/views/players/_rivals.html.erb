@@ -9,7 +9,7 @@
           <table class="table text-truncate">
             <thead>
               <tr class="text-center">
-                <th clas="text-truncate" colspan="2"><%= t('.opponent').titlecase %></th>
+                <th clas="text-truncate" colspan="3"><%= t('.opponent').titlecase %></th>
                 <th><%= t('.total').upcase %></th>
                 <th><%= t('.wins').upcase %></th>
                 <th><%= t('.loses').upcase %></th>
@@ -17,19 +17,15 @@
               </tr>
             </thead>
             <tbody>
-              <% send(kind, @battles).each do |r| %>
-                <tr>
-                  <td>
-                    <%= link_to_player r['name'], r['sid'] %>
-                  </td>
-                  <td class="text-center">
-                    <%= character_name(r['character']) %>
-                    <%= control_type(r['control_type']) %>
-                  </td>
-                  <td class="text-center"><small><%= r['total'] %></small></td>
-                  <td class="text-center"><small><%= r['wins'] %></small></td>
-                  <td class="text-center"><small><%= r['loses'] %></small></td>
-                  <td class="text-center"><%= rival_score_span(r['diff']) %></td>
+              <% rivals.public_send(kind).each do |r| %>
+                <tr class="text-center">
+                  <td><%= link_to_player r.name, r.player_sid %></td>
+                  <td><%= character(r.character) %></td>
+                  <td><%= control_type(r.control_type) %></td>
+                  <td><small><%= r.total %></small></td>
+                  <td><small><%= r.wins %></small></td>
+                  <td><small><%= r.loses %></small></td>
+                  <td><%= rival_score_span(r.diff) %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -39,4 +35,3 @@
     </div>
   <% end %>
 </div>
-

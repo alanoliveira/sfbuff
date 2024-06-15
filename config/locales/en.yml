@@ -7,6 +7,7 @@ en:
     nav:
       battles: matches
       ranked: ranked
+      matchup_chart: matchup chart
       search: search
   player_searches:
     search_result:
@@ -24,8 +25,8 @@ en:
       opponent_character: opponent character
       opponent_control_type: opponent control type
       battle_type: battle type
-      played_at_from: played from
-      played_at_to: played to
+      played_from: played from
+      played_to: played to
       filter: filter
       reset: reset
     battles:
@@ -37,8 +38,8 @@ en:
         other: '%{count} matches found'
     rivals:
       opponent: opponent
-      wins: v
-      loses: d
+      wins: w
+      loses: l
       total: t
       favorites: favorites
       victims: victims
@@ -52,11 +53,17 @@ en:
       league_point: league point
       close: close
       no_matches: no match found
-      periods:
-        day: one day
-        week: one week
-        month: one month
-      battle_modal:
+    matchup_chart:
+      matchup_chart: matchup chart
+      character: character
+      battle_type: battle type
+      period: period
+      wins: wins
+      loses: loses
+      draws: draws
+      total: total
+      all: all
+      filter: filter
   battles:
     battle:
       lose: lose
@@ -70,17 +77,49 @@ en:
       player_not_found: player not found
       generic: an error occurred while trying to get the data from the official website
       server_under_maintenance: the server is under maintenance
+    periods:
+      day: one day
+      week: one week
+      month: one month
   buckler:
     mr: mr
     lp: lp
-    control_type:
-      0: classic
-      1: modern
-    battle_type:
-      1: ranked
-      2: casual match
-      3: battle hub
-      4: custom room
+    characters:
+      ryu: Ryu
+      luke: Luke
+      kimberly: Kimberly
+      chun_li: Chun-Li
+      mannon: Mannon
+      zangief: Zangief
+      jp: JP
+      dhalsim: Dhalsim
+      cammy: Cammy
+      ken: Ken
+      dee_jay: Dee Jay
+      lilly: Lilly
+      aki: A.K.I.
+      rashid: Rashid
+      blanka: Blanka
+      juri: Juri
+      marisa: Marisa
+      guile: Guile
+      ed: Ed
+      e_honda: E. Honda
+      jamie: Jamie
+      akuma: Akuma
+      m_bison: M. Bison
+      terry: Terry
+      mai: Mai
+      elena: Elena
+      random: Random
+    control_types:
+      classic: classic
+      modern: modern
+    battle_types:
+      ranked: ranked
+      casual_match: casual match
+      battle_hub: battle hub
+      custom_room: custom room
   views:
     pagination:
       previous: previous

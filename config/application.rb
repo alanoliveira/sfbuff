@@ -39,7 +39,7 @@ module Sfbuff
     # Don't generate system test files.
     config.generators.system_tests = nil
 
-    config.i18n.available_locales = [:en, 'pt-BR', :ja, :zh]
+    config.i18n.available_locales = [:en, 'pt-BR', :ja]
 
     config.sfbuff = config_for(:sfbuff)
 

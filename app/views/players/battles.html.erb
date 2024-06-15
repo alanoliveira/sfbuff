@@ -1,9 +1,9 @@
 <%= render 'battles_filter' %>
 
-<%= alert t('.battles_count', count: @battles.count), dismissible: true %>
+<%= alert t('.battles_count', count: @action.battles.total_count), dismissible: true %>
 
 <h3><%= t('.rivals').titlecase %></h3>
-<%= render 'rivals' %>
+<%= render 'rivals', rivals: @action.rivals %>
 
 <h3><%= t('.battles').titlecase %></h3>
-<%= render 'battles' %>
+<%= render 'battles', battles: @action.battles %>

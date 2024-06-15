@@ -32,56 +32,60 @@ module Buckler
   end
 
   CHARACTERS = {
-    1 => 'RYU',
-    2 => 'LUK',
-    3 => 'KIM',
-    4 => 'CHU',
-    5 => 'MAN',
-    6 => 'ZAN',
-    7 => 'JP',
-    8 => 'DHA',
-    9 => 'CAM',
-    10 => 'KEN',
-    11 => 'DJ',
-    12 => 'LIL',
-    13 => 'AKI',
-    14 => 'RAS',
-    15 => 'BLA',
-    16 => 'JUR',
-    17 => 'MAR',
-    18 => 'GUI',
-    19 => 'ED',
-    20 => 'HON',
-    21 => 'JAM',
-    22 => 'AKU',
-    254 => 'RDN'
+    ryu: 1,
+    luke: 2,
+    kimberly: 3,
+    chun_li: 4,
+    mannon: 5,
+    zangief: 6,
+    jp: 7,
+    dhalsim: 8,
+    cammy: 9,
+    ken: 10,
+    dee_jay: 11,
+    lilly: 12,
+    aki: 13,
+    rashid: 14,
+    blanka: 15,
+    juri: 16,
+    marisa: 17,
+    guile: 18,
+    ed: 19,
+    e_honda: 20,
+    jamie: 21,
+    akuma: 22,
+    m_bison: 23,
+    terry: 24,
+    mai: 25,
+    elena: 26,
+    random: 254
   }.freeze
 
   BATTLE_TYPES = {
-    1 => 'Ranked',
-    2 => 'Casual Match',
-    3 => 'Battle Hub',
-    4 => 'Custom Room'
+    ranked: 1,
+    casual_match: 2,
+    battle_hub: 3,
+    custom_room: 4
   }.freeze
 
   BATTLE_SUBTYPES = {
-    1 => 'None'
+    none: 1
   }.freeze
 
   CONTROL_TYPES = {
-    0 => 'Classic',
-    1 => 'Modern'
+    classic: 0,
+    modern: 1
   }.freeze
 
   ROUNDS = {
-    0 => 'L',
-    1 => 'V',
-    2 => 'C',
-    3 => 'T',
-    4 => 'D',
-    5 => 'OD',
-    6 => 'SA',
-    7 => 'CA',
-    8 => 'P'
+    l: 0,
+    v: 1,
+    c: 2,
+    t: 3,
+    d: 4,
+    od: 5,
+    sa: 6,
+    ca: 7,
+    p: 8
   }.freeze
 end

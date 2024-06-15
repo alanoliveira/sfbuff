@@ -4,7 +4,7 @@
     <div class="d-flex">
       <div class="col"><%= battle.replay_id %></div>
       <div class="col text-center"><%= time_ago battle.played_at %></div>
-      <div class="col text-end"><%= battle_type_span battle.battle_type %></div>
+      <div class="col text-end"><%= battle_type battle.battle_type %></div>
     </div>
   </div>
   <div class="card-body d-flex align-items-center text-center">
@@ -27,11 +27,11 @@
   <% if pov.present? %>
     <div class="card-footer text-center">
         <% if battle.winner.nil? %>
-          <span class="text-secondary"><%= t '.draw' %></span>
+          <span class="text-secondary"><%= t('.draw').upcase %></span>
         <% elsif battle.winner.player_sid == pov.sid %>
-          <span class="text-success"><%= t '.win' %></span>
+          <span class="text-success"><%= t('.win').upcase %></span>
         <% else %>
-          <span class="text-danger"><%= t '.lose' %></span>
+          <span class="text-danger"><%= t('.lose').upcase %></span>
         <% end %>
     </div>
   <% end %>

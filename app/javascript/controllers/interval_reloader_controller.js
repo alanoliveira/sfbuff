@@ -3,7 +3,7 @@ import { get } from "@rails/request.js"
 
 export default class extends Controller {
   static values = {
-    delay: { type: Number, default: 5000 },
+    delay: { type: Number, default: 2000 },
     url: { type: String },
   }
 

@@ -4,8 +4,11 @@ class BaseAction
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  def initialize(params, **opts)
-    super(params.permit(self.class.attribute_names))
-    opts.each { |k, v| public_send("#{k}=", v) }
+  def initialize(params, **defaults)
+    attrs = params
+            .fetch(model_name.param_key, {})
+            .permit(self.class.attribute_names)
+            .with_defaults(defaults)
+    super(attrs)
   end
 end

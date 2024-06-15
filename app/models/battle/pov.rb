@@ -5,12 +5,29 @@ class Battle
     def self.extended(base)
       base
         .joins!('INNER JOIN challengers AS player ON battles.id = player.battle_id
-           INNER JOIN challengers AS opponent ON battles.id = opponent.battle_id
-                  AND player.player_sid != opponent.player_sid')
+                 INNER JOIN challengers AS opponent ON battles.id = opponent.battle_id
+                        AND player.player_sid != opponent.player_sid')
     end
 
-    def rivals(*grouping_by)
-      Rivals.new(self, *grouping_by)
+    def rivals
+      statistics.extending(Rivals)
+    end
+
+    def matchup_chart
+      statistics.extending(MatchupChart)
+    end
+
+    protected
+
+    def statistics
+      reselect(
+        Arel.sql('COUNT(nullif(winner_side = opponent.side, true)) wins'),
+        Arel.sql('COUNT(nullif(winner_side = player.side, true)) loses'),
+        Arel.sql('COUNT(nullif(winner_side = opponent.side, true)) -
+                    COUNT(nullif(winner_side = player.side, true)) diff'),
+        Arel.sql('COUNT(nullif(winner_side IS NOT NULL, true)) draws'),
+        'COUNT(1) total'
+      ).unscope(:order, :limit, :offset)
     end
   end
 end

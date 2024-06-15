@@ -3,36 +3,66 @@
 require 'rails_helper'
 
 RSpec.describe PlayersController::BattlesAction do
-  let(:action) { described_class.new(ActionController::Parameters.new(params), player:) }
-  let(:player) { spy }
+  let(:action) do
+    described_class.new(
+      ActionController::Parameters.new(described_class.model_name.param_key => params),
+      player_sid: mic[:player_sid]
+    )
+  end
 
   describe '#battles' do
     subject(:battles) { action.battles }
 
-    let(:params) do
-      {
-        player_character: 1,
-        player_control_type: 2,
-        opponent_character: 3,
-        opponent_control_type: 4,
-        battle_type: 5,
-        played_at_from: '2000-01-01 00:00:00',
-        played_at_to: '2000-01-02 00:00:00'
-      }
+    let(:mic) { { player_sid: generate(:player_sid), name: 'mic' } }
+    let(:raf) { { player_sid: generate(:player_sid), name: 'raf' } }
+
+    before do
+      create(:battle, :ranked, played_at: 1.day.ago,
+                               p1: mic.merge({ character: 5, control_type: 0 }),
+                               p2: raf.merge({ character: 4, control_type: 1 }))
+      create(:battle, :custom_room, played_at: 3.days.ago,
+                                    p1: mic.merge({ character: 6, control_type: 1 }),
+                                    p2: raf.merge({ character: 3, control_type: 0 }))
     end
 
-    let(:expected_params) do
-      {
-        player: { character: 1, control_type: 2 },
-        opponent: { character: 3, control_type: 4 },
-        battle_type: 5,
-        played_at: a_range_covering(Time.utc(2000, 1, 1), Time.utc(2000, 1, 2).end_of_day)
-      }
+    context 'when player_character is set' do
+      let(:params) { { player_character: 5 } }
+
+      it 'returns only battles using the character' do
+        expect(battles).to have_attributes(count: 1)
+      end
     end
 
-    it do
-      action.battles
-      expect(player).to have_received(:where).with(expected_params)
+    context 'when player_control_type is set' do
+      let(:params) { { player_control_type: 1 } }
+
+      it 'returns only battles using the control_type' do
+        expect(battles).to have_attributes(count: 1)
+      end
+    end
+
+    context 'when opponent_character is set' do
+      let(:params) { { opponent_character: 3 } }
+
+      it 'returns only battles using the character' do
+        expect(battles).to have_attributes(count: 1)
+      end
+    end
+
+    context 'when opponent_control_type is set' do
+      let(:params) { { opponent_control_type: 1 } }
+
+      it 'returns only battles using the control_type' do
+        expect(battles).to have_attributes(count: 1)
+      end
+    end
+
+    context 'when battle_type is set' do
+      let(:params) { { battle_type: 1 } }
+
+      it 'returns only battles using the battle_type' do
+        expect(battles).to have_attributes(count: 1)
+      end
     end
   end
 end
