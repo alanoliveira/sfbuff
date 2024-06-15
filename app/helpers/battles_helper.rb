@@ -21,7 +21,7 @@ module BattlesHelper
 
   def round_result(round_id)
     round = Buckler::ROUNDS.key(round_id)
-    content_tag :span, round, style: 'width: 20px', class: "badge px-0 text-center round-#{round}"
+    content_tag :span, round.upcase, style: 'width: 20px', class: "badge px-0 text-center round-#{round}"
   end
 
   def character_select(form, attribute, include_any: false, **)
