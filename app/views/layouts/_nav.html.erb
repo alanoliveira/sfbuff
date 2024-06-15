@@ -8,6 +8,9 @@
         <li class="nav-item">
           <%= nav_link t('.ranked'), ranked_player_path(@player) %>
         </li>
+        <li class="nav-item">
+          <%= nav_link t('.matchup_chart'), matchup_chart_player_path(@player) %>
+        </li>
       </ul>
     <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">

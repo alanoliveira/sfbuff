@@ -7,6 +7,7 @@ ja:
     nav:
       battles: "試合統計"
       ranked: "ランク統計"
+      matchup_chart: matchup chart
       search: "検索"
   player_searches:
     search_result:

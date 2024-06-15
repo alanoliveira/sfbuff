@@ -7,6 +7,7 @@ pt-BR:
     nav:
       battles: matches
       ranked: ranked
+      matchup_chart: matchup chart
       search: pesquisar
   player_searches:
     search_result:

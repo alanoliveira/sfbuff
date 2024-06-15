@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :players, only: [:index, :show], param: :sid, constraints: { sid: Buckler::Api::SHORT_ID_REGEX } do
     get :battles, on: :member
     get :ranked, on: :member
+    get :matchup_chart, on: :member
   end
 
   resources :battles, only: [:show], param: :replay_id

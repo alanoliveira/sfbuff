@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PlayersController < ApplicationController
-  before_action :set_player, only: %i[show battles ranked]
+  before_action :set_player, only: %i[show battles ranked matchup_chart]
 
   # GET /players
   def index
@@ -31,6 +31,10 @@ class PlayersController < ApplicationController
       player_sid: @player.sid,
       character: @player.main_character
     )
+  end
+
+  # GET /players/:sid/matchup_chart
+  def matchup_chart
   end
 
   private
