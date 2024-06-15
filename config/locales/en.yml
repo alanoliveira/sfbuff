@@ -38,8 +38,8 @@ en:
         other: '%{count} matches found'
     rivals:
       opponent: opponent
-      wins: v
-      loses: d
+      wins: w
+      loses: l
       total: t
       favorites: favorites
       victims: victims
