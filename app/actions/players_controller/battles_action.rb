@@ -9,8 +9,8 @@ class PlayersController
     attribute :opponent_character, :integer
     attribute :opponent_control_type, :integer
     attribute :battle_type, :integer
-    attribute :played_from, :date, default: 7.days.ago
-    attribute :played_to, :date, default: Time.zone.now
+    attribute :played_from, :date, default: -> { 7.days.ago.beginning_of_day }
+    attribute :played_to, :date, default: -> { Time.zone.now.end_of_day }
 
     def battles
       @battles ||= all_battles.order(played_at: :desc).page(page)
