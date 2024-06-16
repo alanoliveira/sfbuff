@@ -12,13 +12,13 @@
   </head>
 
   <body data-bs-theme="dark" class="min-vh-100 d-flex flex-column">
-    <header><%= render 'layouts/nav' %></header>
-    <main class="container h-100 py-3">
-      <%= turbo_frame_tag 'main' do %>
-        <%= content_for?(:content) ? yield(:content) : yield %>
-      <% end %>
+    <header class="bg-body-tertiary" style="min-height: 3.4em">
+      <%= render 'layouts/nav' unless current_page? root_path  %>
+    </header>
+    <main class="container py-3 mb-auto">
+      <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
-    <footer class="footer mt-auto py-3 bg-body-tertiary">
+    <footer class="footer py-3 bg-body-tertiary">
       <div class="container-fluid text-end">
         <% Rails.configuration.sfbuff[:repo_url].try do |url| %>
           <a target="_blank" class="link-light link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="<%= url %>">

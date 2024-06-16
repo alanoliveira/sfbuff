@@ -9,6 +9,11 @@ en:
       ranked: ranked
       matchup_chart: matchup chart
       search: search
+      search_placeholder: 'player name or user code'
+  homepage:
+    index:
+      search: search
+      search_placeholder: 'search for player name or user code'
   player_searches:
     search_result:
       name: name

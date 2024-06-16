@@ -1,0 +1,8 @@
+<div class="position-absolute top-50 start-50 translate-middle col-5">
+  <%= form_with url: players_path, method: :get, role: 'search' do |f| %>
+    <div class="input-group col-6  ">
+      <%= f.text_field :q, value: params[:q], placeholder: t('.search_placeholder'), class: 'form-control form-control-lg fs-2', type: 'search', required: true, minlength: 4 %>
+      <%= f.submit t('.search').titlecase, name: nil, class: 'btn btn-outline-primary fs-2' %>
+    </div>
+  <% end %>
+</div>
