@@ -27,9 +27,9 @@ RSpec.describe BattlelogImporter do
     end
 
     it 'ignores if the battle already was imported by the opponent' do
-      battlelog[0].save
+      battlelog[0].dup.save
       expect do
-        battlelog_importer.call { |b| b.replay_id != battlelog[2].replay_id }
+        battlelog_importer.call
       end.to change(Battle, :count).by(1)
     end
   end

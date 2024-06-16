@@ -7,14 +7,15 @@ class BattlelogImporter
   end
 
   def call
-    Battle.transaction do
-      @battlelog
-        .lazy
-        .map { |raw| Parsers::BattlelogParser.parse(raw) }
-        .take_while(&@import_condition)
-        .reject { |battle| Battle.exists?(replay_id: battle.replay_id) }
-        .to_a
-        .each(&:save!)
-    end
+    @battlelog
+      .lazy
+      .map { |raw| Parsers::BattlelogParser.parse(raw) }
+      .take_while(&@import_condition)
+      .to_a
+      .each do |battle|
+        battle.save
+      rescue ActiveRecord::RecordNotUnique
+        # do nothing (the battle was already imported by the opponent)
+      end
   end
 end
