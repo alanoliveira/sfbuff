@@ -1,5 +1,0 @@
-<% if @result[:status] == :success %>
-  <%= turbo_stream.update 'player-search', partial: 'search_result', locals: { data: @result[:data] } %>
-<% else %>
-  <%= turbo_stream.update 'player-search', job_error_alert(@result[:data]) %>
-<% end %>

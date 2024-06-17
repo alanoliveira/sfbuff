@@ -1,5 +1,0 @@
-<% if @result[:status] == :success %>
-  <%= turbo_stream.action :refresh, nil %>
-<% else %>
-  <%= turbo_stream.update 'player-sync', job_error_alert(@result[:data]) %>
-<% end %>

@@ -1,7 +1,0 @@
-<%= turbo_frame_tag turbo_frame_request_id do %>
-  <% if @result[:status] == :success %>
-    <%= render 'search_result', data: @result[:data] %>
-  <% else %>
-    <%= alert("#{t('.error')}: #{error_description(@result[:data])}", kind: :danger) %>
-  <% end %>
-<% end %>

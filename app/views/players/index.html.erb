@@ -1,7 +1,6 @@
 <% if @search_term.present?  %>
-  <div id="player-search">
-    <%= form_with url: player_searches_path, data: { controller: 'form-auto-submit' } do |f| %>
-      <%= f.hidden_field :term, value: @search_term %>
-    <% end %>
+  <%= turbo_stream_from @search_term, channel: 'PlayerSearchChannel', data: { term: @search_term } %>
+  <div id="search-result">
+    <div class="text-center"><%= spinner %></div>
   </div>
 <% end %>

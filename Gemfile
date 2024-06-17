@@ -27,7 +27,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", ">= 4.0.1"
+gem "redis", ">= 4.0.1"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -63,6 +63,9 @@ group :development, :test do
 
   # Mock web requests
   gem "webmock", "~> 3.23"
+
+  # Generate fake values
+  gem "faker", "~> 3.4"
 end
 
 group :development do
@@ -86,8 +89,6 @@ gem "cssbundling-rails", "~> 1.4"
 gem "kaminari", "~> 1.2"
 
 gem "solid_queue", "~> 0.3.0"
-
-gem "dalli", "~> 3.2"
 
 gem "rails-i18n", "~> 7.0"
 

@@ -36,17 +36,17 @@ config.active_record.encryption.key_derivation_salt = ENV.fetch('ACTIVE_RECORD_E
 - Node.js 20.9.0
 - Yarn 1.22.21
 - Postgresql 16.2
-- Memcached (used to store jobs results)
+- Redis
 - Chromium (used to perform login on the official website)
 
 ### Environment variables
 
-| variable             | description               |
-| -------------------- | ------------------------- |
-| `DATABASE_URL`       | Postgres database url     |
-| `MEMCACHED_HOST`     | Memcached server host     |
-| `MEMCACHED_USERNAME` | Memcached server user     |
-| `MEMCACHED_PASSWORD` | Memcached server password |
+| variable         | description           |
+| ---------------- | --------------------- |
+| `DATABASE_URL`   | Postgres database url |
+| `REDIS_HOST`     | Redis server host     |
+| `REDIS_USERNAME` | Redis server user     |
+| `REDIS_PASSWORD` | Redis server password |
 
 #### Building
 

@@ -1,5 +1,5 @@
 development:
-  adapter: async
+  adapter: redis
 
 test:
   adapter: test
@@ -7,4 +7,6 @@ test:
 production:
   adapter: redis
   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  username: <%= ENV.fetch("REDIS_USERNAME") { nil } %>
+  password: <%= ENV.fetch("REDIS_PASSWORD") { nil } %>
   channel_prefix: sfbuff_production

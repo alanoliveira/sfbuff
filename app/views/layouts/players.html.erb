@@ -1,13 +1,11 @@
 <% content_for :content do %>
-  <% if @player.try { |p| !p.synchronized? } %>
-    <div id="player-sync">
-      <%= form_with url: player_syncs_path, data: { controller: 'form-auto-submit' } do |f| %>
-        <%= f.hidden_field :player_sid, value: @player.sid %>
-      <% end %>
-    </div>
-  <% end %>
-
   <% if @player.present? %>
+    <% unless @player.synchronized? %>
+      <div id="sync-result">
+        <div class="text-center"><%= spinner %></div>
+      </div>
+      <%= turbo_stream_from @player.sid, channel: 'PlayerSyncChannel', data: { player_sid: @player.sid } %>
+    <% end %>
     <header class="pb-3">
       <%= page_title @player.name %>
       <% @player.synchronized_at.try do |date| %>

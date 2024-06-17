@@ -5,18 +5,12 @@ require 'rails_helper'
 RSpec.describe '/players' do
   let(:player) { create(:player) }
 
-  RSpec::Matchers.define :has_player_sync_div do
-    match { |subject| values_match?(contain_xpath("//div[@id='player-sync']"), subject) }
-    failure_message { 'body do not contains the player sync div' }
-    failure_message_when_negated { 'body should not contains the player sync div' }
-  end
-
   shared_examples 'a layout/players page' do
     context 'when player exists and is synchronized' do
       let(:player) { create(:player, :synchronized) }
 
       it do
-        expect(response.body).not_to has_player_sync_div if response.successful?
+        expect(response.body).not_to render_stream_source('PlayerSyncChannel') if response.successful?
       end
     end
 
@@ -24,7 +18,7 @@ RSpec.describe '/players' do
       let(:player) { create(:player, :desynchronized) }
 
       it do
-        expect(response.body).to has_player_sync_div if response.successful?
+        expect(response.body).to render_stream_source('PlayerSyncChannel') if response.successful?
       end
     end
 
@@ -32,7 +26,7 @@ RSpec.describe '/players' do
       let(:player) { build(:player) }
 
       it do
-        expect(response.body).to has_player_sync_div if response.successful?
+        expect(response.body).to render_stream_source('PlayerSyncChannel') if response.successful?
       end
     end
   end
@@ -46,7 +40,7 @@ RSpec.describe '/players' do
 
       it 'not renders the player-search component' do
         get players_url(q: '')
-        expect(response.body).not_to contain_xpath('//div[@id="player-search"]')
+        expect(response.body).not_to render_stream_source('PlayerSearchChannel')
       end
     end
 
@@ -58,7 +52,7 @@ RSpec.describe '/players' do
 
       it 'renders the player-search component' do
         get players_url(q: 'hello')
-        expect(response.body).to contain_xpath('//div[@id="player-search"]')
+        expect(response.body).to render_stream_source('PlayerSearchChannel')
       end
     end
   end
@@ -86,12 +80,12 @@ RSpec.describe '/players' do
 
     it do
       get battles_player_url(player)
-      expect(response.body).to contain_xpath('//h3[text()="Rivals"]')
+      expect(response.body).to have_xpath('//h3[text()="Rivals"]')
     end
 
     it do
       get battles_player_url(player)
-      expect(response.body).to contain_xpath('//h3[text()="Matches"]')
+      expect(response.body).to have_xpath('//h3[text()="Matches"]')
     end
 
     context 'when player have no battles' do
@@ -122,7 +116,7 @@ RSpec.describe '/players' do
 
       it 'render an alert with the number of battles found' do
         get battles_player_url(player)
-        expect(response.body).to contain_xpath('//div[@role="alert" and text()="4 matches found"]')
+        expect(response.body).to have_xpath('//div[@role="alert" and text()="4 matches found"]')
           .and match_xpath('//turbo-frame[@id="battle-list"]//div[@class="card"][1]').with(/AAAAAAA1/)
           .and match_xpath('//turbo-frame[@id="battle-list"]//div[@class="card"][2]').with(/AAAAAAA2/)
       end

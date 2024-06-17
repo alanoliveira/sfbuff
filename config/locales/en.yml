@@ -14,7 +14,7 @@ en:
     index:
       search: search
       search_placeholder: 'search for player name or user code'
-  player_searches:
+  cable:
     search_result:
       name: name
       id: id

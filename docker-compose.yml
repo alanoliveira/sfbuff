@@ -11,7 +11,7 @@ sfbuff: &default-sfbuff
     - BUCKLER_EMAIL
     - BUCKLER_PASSWORD
     - BUCKLER_USER_AGENT
-    - MEMCACHED_HOST=memcached
+    - REDIS_HOST=redis
     - SENTRY_DSN
     - REPO_URL
     - RAILS_FORCE_SSL=false
@@ -20,7 +20,7 @@ sfbuff: &default-sfbuff
   depends_on:
     db:
       condition: service_healthy
-    memcached:
+    redis:
       condition: service_started
 
 services:
@@ -54,7 +54,7 @@ services:
       interval: 60s
       timeout: 10s
       retries: 5
-  memcached:
-    image: memcached:1.6.27-alpine
+  redis:
+    image: bitnami/valkey:7.2.5-debian-12-r5
     ports:
       - "11211:11211"

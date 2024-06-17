@@ -6,39 +6,51 @@ RSpec.describe PlayerSearchJob do
   include ActiveJob::TestHelper
 
   let(:job) { described_class.perform_later(term) }
-  let(:name_result) { [1, 2, 3, 4] }
-  let(:sid_result) { 5 }
-  let(:term) { 'player' }
+  let(:term) { nil }
+  let(:api) { instance_double(Buckler::Api) }
 
   before do
-    class_spy(JobCache).as_stubbed_const
-    buckler_gw = spy(search_players_by_name: name_result.dup, search_player_by_sid: sid_result.dup) # rubocop:disable RSpec/VerifiedDoubles
-    allow(BucklerGateway).to receive(:new).and_return(buckler_gw)
+    allow(PlayerSearchChannel).to receive(:broadcast_to)
+    allow(BucklerGateway).to receive(:new).and_return(api)
   end
 
-  it_behaves_like 'a cacheable job'
+  context 'with term not like a short_id' do
+    let(:term) { 'foo bar' }
+    let(:search_players_by_name) { create_list(:raw_fighter_banner, 2) }
 
-  it 'cache a success data with the buckler return' do
-    perform_enqueued_jobs { job }
-    expect(JobCache).to have_received(:save).with(job.job_id, :success, name_result)
-  end
+    before { allow(api).to receive_messages(search_players_by_name:) }
 
-  context 'when the search term is like a short id and the short_id player is found' do
-    let(:term) { '123456789' }
-
-    it 'cache a success data with the name searching result + short_id result' do
-      perform_enqueued_jobs { job }
-      expect(JobCache).to have_received(:save).with(job.job_id, :success, name_result + [sid_result])
+    it 'broadcast a success response with the name search result' do
+      job.perform_now
+      expect(PlayerSearchChannel).to have_received(:broadcast_to)
+        .with(job.job_id, 'success', search_players_by_name)
     end
   end
 
-  context 'when the search term is like a short id and the short_id player is not found' do
+  context 'with term like a short_id' do
     let(:term) { '123456789' }
-    let(:sid_result) { nil }
+    let(:search_players_by_name) { create_list(:raw_fighter_banner, 2) }
+    let(:search_player_by_sid) { create(:raw_fighter_banner) }
 
-    it 'cache a success data with the name searching result and ignores the short_id result' do
-      perform_enqueued_jobs { job }
-      expect(JobCache).to have_received(:save).with(job.job_id, :success, name_result)
+    before { allow(api).to receive_messages(search_players_by_name:, search_player_by_sid:) }
+
+    it 'broadcast a success response with the name search result + id search result' do
+      job.perform_now
+      expect(PlayerSearchChannel).to have_received(:broadcast_to)
+        .with(job.job_id, 'success', search_players_by_name + [search_player_by_sid])
+    end
+  end
+
+  context 'when the process throws an error' do
+    let(:term) { 'foo bar' }
+    let(:error) { StandardError.new('oh no') }
+
+    before { allow(api).to receive(:search_players_by_name).and_raise(error) }
+
+    it 'broadcast a error response with the exception' do
+      job.perform_now
+    rescue StandardError
+      expect(PlayerSearchChannel).to have_received(:broadcast_to).with(job.job_id, 'error', error)
     end
   end
 end
