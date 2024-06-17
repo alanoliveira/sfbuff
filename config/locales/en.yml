@@ -38,7 +38,7 @@ en:
       battles: matches
       rivals: rivals
       battles_count: 
-        zero: no matches found
+        zero: no match found
         one: 1 match found
         other: '%{count} matches found'
     rivals:

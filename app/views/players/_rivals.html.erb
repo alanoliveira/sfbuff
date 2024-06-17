@@ -1,6 +1,6 @@
-<div class="d-flex flex-column flex-lg-row justify-content-center">
+<div id="rivals" class="d-flex flex-column flex-lg-row justify-content-center">
   <% [:favorites, :victims, :tormentors].each do |kind| %>
-    <div class="flex-fill p-2">
+    <%= content_tag :div, class: 'flex-fill p-2', id: "rivals-#{kind}" do %>
       <div class="card">
         <div class="card-header text-center">
           <%= t(".#{kind}").titlecase %>
@@ -25,13 +25,13 @@
                   <td><small><%= r.total %></small></td>
                   <td><small><%= r.wins %></small></td>
                   <td><small><%= r.loses %></small></td>
-                  <td><%= rival_score_span(r.diff) %></td>
+                  <td><%= diff_span(r.diff) %></td>
                 </tr>
               <% end %>
             </tbody>
           </table>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>

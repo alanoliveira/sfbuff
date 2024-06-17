@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe '/players' do
-  let(:player) { create(:player) }
+  let(:player) { create(:player, name: 'Player Name', main_character: 10) }
 
   shared_examples 'a layout/players page' do
     context 'when player exists and is synchronized' do
@@ -32,13 +32,13 @@ RSpec.describe '/players' do
   end
 
   describe 'GET /players' do
-    context 'when a search parameter is not sent' do
+    context 'without q parameter' do
       it 'renders a successful response' do
         get players_url(q: '')
         expect(response).to be_successful
       end
 
-      it 'not renders the player-search component' do
+      it 'not renders the stream source PlayerSearchChannel' do
         get players_url(q: '')
         expect(response.body).not_to render_stream_source('PlayerSearchChannel')
       end
@@ -51,17 +51,13 @@ RSpec.describe '/players' do
       end
 
       it 'renders the player-search component' do
-        get players_url(q: 'hello')
+        get players_url(q: 'search')
         expect(response.body).to render_stream_source('PlayerSearchChannel')
       end
     end
   end
 
   describe 'GET /players/:sid' do
-    it_behaves_like 'a layout/players page' do
-      before { get player_url(player) }
-    end
-
     it do
       get player_url(player)
       expect(response).to redirect_to(battles_player_url(player))
@@ -69,57 +65,207 @@ RSpec.describe '/players' do
   end
 
   describe 'GET /players/:sid/battles' do
+    before do
+      # other player battles
+      create_list(:battle, 10, played_at: Time.zone.now)
+    end
+
     it_behaves_like 'a layout/players page' do
       before { get battles_player_url(player) }
     end
 
-    it do
+    it 'renders a successful response' do
       get battles_player_url(player)
       expect(response).to be_successful
     end
 
-    it do
+    it 'set page title' do
       get battles_player_url(player)
-      expect(response.body).to have_xpath('//h3[text()="Rivals"]')
+      assert_select 'title', text: 'SFBUFF - Player Name'
     end
 
-    it do
+    it 'render battles' do
       get battles_player_url(player)
-      expect(response.body).to have_xpath('//h3[text()="Matches"]')
+      expect(response).to have_rendered('players/_battles')
     end
 
-    context 'when player have no battles' do
-      it 'render an alert with the number of battles found' do
-        get battles_player_url(player)
-        expect(response.body).to match_xpath('//div[@role="alert"]').with(/no matches found/)
-      end
+    it 'render rivals' do
+      get battles_player_url(player)
+      expect(response).to have_rendered('players/_rivals')
     end
 
     context 'when player have battles' do
       before do
-        create(:battle, winner_side: 1, battle_type: 1, replay_id: 'AAAAAAA1', played_at: 1.minute.ago,
-                        p1: { player_sid: player.sid, rounds: [0, 1, 2] },
-                        p2: { rounds: [3, 4, 5] })
+        create_list(:battle, 7, played_at: Time.zone.now, p1: { player_sid: player.sid })
+      end
 
-        create(:battle, winner_side: 2, battle_type: 2, replay_id: 'AAAAAAA2', played_at: 2.minutes.ago,
-                        p1: { player_sid: player.sid, rounds: [6, 7] },
-                        p2: { rounds: [8, 8] })
+      it 'render filtered counter alert' do
+        get battles_player_url(player)
+        assert_select 'main > div.alert', text: '7 matches found'
+        assert_select 'turbo-frame#battle-list div.card', count: 7
+      end
+    end
 
-        create(:battle, winner_side: nil, battle_type: 3, replay_id: 'AAAAAAA3', played_at: 3.minutes.ago,
-                        p1: {},
-                        p2: { player_sid: player.sid })
+    context 'when player have no battles' do
+      it 'render an alert with no match found information' do
+        get battles_player_url(player)
+        assert_select 'main > div.alert', text: 'no match found'
+        assert_select 'turbo-frame#battle-list div.card', count: 0
+      end
+    end
 
-        create(:battle, battle_type: 4, replay_id: 'AAAAAAA4', played_at:  4.minutes.ago,
-                        p1: {},
-                        p2: { player_sid: player.sid })
+    context 'with pagination' do
+      before do
+        11.times { create(:battle, played_at: Time.zone.now, p1: { player_sid: player.sid }) }
       end
 
       it 'render an alert with the number of battles found' do
-        get battles_player_url(player)
-        expect(response.body).to have_xpath('//div[@role="alert" and text()="4 matches found"]')
-          .and match_xpath('//turbo-frame[@id="battle-list"]//div[@class="card"][1]').with(/AAAAAAA1/)
-          .and match_xpath('//turbo-frame[@id="battle-list"]//div[@class="card"][2]').with(/AAAAAAA2/)
+        get battles_player_url(player, page: 2)
+        assert_select 'turbo-frame#battle-list div.card', count: 1
+        assert_select 'main > div.alert', text: '11 matches found'
       end
+    end
+
+    context 'when filtering by played character' do
+      before do
+        create_list(:battle, 3, played_at: Time.zone.now, p1: { player_sid: player.sid, character: 1 })
+        create_list(:battle, 2, played_at: Time.zone.now, p1: { player_sid: player.sid, character: 2 })
+      end
+
+      it 'render an alert with the number of battles found' do
+        get battles_player_url(player, players_controller_battles_action: { player_character: 2 })
+        assert_select 'turbo-frame#battle-list div.card', count: 2
+      end
+    end
+
+    context 'when filtering by played control type' do
+      before do
+        create_list(:battle, 2, played_at: Time.zone.now, p1: { player_sid: player.sid, control_type: 0 })
+        create_list(:battle, 3, played_at: Time.zone.now, p1: { player_sid: player.sid, control_type: 1 })
+      end
+
+      it 'render an alert with the number of battles found' do
+        get battles_player_url(player, players_controller_battles_action: { player_control_type: 1 })
+        assert_select 'turbo-frame#battle-list div.card', count: 3
+      end
+    end
+
+    context 'when filtering by opponent character' do
+      before do
+        create_list(:battle, 3, played_at: Time.zone.now, p1: { player_sid: player.sid }, p2: { character: 1 })
+        create_list(:battle, 2, played_at: Time.zone.now, p1: { player_sid: player.sid }, p2: { character: 2 })
+      end
+
+      it 'render an alert with the number of battles found' do
+        get battles_player_url(player, players_controller_battles_action: { opponent_character: 2 })
+        assert_select 'turbo-frame#battle-list div.card', count: 2
+      end
+    end
+
+    context 'when filtering by opponent control type' do
+      before do
+        create_list(:battle, 3, played_at: Time.zone.now, p1: { player_sid: player.sid }, p2: { control_type: 0 })
+        create_list(:battle, 2, played_at: Time.zone.now, p1: { player_sid: player.sid }, p2: { control_type: 1 })
+      end
+
+      it 'render an alert with the number of battles found' do
+        get battles_player_url(player, players_controller_battles_action: { opponent_control_type: 0 })
+        assert_select 'turbo-frame#battle-list div.card', count: 3
+      end
+    end
+
+    context 'when filtering by battle_type' do
+      before do
+        create_list(:battle, 3, battle_type: 1, played_at: Time.zone.now, p1: { player_sid: player.sid })
+        create_list(:battle, 2, battle_type: 2, played_at: Time.zone.now, p1: { player_sid: player.sid })
+      end
+
+      it 'render an alert with the number of battles found' do
+        get battles_player_url(player, players_controller_battles_action: { battle_type: 1 })
+        assert_select 'turbo-frame#battle-list div.card', count: 3
+      end
+    end
+
+    context 'when filtering by played_at range' do
+      before do
+        create_list(:battle, 3, played_at: 4.days.ago, p1: { player_sid: player.sid })
+        create_list(:battle, 2, played_at: Time.zone.now, p1: { player_sid: player.sid })
+      end
+
+      it 'render an alert with the number of battles found' do
+        get battles_player_url(player,
+                               players_controller_battles_action: { played_from: 5.days.ago, played_to: 2.days.ago })
+        assert_select 'turbo-frame#battle-list div.card', count: 3
+      end
+    end
+
+    context 'when it is a request from turbo-frame battle-list' do
+      before do
+        create_list(:battle, 3, played_at: Time.zone.now, p1: { player_sid: player.sid })
+      end
+
+      it 'not render rivals partial' do
+        get battles_player_url(player), headers: { 'turbo-frame' => 'battle-list' }
+        expect(response).not_to have_rendered('players/_rivals')
+      end
+
+      it 'render battles partial' do
+        get battles_player_url(player), headers: { 'turbo-frame' => 'battle-list' }
+        expect(response).to have_rendered('players/_battles')
+      end
+    end
+  end
+
+  describe 'GET /players/:sid/ranked' do
+    it 'renders a successful response' do
+      get ranked_player_url(player)
+      expect(response).to be_successful
+    end
+
+    context 'when the player has ranked mr battles' do
+      before do
+        create_list(:battle, 5, :ranked,
+                    played_at: Time.zone.now,
+                    p1: { player_sid: player.sid, character: player.main_character, mr_variation: 1 },
+                    p2: { mr_variation: -1 })
+      end
+
+      it 'renders the master rating chart' do
+        get ranked_player_url(player)
+        assert_select 'h3', text: 'Master Rating'
+      end
+    end
+
+    context 'when the player has ranked not mr battles' do
+      before do
+        create_list(:battle, 5, :ranked,
+                    played_at: Time.zone.now,
+                    p1: { player_sid: player.sid, character: player.main_character, mr_variation: nil },
+                    p2: { mr_variation: nil })
+      end
+
+      it 'renders the league point chart' do
+        get ranked_player_url(player)
+        assert_select 'h3', text: 'League Point'
+      end
+    end
+
+    context 'when the player has no ranked battles' do
+      before do
+        create_list(:battle, 5, :ranked, played_at: Time.zone.now, p1: { player_sid: player.sid })
+      end
+
+      it 'renders the league point chart' do
+        get ranked_player_url(player)
+        assert_select 'main > div.alert', text: 'no match found'
+      end
+    end
+  end
+
+  describe 'GET /players/:sid/matchup_chart' do
+    it 'renders a successful response' do
+      get matchup_chart_player_url(player)
+      expect(response).to be_successful
     end
   end
 end

@@ -38,12 +38,12 @@
 </div>
 
 <% if @action.master_rating.present? %>
-  <h3><%= t '.master_rating' %></h3>
+  <h3><%= t('.master_rating').titlecase %></h3>
   <div class="p-2">
     <%= master_rating_chart @action.master_rating, frame: 'battle' %>
   </div>
 <% elsif @action.league_point.present? %>
-  <h3><%= t '.league_point' %></h3>
+  <h3><%= t('.league_point').titlecase %></h3>
   <div class="p-2">
     <%= league_point_chart @action.league_point, frame: 'battle' %>
   </div>

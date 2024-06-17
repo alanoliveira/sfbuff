@@ -2,7 +2,7 @@
 <div class="card">
   <div class="card-header">
     <div class="d-flex">
-      <div class="col"><%= battle.replay_id %></div>
+      <div class="col replay-id"><%= battle.replay_id %></div>
       <div class="col text-center"><%= time_ago battle.played_at %></div>
       <div class="col text-end"><%= battle_type battle.battle_type %></div>
     </div>
@@ -12,14 +12,14 @@
     <div class="col-1 ">
       <%= render 'battles/rounds', rounds: battle.p1.rounds %>
       <% battle.p1.mr_variation.try do |variation| %>
-        <div><%= mr_variation_span variation %></div>
+        <div><%= diff_span variation %></div>
       <% end %>
     </div>
     <div class="col-2 fs-1 text-center fw-bold">VS</div>
     <div class="col-1 ">
       <%= render 'battles/rounds', rounds: battle.p2.rounds %>
       <% battle.p2.mr_variation.try do |variation| %>
-        <div><%= mr_variation_span variation %></div>
+        <div><%= diff_span variation %></div>
       <% end %>
     </div>
     <%= render 'battles/challenger', challenger: battle.p2 %>

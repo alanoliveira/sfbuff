@@ -1,27 +1,9 @@
 # frozen_string_literal: true
 
 module BattlesHelper
-  def rival_score_span(diff)
-    css_class = case diff
-                when ..-1 then 'text-danger'
-                when 1.. then 'text-success'
-                else ''
-                end
-    content_tag(:span, format('%+d', diff), class: css_class)
-  end
-
-  def mr_variation_span(variation)
-    css_class = case variation
-                when ..-1 then 'text-danger'
-                when 1.. then 'text-success'
-                else ''
-                end
-    content_tag(:span, format('%+d', variation), class: css_class)
-  end
-
-  def round_result(round_id)
-    round = Buckler::ROUNDS.key(round_id)
-    content_tag :span, round.upcase, style: 'width: 20px', class: "badge px-0 text-center round-#{round}"
+  def round_result_span(round_id)
+    rr = round_result(round_id)
+    content_tag :span, rr.upcase, style: 'width: 20px', class: "badge px-0 text-center round-#{rr}"
   end
 
   def character_select(form, attribute, include_any: false, **)

@@ -54,4 +54,8 @@ RSpec.describe Battle do
       it { is_expected.to be_nil }
     end
   end
+
+  describe '#>' do
+    it { expect(create(:battle, played_at: Time.zone.now)).to be > create(:battle, played_at: 1.day.ago) }
+  end
 end

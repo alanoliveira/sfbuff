@@ -51,6 +51,7 @@ group :development, :test do
   # Unit test
   gem "rspec", "~> 3.13"
   gem "rspec-rails", "~> 6.1"
+  gem "rails-controller-testing", "~> 1.0"
 
   # Create test data
   gem "factory_bot", "~> 6.4"
@@ -93,7 +94,5 @@ gem "solid_queue", "~> 0.3.0"
 gem "rails-i18n", "~> 7.0"
 
 gem "sentry-rails", "~> 5.17"
-
-gem "nokogiri", "~> 1.16", :group => :test
 
 gem "stackprof", "~> 0.2.26"
