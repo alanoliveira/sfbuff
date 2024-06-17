@@ -1,8 +1,17 @@
-<div class="position-absolute top-50 start-50 translate-middle col-5">
+<div class="position-absolute top-50 start-50 translate-middle d-none d-md-block d-sm-none w-75">
   <%= form_with url: players_path, method: :get, role: 'search' do |f| %>
-    <div class="input-group col-6  ">
-      <%= f.text_field :q, value: params[:q], placeholder: t('.search_placeholder'), class: 'form-control form-control-lg fs-2', type: 'search', required: true, minlength: 4 %>
-      <%= f.submit t('.search').titlecase, name: nil, class: 'btn btn-outline-primary fs-2' %>
+    <div class="input-group">
+      <%= f.text_field :q, value: params[:q], placeholder: t('.search_placeholder'), class: 'form-control fs-1', type: 'search', required: true, minlength: 4 %>
+      <%= f.submit t('.search').titlecase, name: nil, class: 'btn btn-outline-primary fs-1' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="position-absolute top-50 start-50 translate-middle d-sm-block d-md-none w-100 px-4">
+  <%= form_with url: players_path, method: :get, role: 'search' do |f| %>
+    <div class="input-group">
+      <%= f.text_field :q, value: params[:q], placeholder: t('.search_placeholder'), class: 'form-control', type: 'search', required: true, minlength: 4 %>
+      <%= f.submit t('.search').titlecase, name: nil, class: 'btn btn-outline-primary' %>
     </div>
   <% end %>
 </div>
