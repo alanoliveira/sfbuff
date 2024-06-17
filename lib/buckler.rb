@@ -55,9 +55,9 @@ module Buckler
     jamie: 21,
     akuma: 22,
     m_bison: 23,
-    terry: 24,
-    mai: 25,
-    elena: 26,
+    # terry: 24,
+    # mai: 25,
+    # elena: 26,
     random: 254
   }.freeze
 
