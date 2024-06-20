@@ -10,11 +10,11 @@ class Battle
     end
 
     def rivals
-      statistics.extending(Rivals)
+      Rivals.new(statistics)
     end
 
     def matchup_chart
-      statistics.extending(MatchupChart)
+      MatchupChart.new(statistics)
     end
 
     protected
