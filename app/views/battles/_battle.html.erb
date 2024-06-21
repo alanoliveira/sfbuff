@@ -27,11 +27,11 @@
   <% if pov.present? %>
     <div class="card-footer text-center">
         <% if battle.winner.nil? %>
-          <span class="text-secondary"><%= t('common.draw', count: 0).upcase %></span>
+          <span class="text-secondary"><%= t('common.draw', count: 1).upcase %></span>
         <% elsif battle.winner.player_sid == pov.sid %>
-          <span class="text-success"><%= t('common.win', count: 0).upcase %></span>
+          <span class="text-success"><%= t('common.win', count: 1).upcase %></span>
         <% else %>
-          <span class="text-danger"><%= t('common.lose', count: 0).upcase %></span>
+          <span class="text-danger"><%= t('common.lose', count: 1).upcase %></span>
         <% end %>
     </div>
   <% end %>
