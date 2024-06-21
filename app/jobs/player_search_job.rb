@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class PlayerSearchJob < ApplicationJob
+  include ResultBroadcastable
+  include BucklerErrorClassifiable
+
   queue_as :default
 
   def perform(term)
@@ -10,14 +13,13 @@ class PlayerSearchJob < ApplicationJob
     broadcast_result('success', [name_result, sid_result].flatten.compact)
   end
 
-  rescue_from(StandardError) do |exception|
-    broadcast_result('error', exception)
-    raise exception
-  end
-
   private
 
-  def broadcast_result(status, data)
-    PlayerSearchChannel.broadcast_to(job_id, status, data)
+  def resolve_error_kind(error)
+    resolve_buckler_error_kind(error)
+  end
+
+  def channel
+    PlayerSearchChannel
   end
 end

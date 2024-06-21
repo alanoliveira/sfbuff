@@ -79,7 +79,7 @@ RSpec.describe PlayerSyncJob do
     it 'broadcast a error response with the exception' do
       job.perform_now
     rescue StandardError
-      expect(PlayerSyncChannel).to have_received(:broadcast_to).with(job.job_id, 'error', error)
+      expect(PlayerSyncChannel).to have_received(:broadcast_to).with(job.job_id, 'error', { kind: 'generic' })
     end
   end
 end

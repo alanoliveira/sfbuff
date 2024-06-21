@@ -40,12 +40,7 @@ module ApplicationHelper
     end
   end
 
-  def job_error_alert(error)
-    kind = case error
-           when 'PlayerSynchronizer::PlayerNotFoundError' then 'player_not_found'
-           when 'Buckler::Client::ServerUnderMaintenance' then 'server_under_maintenance'
-           else 'generic'
-           end
+  def job_error_alert(kind)
     alert(t("helpers.job_error_alert.#{kind}"), kind: :danger)
   end
 

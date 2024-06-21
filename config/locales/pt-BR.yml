@@ -9,11 +9,11 @@ pt-BR:
       ranked: ranked
       matchup_chart: matchup chart
       search: pesquisar
-      search_placeholder: 'nome de jogador ou código de usuário'
+      search_placeholder: 'nome de jogador ou código de usuario'
   homepage:
     index:
       search: pesquisar
-      search_placeholder: 'Procure por nome de jogador ou código de usuário'
+      search_placeholder: 'Procure por nome de jogador ou código de usuario'
   player_searches:
     search_result:
       name: name
@@ -79,6 +79,7 @@ pt-BR:
     select:
       any: qualquer
     job_error_alert:
+      argument_error: parametro inválido
       player_not_found: jogador não encontrado
       generic: ocorreu um erro ao tentar obter os dados do site oficial
       server_under_maintenance: servidor em manutenção

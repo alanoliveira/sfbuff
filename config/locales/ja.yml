@@ -79,6 +79,7 @@ ja:
     select:
       any: "全て"
     job_error_alert:
+      argument_error: 無効な引数
       player_not_found: "プレイヤーが見つかりません"
       generic: "公式サイトからのデータ取得時にエラーが発生しました"
       server_under_maintenance: "サーバーはメンテナンス中です"

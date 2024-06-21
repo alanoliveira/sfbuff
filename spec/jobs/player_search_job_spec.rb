@@ -50,7 +50,7 @@ RSpec.describe PlayerSearchJob do
     it 'broadcast a error response with the exception' do
       job.perform_now
     rescue StandardError
-      expect(PlayerSearchChannel).to have_received(:broadcast_to).with(job.job_id, 'error', error)
+      expect(PlayerSearchChannel).to have_received(:broadcast_to).with(job.job_id, 'error', { kind: 'generic' })
     end
   end
 end

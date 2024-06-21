@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class PlayerSyncJob < ApplicationJob
+  include ResultBroadcastable
+  include BucklerErrorClassifiable
+
   limits_concurrency to: 1, key: ->(player_sid) { player_sid }
 
   queue_as :default
@@ -13,14 +16,13 @@ class PlayerSyncJob < ApplicationJob
     broadcast_result('success', nil)
   end
 
-  rescue_from(StandardError) do |exception|
-    broadcast_result('error', exception)
-    raise exception
-  end
-
   private
 
-  def broadcast_result(status, data)
-    PlayerSyncChannel.broadcast_to(job_id, status, data)
+  def resolve_error_kind(error)
+    resolve_buckler_error_kind(error)
+  end
+
+  def channel
+    PlayerSyncChannel
   end
 end

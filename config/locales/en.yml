@@ -79,6 +79,7 @@ en:
     select:
       any: any
     job_error_alert:
+      argument_error: invalid argument
       player_not_found: player not found
       generic: an error occurred while trying to get the data from the official website
       server_under_maintenance: the server is under maintenance
