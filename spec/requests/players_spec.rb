@@ -31,32 +31,6 @@ RSpec.describe '/players' do
     end
   end
 
-  describe 'GET /players' do
-    context 'without q parameter' do
-      it 'renders a successful response' do
-        get players_url(q: '')
-        expect(response).to be_successful
-      end
-
-      it 'not renders the stream source PlayerSearchChannel' do
-        get players_url(q: '')
-        expect(response.body).not_to render_stream_source('PlayerSearchChannel')
-      end
-    end
-
-    context 'when a search parameter is sent' do
-      it 'renders a successful response' do
-        get players_url(q: 'search')
-        expect(response).to be_successful
-      end
-
-      it 'renders the player-search component' do
-        get players_url(q: 'search')
-        expect(response.body).to render_stream_source('PlayerSearchChannel')
-      end
-    end
-  end
-
   describe 'GET /players/:sid' do
     it do
       get player_url(player)

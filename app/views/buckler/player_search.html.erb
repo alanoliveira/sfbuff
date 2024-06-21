@@ -1,6 +1,7 @@
-<% if @search_term.present?  %>
+<% if @search_term.present? %>
   <%= turbo_stream_from @search_term, channel: 'PlayerSearchChannel' %>
   <div id="search-result">
     <div class="text-center"><%= spinner %></div>
   </div>
 <% end %>
+

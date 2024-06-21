@@ -68,6 +68,10 @@ module ApplicationHelper
     select_list(form, attribute, choises, include_any: false, **)
   end
 
+  def submit_button(name, **)
+    submit_tag t("helpers.#{name}"), **
+  end
+
   def select_list(form, attribute, choises, include_any: false, **)
     opts = {}
     opts[:include_blank] = t('helpers.select.any').titlecase if include_any

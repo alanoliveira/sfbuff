@@ -3,11 +3,6 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: %i[show battles ranked matchup_chart]
 
-  # GET /players
-  def index
-    @search_term = params[:q]
-  end
-
   # GET /players/:sid
   def show
     redirect_to battles_player_url(@player)

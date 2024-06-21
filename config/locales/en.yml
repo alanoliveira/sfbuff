@@ -1,4 +1,7 @@
 en:
+  shared:
+    player_search_form:
+      search_placeholder: 'search for player name or user code'
   datetime:
     time_ago: '%{time} ago'
   layouts:
@@ -8,21 +11,6 @@ en:
       battles: matches
       ranked: ranked
       matchup_chart: matchup chart
-      search: search
-      search_placeholder: 'player name or user code'
-  homepage:
-    index:
-      search: search
-      search_placeholder: 'search for player name or user code'
-  cable:
-    search_result:
-      name: name
-      id: id
-      main_char: main char
-      country: country
-      mr: mr
-      lp: lp
-      select: select
   players:
     battles_filter:
       player_character: player character
@@ -75,6 +63,7 @@ en:
       win: win
       draw: draw
   helpers:
+    search: search
     loading: loading
     select:
       any: any
@@ -126,6 +115,14 @@ en:
       casual_match: casual match
       battle_hub: battle hub
       custom_room: custom room
+    player_search_result:
+      name: name
+      id: id
+      main_char: main char
+      country: country
+      mr: mr
+      lp: lp
+      select: select
   views:
     pagination:
       previous: previous

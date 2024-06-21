@@ -17,12 +17,9 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse mt-4 mt-md-0" id="navbarCollapse">
-      <%= form_with url: players_path, method: :get, class: 'd-flex ms-auto', role: 'search' do |f| %>
-        <div class="input-group">
-          <%= f.text_field :q, value: params[:q], placeholder: t('.search_placeholder'), class: 'form-control', type: 'search', required: true, minlength: 4 %>
-          <%= f.submit t('.search').titlecase, name: nil, class: 'btn btn-outline-primary' %>
-        </div>
-      <% end %>
+      <div class="d-flex ms-auto">
+        <%= render 'shared/player_search_form' %>
+      </div>
     </div>
   </div>
 </nav>

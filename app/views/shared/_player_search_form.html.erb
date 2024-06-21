@@ -1,0 +1,6 @@
+<%= form_with url: buckler_player_search_path, method: :get, role: 'search', class: 'w-100' do |f| %>
+  <div class="input-group">
+    <%= f.text_field :q, value: params[:q], placeholder: t('.search_placeholder'), class: 'form-control', type: 'search', required: true, minlength: 4 %>
+    <%= submit_button 'search', name: nil, class: 'btn btn-outline-primary' %>
+  </div>
+<% end %>
