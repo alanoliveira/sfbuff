@@ -1,5 +1,5 @@
 <% if @search_term.present?  %>
-  <%= turbo_stream_from @search_term, channel: 'PlayerSearchChannel', data: { term: @search_term } %>
+  <%= turbo_stream_from @search_term, channel: 'PlayerSearchChannel' %>
   <div id="search-result">
     <div class="text-center"><%= spinner %></div>
   </div>

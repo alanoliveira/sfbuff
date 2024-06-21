@@ -16,8 +16,8 @@ RSpec.describe PlayerSearchChannel do
     end
   end
 
-  context 'when term is not valid' do
-    let(:term) { 'fo' }
+  context 'when term is empty' do
+    let(:term) { '' }
 
     it 'do not enqueues a PlayerSearchJob' do
       expect { subscribe term: }.not_to have_enqueued_job(PlayerSearchJob).with(term)

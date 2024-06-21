@@ -10,7 +10,7 @@ class PlayerSyncChannel < Turbo::StreamsChannel
   end
 
   def subscribed
-    return reject unless player_sid.to_s[Buckler::Api::SHORT_ID_REGEX]
+    return reject if player_sid.blank?
 
     @job_id = PlayerSyncJob.perform_later(player_sid).job_id
     stream_from @job_id
@@ -23,6 +23,6 @@ class PlayerSyncChannel < Turbo::StreamsChannel
   private
 
   def player_sid
-    params[:player_sid]
+    verified_stream_name_from_params
   end
 end

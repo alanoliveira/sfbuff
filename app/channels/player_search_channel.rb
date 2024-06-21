@@ -10,7 +10,7 @@ class PlayerSearchChannel < Turbo::StreamsChannel
   end
 
   def subscribed
-    return reject unless term.length >= 4
+    return reject if term.blank?
 
     @job_id = PlayerSearchJob.perform_later(term).job_id
     stream_from @job_id
@@ -23,6 +23,6 @@ class PlayerSearchChannel < Turbo::StreamsChannel
   private
 
   def term
-    params[:term]
+    verified_stream_name_from_params
   end
 end

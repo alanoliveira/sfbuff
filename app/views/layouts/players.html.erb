@@ -4,7 +4,7 @@
       <div id="sync-result">
         <div class="text-center"><%= spinner %></div>
       </div>
-      <%= turbo_stream_from @player.sid, channel: 'PlayerSyncChannel', data: { player_sid: @player.sid } %>
+      <%= turbo_stream_from @player.sid, channel: 'PlayerSyncChannel' %>
     <% end %>
     <header class="pb-3">
       <%= page_title @player.name %>
