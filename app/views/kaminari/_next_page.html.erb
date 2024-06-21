@@ -1,9 +1,9 @@
 <% if current_page.last? %>
   <li class="page-item disabled">
-    <%= link_to t('views.pagination.next').titlecase, url, rel: 'next', remote:, class: 'page-link' %>
+    <%= link_to t('common.pagination.next'), url, rel: 'next', remote:, class: 'page-link' %>
   </li>
 <% else %>
   <li class="page-item">
-    <%= link_to t('views.pagination.next').titlecase, url, rel: 'next', remote:, class: 'page-link' %>
+    <%= link_to t('common.pagination.next'), url, rel: 'next', remote:, class: 'page-link' %>
   </li>
 <% end %>

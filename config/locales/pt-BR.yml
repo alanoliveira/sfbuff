@@ -1,95 +1,83 @@
 pt-BR:
-  datetime:
-    time_ago: '%{time} atrás'
+  actions:
+    select: Selecionar
+    search: Pesquisar
+    filter: Filtrar
+    reset: Resetar
+    close: Fechar
+  common:
+    loading: Carregando
+    lose: 
+      one: Derrota
+      other: Derrotas
+    win:
+      one: Vitória
+      other: Vitórias
+    draw:
+      one: Empate
+      other: Empates
+    pagination:
+      previous: Anterior
+      next: Próxima
+    total: Total
+    diff: Σ
+    all: Todos
+    w: V
+    l: D
+    d: E
+    t: T
   layouts:
     players:
-      synchronized: sincronizado
-    nav:
-      battles: matches
-      ranked: ranked
-      matchup_chart: matchup chart
-      search: pesquisar
-      search_placeholder: 'nome de jogador ou código de usuario'
-  homepage:
-    index:
-      search: pesquisar
-      search_placeholder: 'Procure por nome de jogador ou código de usuario'
-  player_searches:
-    search_result:
-      name: name
-      id: id
-      main_char: main char
-      country: country
-      mr: mr
-      lp: lp
-      select: select
+      synchronized: Sincronizado
+  shared:
+    player_search_form:
+      search_placeholder: Nome de jogador ou código de usuario
   players:
-    battles_filter:
-      player_character: personagem usado
-      player_control_type: controle usado
-      opponent_character: personagem enfrentado
-      opponent_control_type: controle enfrentado
-      battle_type: tipo de match
-      played_from: jogado de
-      played_to: jogado até
-      filter: filtrar
-      reset: reset
     battles:
-      battles: matches
-      rivals: rivais
-      battles_count: 
-        zero: nenhuma match encontrada
-        one: 1 match encontrada
-        other: '%{count} matches encontradas'
+      battles_history: Histórico de Matches
+      rivals: Rivais
     rivals:
-      opponent: opponent
-      wins: w
-      loses: l
-      total: t
-      favorites: favoritos
-      victims: vítimas
-      tormentors: carrascos
-    ranked:
-      ranked: ranked
-      character: personagem
-      period: período
-      filter: filtrar
-      master_rating: master rating
-      league_point: league point
-      close: fechar
-      no_matches: nenhuma match encontrada
-    matchup_chart:
-      matchup_chart: matchup chart
-      character: personagem
-      battle_type: tipo de match
-      period: período
-      wins: vitórias
-      loses: derrotas
-      draws: empates
-      total: total
-      all: all
-      filter: filtrar
-  battles:
-    battle:
-      lose: derrota
-      win: vitória
-      draw: empate
+      opponent: Oponente
+      favorites: Favoritos
+      victims: Vítimas
+      tormentors: Carrascos
   helpers:
-    loading: carregando
     select:
-      any: qualquer
-    job_error_alert:
-      argument_error: parametro inválido
-      player_not_found: jogador não encontrado
-      generic: ocorreu um erro ao tentar obter os dados do site oficial
-      server_under_maintenance: servidor em manutenção
+      any: Qualquer
     periods:
-      day: um dia
-      week: uma semana
-      month: um mês
+      day: Um dia
+      week: Uma semana
+      month: Um mês
+    datetime:
+      time_ago: '%{time} atrás'
+    battles_found: 
+      zero: Nenhuma match encontrada
+      one: 1 match encontrada
+      other: '%{count} matches encontradas'
+  attributes:
+    period: Período
+    character: Personagem
+    battle_type: Tipo de Match
+  activemodel:
+    models:
+      players_controller/battles_action: Matches
+      players_controller/ranked_action: Ranked
+      players_controller/matchup_chart_action: Matchup Chart
+    attributes:
+      players_controller/battles_action:
+        player_character: Usando Personagem
+        player_control_type: Usando Controle
+        opponent_character: VS Personagem
+        opponent_control_type: VS Controle
+        played_from: Jogado De
+        played_to: Jogado Até
+  jobs:
+    errors:
+      argument_error: Parametro inválido
+      player_not_found: Jogador não encontrado
+      generic: Ocorreu um erro ao tentar obter os dados do site oficial
+      server_under_maintenance: Servidor em manutenção
   buckler:
-    mr: am
-    lp: lp
     characters:
       ryu: Ryu
       luke: Luke
@@ -119,14 +107,25 @@ pt-BR:
       elena: Elena
       random: Random
     control_types:
-      classic: clássico
-      modern: moderno
+      classic: Clássico
+      modern: Moderno
+      short:
+        classic: C
+        modern: M
     battle_types:
-      ranked: ranked
-      casuel_match: casual match
-      battle_hub: battle hub
-      custom_room: custom room
-  views:
-    pagination:
-      previous: anterior
-      next: próxima
+      ranked: Ranked
+      casual_match: Casual Match
+      battle_hub: Battle Hub
+      custom_room: Custom Room
+    data:
+      personal_info:
+        fighter_id: Nome
+        short_id: ID
+      fighter_banner:
+        favorite_character_name: Main Char
+        home_name: País
+      league_info:
+        master_rating: Master Rating
+        league_point: League Point
+        mr: MR
+        lp: LP

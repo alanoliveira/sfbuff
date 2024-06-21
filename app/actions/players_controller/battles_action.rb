@@ -2,7 +2,7 @@
 
 class PlayersController
   class BattlesAction < BaseAction
-    attr_accessor :player_sid, :page
+    model_name.route_key = 'battles_player'
 
     attribute :player_character, :integer
     attribute :player_control_type, :integer
@@ -11,6 +11,8 @@ class PlayersController
     attribute :battle_type, :integer
     attribute :played_from, :date, default: -> { 7.days.ago.beginning_of_day }
     attribute :played_to, :date, default: -> { Time.zone.now.end_of_day }
+
+    attr_accessor :player_sid, :page
 
     def battles
       @battles ||= all_battles.order(played_at: :desc).page(page)

@@ -2,11 +2,15 @@
   <table class="table">
     <thead>
       <tr>
-        <th><%= t '.name' %></th>
-        <th class="d-none d-lg-table-cell"><%= t '.id' %></th>
-        <th><%= t '.main_char' %></th>
-        <th>MR / LP</th>
-        <th><%= t '.country' %></th>
+        <th><%= t 'buckler.data.personal_info.fighter_id' %></th>
+        <th class="d-none d-lg-table-cell"><%= t 'buckler.data.personal_info.short_id' %></th>
+        <th><%= t 'buckler.data.fighter_banner.favorite_character_name' %></th>
+        <th>
+          <%= t 'buckler.data.league_info.mr' %>
+          /
+          <%= t 'buckler.data.league_info.lp' %>
+        </th>
+        <th><%= t 'buckler.data.fighter_banner.home_name' %></th>
         <th></th>
       </tr>
     </thead>
@@ -17,14 +21,16 @@
           <td class="d-none d-lg-table-cell"><%= fighter.dig('personal_info', 'short_id') %></td>
           <td><%= fighter.dig('favorite_character_name') %></td>
           <td>
-            <%= fighter.dig('favorite_character_league_info', 'master_rating') %>
-            /
-            <%= fighter.dig('favorite_character_league_info', 'league_point') %>
+            <% if (mr = fighter.dig('favorite_character_league_info', 'master_rating')).positive? %>
+              <%= "#{mr} #{t('buckler.data.league_info.mr')}" %>
+            <% elsif (lp = fighter.dig('favorite_character_league_info', 'league_point')).positive? %>
+              <%= "#{lp} #{t('buckler.data.league_info.lp')}" %>
+            <% end %>
           </td>
           <td><%= fighter.dig('home_name') %></td>
           <td>
-            <%= button_to t('.select'), player_path(fighter.dig('personal_info', 'short_id')), 
-              method: :get, data: { turbo_frame: :_top }, class: 'btn btn-outline-primary' %>
+            <%= button_to t('actions.select'), player_path(fighter.dig('personal_info', 'short_id')), 
+              method: :get, class: 'btn btn-primary' %>
           </td>
         </tr>
       <% end %>

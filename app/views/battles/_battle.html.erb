@@ -9,14 +9,14 @@
   </div>
   <div class="card-body d-flex align-items-center text-center">
     <%= render 'battles/challenger', challenger: battle.p1 %>
-    <div class="col-1 ">
+    <div class="col-1">
       <%= render 'battles/rounds', rounds: battle.p1.rounds %>
       <% battle.p1.mr_variation.try do |variation| %>
         <div><%= diff_span variation %></div>
       <% end %>
     </div>
     <div class="col-2 fs-1 text-center fw-bold">VS</div>
-    <div class="col-1 ">
+    <div class="col-1">
       <%= render 'battles/rounds', rounds: battle.p2.rounds %>
       <% battle.p2.mr_variation.try do |variation| %>
         <div><%= diff_span variation %></div>
@@ -27,11 +27,11 @@
   <% if pov.present? %>
     <div class="card-footer text-center">
         <% if battle.winner.nil? %>
-          <span class="text-secondary"><%= t('.draw').upcase %></span>
+          <span class="text-secondary"><%= t('common.draw', count: 0).upcase %></span>
         <% elsif battle.winner.player_sid == pov.sid %>
-          <span class="text-success"><%= t('.win').upcase %></span>
+          <span class="text-success"><%= t('common.win', count: 0).upcase %></span>
         <% else %>
-          <span class="text-danger"><%= t('.lose').upcase %></span>
+          <span class="text-danger"><%= t('common.lose', count: 0).upcase %></span>
         <% end %>
     </div>
   <% end %>

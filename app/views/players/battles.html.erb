@@ -1,9 +1,13 @@
+<h3><%= @action.model_name.human %></h3>
+
 <%= render 'battles_filter' %>
 
-<%= alert t('.battles_count', count: @action.battles.total_count), dismissible: true %>
+<%= n_battles_found_alert(@action.battles.total_count) %>
 
-<h3><%= t('.rivals').titlecase %></h3>
-<%= render 'rivals', rivals: @action.rivals %>
+<% if @action.battles.total_count.positive? %>
+  <h3><%= t('.rivals') %></h3>
+  <%= render 'rivals', rivals: @action.rivals %>
 
-<h3><%= t('.battles').titlecase %></h3>
-<%= render 'battles', battles: @action.battles %>
+  <h3><%= t('.battles_history') %></h3>
+  <%= render 'battles', battles: @action.battles %>
+<% end %>

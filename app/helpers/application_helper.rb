@@ -15,18 +15,11 @@ module ApplicationHelper
   def nav_link(name, url)
     classes = ['nav-link']
     classes << 'active' if current_page? url
-    link_to name.titlecase, url, class: classes
-  end
-
-  def reloader(url)
-    content_tag :div, spinner, class: 'text-center', data: {
-      controller: 'interval-reloader',
-      interval_reloader_url_value: url
-    }
+    link_to name, url, class: classes
   end
 
   def time_ago(time)
-    content_tag :span, t('datetime.time_ago', time: time_ago_in_words(time)),
+    content_tag :span, t('helpers.datetime.time_ago', time: time_ago_in_words(time)),
                 title: l(time, format: :short)
   end
 
@@ -40,13 +33,9 @@ module ApplicationHelper
     end
   end
 
-  def job_error_alert(kind)
-    alert(t("helpers.job_error_alert.#{kind}"), kind: :danger)
-  end
-
   def spinner
     content_tag :div, class: 'spinner-border', role: 'status' do
-      content_tag :span, t('helpers.loading'), class: 'visually-hidden'
+      content_tag :span, t('common.loading'), class: 'visually-hidden'
     end
   end
 
@@ -63,18 +52,18 @@ module ApplicationHelper
     content_tag(:span, format('%+d', diff), class: css_class)
   end
 
-  def period_select(form, attribute, **)
-    choises = PeriodSearchable::PERIODS.transform_keys { t("helpers.periods.#{_1}").titlecase }
-    select_list(form, attribute, choises, include_any: false, **)
+  def reset_button(**)
+    link_to t('actions.reset'), url_for(only_path: true), **
   end
 
-  def submit_button(name, **)
-    submit_tag t("helpers.#{name}"), **
+  def period_select(form, attribute, **)
+    choises = PeriodSearchable::PERIODS.transform_keys { t("helpers.periods.#{_1}") }
+    select_list(form, attribute, choises, include_any: false, **)
   end
 
   def select_list(form, attribute, choises, include_any: false, **)
     opts = {}
-    opts[:include_blank] = t('helpers.select.any').titlecase if include_any
+    opts[:include_blank] = t('helpers.select.any') if include_any
     form.select(
       attribute,
       choises,

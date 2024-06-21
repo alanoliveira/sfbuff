@@ -3,13 +3,13 @@
     <% if @player %>
       <ul class="nav nav-pills">
         <li class="nav-item">
-          <%= nav_link t('.battles'), battles_player_path(@player) %>
+          <%= nav_link PlayersController::BattlesAction.model_name.human, battles_player_path(@player) %>
         </li>
         <li class="nav-item">
-          <%= nav_link t('.ranked'), ranked_player_path(@player) %>
+          <%= nav_link PlayersController::RankedAction.model_name.human, ranked_player_path(@player) %>
         </li>
         <li class="nav-item">
-          <%= nav_link t('.matchup_chart'), matchup_chart_player_path(@player) %>
+          <%= nav_link PlayersController::MatchupChartAction.model_name.human, matchup_chart_player_path(@player) %>
         </li>
       </ul>
     <% end %>

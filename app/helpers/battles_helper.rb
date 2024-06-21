@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module BattlesHelper
+  def n_battles_found_alert(count)
+    kind = count.zero? ? 'warning' : 'info'
+    alert t('helpers.battles_found', count:), dismissible: true, kind:
+  end
+
   def round_result_span(round_id)
     rr = round_result(round_id)
     content_tag :span, rr.upcase, style: 'width: 20px', class: "badge px-0 text-center round-#{rr}"

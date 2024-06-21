@@ -4,6 +4,8 @@ class PlayersController
   class MatchupChartAction < BaseAction
     include PeriodSearchable
 
+    model_name.route_key = 'matchup_chart_player'
+
     attribute :character, :integer
     attribute :period, :integer, default: 1
     attribute :battle_type, :integer

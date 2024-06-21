@@ -1,22 +1,22 @@
-<h2><%= t('.ranked').titlecase %></h2>
+<h3><%= @action.model_name.human %></h3>
 
 <div class="py-3">
   <div class="card">
     <div class="card-body">
-      <%= form_with model: @action, url: '', method: :get, class: '', data: { turbo_frame: :_top } do |f| %>
+      <%= form_with model: @action, method: :get  do |f| %>
         <div class="row mb-3">
           <div class="col-md-3">
-            <%= f.label :character, t('.character'), class: "form-label" %>
+            <%= f.label :character, class: "form-label" %>
             <%= character_select f, :character, include_any: false, class: 'form-select' %>
           </div>
           <div class="col-md-3">
-            <%= f.label :period, t('.period'), class: "form-label" %>
+            <%= f.label :period, class: "form-label" %>
             <%= period_select f, :period, class: 'form-select' %>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <%= submit_tag t(".filter").titlecase, class: "btn btn-primary" %>
+            <%= f.submit t("actions.filter"), class: "btn btn-primary" %>
           </div>
         </div>
       <% end %>
@@ -31,22 +31,22 @@
         <%= turbo_frame_tag 'battle' %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t('.close').titlecase %></button>
+        <%= button_tag t('actions.close'), type: 'button', class: 'btn btn-secondary', data: { bs_dismiss: 'modal' } %>
       </div>
     </div>
   </div>
 </div>
 
 <% if @action.master_rating.present? %>
-  <h3><%= t('.master_rating').titlecase %></h3>
+  <h4><%= t('buckler.data.league_info.master_rating') %></h4>
   <div class="p-2">
     <%= master_rating_chart @action.master_rating, frame: 'battle' %>
   </div>
 <% elsif @action.league_point.present? %>
-  <h3><%= t('.league_point').titlecase %></h3>
+  <h4><%= t('buckler.data.league_info.league_point') %></h4>
   <div class="p-2">
     <%= league_point_chart @action.league_point, frame: 'battle' %>
   </div>
 <% else %>
-  <%= alert t('.no_matches'), kind: :warning %>
+  <%= n_battles_found_alert(0) %>
 <% end %>

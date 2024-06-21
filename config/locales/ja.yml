@@ -1,132 +1,131 @@
 ja:
-  datetime:
-    time_ago: "%{time} 前"
+  actions:
+    select: 選択
+    search: 検索
+    filter: フィルター
+    reset: リセット
+    close: 閉じる
+  common:
+    loading: 読み込み中
+    lose: 
+      one: 敗北
+      other: 敗北
+    win:
+      one: 勝利
+      other: 勝利
+    draw:
+      one: 引き分け
+      other: 引き分け
+    pagination:
+      previous: 前へ
+      next: 次へ
+    total: 合計
+    diff: Σ
+    all: 合計
+    w: 勝
+    l: 敗
+    d: 引
+    t: 合計
   layouts:
     players:
-      synchronized: "同期済み"
-    nav:
-      battles: "試合統計"
-      ranked: "ランク統計"
-      matchup_chart: "キャラ別統計"
-      search: "検索"
-      search_placeholder: 'プレイヤーネームまたユーザーコード'
-  homepage:
-    index:
-      search: "検索"
-      search_placeholder: 'プレイヤーネームまたユーザーコードの検索'
-  player_searches:
-    search_result:
-      name: "名前"
-      id: "ID"
-      main_char: "メインキャラクター"
-      country: "国"
-      mr: "MR"
-      lp: "LP"
-      select: "選択"
+      synchronized: 同期済み
+  shared:
+    player_search_form:
+      search_placeholder: プレイヤーネームまたユーザーコード
   players:
-    battles_filter:
-      player_character: "プレイヤーキャラクター"
-      player_control_type: "プレイヤーの操作タイプ"
-      opponent_character: "対戦相手のキャラクター"
-      opponent_control_type: "対戦相手の操作タイプ"
-      battle_type: "ゲームモード"
-      played_from: "集計開始日"
-      played_to: "集計終了日"
-      filter: "フィルター"
-      reset: "リセット"
     battles:
-      battles: "対戦統計"
-      rivals: "ライバル"
-      battles_count:
-        zero: "試合が見つかりません"
-        one: "1 試合が見つかりました"
-        other: "%{count} 試合が見つかりました"
+      battles_history: 対戦履歴
+      rivals: ライバル
     rivals:
-      opponent: "対戦相手"
-      wins: "勝利数"
-      loses: "敗北数"
-      total: "合計"
-      favorites: "多く戦った対戦相手"
-      victims: "勝率が高い対戦相手"
-      tormentors: "勝率が低い対戦相手"
-    ranked:
-      ranked: "ランク統計"
-      character: "キャラクター"
-      period: "統計期間"
-      filter: "フィルター"
-      master_rating: "マスターレート"
-      league_point: "リーグポイント"
-      close: "閉じる"
-      no_matches: "対戦履歴が見つかりませんでした"
-    matchup_chart:
-      matchup_chart: "キャラ別統計"
-      character: "キャラクター"
-      battle_type: "ゲームモード"
-      period: "統計期間"
-      wins: "勝利数"
-      loses: "敗北数"
-      draws: "引き分け"
-      total: "合計"
-      all: "合計"
-      filter: "フィルター"
-  battles:
-    battle:
-      lose: "敗北"
-      win: "勝利"
-      draw: "引き分け"
+      opponent: 対戦相手
+      favorites: 多く戦った対戦相手
+      victims: 勝率が高い対戦相手
+      tormentors: 勝率が低い対戦相手
   helpers:
-    loading: "読み込み中"
     select:
-      any: "全て"
-    job_error_alert:
-      argument_error: 無効な引数
-      player_not_found: "プレイヤーが見つかりません"
-      generic: "公式サイトからのデータ取得時にエラーが発生しました"
-      server_under_maintenance: "サーバーはメンテナンス中です"
+      any: 全て
     periods:
-      day: "一日"
-      week: "一週間"
-      month: "一ヶ月"
+      day: 一日
+      week: 一週間
+      month: 一ヶ月
+    datetime:
+      time_ago: "%{time} 前"
+    battles_found: 
+      zero: 試合が見つかりません
+      one: 1 試合が見つかりました
+      other: "%{count} 試合が見つかりました"
+  attributes:
+    period: 統計期間
+    character: キャラクター
+    battle_type: ゲームモード
+  activemodel:
+    models:
+      players_controller/battles_action: 試合統計
+      players_controller/ranked_action: ランク統計
+      players_controller/matchup_chart_action: キャラ別統計
+    attributes:
+      players_controller/battles_action:
+        player_character: プレイヤーキャラクター
+        player_control_type: プレイヤーの操作タイプ
+        opponent_character: 対戦相手のキャラクター
+        opponent_control_type: 対戦相手の操作タイプ
+        played_from: 集計開始日
+        played_to: 集計終了日
+  jobs:
+    errors:
+      argument_error: 無効な引数
+      player_not_found: プレイヤーが見つかりません
+      generic: 公式サイトからのデータ取得時にエラーが発生しました
+      server_under_maintenance: サーバーはメンテナンス中です
   buckler:
-    mr: mr 
-    lp: lp
     characters:
-      ryu: "リュウ"
-      luke: "ルーク"
-      kimberly: "キンバリー"
-      chun_li: "春麗"
-      mannon: "マノン"
-      zangief: "ザンギエフ"
+      ryu: リュウ
+      luke: ルーク
+      kimberly: キンバリー
+      chun_li: 春麗
+      mannon: マノン
+      zangief: ザンギエフ
       jp: JP
-      dhalsim: "ダルシム"
-      cammy: "キャミィ"
-      ken: "ケン"
-      dee_jay: "ディージェイ"
-      lilly: "リリー"
+      dhalsim: ダルシム
+      cammy: キャミィ
+      ken: ケン
+      dee_jay: ディージェイ
+      lilly: リリー
       aki: A.K.I.
-      rashid: "ラシード"
-      blanka: "ブランカ"
-      juri: "ジュリ"
-      marisa: "マリーザ"
-      guile: "ガイル"
+      rashid: ラシード
+      blanka: ブランカ
+      juri: ジュリ
+      marisa: マリーザ
+      guile: ガイル
       ed: ED
-      e_honda: "本田"
-      jamie: "ジェイミー"
-      akuma: "豪鬼"
-      m_bison: "ベガ"
-      terry: "テリー"
-      mai: "舞"
-      elena: "エレナ"
-      random: "ランダム"
+      e_honda: 本田
+      jamie: ジェイミー
+      akuma: 豪鬼
+      m_bison: ベガ
+      terry: テリー
+      mai: 舞
+      elena: エレナ
+      random: ランダム
     control_types:
-      classic: "クラシック"
-      modern: "モダン"
+      classic: クラシック
+      modern: モダン
+      short:
+        classic: C
+        modern: M
     battle_types:
-      ranked: "ランクマッチ"
-      casual_match: "カジュアルマッチ"
-      battle_hub: "バトルハブ"
-      custom_room: "カスタムルーム"
-  views:
-    pagination:
-      previous: "前へ"
-      next: "次へ"
+      ranked: ランクマッチ
+      casual_match: カジュアルマッチ
+      battle_hub: バトルハブ
+      custom_room: カスタムルーム
+    data:
+      personal_info:
+        fighter_id: 名前
+        short_id: ID
+      fighter_banner:
+        favorite_character_name: メインキャラクター
+        home_name: 国
+      league_info:
+        master_rating: マスターレート
+        league_point: リーグポイント
+        mr: MR
+        lp: LP

@@ -1,0 +1,38 @@
+<div class="p-2 table-responsive">
+  <table class="table">
+    <thead>
+      <tr class="text-center">
+        <th>VS</th>
+        <th><%= t('common.total') %></th>
+        <th><%= t('common.win', count: 0).upcase %></th>
+        <th><%= t('common.lose', count: 0).upcase %></th>
+        <th><%= t('common.draw', count: 0).upcase %></th>
+        <th><%= t('common.diff') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% matchup_chart.fetch.each do |char, row| %>
+        <tr>
+          <th class="text-center"><%= character(char) %></th>
+          <td class="text-center"><%= row.present? ? row.total : '-' %></td>
+          <td class="text-center"><%= row.present? ? row.wins : '-' %></td>
+          <td class="text-center"><%= row.present? ? row.loses : '-' %></td>
+          <td class="text-center"><%= row.present? ? row.draws : '-' %></td>
+          <td class="text-center"><%= row.present? ? diff_span(row.diff) : '-' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <% sum = matchup_chart.sum %>
+      <tr>
+        <th class="text-center"><%= t('common.all') %></th>
+        <td class="text-center"><%= sum.total %></td>
+        <td class="text-center"><%= sum.wins %></td>
+        <td class="text-center"><%= sum.loses %></td>
+        <td class="text-center"><%= sum.draws %></td>
+        <td class="text-center"><%= diff_span(sum.diff) %></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+

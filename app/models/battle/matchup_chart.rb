@@ -25,5 +25,9 @@ class Battle
       end
       Row.new(**s)
     end
+
+    def any?
+      @data.any?
+    end
   end
 end

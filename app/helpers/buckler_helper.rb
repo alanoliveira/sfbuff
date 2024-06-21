@@ -8,19 +8,21 @@ module BucklerHelper
     t(key) if val.present? && I18n.exists?(key)
   end
 
-  def control_type(val, format: :short)
-    val = Buckler::CONTROL_TYPES.key(val) if val.is_a? Integer
-    key = "buckler.control_types.#{val}"
-    return unless val.present? && I18n.exists?(key)
+  def control_type(key, format: :short)
+    key = Buckler::CONTROL_TYPES.key(key) if key.is_a? Integer
+    scope = %w[buckler control_types]
+    return unless key.present? && I18n.exists?(key, scope:)
 
-    format == :short ? val.to_s[0].upcase : t(key).titlecase
+    scope << 'short' if format == :short
+
+    t(key, scope:)
   end
 
   def battle_type(val)
     val = Buckler::BATTLE_TYPES.key(val) if val.is_a? Integer
     key = "buckler.battle_types.#{val}"
 
-    t(key).titlecase if val.present? && I18n.exists?(key)
+    t(key) if val.present? && I18n.exists?(key)
   end
 
   def round_result(val)

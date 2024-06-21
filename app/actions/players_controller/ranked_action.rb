@@ -4,6 +4,8 @@ class PlayersController
   class RankedAction < BaseAction
     include PeriodSearchable
 
+    model_name.route_key = 'ranked_player'
+
     attribute :character, :integer
     attribute :period, :integer, default: 1
 

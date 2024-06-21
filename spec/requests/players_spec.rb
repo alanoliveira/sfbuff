@@ -58,19 +58,19 @@ RSpec.describe '/players' do
       assert_select 'title', text: 'SFBUFF - Player Name'
     end
 
-    it 'render battles' do
-      get battles_player_url(player)
-      expect(response).to have_rendered('players/_battles')
-    end
-
-    it 'render rivals' do
-      get battles_player_url(player)
-      expect(response).to have_rendered('players/_rivals')
-    end
-
     context 'when player have battles' do
       before do
         create_list(:battle, 7, played_at: Time.zone.now, p1: { player_sid: player.sid })
+      end
+
+      it 'render battles' do
+        get battles_player_url(player)
+        expect(response).to have_rendered('players/_battles')
+      end
+
+      it 'render rivals' do
+        get battles_player_url(player)
+        expect(response).to have_rendered('players/_rivals')
       end
 
       it 'render filtered counter alert' do
@@ -83,7 +83,7 @@ RSpec.describe '/players' do
     context 'when player have no battles' do
       it 'render an alert with no match found information' do
         get battles_player_url(player)
-        assert_select 'main > div.alert', text: 'no match found'
+        assert_select 'main > div.alert', text: /no match found/i
         assert_select 'turbo-frame#battle-list div.card', count: 0
       end
     end
@@ -206,7 +206,7 @@ RSpec.describe '/players' do
 
       it 'renders the master rating chart' do
         get ranked_player_url(player)
-        assert_select 'h3', text: 'Master Rating'
+        assert_select 'h4', text: 'Master Rating'
       end
     end
 
@@ -220,7 +220,7 @@ RSpec.describe '/players' do
 
       it 'renders the league point chart' do
         get ranked_player_url(player)
-        assert_select 'h3', text: 'League Point'
+        assert_select 'h4', text: 'League Point'
       end
     end
 
@@ -231,7 +231,7 @@ RSpec.describe '/players' do
 
       it 'renders the league point chart' do
         get ranked_player_url(player)
-        assert_select 'main > div.alert', text: 'no match found'
+        assert_select 'main > div.alert', text: /no match found/i
       end
     end
   end

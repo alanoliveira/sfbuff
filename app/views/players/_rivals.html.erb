@@ -3,17 +3,17 @@
     <%= content_tag :div, class: 'flex-fill p-2', id: "rivals-#{kind}" do %>
       <div class="card">
         <div class="card-header text-center">
-          <%= t(".#{kind}").titlecase %>
+          <%= t ".#{kind}" %>
         </div>
         <div class="card-body table-responsive">
           <table class="table text-truncate">
             <thead>
               <tr class="text-center">
-                <th clas="text-truncate" colspan="3"><%= t('.opponent').titlecase %></th>
-                <th><%= t('.total').upcase %></th>
-                <th><%= t('.wins').upcase %></th>
-                <th><%= t('.loses').upcase %></th>
-                <th>Σ</th>
+                <th clas="text-truncate" colspan="3"><%= t('.opponent') %></th>
+                <th><%= t('common.t') %></th>
+                <th><%= t('common.w') %></th>
+                <th><%= t('common.l') %></th>
+                <th><%= t('common.diff') %></th>
               </tr>
             </thead>
             <tbody>

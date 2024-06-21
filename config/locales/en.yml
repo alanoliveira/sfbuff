@@ -1,84 +1,83 @@
 en:
+  actions:
+    select: Select
+    search: Search
+    filter: Filter
+    reset: Reset
+    close: Close
+  common:
+    loading: Loading
+    lose: 
+      one: Lose
+      other: Loses
+    win:
+      one: Win
+      other: Wins
+    draw:
+      one: Draw
+      other: Draws
+    pagination:
+      previous: Previous
+      next: Next
+    total: Total
+    diff: Σ
+    all: All
+    w: W
+    l: L
+    d: D
+    t: T
+  layouts:
+    players:
+      synchronized: Synchronized
   shared:
     player_search_form:
       search_placeholder: 'search for player name or user code'
-  datetime:
-    time_ago: '%{time} ago'
-  layouts:
-    players:
-      synchronized: synchronized
-    nav:
-      battles: matches
-      ranked: ranked
-      matchup_chart: matchup chart
   players:
-    battles_filter:
-      player_character: player character
-      player_control_type: player control type
-      opponent_character: opponent character
-      opponent_control_type: opponent control type
-      battle_type: battle type
-      played_from: played from
-      played_to: played to
-      filter: filter
-      reset: reset
     battles:
-      battles: matches
-      rivals: rivals
-      battles_count: 
-        zero: no match found
-        one: 1 match found
-        other: '%{count} matches found'
+      battles_history: Match history
+      rivals: Rivals
     rivals:
-      opponent: opponent
-      wins: w
-      loses: l
-      total: t
-      favorites: favorites
-      victims: victims
-      tormentors: tormentors
-    ranked:
-      ranked: ranked
-      character: character
-      period: period
-      filter: filter
-      master_rating: master rating
-      league_point: league point
-      close: close
-      no_matches: no match found
-    matchup_chart:
-      matchup_chart: matchup chart
-      character: character
-      battle_type: battle type
-      period: period
-      wins: wins
-      loses: loses
-      draws: draws
-      total: total
-      all: all
-      filter: filter
-  battles:
-    battle:
-      lose: lose
-      win: win
-      draw: draw
+      opponent: Opponent
+      favorites: Favorites
+      victims: Victims
+      tormentors: Tormentors
   helpers:
-    search: search
-    loading: loading
     select:
-      any: any
-    job_error_alert:
-      argument_error: invalid argument
-      player_not_found: player not found
-      generic: an error occurred while trying to get the data from the official website
-      server_under_maintenance: the server is under maintenance
+      any: Any
     periods:
-      day: one day
-      week: one week
-      month: one month
+      day: One day
+      week: One week
+      month: One month
+    datetime:
+      time_ago: '%{time} ago'
+    battles_found: 
+      zero: No match found
+      one: 1 match found
+      other: '%{count} matches found'
+  attributes:
+    period: Period
+    character: Character
+    battle_type: Battle Type
+  activemodel:
+    models:
+      players_controller/battles_action: Matches
+      players_controller/ranked_action: Ranked
+      players_controller/matchup_chart_action: Matchup Chart
+    attributes:
+      players_controller/battles_action:
+        player_character: Using Character
+        player_control_type: Using Control
+        opponent_character: VS Character
+        opponent_control_type: VS control
+        played_from: Played From
+        played_to: Played To
+  jobs:
+    errors:
+      argument_error: Invalid argument
+      player_not_found: Player not found
+      generic: An error occurred while trying to get the data from the official website
+      server_under_maintenance: the server is under maintenance
   buckler:
-    mr: mr
-    lp: lp
     characters:
       ryu: Ryu
       luke: Luke
@@ -108,22 +107,25 @@ en:
       elena: Elena
       random: Random
     control_types:
-      classic: classic
-      modern: modern
+      classic: Classic
+      modern: Modern
+      short:
+        classic: C
+        modern: M
     battle_types:
-      ranked: ranked
-      casual_match: casual match
-      battle_hub: battle hub
-      custom_room: custom room
-    player_search_result:
-      name: name
-      id: id
-      main_char: main char
-      country: country
-      mr: mr
-      lp: lp
-      select: select
-  views:
-    pagination:
-      previous: previous
-      next: next
+      ranked: Ranked
+      casual_match: Casual Match
+      battle_hub: Battle Hub
+      custom_room: Custom Room
+    data:
+      personal_info:
+        fighter_id: Name
+        short_id: ID
+      fighter_banner:
+        favorite_character_name: Main Char
+        home_name: Country
+      league_info:
+        master_rating: Master Rating
+        league_point: League Point
+        mr: MR
+        lp: LP
