@@ -41,7 +41,7 @@ of information for players to track their own performance.
 | variable         | description           |
 | ---------------- | --------------------- |
 | `DATABASE_URL`   | Postgres database url |
-| `REDIS_HOST`     | Redis server host     |
+| `REDIS_URL`      | Redis server host     |
 | `REDIS_USERNAME` | Redis server user     |
 | `REDIS_PASSWORD` | Redis server password |
 

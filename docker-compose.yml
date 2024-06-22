@@ -11,7 +11,7 @@ sfbuff: &default-sfbuff
     - BUCKLER_EMAIL
     - BUCKLER_PASSWORD
     - BUCKLER_USER_AGENT
-    - REDIS_HOST=redis
+    - REDIS_URL=redis://redis
     - SENTRY_DSN
     - REPO_URL
     - RAILS_FORCE_SSL=false
@@ -56,5 +56,7 @@ services:
       retries: 5
   redis:
     image: bitnami/valkey:7.2.5-debian-12-r5
+    environment:
+      ALLOW_EMPTY_PASSWORD: 1
     ports:
       - "11211:11211"
