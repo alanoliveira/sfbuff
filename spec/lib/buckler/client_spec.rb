@@ -6,10 +6,11 @@ RSpec.describe Buckler::Client do
   let(:client) do
     described_class.new(
       credentials,
-      { base_url: 'http://www.example.com' }
+      cli_opts.merge({ base_url: 'http://www.example.com' })
     )
   end
   let(:credentials) { Buckler::Credentials.new(build_id: '123', cookies: { foo: 'bar' }) }
+  let(:cli_opts) { {} }
 
   shared_examples 'a buckler request' do
     it 'uses the credentials' do
@@ -44,6 +45,16 @@ RSpec.describe Buckler::Client do
       it 'raises an RequestError' do
         stub_request(:any, /.*/).to_return(status: 500)
         expect { subject }.to raise_error(Buckler::Client::RequestError)
+      end
+    end
+
+    context 'when using a locale' do
+      let(:cli_opts) { { locale: 'ja-jp' } }
+
+      it 'uses the credentials' do
+        stub_request(:any, /.*/).to_return(status: 200, body: '{}')
+        subject
+        expect(WebMock).to have_requested(:get, Regexp.new("/6/buckler/_next/data/#{credentials.build_id}/ja-jp/"))
       end
     end
   end

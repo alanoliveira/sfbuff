@@ -10,7 +10,7 @@ module Buckler
   end
 
   class Configuration
-    attr_accessor :base_url, :cid_domain, :user_agent, :email, :password
+    attr_accessor :base_url, :cid_domain, :user_agent, :email, :password, :locale
 
     def initialize
       @base_url = nil
@@ -18,6 +18,7 @@ module Buckler
       @user_agent = nil
       @email = nil
       @password = nil
+      @locale = nil
     end
   end
 

@@ -7,6 +7,8 @@ module Buckler
     class NotFoundError < Error; end
     class ServerUnderMaintenance < Error; end
 
+    LOCALES = %w[en ja-jp pt-br].freeze
+
     class RequestError < Error
       attr_reader :response
 
@@ -17,11 +19,17 @@ module Buckler
     end
 
     attr_accessor :credentials, :base_url, :user_agent
+    attr_reader :locale
 
     def initialize(credentials, config = {})
       self.credentials = credentials
       self.base_url = config[:base_url] || Buckler.configuration.base_url
       self.user_agent = config[:user_agent] || Buckler.configuration.user_agent
+      self.locale = config[:locale] || Buckler.configuration.locale
+    end
+
+    def locale=(val)
+      @locale = LOCALES.include?(val) ? val : 'en'
     end
 
     def battlelog(short_id, page = 1)
@@ -42,7 +50,7 @@ module Buckler
 
     def connection
       @connection ||= Faraday.new base_url do |faraday|
-        faraday.path_prefix = "/6/buckler/_next/data/#{credentials.build_id}/en/"
+        faraday.path_prefix = "/6/buckler/_next/data/#{credentials.build_id}/#{locale}/"
         faraday.headers['User-Agent'] = user_agent
       end
     end
