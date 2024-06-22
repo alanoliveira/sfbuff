@@ -20,7 +20,7 @@ of information for players to track their own performance.
 | `ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT` | Salt used to encrypt AR sensitive data                               |
 | `REPO_URL`                                     | Url used in the github link on the frontend (optional)               |
 | `SENTRY_DSN`                                   | Sentry DSN, used for reporting errors to Sentry (optional)           |
-| `SOLID_QUEUE_ON_PUMA`                          | Set it to use puma to process solid queue jobs²                      |
+| `ASYNC_QUEUE_ADAPTER`                          | Set it to use async queue adapter instead solid queue²               |
 
 1. The official site is quite restrictive about it. Be sure to use something valid.
 2. Used to keep infrastructure as cheap as possible

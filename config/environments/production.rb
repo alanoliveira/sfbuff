@@ -67,10 +67,12 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # Use a real queuing backend for Active Job (and separate queues per environment).
-  config.active_job.queue_adapter = :solid_queue
-  # config.active_job.queue_name_prefix = "sfbuff_production"
-  config.solid_queue.preserve_finished_jobs = false
+  unless ENV.fetch("ASYNC_QUEUE_ADAPTER", false)
+    # Use a real queuing backend for Active Job (and separate queues per environment).
+    config.active_job.queue_adapter = :solid_queue
+    # config.active_job.queue_name_prefix = "sfbuff_production"
+    config.solid_queue.preserve_finished_jobs = false
+  end
 
   config.action_mailer.perform_caching = false
 

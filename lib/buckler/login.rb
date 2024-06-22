@@ -29,7 +29,8 @@ module Buckler
 
     def default_driver
       options = Selenium::WebDriver::Options.chrome(
-        args: ['--headless', "--user-agent=#{user_agent}", '--no-sandbox', '--blink-settings=imagesEnabled=false']
+        args: ['--headless', "--user-agent=#{user_agent}", '--no-sandbox', '--disable-gpu',
+               '--disable-dev-shm-usage', '--blink-settings=imagesEnabled=false']
       )
 
       Selenium::WebDriver.for(:chrome, options:)
