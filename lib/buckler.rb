@@ -37,7 +37,7 @@ module Buckler
     luke: 2,
     kimberly: 3,
     chun_li: 4,
-    mannon: 5,
+    manon: 5,
     zangief: 6,
     jp: 7,
     dhalsim: 8,
