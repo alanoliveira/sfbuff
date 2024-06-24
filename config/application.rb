@@ -48,5 +48,7 @@ module Sfbuff
       ENV.fetch('ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY', 'secret')
     config.active_record.encryption.key_derivation_salt =
       ENV.fetch('ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT', '1234')
+
+    config.action_cable.worker_pool_size = ENV.fetch('ACTION_CABLE_WORKER_POOL_SIZE', 4)
   end
 end
