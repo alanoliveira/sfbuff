@@ -55,7 +55,7 @@ module Buckler
     e_honda: 20,
     jamie: 21,
     akuma: 22,
-    m_bison: 23,
+    m_bison: 26,
     # terry: 24,
     # mai: 25,
     # elena: 26,
