@@ -226,10 +226,10 @@ RSpec.describe '/players' do
 
     context 'when the player has no ranked battles' do
       before do
-        create_list(:battle, 5, :ranked, played_at: Time.zone.now, p1: { player_sid: player.sid })
+        create_list(:battle, 5, :battle_hub, played_at: Time.zone.now, p1: { player_sid: player.sid })
       end
 
-      it 'renders the league point chart' do
+      it 'render no match alert' do
         get ranked_player_url(player)
         assert_select 'main > div.alert', text: /no match found/i
       end
