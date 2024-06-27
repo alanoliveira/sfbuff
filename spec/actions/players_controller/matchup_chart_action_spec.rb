@@ -20,6 +20,6 @@ RSpec.describe PlayersController::MatchupChartAction do
   describe '#matchup_chart' do
     subject(:matchup_chart) { action.matchup_chart }
 
-    it { is_expected.to respond_to(:fetch) }
+    it { is_expected.to respond_to(:each) }
   end
 end

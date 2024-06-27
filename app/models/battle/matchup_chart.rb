@@ -2,32 +2,47 @@
 
 class Battle
   class MatchupChart
-    Row = Data.define(:character, :wins, :loses, :draws, :diff, :total)
+    ROW_DEFAULTS = { wins: nil, loses: nil, draws: nil, diff: nil, total: nil }.freeze
+
+    Row = Data.define(:character, :control_type, :wins, :loses, :draws, :diff, :total) do
+      def initialize(**)
+        super(ROW_DEFAULTS.merge(**))
+      end
+    end
 
     def initialize(pov)
       @data = pov
-              .group('opponent.character')
-              .select('opponent.character')
+              .group('opponent.character', 'opponent.control_type')
+              .select('opponent.character', 'opponent.control_type')
               .as_json
               .map { _1.excluding('id') }
     end
 
-    def fetch
-      Buckler::CHARACTERS.transform_values do |char_id|
-        @data.find { _1['character'] == char_id }.try { Row.new(**_1) }
-      end
+    def each(&)
+      product = Buckler::CHARACTERS.values.product(Buckler::CONTROL_TYPES.values)
+      product.map do |character, control_type|
+        create_row(character, control_type)
+      end.each(&)
     end
 
     def sum
-      zeroes = Row.members.index_with { 0 }
-      s = @data.reduce(zeroes) do |total, row|
-        total.merge(row) { |k, a, b| a + b unless k == 'character' }
+      s = @data.reduce do |total, row|
+        row.merge(total) { |_, a, b| a + b }
       end
-      Row.new(**s)
+      Row.new(character: nil, control_type: nil, **s)
     end
 
     def any?
       @data.any?
+    end
+
+    private
+
+    def create_row(character, control_type)
+      res = @data.find do |d|
+        d['character'] == character && d['control_type'] == control_type
+      end
+      Row.new(character:, control_type:, **Hash(res))
     end
   end
 end

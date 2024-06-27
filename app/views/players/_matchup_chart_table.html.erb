@@ -11,14 +11,17 @@
       </tr>
     </thead>
     <tbody>
-      <% matchup_chart.fetch.each do |char, row| %>
+      <% matchup_chart.each do |row| %>
         <tr>
-          <th class="text-center"><%= character(char) %></th>
-          <td class="text-center"><%= row.present? ? row.total : '-' %></td>
-          <td class="text-center"><%= row.present? ? row.wins : '-' %></td>
-          <td class="text-center"><%= row.present? ? row.loses : '-' %></td>
-          <td class="text-center"><%= row.present? ? row.draws : '-' %></td>
-          <td class="text-center"><%= row.present? ? diff_span(row.diff) : '-' %></td>
+          <th class="text-center">
+            <%= character(row.character) %>
+            <%= control_type(row.control_type) %>
+          </th>
+          <td class="text-center"><%= row.total || '-' %></td>
+          <td class="text-center"><%= row.wins || '-' %></td>
+          <td class="text-center"><%= row.loses || '-' %></td>
+          <td class="text-center"><%= row.draws || '-' %></td>
+          <td class="text-center"><%= row.diff.try { diff_span(_1) } || '-' %></td>
         </tr>
       <% end %>
     </tbody>
