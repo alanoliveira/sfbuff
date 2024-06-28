@@ -69,10 +69,6 @@ module Buckler
     custom_room: 4
   }.freeze
 
-  BATTLE_SUBTYPES = {
-    none: 1
-  }.freeze
-
   CONTROL_TYPES = {
     classic: 0,
     modern: 1

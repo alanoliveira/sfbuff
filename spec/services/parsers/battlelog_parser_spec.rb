@@ -10,7 +10,6 @@ RSpec.describe Parsers::BattlelogParser do
       {
         'replay_id' => 'TESTAAABBB',
         'replay_battle_type' => battle_type,
-        'replay_battle_sub_type' => 1,
         'uploaded_at' => 1_712_537_824,
         'player1_info' => {
           'player' => {
@@ -46,10 +45,6 @@ RSpec.describe Parsers::BattlelogParser do
 
     it 'parses the battle_type' do
       expect(parsed_battle.battle_type).to eq(4)
-    end
-
-    it 'parses the battle_sub_type' do
-      expect(parsed_battle.battle_subtype).to eq(1)
     end
 
     it 'parses the uploaded_at' do

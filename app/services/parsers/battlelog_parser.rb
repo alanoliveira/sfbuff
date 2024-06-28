@@ -43,7 +43,6 @@ module Parsers
       @battle ||= Battle.new(
         replay_id: @raw_data.fetch('replay_id'),
         battle_type: @raw_data.fetch('replay_battle_type'),
-        battle_subtype: @raw_data.fetch('replay_battle_sub_type'),
         played_at: Time.at(@raw_data.fetch('uploaded_at')).utc.to_datetime
       )
     end

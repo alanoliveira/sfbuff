@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_27_061022) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_28_110434) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "battles", force: :cascade do |t|
     t.integer "battle_type", null: false
-    t.integer "battle_subtype"
     t.datetime "played_at", null: false
     t.string "replay_id", null: false
     t.datetime "created_at", null: false
