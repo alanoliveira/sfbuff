@@ -16,7 +16,7 @@ class PlayersController
     end
 
     def league_point
-      @league_point ||= challengers
+      @league_point ||= challengers.where.not(league_point: -1)
     end
 
     private

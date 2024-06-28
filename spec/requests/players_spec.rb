@@ -214,7 +214,8 @@ RSpec.describe '/players' do
       before do
         create_list(:battle, 5, :ranked,
                     played_at: Time.zone.now,
-                    p1: { player_sid: player.sid, character: player.main_character, mr_variation: nil },
+                    p1: { player_sid: player.sid, character: player.main_character,
+                          mr_variation: nil, league_point: 100 },
                     p2: { mr_variation: nil })
       end
 

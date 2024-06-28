@@ -18,7 +18,7 @@ RSpec.describe PlayersController::RankedAction do
   before do
     diamond = { master_rating: 0 }
     master = { master_rating: 2000 }
-    me = { player_sid:, character:, master_rating: 2000 }
+    me = { player_sid:, character:, master_rating: 2000, league_point: 100 }
 
     # valid data
     create(:battle, :ranked, played_at: 1.hour.ago, p1: me.merge(mr_variation: 10), p2: master)
@@ -30,6 +30,7 @@ RSpec.describe PlayersController::RankedAction do
     create(:battle, :ranked, played_at: 2.months.ago, p1: me.merge(mr_variation: 10), p2: master)
     create(:battle, :ranked, played_at: 1.hour.ago, p1: me.merge(mr_variation: 10, character: 2), p2: master)
     create(:battle, :ranked, played_at: 1.hour.ago, p1: master.merge(player_sid: generate(:player_sid)), p2: master)
+    create(:battle, :ranked, played_at: 1.hour.ago, p1: me.merge(league_point: -1), p2: diamond)
   end
 
   describe '#master_rating' do
