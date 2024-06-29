@@ -25,8 +25,8 @@ class Battle
     end
 
     def sum
-      res = result_list.reduce do |total, row|
-        row.to_h.merge(total.to_h) { |_, a, b| a + b }
+      res = result_list.map(&:to_h).reduce do |total, row|
+        row.merge(total) { |_, a, b| a + b }
       end
       Row.new(character: nil, control_type: nil, **res)
     end
