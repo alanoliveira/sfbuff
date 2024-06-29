@@ -15,11 +15,11 @@ class PlayersController
     attr_accessor :player_sid, :page
 
     def battles
-      @battles ||= all_battles.order(played_at: :desc).page(page)
+      @battles ||= all_battles.order(played_at: :desc).includes(:p1, :p2).page(page)
     end
 
     def rivals
-      @rivals ||= all_battles.rivals.limit(5)
+      @rivals ||= all_battles.rivals
     end
 
     private

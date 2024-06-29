@@ -17,7 +17,7 @@
               </tr>
             </thead>
             <tbody>
-              <% rivals.public_send(kind).each do |r| %>
+              <% rivals.public_send(kind).first(5).each do |r| %>
                 <tr class="text-center">
                   <td><%= link_to_player r.name, r.player_sid %></td>
                   <td><%= character(r.character) %></td>

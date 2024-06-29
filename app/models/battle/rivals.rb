@@ -6,33 +6,38 @@ class Battle
                         :wins, :loses, :draws, :diff, :total)
 
     def initialize(pov)
-      @rel = pov
-             .group('opponent.character', 'opponent.control_type', 'opponent.player_sid')
-             .select('opponent.character', 'opponent.control_type',
-                     'opponent.player_sid', 'ANY_VALUE(opponent.name) name')
-             .unscope(:order)
+      @pov = pov.regroup('opponent.character', 'opponent.control_type', 'opponent.player_sid')
+                .reorder('total')
     end
 
     def favorites
-      fetch('total DESC')
+      rival_list.sort do |a, b|
+        [-a.total, a.diff.abs] <=> [-b.total, b.diff.abs]
+      end
     end
 
     def tormentors
-      fetch('diff ASC', 'total DESC')
+      rival_list.sort do |a, b|
+        [a.diff, -a.loses, a.wins] <=> [b.diff, -b.loses, b.wins]
+      end
     end
 
     def victims
-      fetch('diff DESC', 'total DESC')
-    end
-
-    def limit(limit)
-      tap { @limit = limit }
+      rival_list.sort do |a, b|
+        [-a.diff, -a.wins, -a.loses] <=> [-b.diff, -b.wins, -b.loses]
+      end
     end
 
     private
 
-    def fetch(*order)
-      @rel.order(order).limit(@limit).as_json.map { |data| Rival.new(**data.excluding('id')) }
+    def rival_list
+      @rival_list ||=
+        @pov.pluck('opponent.player_sid',
+                   'ANY_VALUE(opponent.name) name',
+                   'opponent.character',
+                   'opponent.control_type',
+                   *@pov.select_values)
+            .map { |data| Rival.new(Integer(data[0]), *data[1..]) }
     end
   end
 end

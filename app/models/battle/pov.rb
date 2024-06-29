@@ -23,9 +23,9 @@ class Battle
       reselect(
         Arel.sql('COUNT(nullif(winner_side = opponent.side, true)) wins'),
         Arel.sql('COUNT(nullif(winner_side = player.side, true)) loses'),
+        Arel.sql('COUNT(nullif(winner_side IS NOT NULL, true)) draws'),
         Arel.sql('COUNT(nullif(winner_side = opponent.side, true)) -
                     COUNT(nullif(winner_side = player.side, true)) diff'),
-        Arel.sql('COUNT(nullif(winner_side IS NOT NULL, true)) draws'),
         'COUNT(1) total'
       ).unscope(:order, :limit, :offset)
     end
