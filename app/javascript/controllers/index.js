@@ -9,3 +9,6 @@ application.register("battle-modal", BattleModalController)
 
 import BattlePointsChartController from "./battle_points_chart_controller"
 application.register("battle-points-chart", BattlePointsChartController)
+
+import LanguageSelectController from "./language_select_controller"
+application.register("language-select", LanguageSelectController)

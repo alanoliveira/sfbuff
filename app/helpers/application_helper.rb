@@ -56,6 +56,14 @@ module ApplicationHelper
     link_to t('actions.reset'), url_for(only_path: true), **
   end
 
+  def language_select(**)
+    options = options_for_select(
+      { 'English' => 'en', 'Português' => 'pt-BR', '日本語' => 'ja' },
+      I18n.locale
+    )
+    select_tag 'language-select', options, data: { controller: 'language-select' }, **
+  end
+
   def period_select(form, attribute, **)
     choises = PeriodSearchable::PERIODS.transform_keys { t("helpers.periods.#{_1}") }
     select_list(form, attribute, choises, include_any: false, **)

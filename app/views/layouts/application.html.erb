@@ -19,12 +19,22 @@
       <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
     <footer class="footer py-3 bg-body-tertiary">
-      <div class="container-fluid text-end">
+      <div class="container-fluid d-flex align-items-center justify-content-between">
+        <div>
+          <div class="input-group input-group-sm">
+            <label class="input-group-text" for="language-select">
+              <i class="bi bi-globe"></i>
+            </label>
+            <%= language_select class: 'form-select form-select-sm' %>
+          </div>
+        </div>
         <% Rails.configuration.sfbuff[:repo_url].try do |url| %>
-          <a target="_blank" class="link-light link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="<%= url %>">
-            <i class="bi bi-github"></i>
-            github
-          </a>
+          <div class="text-end">
+            <a target="_blank" class="link-light link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="<%= url %>">
+              <i class="bi bi-github"></i>
+              github
+            </a>
+          </div>
         <% end %>
       </div>
     </footer>
