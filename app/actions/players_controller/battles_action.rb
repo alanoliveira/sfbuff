@@ -15,7 +15,7 @@ class PlayersController
     attr_accessor :player_sid, :page
 
     def battles
-      @battles ||= all_battles.order(played_at: :desc).includes(:p1, :p2).page(page)
+      @battles ||= all_battles.order(played_at: :desc).includes(:challengers).page(page)
     end
 
     def rivals

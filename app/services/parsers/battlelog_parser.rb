@@ -12,8 +12,7 @@ module Parsers
 
     def parse
       battle.tap do |b|
-        b.p1 = p1
-        b.p2 = p2
+        b.challengers = [p1, p2]
         b.winner_side = winner
         b.raw_battle = RawBattle.new(data: @raw_data)
       end
