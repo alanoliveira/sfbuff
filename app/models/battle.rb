@@ -32,8 +32,4 @@ class Battle < ApplicationRecord
   def ranked?
     battle_type == Buckler::BATTLE_TYPES[:ranked]
   end
-
-  def >(other)
-    played_at > other.played_at
-  end
 end
