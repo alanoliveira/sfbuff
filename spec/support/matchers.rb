@@ -27,3 +27,16 @@ RSpec::Matchers.define :render_stream_source do |channel|
   failure_message { "not contains the stream source '#{channel}'" }
   failure_message_when_negated { "body should not contains the stream source '#{channel}'" }
 end
+
+RSpec::Matchers.define :have_battle_statistic do |w: nil, l: nil, d: nil|
+  match do |subject|
+    ok = true
+    ok &&= values_match?(w, subject.wins)
+    ok &&= values_match?(l, subject.loses)
+    ok &&= values_match?(d, subject.draws)
+    @group.try { ok &&= a_hash_including(**_1).matches? subject.group }
+    ok
+  end
+  chain(:with_group) { |group| @group = group.stringify_keys }
+end
+RSpec::Matchers.alias_matcher :a_battle_statistic, :have_battle_statistic

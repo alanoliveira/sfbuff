@@ -22,25 +22,25 @@ module ChartsHelper
     end
   end
 
-  def format_league_point_data(challenger)
+  def format_league_point_data(history_item)
     {
-      points: challenger.league_point,
-      tooltip: challenger.league_point,
-      title: I18n.l(challenger.battle.played_at, format: :short),
-      played_at: challenger.battle.played_at,
-      battle_url: battle_path(challenger.battle.replay_id)
+      points: history_item.points,
+      tooltip: history_item.points,
+      title: I18n.l(history_item.played_at, format: :short),
+      played_at: history_item.played_at,
+      battle_url: battle_path(history_item.replay_id)
     }
   end
 
-  def format_master_rating_data(challenger)
-    tooltip = format('%<points>d %<variation>+d', points: challenger.master_rating,
-                                                  variation: challenger.mr_variation)
+  def format_master_rating_data(history_item)
+    tooltip = format('%<points>d %<variation>+d', points: history_item.points,
+                                                  variation: history_item.variation)
     {
-      points: challenger.master_rating + challenger.mr_variation,
+      points: history_item.points + history_item.variation,
       tooltip:,
-      title: I18n.l(challenger.battle.played_at, format: :short),
-      played_at: challenger.battle.played_at,
-      battle_url: battle_path(challenger.battle.replay_id)
+      title: I18n.l(history_item.played_at, format: :short),
+      played_at: history_item.played_at,
+      battle_url: battle_path(history_item.replay_id)
     }
   end
 end

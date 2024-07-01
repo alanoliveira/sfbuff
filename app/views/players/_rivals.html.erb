@@ -19,9 +19,9 @@
             <tbody>
               <% rivals.public_send(kind).first(5).each do |r| %>
                 <tr class="text-center">
-                  <td><%= link_to_player r.name, r.player_sid %></td>
-                  <td><%= character(r.character) %></td>
-                  <td><%= control_type(r.control_type) %></td>
+                  <td><%= link_to_player r.group['name'], r.group['player_sid'] %></td>
+                  <td><%= character(r.group['character']) %></td>
+                  <td><%= control_type(r.group['control_type']) %></td>
                   <td><small><%= r.total %></small></td>
                   <td><small><%= r.wins %></small></td>
                   <td><small><%= r.loses %></small></td>

@@ -14,8 +14,8 @@
       <% matchup_chart.each do |row| %>
         <tr>
           <th class="text-center">
-            <%= character(row.character) %>
-            <%= control_type(row.control_type) %>
+            <%= character(row.group['character']) %>
+            <%= control_type(row.group['control_type']) %>
           </th>
           <td class="text-center"><%= row.total || '-' %></td>
           <td class="text-center"><%= row.wins || '-' %></td>
@@ -26,7 +26,7 @@
       <% end %>
     </tbody>
     <tfoot>
-      <% sum = matchup_chart.sum %>
+      <% sum = matchup_chart.reduce { |s, cur| s + cur } %>
       <tr>
         <th class="text-center"><%= t('common.all') %></th>
         <td class="text-center"><%= sum.total %></td>
@@ -38,4 +38,3 @@
     </tfoot>
   </table>
 </div>
-

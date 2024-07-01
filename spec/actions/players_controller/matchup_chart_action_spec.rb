@@ -17,9 +17,9 @@ RSpec.describe PlayersController::MatchupChartAction do
   let(:character) { 1 }
   let(:battle_type) { 1 }
 
-  describe '#matchup_chart' do
-    subject(:matchup_chart) { action.matchup_chart }
+  describe '#battles' do
+    subject(:battles) { action.battles }
 
-    it { is_expected.to respond_to(:each) }
+    it { is_expected.to respond_to(:matchup_chart) }
   end
 end

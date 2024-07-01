@@ -9,25 +9,23 @@ class Battle
                         AND player.player_sid != opponent.player_sid')
     end
 
-    def rivals
-      Rivals.new(statistics)
+    def statistics
+      Statistics.new(self)
     end
 
     def matchup_chart
-      MatchupChart.new(statistics)
+      stats = group('opponent.character', 'opponent.control_type').statistics
+      Buckler::CHARACTERS.values.product(Buckler::CONTROL_TYPES.values).map do |character, control_type|
+        group = { 'character' => character, 'control_type' => control_type }
+        stat = stats.find { |s| s.group == group }
+        stat || Statistics::Item.new(group:)
+      end
     end
 
-    protected
-
-    def statistics
-      reselect(
-        Arel.sql('COUNT(nullif(winner_side = opponent.side, true)) wins'),
-        Arel.sql('COUNT(nullif(winner_side = player.side, true)) loses'),
-        Arel.sql('COUNT(nullif(winner_side IS NOT NULL, true)) draws'),
-        Arel.sql('COUNT(nullif(winner_side = opponent.side, true)) -
-                    COUNT(nullif(winner_side = player.side, true)) diff'),
-        'COUNT(1) total'
-      ).unscope(:order, :limit, :offset)
+    def rivals
+      group('opponent.character', 'opponent.control_type', 'opponent.player_sid')
+        .select('ANY_VALUE(opponent.name) name')
+        .statistics
     end
   end
 end

@@ -28,8 +28,8 @@
   </div>
 </div>
 
-<% if @action.matchup_chart.any? %>
-  <%= render 'matchup_chart_table', matchup_chart: @action.matchup_chart %>
+<% if @action.battles.any? %>
+  <%= render 'matchup_chart_table', matchup_chart: @action.battles.matchup_chart %>
 <% else %>
   <%= n_battles_found_alert(0) %>
 <% end %>

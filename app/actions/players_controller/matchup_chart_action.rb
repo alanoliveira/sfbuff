@@ -12,13 +12,13 @@ class PlayersController
 
     attr_accessor :player_sid
 
-    def matchup_chart
-      @matchup_chart ||= Battle.pov.where(
+    def battles
+      @battles ||= Battle.pov.where(
         played_at: period_range,
         player: { player_sid:, character: }
       ).then do |rel|
         battle_type.present? ? rel.where(battle_type:) : rel
-      end.matchup_chart
+      end
     end
   end
 end
