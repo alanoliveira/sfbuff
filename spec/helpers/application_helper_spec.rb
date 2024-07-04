@@ -14,13 +14,13 @@ RSpec.describe ApplicationHelper do
     subject(:head_title) { helper.head_title }
 
     context 'when there is not content_for :title' do
-      it { is_expected.to have_xpath('//title[text()="SFBUFF"]') }
+      it { is_expected.to have_title('SFBUFF') }
     end
 
     context 'when there is content_for :title' do
       before { helper.content_for(:title) { 'hello' } }
 
-      it { is_expected.to have_xpath('//title[text()="SFBUFF - hello"]') }
+      it { is_expected.to have_title('SFBUFF - hello') }
     end
   end
 

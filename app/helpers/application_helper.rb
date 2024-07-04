@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def time_ago(time)
-    content_tag :span, t('helpers.datetime.time_ago', time: time_ago_in_words(time)),
+    content_tag :span, t('datetime.time_ago', time: time_ago_in_words(time)),
                 title: l(time, format: :short)
   end
 
@@ -65,7 +65,7 @@ module ApplicationHelper
   end
 
   def period_select(form, attribute, **)
-    choises = PeriodSearchable::PERIODS.transform_keys { t("helpers.periods.#{_1}") }
+    choises = Period::PERIODS.index_by { t("helpers.periods.#{_1}") }
     select_list(form, attribute, choises, include_any: false, **)
   end
 

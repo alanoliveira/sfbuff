@@ -1,0 +1,9 @@
+<h3><%= t 'titles.players.matchup_chart' %></h3>
+
+<%= render 'form', model: @filter %>
+
+<% if @battles.any? %>
+  <%= render 'table', matchup_chart: @battles.matchup_chart %>
+<% else %>
+  <%= n_battles_found_alert(0) %>
+<% end %>

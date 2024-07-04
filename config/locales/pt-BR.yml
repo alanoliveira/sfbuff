@@ -1,4 +1,9 @@
 pt-BR:
+  titles:
+    players:
+      battles: Matches
+      ranked: Ranked
+      matchup_chart: Matchup Chart
   actions:
     select: Selecionar
     search: Pesquisar
@@ -34,37 +39,34 @@ pt-BR:
       search_placeholder: Nome de jogador ou código de usuario
   players:
     battles:
-      battles_history: Histórico de Matches
-      rivals: Rivais
-    rivals:
-      opponent: Oponente
-      favorites: Favoritos
-      victims: Vítimas
-      tormentors: Carrascos
+      show:
+        battles_history: Histórico de Matches
+        rivals: Rivais
+      rivals:
+        opponent: Oponente
+        favorites: Favoritos
+        victims: Vítimas
+        tormentors: Carrascos
   helpers:
     select:
       any: Qualquer
-    periods:
-      day: Um dia
-      week: Uma semana
-      month: Um mês
-    datetime:
-      time_ago: '%{time} atrás'
     battles_found: 
       zero: Nenhuma match encontrada
       one: 1 match encontrada
       other: '%{count} matches encontradas'
+    periods:
+      day: 24 horas
+      week: 1 semana
+      month: 1 mês
+  datetime:
+    time_ago: '%{time} atrás'
   attributes:
     period: Período
     character: Personagem
     battle_type: Tipo de Match
   activemodel:
-    models:
-      players_controller/battles_action: Matches
-      players_controller/ranked_action: Ranked
-      players_controller/matchup_chart_action: Matchup Chart
     attributes:
-      players_controller/battles_action:
+      players/battles_controller/filter:
         player_character: Usando Personagem
         player_control_type: Usando Controle
         opponent_character: VS Personagem

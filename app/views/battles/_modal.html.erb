@@ -1,0 +1,12 @@
+<div class="modal" tabindex="-1" data-controller="battle-modal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-body">
+        <%= turbo_frame_tag 'battle' %>
+      </div>
+      <div class="modal-footer">
+        <%= button_tag t('actions.close'), type: 'button', class: 'btn btn-secondary', data: { bs_dismiss: 'modal' } %>
+      </div>
+    </div>
+  </div>
+</div>

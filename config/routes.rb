@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :players, only: [:show], param: :sid, constraints: { sid: Buckler::Api::SHORT_ID_REGEX } do
-    get :battles, on: :member
-    get :ranked, on: :member
-    get :matchup_chart, on: :member
+
+    scope module: :players, only: [:show] do
+      resource :battles
+      resource :ranked
+      resource :matchup_chart
+    end
   end
 
   resources :battles, only: [:show], param: :replay_id

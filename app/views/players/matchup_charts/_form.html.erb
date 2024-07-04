@@ -1,0 +1,27 @@
+<div class="py-3">
+  <div class="card">
+    <div class="card-body">
+      <%= form_with model: model, url: player_matchup_chart_path, method: :get do |f| %>
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <%= f.label :character, class: "form-label" %>
+            <%= character_select f, :character, include_any: false, class: 'form-select' %>
+          </div>
+          <div class="col-md-3">
+            <%= f.label :battle_type, class: "form-label" %>
+            <%= battle_type_select f, :battle_type, include_any: true, class: 'form-select' %>
+          </div>
+          <div class="col-md-3">
+            <%= f.label :period, class: "form-label" %>
+            <%= period_select f, :period, class: 'form-select' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <%= submit_tag t("actions.filter"), name: '', class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

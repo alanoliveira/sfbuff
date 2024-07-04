@@ -1,4 +1,9 @@
 ja:
+  titles:
+    players:
+      battles: 試合統計
+      ranked: ランク統計
+      matchup_chart: キャラ別統計
   actions:
     select: 選択
     search: 検索
@@ -34,37 +39,34 @@ ja:
       search_placeholder: プレイヤーネームまたユーザーコード
   players:
     battles:
-      battles_history: 対戦履歴
-      rivals: ライバル
-    rivals:
-      opponent: 対戦相手
-      favorites: 多く戦った対戦相手
-      victims: 勝率が高い対戦相手
-      tormentors: 勝率が低い対戦相手
+      show:
+        battles_history: 対戦履歴
+        rivals: ライバル
+      rivals:
+        opponent: 対戦相手
+        favorites: 多く戦った対戦相手
+        victims: 勝率が高い対戦相手
+        tormentors: 勝率が低い対戦相手
   helpers:
     select:
       any: 全て
-    periods:
-      day: 一日
-      week: 一週間
-      month: 一ヶ月
-    datetime:
-      time_ago: "%{time} 前"
     battles_found: 
       zero: 試合が見つかりません
       one: 1 試合が見つかりました
       other: "%{count} 試合が見つかりました"
+    periods:
+      day: 一日
+      week: 一週間
+      month: 一ヶ月
+  datetime:
+    time_ago: "%{time} 前"
   attributes:
     period: 統計期間
     character: キャラクター
     battle_type: ゲームモード
   activemodel:
-    models:
-      players_controller/battles_action: 試合統計
-      players_controller/ranked_action: ランク統計
-      players_controller/matchup_chart_action: キャラ別統計
     attributes:
-      players_controller/battles_action:
+      players/battles_controller/filter:
         player_character: プレイヤーキャラクター
         player_control_type: プレイヤーの操作タイプ
         opponent_character: 対戦相手のキャラクター

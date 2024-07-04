@@ -67,6 +67,9 @@ group :development, :test do
 
   # Generate fake values
   gem "faker", "~> 3.4"
+
+  # System test
+  gem "capybara", "~> 3.40"
 end
 
 group :development do

@@ -1,7 +1,7 @@
 <div class="py-3">
   <div class="card">
     <div class="card-body">
-      <%= form_with model: @action, method: :get do |f| %>
+      <%= form_with model: model, url: player_battles_path, method: :get do |f| %>
         <div class="row mb-3">
           <div class="col-md-3">
             <%= f.label :player_character, class: "form-label" %>
@@ -36,7 +36,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <%= f.submit t("actions.filter"), class: "btn btn-primary" %>
+            <%= f.submit t("actions.filter"), name: '', class: "btn btn-primary" %>
             <%= reset_button class: "btn btn-secondary" %>
           </div>
         </div>

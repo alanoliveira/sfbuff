@@ -12,7 +12,7 @@ RSpec.describe '/buckler' do
 
       it 'not renders the stream source PlayerSearchChannel' do
         get buckler_player_search_url(q: '')
-        expect(response.body).not_to render_stream_source('PlayerSearchChannel')
+        expect(response.body).not_to have_stream_source('PlayerSearchChannel')
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe '/buckler' do
 
       it 'renders the player-search component' do
         get buckler_player_search_url(q: 'search')
-        expect(response.body).to render_stream_source('PlayerSearchChannel')
+        expect(response.body).to have_stream_source('PlayerSearchChannel')
       end
     end
   end

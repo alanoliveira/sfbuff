@@ -1,4 +1,9 @@
 en:
+  titles:
+    players:
+      battles: Matches
+      ranked: Ranked
+      matchup_chart: Matchup Chart
   actions:
     select: Select
     search: Search
@@ -34,37 +39,34 @@ en:
       search_placeholder: 'search for player name or user code'
   players:
     battles:
-      battles_history: Match history
-      rivals: Rivals
-    rivals:
-      opponent: Opponent
-      favorites: Favorites
-      victims: Victims
-      tormentors: Tormentors
+      show:
+        battles_history: Match history
+        rivals: Rivals
+      rivals:
+        opponent: Opponent
+        favorites: Favorites
+        victims: Victims
+        tormentors: Tormentors
   helpers:
     select:
       any: Any
-    periods:
-      day: One day
-      week: One week
-      month: One month
-    datetime:
-      time_ago: '%{time} ago'
     battles_found: 
       zero: No match found
       one: 1 match found
       other: '%{count} matches found'
+    periods:
+      day: 24 hours
+      week: 1 week
+      month: 1 month
+  datetime:
+    time_ago: '%{time} ago'
   attributes:
     period: Period
     character: Character
     battle_type: Battle Type
   activemodel:
-    models:
-      players_controller/battles_action: Matches
-      players_controller/ranked_action: Ranked
-      players_controller/matchup_chart_action: Matchup Chart
     attributes:
-      players_controller/battles_action:
+      players/battles_controller/filter:
         player_character: Using Character
         player_control_type: Using Control
         opponent_character: VS Character

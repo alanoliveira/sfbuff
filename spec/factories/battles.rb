@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :battle do
     battle_type { 1 }
     traits_for_enum :battle_type, Buckler::BATTLE_TYPES
-    played_at { (Time.zone.local(2023, 1, 1) + rand(1.year.to_i)) }
+    played_at { 1.minute.ago }
     replay_id
 
     transient do

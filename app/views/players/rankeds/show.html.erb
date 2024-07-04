@@ -1,0 +1,19 @@
+<h3><%= t 'titles.players.ranked' %></h3>
+
+<%= render 'form', model: @filter %>
+
+<%= render 'battles/modal' %>
+
+<% if (master_rating = @ranked_history.master_rating).present? %>
+  <h4><%= t('buckler.data.league_info.master_rating') %></h4>
+  <div class="p-2">
+    <%= master_rating_chart master_rating, frame: 'battle' %>
+  </div>
+<% elsif (league_point = @ranked_history.league_point).present? %>
+  <h4><%= t('buckler.data.league_info.league_point') %></h4>
+  <div class="p-2">
+    <%= league_point_chart league_point, frame: 'battle' %>
+  </div>
+<% else %>
+  <%= n_battles_found_alert(0) %>
+<% end %>
