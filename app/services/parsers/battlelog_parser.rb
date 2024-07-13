@@ -2,7 +2,10 @@
 
 module Parsers
   class BattlelogParser
+    @battle_logger = Rails.logger.tagged('battle_log')
+
     def self.parse(raw_data)
+      @battle_logger.info(raw_data.to_json)
       new(raw_data).parse
     end
 
@@ -14,7 +17,6 @@ module Parsers
       battle.tap do |b|
         b.challengers = [p1, p2]
         b.winner_side = winner
-        b.raw_battle = RawBattle.new(data: @raw_data)
       end
     end
 
