@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { setCookie } from "helpers/cookie_helpers"
 
 // Connects to data-controller="language-select"
 export default class extends Controller {
@@ -7,7 +8,7 @@ export default class extends Controller {
   }
 
   change() {
-    document.cookie = `locale=${this.element.value};path=/;SameSite=Strict`
+    setCookie('locale', this.element.value)
     window.location = window.location
   }
 }

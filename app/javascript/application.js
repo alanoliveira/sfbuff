@@ -1,6 +1,6 @@
 // Entry point for the build script in your package.json
 import "@hotwired/turbo-rails"
 import "./controllers"
-import * as bootstrap from "bootstrap"
+import { setCookie } from "helpers/cookie_helpers"
 
-document.cookie = `timezone=${Intl.DateTimeFormat().resolvedOptions().timeZone};path=/;SameSite=Strict"`
+setCookie('timezone', Intl.DateTimeFormat().resolvedOptions().timeZone)
