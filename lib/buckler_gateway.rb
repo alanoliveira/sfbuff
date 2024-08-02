@@ -10,7 +10,6 @@ class BucklerGateway
     @api.public_send(name, *, &)
   rescue Buckler::Client::AccessDeniedError, Buckler::Client::NotFoundError => e
     BucklerCredential.clean
-    BucklerLoginJob.perform_later
     raise e
   end
 

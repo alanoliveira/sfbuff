@@ -1,4 +1,3 @@
 #!/bin/bash -e
 
-bin/rails sfbuff:buckler_login
 bin/bundle exec rake solid_queue:start

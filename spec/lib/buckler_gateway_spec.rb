@@ -19,14 +19,6 @@ RSpec.describe BucklerGateway do
     rescue StandardError
       expect(BucklerCredential).to have_received(:clean)
     end
-
-    it 'schedule a BucklerLoginJob' do
-      assert_enqueued_with job: BucklerLoginJob do
-        buckler_gateway.hogehoge
-      rescue StandardError
-        # do nothing
-      end
-    end
   end
 
   context 'when api throws an AccessDeniedError' do
