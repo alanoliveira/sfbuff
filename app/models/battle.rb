@@ -2,7 +2,6 @@
 
 class Battle < ApplicationRecord
   has_many :challengers, dependent: :destroy
-  has_one :raw_battle, dependent: :destroy, primary_key: :replay_id, foreign_key: :replay_id, inverse_of: false
 
   scope :ranked, -> { where(battle_type: Buckler::BATTLE_TYPES[:ranked]) }
 
