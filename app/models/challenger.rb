@@ -4,6 +4,8 @@ class Challenger < ApplicationRecord
 
   belongs_to :battle
 
+  scope :join_vs, JoinVs
+
   def master?
     master_rating.positive?
   end
