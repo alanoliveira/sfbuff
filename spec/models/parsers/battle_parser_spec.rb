@@ -43,7 +43,7 @@ RSpec.describe Parsers::BattleParser do
 
       expect(parsed_battle.p1.short_id).to eq(123_456)
       expect(parsed_battle.p1.name).to eq('TEST_FIGHTER_1')
-      expect(parsed_battle.p1.rounds).to eq [ 1, 1 ]
+      expect(parsed_battle.p1.rounds).to eq [ Round.new(1), Round.new(1) ]
       expect(parsed_battle.p1.character).to eq(254)
       expect(parsed_battle.p1.playing_character).to eq(3)
       expect(parsed_battle.p1.control_type).to eq(0)
@@ -52,7 +52,7 @@ RSpec.describe Parsers::BattleParser do
 
       expect(parsed_battle.p2.short_id).to eq(123_457)
       expect(parsed_battle.p2.name).to eq('TEST_FIGHTER_2')
-      expect(parsed_battle.p2.rounds).to eq [ 0, 0 ]
+      expect(parsed_battle.p2.rounds).to eq [ Round.new(0), Round.new(0) ]
       expect(parsed_battle.p2.character).to eq(4)
       expect(parsed_battle.p2.playing_character).to eq(4)
       expect(parsed_battle.p2.control_type).to eq(1)
