@@ -13,6 +13,10 @@ class Battle < ApplicationRecord
     challengers.find(&:p2?)
   end
 
+  def winner
+    challengers.find { |c| c.win? }
+  end
+
   def mr_calculator
     MrCalculator if ranked? && challengers.all?(&:master?)
   end
