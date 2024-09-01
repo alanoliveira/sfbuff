@@ -11,6 +11,18 @@ FactoryBot.define do
     side { nil }
     battle
 
+    trait :win do
+      rounds { [ 1, 1 ] }
+    end
+
+    trait :lose do
+      rounds { [ 0, 0 ] }
+    end
+
+    trait :draw do
+      rounds { [ 4, 4 ] }
+    end
+
     trait :random do
       character { 254 }
     end
