@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_17_081132) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_18_101354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_17_081132) do
     t.index ["battle_type"], name: "index_battles_on_battle_type"
     t.index ["played_at"], name: "index_battles_on_played_at"
     t.index ["replay_id"], name: "index_battles_on_replay_id", unique: true
+  end
+
+  create_table "buckler_clients", force: :cascade do |t|
+    t.string "build_id"
+    t.string "cookies"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "challengers", force: :cascade do |t|
