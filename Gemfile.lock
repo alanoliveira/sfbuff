@@ -89,8 +89,14 @@ GEM
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    diff-lcs (1.5.1)
     drb (2.2.1)
     erubi (1.13.0)
+    factory_bot (6.4.6)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.5)
@@ -195,6 +201,23 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.9)
       io-console (~> 0.5)
+    rspec-core (3.13.0)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-rails (6.1.4)
+      actionpack (>= 6.1)
+      activesupport (>= 6.1)
+      railties (>= 6.1)
+      rspec-core (~> 3.13)
+      rspec-expectations (~> 3.13)
+      rspec-mocks (~> 3.13)
+      rspec-support (~> 3.13)
+    rspec-support (3.13.1)
     rubocop (1.66.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -269,11 +292,13 @@ DEPENDENCIES
   brakeman
   cssbundling-rails
   debug
+  factory_bot_rails (~> 6.4)
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.2.1)
+  rspec-rails (~> 6.1)
   rubocop-rails-omakase
   sprockets-rails
   stimulus-rails
