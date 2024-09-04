@@ -30,6 +30,18 @@
 en:
   buttons:
     search: 'Search'
+    reset: 'Reset'
+    filter: 'Filter'
+  common:
+    lose:
+      one: Lose
+      other: Loses
+    win:
+      one: Win
+      other: Wins
+    draw:
+      one: Draw
+      other: Draws
   helpers:
     search_form:
       placeholder: 'Search for player name or user code'

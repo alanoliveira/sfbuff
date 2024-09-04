@@ -3,10 +3,10 @@
     <%= mr_lp(mr: challenger.master_rating, lp: challenger.league_point) %>
   </small>
   <div class="d-none d-lg-block fs-1 fw-bold">
-    <%= link_to challenger.name, player_path(challenger.short_id) %>
+    <%= link_to challenger.name, player_path(challenger.short_id), data: { turbo_frame: :_top } %>
   </div>
   <div class="d-lg-none d-sm-block fw-bold">
-    <%= link_to challenger.name, player_path(challenger.short_id) %>
+    <%= link_to challenger.name, player_path(challenger.short_id), data: { turbo_frame: :_top } %>
   </div>
   <small>
     <%= t_character challenger.character %> 

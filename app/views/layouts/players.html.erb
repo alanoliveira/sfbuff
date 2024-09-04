@@ -16,6 +16,9 @@
   <% if @player.persisted? %>
     <div class="py-3">
       <ul class="nav nav-fill nav-underline">
+        <li class="nav-item">
+          <%= nav_link t("titles.players.battles"), player_battles_path(@player), class: "nav-link", data: { turbo_frame: "player-content", turbo_action: "advance" } %>
+        </li>
       </ul>
     </div>
   <% end %>

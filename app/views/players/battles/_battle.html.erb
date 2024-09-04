@@ -1,0 +1,5 @@
+<%= render "battles/battle", battle: do %>
+  <div class="text-center">
+    <%= battle_footer_result winner_short_id: battle.winner.try(:short_id), pov_short_id: @player.short_id %>
+  </div>
+<% end %>
