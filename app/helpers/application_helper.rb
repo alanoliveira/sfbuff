@@ -34,4 +34,13 @@ module ApplicationHelper
       end
     end
   end
+
+  def signed_number(number)
+    css_class = case number
+    when ..-1 then "text-danger"
+    when 1.. then "text-success"
+    else ""
+    end
+    content_tag(:span, format("%+d", number), class: css_class)
+  end
 end

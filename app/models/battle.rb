@@ -22,4 +22,8 @@ class Battle < ApplicationRecord
   def mr_calculator
     MrCalculator if ranked? && challengers.all?(&:master?)
   end
+
+  def to_param
+    replay_id
+  end
 end

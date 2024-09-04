@@ -1,0 +1,7 @@
+<ul class="list-unstyled text-center">
+  <% rounds.each.map { t_round(_1) }.each do |r| %>
+    <li>
+      <%= content_tag :span, r.upcase, style: 'width: 20px', class: "badge px-0 text-center round-#{r}" %>
+    </li>
+  <% end %>
+</ul>

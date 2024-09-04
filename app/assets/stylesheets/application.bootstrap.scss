@@ -1,2 +1,21 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+$round-styles: (
+  v:  ( text: white, bg: purple ),
+  od: ( text: white, bg: green ),
+  p:  ( text: black, bg: yellow ),
+  sa: ( text: black, bg: pink ),
+  c:  ( text: black, bg: lightblue ),
+  t:  ( text: black, bg: orange ),
+  ca: ( text: white, bg: red ),
+  d:  ( text: white, bg: blue ),
+  l:  ( text: black, bg: grey ),
+);
+
+@each $round, $style in $round-styles {
+  .round-#{$round} {
+    background-color: map-get($style, bg);
+    color: map-get($style, text);
+  }
+}

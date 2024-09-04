@@ -42,3 +42,43 @@ en:
     master_rating: MR
     league_point: LP
     country: Country
+  buckler:
+    character:
+      ryu: Ryu
+      luke: Luke
+      kimberly: Kimberly
+      chun_li: Chun-Li
+      manon: Manon
+      zangief: Zangief
+      jp: JP
+      dhalsim: Dhalsim
+      cammy: Cammy
+      ken: Ken
+      dee_jay: Dee Jay
+      lilly: Lilly
+      aki: A.K.I.
+      rashid: Rashid
+      blanka: Blanka
+      juri: Juri
+      marisa: Marisa
+      guile: Guile
+      ed: Ed
+      e_honda: E. Honda
+      jamie: Jamie
+      akuma: Akuma
+      m_bison: M. Bison
+      terry: Terry
+      mai: Mai
+      elena: Elena
+      random: Random
+    control_type:
+      classic: Classic
+      modern: Modern
+      short:
+        classic: C
+        modern: M
+    battle_type:
+      ranked: Ranked
+      casual_match: Casual Match
+      battle_hub: Battle Hub
+      custom_room: Custom Room
