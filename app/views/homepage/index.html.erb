@@ -1,0 +1,15 @@
+<% content_for :search_form do %>
+  <div class="p-5">
+    <%= search_form do |f| %>
+      <%= f.submit t('buttons.search'), name: nil, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="position-absolute top-50 start-50 translate-middle d-none d-md-block d-sm-none w-50">
+  <%= content_for :search_form %>
+</div>
+
+<div class="position-absolute top-50 start-50 translate-middle d-sm-block d-md-none w-100">
+  <%= content_for :search_form %>
+</div>

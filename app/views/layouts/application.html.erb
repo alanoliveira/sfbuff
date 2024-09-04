@@ -4,6 +4,8 @@
     <title><%= content_for(:title) || "Sfbuff" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="turbo-prefetch" content="false">
+    <meta name="description" content="SFBUFF is a statistics website for SF6 matches.">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -17,7 +19,17 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="min-vh-100 d-flex flex-column">
+    <header id="header">
+      <%= yield :nav %>
+    </header>
+
+    <main id="main-content" class="flex-fill my-3 container">
+      <%= content_for?(:main) ? yield(:main) : yield %>
+    </main>
+
+    <footer id="footer">
+      <%= yield :footer %>
+    </footer>
   </body>
 </html>

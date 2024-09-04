@@ -28,4 +28,8 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  buttons:
+    search: 'Search'
+  helpers:
+    search_form:
+      placeholder: 'Search for player name or user code'

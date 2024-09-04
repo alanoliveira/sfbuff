@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand-md bg-body-tertiary">
+  <div class="container">
+    <div class="d-flex w-100 justify-content-between align-items-center gap-4">
+      <div>
+        <%= link_to root_path do %>
+          <%= image_tag "sfbuff-icon.svg", size: 30, title: "SFBUFF" %>
+        <% end %>
+      </div>
+      <div>
+        <%= search_form do |f| %>
+          <%= f.submit t('buttons.search'), name: nil, class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,12 @@
+<div class="footer py-3 bg-body-tertiary">
+  <div class="container-fluid">
+    <% ENV['REPOSITORY_URL'].try do |url| %>
+      <div class="text-end">
+        <a target="_blank" class="link-secondary link-underline-opacity-0" href="<%= url %>">
+          <i class="bi bi-github"></i>
+          github
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>
