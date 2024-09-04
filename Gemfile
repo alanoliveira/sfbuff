@@ -59,3 +59,5 @@ group :development do
 end
 
 gem "faraday", "~> 2.10"
+
+gem "kaminari", "~> 1.2"

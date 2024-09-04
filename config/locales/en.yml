@@ -42,6 +42,9 @@ en:
     master_rating: MR
     league_point: LP
     country: Country
+  pagination:
+    previous: Previous
+    next: Next
   buckler:
     character:
       ryu: Ryu
