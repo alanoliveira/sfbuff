@@ -1,0 +1,29 @@
+<div class="table-responsive">
+  <table class="table text-center">
+    <thead>
+      <tr>
+        <th><%= t('attributes.name') %></th>
+        <th class="d-none d-lg-table-cell"><%= t('attributes.short_id')  %></th>
+        <th><%= t('attributes.main_character') %></th>
+        <th><%= t('attributes.mr') %> / <%= t('attributes.lp') %></th>
+        <th><%= t('attributes.country') %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.each do |fighter| %>
+        <tr>
+          <td><%= fighter.name %></td>
+          <td class="d-none d-lg-table-cell"><%= fighter.short_id %></td>
+          <td><%= t_character(fighter.main_character) %></td>
+          <td><%= mr_lp(mr: fighter.master_rating, lp: fighter.league_point) %></td>
+          <td></td>
+          <td>
+            <%= button_to t('actions.select'), player_path(fighter.short_id),
+              method: :get, class: 'btn btn-primary' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

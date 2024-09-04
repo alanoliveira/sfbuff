@@ -33,3 +33,10 @@ en:
   helpers:
     search_form:
       placeholder: 'Search for player name or user code'
+  attributes:
+    name: Name
+    short_id: ID
+    main_character: Main Char
+    master_rating: MR
+    league_point: LP
+    country: Country
