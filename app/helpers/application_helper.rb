@@ -9,4 +9,8 @@ module ApplicationHelper
       end
     end
   end
+
+  def channel_error_alert(error:)
+    content_tag :div, "#{error.class}: #{error}"
+  end
 end
