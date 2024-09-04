@@ -1,4 +1,7 @@
 class BucklerClient < ApplicationRecord
+  class Error < StandardError; end
+  class PlayerNotFound < Error; end
+
   def battle_list(short_id:)
     client.replay_list(short_id:).lazy.map do |raw_data|
       Parsers::BattleParser.parse(raw_data:)
@@ -7,6 +10,8 @@ class BucklerClient < ApplicationRecord
 
   def fighter_banner(short_id:)
     raw_data = client.fighter_banner.player_fighter_banner(short_id:)
+    raise PlayerNotFound if raw_data.nil?
+
     parse_fighter_banner(raw_data)
   end
 

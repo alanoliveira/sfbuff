@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def time_ago(time)
+    content_tag :span, t("datetime.time_ago", time: time_ago_in_words(time)),
+                title: l(time, format: :short)
+  end
+
   def search_form(**, &block)
     form_with url: buckler_player_search_path, method: :get, role: "search", ** do |f|
       content_tag :div, class: "input-group" do

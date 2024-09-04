@@ -33,6 +33,8 @@ en:
   helpers:
     search_form:
       placeholder: 'Search for player name or user code'
+  datetime:
+    time_ago: '%{time} ago'
   attributes:
     name: Name
     short_id: ID

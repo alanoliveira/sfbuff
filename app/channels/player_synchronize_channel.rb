@@ -1,10 +1,12 @@
 class PlayerSynchronizeChannel < Turbo::StreamsChannel
+  RESULT_TARGET = "player-synchronize-result"
+
   def self.broadcast_response(to:)
     broadcast_action_to(to, action: "refresh")
   end
 
   def self.broadcast_error(to:, error:)
-    broadcast_render_to(to, template: "channel/error", locals: { error: })
+    broadcast_render_to(to, template: "channel/error", locals: { target: RESULT_TARGET, error: })
   end
 
   def subscribed

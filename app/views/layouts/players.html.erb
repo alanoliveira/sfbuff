@@ -1,0 +1,26 @@
+<% content_for :main do %>
+
+  <h1><%= @player.name %></h1>
+
+  <% if @player.synchronized? %>
+    <small><%= t '.synchronized' %>: <%= time_ago @player.synchronized_at %></small>
+  <% else %>
+    <div id="player-synchronize-result">
+      <div class="text-center">
+        <%= spinner %>
+      </div>
+    </div>
+    <%= turbo_stream_from @player.short_id, channel: 'PlayerSynchronizeChannel' %>
+  <% end %>
+
+  <% if @player.persisted? %>
+    <div class="py-3">
+      <ul class="nav nav-fill nav-underline">
+      </ul>
+    </div>
+  <% end %>
+
+  <%= yield %>
+<% end %>
+
+<%= render template: "layouts/with_header_footer" %>

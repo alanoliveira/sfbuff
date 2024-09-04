@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  resources :players, only: [ :show ]
+  resources :players, only: [ :show ], param: :short_id
 
   get "buckler/player_search"
 
