@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def alert(message = nil, kind: :info, **opts, &)
+    content_tag(:div, message, **opts, role: "alert",
+      class: [ "alert", "alert-#{kind}", opts[:class] ], &)
+  end
+
   def time_ago(time)
     content_tag :span, t("datetime.time_ago", time: time_ago_in_words(time)),
                 title: l(time, format: :short)
@@ -22,7 +27,7 @@ module ApplicationHelper
   end
 
   def channel_error_alert(error:)
-    content_tag :div, "#{error.class}: #{error}"
+    alert "#{error.class}: #{error}", kind: :danger
   end
 
   def mr_lp(mr:, lp:)
