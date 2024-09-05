@@ -2,5 +2,10 @@
   <%= render 'filter_form', object: @battles_filter_form %>
 </div>
 
-<%= @statistics.first.try { render 'score', score: _1[:score] } %>
-<%= render 'battle_list', battles: @battles %>
+<% if @battles.total_count.positive? %>
+  <%= turbo_frame_tag "rival-list" do %>
+    <%= button_to t('.rivals'), rivals_player_battles_path(@player), method: :get, params: @battles_filter_form.attributes, class: "btn btn-outline-primary mb-3 w-100" %>
+  <% end %>
+  <%= render 'score', score: @statistics.first[:score] %>
+  <%= render 'battle_list', battles: @battles %>
+<% end %>

@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   resources :players, only: [ :show ], param: :short_id do
     get "/", to: redirect("/players/%{player_short_id}/battles")
-    resource :battles, only: [ :show ], module: :players
+    resource :battles, only: [ :show ], module: :players do
+      get "rivals"
+    end
     resource :matchup_chart, only: [ :show ], module: :players
     resource :ranked, only: [ :show ], module: :players
   end

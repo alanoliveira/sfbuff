@@ -1,0 +1,29 @@
+<table class="table">
+  <thead>
+    <tr class="text-center">
+      <th><%= t('.opponent') %></th>
+      <th><%= t('.character') %></th>
+      <th><%= t('.control_type') %></th>
+      <th><%= t('common.t') %></th>
+      <th><%= t('common.w') %></th>
+      <th><%= t('common.d') %></th>
+      <th><%= t('common.l') %></th>
+      <th><%= t('common.diff') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% rival.each do |r| %>
+      <% r => score:, values: %>
+      <tr class="text-center">
+        <td><%= link_to values['name'], player_path(values['short_id']) %></td>
+        <td><%= t_character(values['character']) %></td>
+        <td><%= t_control_type(values['control_type']) %></td>
+        <td><%= score.total %></td>
+        <td><%= score.win %></td>
+        <td><%= score.draw %></td>
+        <td><%= score.lose %></td>
+        <td><%= signed_number(score.diff) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
