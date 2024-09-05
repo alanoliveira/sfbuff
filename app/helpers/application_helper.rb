@@ -61,4 +61,12 @@ module ApplicationHelper
       { percent: score.lose_percent, bg_class: "bg-danger", aria: { value_now: score.lose_percent } }
     ], **)
   end
+
+  def color_mode_select
+    render "helpers/color_mode_select", options: {
+      "light" => "brightness-high-fill",
+      "dark" => "moon-fill",
+      "auto" => "circle-half"
+    }
+  end
 end

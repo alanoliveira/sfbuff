@@ -1,12 +1,17 @@
 <div class="footer py-3 bg-body-tertiary">
   <div class="container-fluid">
-    <% ENV['REPOSITORY_URL'].try do |url| %>
-      <div class="text-end">
-        <a target="_blank" class="link-secondary link-underline-opacity-0" href="<%= url %>">
-          <i class="bi bi-github"></i>
-          github
-        </a>
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <%= color_mode_select %>
       </div>
-    <% end %>
+      <div>
+        <% ENV['REPOSITORY_URL'].try do |url| %>
+          <a target="_blank" class="link-secondary link-underline-opacity-0" href="<%= url %>">
+            <i class="bi bi-github"></i>
+            github
+          </a>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
