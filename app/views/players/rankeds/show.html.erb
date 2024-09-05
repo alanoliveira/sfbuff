@@ -1,0 +1,11 @@
+<div class="mb-3">
+  <%= render 'filter_form', object: @filter_form %>
+</div>
+
+<% if @history.any? %>
+  <div class="card card-body">
+    <%= history_chart(@history) %>
+  </div>
+<% end %>
+
+<%= turbo_frame_tag "turbo-modal" %>

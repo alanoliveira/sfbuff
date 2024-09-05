@@ -1,0 +1,14 @@
+<%= turbo_frame_tag "turbo-modal" do %>
+  <div class="modal" tabindex="-1" data-controller="turbo-modal">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-body">
+          <%= render @battle %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t 'action.close' %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -6,3 +6,9 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import RankedHistoryChartController from "./ranked_history_chart_controller"
+application.register("ranked-history-chart", RankedHistoryChartController)
+
+import TurboModalController from "./turbo_modal_controller"
+application.register("turbo-modal", TurboModalController)

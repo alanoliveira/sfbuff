@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-body">
+    <%= form_with model: object, url: false, method: :get do |f| %>
+      <div class="row mb-3">
+        <div class="col-md-3">
+          <%= f.label :character, class: "form-label" %>
+          <%= f.select :character, options_for_character_select, {}, class: 'form-select' %>
+        </div>
+        <div class="col-md-3">
+          <%= f.label :played_from, class: "form-label" %>
+          <%= f.date_field :played_from, class: "form-control" %>
+        </div>
+        <div class="col-md-3">
+          <%= f.label :played_to, class: "form-label" %>
+          <%= f.date_field :played_to, class: "form-control" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <%= f.submit t("buttons.filter"), name: '', class: "btn btn-primary" %>
+          <%= link_to t("buttons.reset"), url_for(only_path: true), class: "btn btn-secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
