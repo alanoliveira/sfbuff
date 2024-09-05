@@ -1,0 +1,17 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <div class="text-center"><%= t '.score' %></div>
+  </div>
+  <div class="card-body">
+    <div class="py-3">
+      <div class="text-end small">
+        <span class="text-success" title="W"><%= score.win || 0 %></span>
+        <span>-</span>
+        <span class="text-warning" title="D"><%= score.draw || 0 %></span>
+        <span>-</span>
+        <span class="text-danger" title="L"><%= score.lose || 0 %></span>
+      </div>
+      <%= score_bar(score) %>
+    </div>
+  </div>
+</div>

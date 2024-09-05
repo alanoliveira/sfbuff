@@ -53,4 +53,12 @@ module ApplicationHelper
     end
     content_tag(:span, format("%+d", number), class: css_class)
   end
+
+  def score_bar(score, **)
+    bs_progress_bar_stacked(progresses: [
+      { percent: score.win_percent, bg_class: "bg-success", aria: { value_now: score.win_percent } },
+      { percent: score.draw_percent, bg_class: "bg-warning", aria: { value_now: score.draw_percent } },
+      { percent: score.lose_percent, bg_class: "bg-danger", aria: { value_now: score.lose_percent } }
+    ], **)
+  end
 end

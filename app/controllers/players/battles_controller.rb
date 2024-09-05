@@ -7,5 +7,8 @@ class Players::BattlesController < ApplicationController
     @battles_filter_form = Players::BattlesFilterForm.new(player: @player).fill(params)
     result = @battles_filter_form.submit
     @battles = result.ordered.reverse_order.page(params[:page]).preload(:challengers)
+    @statistics = Statistics.new(result)
+
+    render partial: "battle_list", locals: { battles: @battles } if turbo_frame_request_id == "battle-list"
   end
 end

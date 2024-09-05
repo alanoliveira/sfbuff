@@ -2,4 +2,5 @@
   <%= render 'filter_form', object: @battles_filter_form %>
 </div>
 
+<%= @statistics.first.try { render 'score', score: _1[:score] } %>
 <%= render 'battle_list', battles: @battles %>
