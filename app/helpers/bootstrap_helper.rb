@@ -5,6 +5,10 @@ module BootstrapHelper
     end
   end
 
+  def bs_icon(icon, **opts)
+    content_tag(:i, nil, class: [ "bi", "bi-#{icon}", opts.delete(:class) ], **opts)
+  end
+
   private
 
   def bar_for_progress_bar_stacked(percent:, bg_class: "bg-info", **)
