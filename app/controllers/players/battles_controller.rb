@@ -6,8 +6,10 @@ class Players::BattlesController < ApplicationController
 
   def show
     result = @battles_filter_form.submit
-    @battles = result.ordered.reverse_order.page(params[:page]).preload(:challengers)
     @statistics = Statistics.new(result)
+    # it using a nested select to prevent pg from sorting before the filter
+    @battles = Battle.from(result.ordered, "battles")
+      .ordered.reverse_order.page(params[:page]).preload(:challengers)
 
     render partial: "battle_list", locals: { battles: @battles } if turbo_frame_request_id == "battle-list"
   end
