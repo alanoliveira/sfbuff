@@ -32,7 +32,9 @@ module ApplicationHelper
   end
 
   def channel_error_alert(error:)
-    alert "#{error.class}: #{error}", kind: :danger
+    key = error.class.name.underscore
+    key = "generic" unless I18n.exists?(key, scope: "errors")
+    alert(t(key, scope: "errors"), kind: "danger")
   end
 
   def mr_lp(mr:, lp:)
