@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   resources :players, only: [ :show ], param: :short_id do
+    get "/", to: redirect("/players/%{player_short_id}/battles")
     resource :battles, only: [ :show ], module: :players
     resource :matchup_chart, only: [ :show ], module: :players
     resource :ranked, only: [ :show ], module: :players
