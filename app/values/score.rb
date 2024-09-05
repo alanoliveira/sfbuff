@@ -1,12 +1,4 @@
-Score = Data.define(:win, :lose, :draw) do
-  def total
-    win + lose + draw
-  end
-
-  def diff
-    win - lose
-  end
-
+Score = Data.define(:win, :lose, :draw, :total, :diff) do
   def win_percent
     return 0 if total.zero?
     (win / total.to_f) * 100
