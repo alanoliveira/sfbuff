@@ -1,0 +1,38 @@
+<table class="table table-striped text-center">
+  <thead>
+    <tr>
+      <th><%= t('.character') %></th>
+      <th><%= t('.control_type') %></th>
+      <th><%= t('common.total') %></th>
+      <th><%= t('common.win', count: 0) %></th>
+      <th><%= t('common.lose', count: 0) %></th>
+      <th><%= t('common.draw', count: 0) %></th>
+      <th><%= t('common.diff') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% matchup_chart.each do |m| %>
+      <tr>
+        <% m => score:, values: %>
+        <td><%= t_character(values["character"]) %></td>
+        <td><%= t_control_type(values["control_type"]) %></td>
+        <td><%= score.try(:total) || '-' %></td>
+        <td><%= score.try(:win) || '-' %></td>
+        <td><%= score.try(:lose) || '-' %></td>
+        <td><%= score.try(:draw) || '-' %></td>
+        <td><%= score.try { signed_number(_1.diff) } || '-' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <% sum = matchup_chart.sum %>
+    <tr>
+      <th colspan="2"><%= t('common.all') %></th>
+      <td><%= sum.try(:total) || '-' %></td>
+      <td><%= sum.try(:win) || '-' %></td>
+      <td><%= sum.try(:lose) || '-' %></td>
+      <td><%= sum.try(:draw) || '-' %></td>
+      <td><%= sum.try { signed_number(_1.diff) } || '-' %></td>
+    </tr>
+  </tfoot>
+</table>

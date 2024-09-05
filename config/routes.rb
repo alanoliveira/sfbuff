@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :players, only: [ :show ], param: :short_id do
     resource :battles, only: [ :show ], module: :players
+    resource :matchup_chart, only: [ :show ], module: :players
   end
   resources :battles, only: [ :show ], param: :replay_id
 
