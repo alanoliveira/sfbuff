@@ -223,6 +223,7 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.9)
       io-console (~> 0.5)
+    rexml (3.3.7)
     rspec-core (3.13.0)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.2)
@@ -269,7 +270,14 @@ GEM
       rubocop-performance
       rubocop-rails
     ruby-progressbar (1.13.0)
+    rubyzip (2.3.2)
     securerandom (0.3.1)
+    selenium-webdriver (4.24.0)
+      base64 (~> 0.2)
+      logger (~> 1.4)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -297,6 +305,7 @@ GEM
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
     webrick (1.8.1)
+    websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -326,6 +335,7 @@ DEPENDENCIES
   rails-i18n (~> 7.0)
   rspec-rails (~> 6.1)
   rubocop-rails-omakase
+  selenium-webdriver (~> 4.24)
   sprockets-rails
   stimulus-rails
   turbo-rails

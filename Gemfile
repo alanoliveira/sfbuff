@@ -63,3 +63,5 @@ gem "faraday", "~> 2.10"
 gem "kaminari", "~> 1.2"
 
 gem "rails-i18n", "~> 7.0"
+
+gem "selenium-webdriver", "~> 4.24"
