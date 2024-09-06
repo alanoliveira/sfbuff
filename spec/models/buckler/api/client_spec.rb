@@ -10,6 +10,20 @@ RSpec.describe Buckler::Api::Client do
   let(:stubs) { Faraday::Adapter::Test::Stubs.new }
 
   describe '.remote_build_id' do
+    subject(:under_maintenance) { described_class.under_maintenance?(connection) }
+
+    it do
+      stubs.head('/6/buckler/fighterslist/friend') { [ 503, {}, nil ] }
+      expect(under_maintenance).to be_truthy
+    end
+
+    it do
+      stubs.head('/6/buckler/fighterslist/friend') { [ 200, {}, nil ] }
+      expect(under_maintenance).to be_falsey
+    end
+  end
+
+  describe '.under_maintenance?' do
     subject(:remote_build_id) { described_class.remote_build_id(connection) }
 
     before do

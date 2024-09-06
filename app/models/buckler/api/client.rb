@@ -6,6 +6,14 @@ module Buckler::Api
       connection.get("/6/buckler").body[/"buildId":"([^"]*)"/, 1] or raise("Unexpected response")
     end
 
+    def self.under_maintenance?(connection = Connection.build)
+      connection.head("/6/buckler/fighterslist/friend")
+      false
+    rescue Faraday::ServerError => e
+      raise e unless e.response[:status] == 503
+      true
+    end
+
     def initialize(cookies:, build_id: self.class.remote_build_id, locale: "en", connection: Connection.build)
       @build_id = build_id
       @cookies = cookies
@@ -19,6 +27,10 @@ module Buckler::Api
 
     def fighter_banner
       FighterBanner.new(client: self)
+    end
+
+    def under_maintenance?
+      Client.under_maintenance?(connection)
     end
 
     def request(action_path:, params: nil)
