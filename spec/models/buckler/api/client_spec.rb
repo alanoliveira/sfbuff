@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Buckler::Api::Client do
-  before do
-    described_class.connection = Buckler::Api::Connection.build do |conf|
+  let(:connection) do
+    Buckler::Api::Connection.build do |conf|
       conf.adapter :test, stubs
     end
   end
@@ -10,7 +10,7 @@ RSpec.describe Buckler::Api::Client do
   let(:stubs) { Faraday::Adapter::Test::Stubs.new }
 
   describe '.remote_build_id' do
-    subject(:remote_build_id) { described_class.remote_build_id }
+    subject(:remote_build_id) { described_class.remote_build_id(connection) }
 
     before do
       stubs.get('/6/buckler') do
@@ -24,7 +24,7 @@ RSpec.describe Buckler::Api::Client do
   describe '#request' do
     subject(:response) { client.request(action_path:, params:) }
 
-    let(:client) { described_class.new(cookies: 'foo=bar;', build_id: 'ABC123') }
+    let(:client) { described_class.new(cookies: 'foo=bar;', build_id: 'ABC123', connection:) }
     let(:action_path) { 'foo' }
     let(:params) { { 'key' => 'val' } }
 

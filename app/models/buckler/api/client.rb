@@ -1,17 +1,16 @@
 module Buckler::Api
   class Client
-    cattr_accessor :connection, default: Buckler::Api::Connection.build
+    attr_reader :build_id, :cookies, :locale, :connection
 
-    attr_reader :build_id, :cookies, :locale
-
-    def self.remote_build_id
+    def self.remote_build_id(connection = Connection.build)
       connection.get("/6/buckler").body[/"buildId":"([^"]*)"/, 1] or raise("Unexpected response")
     end
 
-    def initialize(cookies:, build_id: self.class.remote_build_id, locale: "en")
+    def initialize(cookies:, build_id: self.class.remote_build_id, locale: "en", connection: Connection.build)
       @build_id = build_id
       @cookies = cookies
       @locale = locale
+      @connection = connection
     end
 
     def replay_list(short_id:)
