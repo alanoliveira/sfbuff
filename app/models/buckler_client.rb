@@ -32,10 +32,18 @@ class BucklerClient < ApplicationRecord
   def api
     raise CredentialExpired if expired?
 
-    @api ||= Buckler::Api::Client.new(cookies:, build_id:, connection:)
+    @api ||= Buckler::Api::Client.new(cookies:, build_id:, connection:, locale:)
   end
 
   private
+
+  def locale
+    case I18n.locale
+    when :ja then "ja-jp"
+    when :'pt-BR' then "pt-br"
+    else "en"
+    end
+  end
 
   def connection
     rescue_handler = ->(e) { rescue_with_handler(e) || raise }
