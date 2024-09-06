@@ -1,13 +1,39 @@
 require "rails_helper"
 
 RSpec.describe BucklerClient, type: :model do
-  subject(:buckler_client) { BucklerClient.create }
+  subject(:buckler_client) { BucklerClient.create(build_id: 1) }
 
   let(:stubs) { Faraday::Adapter::Test::Stubs.new }
 
   before do
     allow(Buckler::Api::Connection).to receive(:build).and_wrap_original do |org, args|
       org.call(**args) { |conn| conn.adapter :test, stubs }
+    end
+  end
+
+  context "when api is under maintenance" do
+    before do
+      stubs.get(%r{.*/404}) { [ 404, {}, nil ] }
+      allow(Buckler::Api::Client).to receive(:under_maintenance?).and_return(true)
+    end
+
+    it "raises an error" do
+      expect { buckler_client.api.request(action_path: '/404') }
+        .to raise_error(BucklerClient::UnderMaintenance)
+    end
+  end
+
+  context "when api build_id changed" do
+    before do
+      stubs.get(%r{.*/404}) { [ 404, {}, nil ] }
+      allow(Buckler::Api::Client).to receive(:under_maintenance?).and_return(false)
+      allow(Buckler::Api::Client).to receive(:remote_build_id).and_return(2)
+    end
+
+    it "updates the build_id" do
+      expect { buckler_client.api.request(action_path: '/404') }
+        .to raise_error(BucklerClient::BuildIdChanged)
+        .and change(buckler_client, :build_id).to "2"
     end
   end
 
