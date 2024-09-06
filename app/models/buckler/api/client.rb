@@ -21,7 +21,7 @@ module Buckler::Api
       FighterBanner.new(client: self)
     end
 
-    def request(action_path:, params:)
+    def request(action_path:, params: nil)
       connection.get(full_path(action_path), params, headers).body.fetch("pageProps")
     end
 
