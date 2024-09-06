@@ -8,7 +8,7 @@ class PlayerSearchJob < ApplicationJob
   end
 
   def perform(term)
-    data = BucklerClient.take.search_fighter_banner(term:)
+    data = Buckler.new.search_fighter_banner(term:)
     channel.broadcast_response(to: job_id, data:)
   end
 

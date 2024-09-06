@@ -61,7 +61,7 @@ en:
     generic: An error occurred
     argument_error: Argument error
     buckler_client/error: An error occurred while trying to get the data from the official website
-    buckler_client/player_not_found: Player not found
+    buckler/player_not_found: Player not found
   buckler:
     character:
       ryu: Ryu

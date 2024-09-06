@@ -1,9 +1,9 @@
 class Synchronizer::BattlesSynchronizer
-  attr_reader :player, :buckler_client
+  attr_reader :player, :buckler
 
-  def initialize(player:, buckler_client:)
+  def initialize(player:, buckler:)
     @player = player
-    @buckler_client = buckler_client
+    @buckler = buckler
   end
 
   def synchronize!
@@ -17,7 +17,7 @@ class Synchronizer::BattlesSynchronizer
   private
 
   def new_battles
-    @new_battles ||= buckler_client.battle_list(short_id: player.short_id)
+    @new_battles ||= buckler.battle_list(short_id: player.short_id)
       .take_while { |b| b[:replay_id] != player.latest_replay_id }
       .to_a
   end
