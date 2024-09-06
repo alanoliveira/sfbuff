@@ -7,6 +7,7 @@ module Buckler::Api::Connection
       conf.headers["User-Agent"] = user_agent
       conf.response :raise_error
       conf.response :json
+      conf.response :logger, Rails.logger.tagged("BucklerAPI")
       yield(conf) if block_given?
     end
   end
