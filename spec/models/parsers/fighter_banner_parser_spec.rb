@@ -14,7 +14,8 @@ RSpec.describe Parsers::FighterBannerParser do
         'personal_info' => {
           'fighter_id' => 'Player ABC',
           'short_id' => 12345678
-        }
+        },
+        'home_name' => 'Brazil'
       }
     end
 
@@ -24,6 +25,7 @@ RSpec.describe Parsers::FighterBannerParser do
       expect(parsed_fighter_banner.main_character).to eq(3)
       expect(parsed_fighter_banner.master_rating).to eq(2000)
       expect(parsed_fighter_banner.league_point).to eq(30_000)
+      expect(parsed_fighter_banner.country).to eq('Brazil')
     end
   end
 end

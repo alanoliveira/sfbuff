@@ -7,6 +7,7 @@ class FighterBanner
   attribute :main_character
   attribute :master_rating
   attribute :league_point
+  attribute :country
 
   def as_player
     Player.find_or_initialize_by(short_id:).tap do |player|

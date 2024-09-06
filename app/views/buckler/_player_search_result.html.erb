@@ -17,7 +17,7 @@
           <td class="d-none d-lg-table-cell"><%= fighter.short_id %></td>
           <td><%= t_character(fighter.main_character) %></td>
           <td><%= mr_lp(mr: fighter.master_rating, lp: fighter.league_point) %></td>
-          <td></td>
+          <td><%= fighter.country %></td>
           <td>
             <%= button_to t('actions.select'), player_path(fighter.short_id),
               method: :get, class: 'btn btn-primary' %>
