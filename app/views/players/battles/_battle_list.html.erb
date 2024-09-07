@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "battle-list" do %>
   <div class="d-flex flex-column gap-3 mb-3">
-    <%= render battles %>
+    <%= render partial: 'battle', collection: battles %>
   </div>
   <%= paginate battles %>
 <% end %>
