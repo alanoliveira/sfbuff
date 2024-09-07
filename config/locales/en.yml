@@ -1,59 +1,43 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
   buttons:
+    select: Select
     search: 'Search'
     reset: 'Reset'
     filter: 'Filter'
-  common:
-    lose:
-      one: Lose
-      other: Loses
-    win:
-      one: Win
-      other: Wins
-    draw:
-      one: Draw
-      other: Draws
+    close: Close
+  layouts:
+    players:
+      synchronized: Synchronized
+      nav:
+        battles: Matches
+        matchup_chart: Matchup Chart
+        ranked: Ranked
+  players:
+    battles:
+      show:
+        rivals: Rivals
+      score:
+        title: Score
+      rivals:
+        favorites: Favorites
+        victims: Victims
+        tormentors: Tormentors
+    matchup_charts:
+      matchup_chart_table:
+        sum: Sum
   helpers:
+    select_options:
+      any: Any
     search_form:
-      placeholder: 'Search for player name or user code'
+      placeholder: 'Player name or user code'
+    color_mode:
+      light: Light
+      dark: Dark
+      auto: Auto
+    no_data_alert:
+      message: "No data found"
   datetime:
     time_ago: '%{time} ago'
-  attributes:
-    name: Name
-    short_id: ID
-    main_character: Main Char
-    master_rating: MR
-    league_point: LP
-    country: Country
   pagination:
     previous: Previous
     next: Next
@@ -62,43 +46,4 @@ en:
     argument_error: Argument error
     buckler_client/error: An error occurred while trying to get the data from the official website
     buckler/player_not_found: Player not found
-  buckler:
-    character:
-      ryu: Ryu
-      luke: Luke
-      kimberly: Kimberly
-      chun_li: Chun-Li
-      manon: Manon
-      zangief: Zangief
-      jp: JP
-      dhalsim: Dhalsim
-      cammy: Cammy
-      ken: Ken
-      dee_jay: Dee Jay
-      lilly: Lilly
-      aki: A.K.I.
-      rashid: Rashid
-      blanka: Blanka
-      juri: Juri
-      marisa: Marisa
-      guile: Guile
-      ed: Ed
-      e_honda: E. Honda
-      jamie: Jamie
-      akuma: Akuma
-      m_bison: M. Bison
-      terry: Terry
-      mai: Mai
-      elena: Elena
-      random: Random
-    control_type:
-      classic: Classic
-      modern: Modern
-      short:
-        classic: C
-        modern: M
-    battle_type:
-      ranked: Ranked
-      casual_match: Casual Match
-      battle_hub: Battle Hub
-      custom_room: Custom Room
+    buckler_client/under_maintenance: Buckler is under maintenance

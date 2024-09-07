@@ -1,13 +1,13 @@
 <table class="table table-striped text-center">
   <thead>
     <tr>
-      <th><%= t('.character') %></th>
-      <th><%= t('.control_type') %></th>
-      <th><%= t('common.total') %></th>
-      <th><%= t('common.win', count: 0) %></th>
-      <th><%= t('common.lose', count: 0) %></th>
-      <th><%= t('common.draw', count: 0) %></th>
-      <th><%= t('common.diff') %></th>
+      <th><%= Challenger.human_attribute_name(:character) %></th>
+      <th><%= Challenger.human_attribute_name(:control_type) %></th>
+      <th><%= t('attributes.total') %></th>
+      <th><%= t('attributes.win') %></th>
+      <th><%= t('attributes.lose') %></th>
+      <th><%= t('attributes.draw') %></th>
+      <th><%= t('attributes.diff') %></th>
     </tr>
   </thead>
   <tbody>
@@ -27,7 +27,7 @@
   <tfoot>
     <% sum = matchup_chart.sum %>
     <tr>
-      <th colspan="2"><%= t('common.all') %></th>
+      <th colspan="2"><%= t('.sum') %></th>
       <td><%= sum.try(:total) || '-' %></td>
       <td><%= sum.try(:win) || '-' %></td>
       <td><%= sum.try(:lose) || '-' %></td>

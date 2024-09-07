@@ -27,7 +27,7 @@ module ApplicationHelper
 
   def spinner(**opts)
     content_tag :div, class: [ "spinner-border", opts.delete(:class) ], role: "status" do
-      content_tag :span, t("aria.loading"), class: "visually-hidden"
+      content_tag :span, "#{t("aria.texts.loading")}...", class: "visually-hidden"
     end
   end
 
@@ -40,11 +40,16 @@ module ApplicationHelper
   def mr_lp(mr:, lp:)
     content_tag :span do
       if mr.positive?
-        "#{mr} #{t("attributes.master_rating")}"
+        "#{mr} #{t("attributes.master_rating.short")}"
       elsif lp.positive?
-        "#{lp} #{t("attributes.league_point")}"
+        "#{lp} #{t("attributes.league_point.short")}"
       end
     end
+  end
+
+  def select_options(include_any: false, **opts)
+    opts = opts.merge(include_blank: t("helpers.select_options.any")) if include_any
+    opts
   end
 
   def no_data_alert

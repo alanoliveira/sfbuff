@@ -1,0 +1,30 @@
+en:
+  attributes:
+    short_id: ID
+    main_character: Main Character
+    name: Name
+    country: Country
+    total: Total
+    win: Win
+    lose: Lose
+    draw: Draw
+    diff: Σ
+    character: Character
+    battle_type: Battle Type
+    control_type: Control_type
+    played_from: Played From
+    played_to: Played To
+    vs_character: VS Character
+    vs_control_type: VS Control Type
+    master_rating: 
+      long: Master Rating
+      short: MR
+    league_point:
+      long: League Point
+      short: LP
+  activerecord:
+    attributes:
+      challenger/result:
+        win: Win
+        lose: Lose
+        draw: Draw

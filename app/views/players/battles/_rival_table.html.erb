@@ -1,14 +1,14 @@
 <table class="table">
   <thead>
     <tr class="text-center">
-      <th><%= t('.opponent') %></th>
-      <th><%= t('.character') %></th>
-      <th><%= t('.control_type') %></th>
-      <th><%= t('common.t') %></th>
-      <th><%= t('common.w') %></th>
-      <th><%= t('common.d') %></th>
-      <th><%= t('common.l') %></th>
-      <th><%= t('common.diff') %></th>
+      <th><%= Challenger.human_attribute_name(:name) %></th>
+      <th><%= Challenger.human_attribute_name(:character) %></th>
+      <th><%= Challenger.human_attribute_name(:control_type) %></th>
+      <th><%= t('attributes.total') %></th>
+      <th><%= t('attributes.win') %></th>
+      <th><%= t('attributes.draw') %></th>
+      <th><%= t('attributes.lose') %></th>
+      <th><%= t('attributes.diff') %></th>
     </tr>
   </thead>
   <tbody>

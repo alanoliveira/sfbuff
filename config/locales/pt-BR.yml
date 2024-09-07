@@ -1,0 +1,49 @@
+pt-BR:
+  buttons:
+    select: Selecionar
+    search: Pesquisar
+    reset: Resetar
+    filter: Filtrar
+    close: Fechar
+  layouts:
+    players:
+      synchronized: Sincronizado
+      nav:
+        battles: Matches
+        matchup_chart: Matchup Chart
+        ranked: Ranked
+  players:
+    battles:
+      show:
+        rivals: Rivais
+      score:
+        title: Placar
+      rivals:
+        favorites: Favoritos
+        victims: Vítimas
+        tormentors: Carrascos
+    matchup_charts:
+      matchup_chart_table:
+        sum: Soma
+  helpers:
+    select_options:
+      any: Qualquer
+    search_form:
+      placeholder: 'Nome de jogador ou código de usuario'
+    color_mode:
+      light: Claro
+      dark: Escuro
+      auto: Auto
+    no_data_alert:
+      message: "Nenhum dado encontrado"
+  datetime:
+    time_ago: '%{time} atrás'
+  pagination:
+    previous: Anterior
+    next: Próxima
+  errors:
+    generic: Ocorreu um erro
+    argument_error: Parametro inválido
+    buckler_client/error: Ocorreu um erro ao tentar obter os dados do site oficial
+    buckler/player_not_found: Jogador não encontrado
+    buckler_client/under_maintenance: Buckler está em manutenção

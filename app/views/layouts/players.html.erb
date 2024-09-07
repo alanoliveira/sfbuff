@@ -17,13 +17,13 @@
     <div class="py-3">
       <ul class="nav nav-fill nav-underline">
         <li class="nav-item">
-          <%= nav_link t("titles.players.battles"), player_battles_path(@player), class: "nav-link", data: { turbo_frame: "player-content", turbo_action: "advance" } %>
+          <%= nav_link t(".nav.battles"), player_battles_path(@player), class: "nav-link", data: { turbo_frame: "player-content", turbo_action: "advance" } %>
         </li>
         <li class="nav-item">
-          <%= nav_link t("titles.players.matchup_chart"), player_matchup_chart_path(@player), class: "nav-link", data: { turbo_frame: "player-content", turbo_action: "advance" } %>
+          <%= nav_link t(".nav.matchup_chart"), player_matchup_chart_path(@player), class: "nav-link", data: { turbo_frame: "player-content", turbo_action: "advance" } %>
         </li>
         <li class="nav-item">
-          <%= nav_link t("titles.players.ranked"), player_ranked_path(@player), class: "nav-link", data: { turbo_frame: "player-content", turbo_action: "advance" } %>
+          <%= nav_link t(".nav.ranked"), player_ranked_path(@player), class: "nav-link", data: { turbo_frame: "player-content", turbo_action: "advance" } %>
         </li>
       </ul>
     </div>

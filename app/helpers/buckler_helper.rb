@@ -3,23 +3,21 @@ module BucklerHelper
     name = Buckler::Enums::CHARACTERS.key value.to_i
     return value if name.nil?
 
-    t("buckler.character.#{name}")
+    t("buckler.characters.#{name}")
   end
 
   def t_control_type(value, format: :long)
     name = Buckler::Enums::CONTROL_TYPES.key value.to_i
     return value if name.nil?
 
-    scope = %w[buckler control_type]
-    scope << "short" if format == :short
-    t(name, scope:)
+    t(name, scope: [ "buckler", "control_types", format ])
   end
 
   def t_battle_type(value)
     name = Buckler::Enums::BATTLE_TYPES.key value.to_i
     return value if name.nil?
 
-    t("buckler.battle_type.#{name}")
+    t("buckler.battle_types.#{name}")
   end
 
   def t_round(value)

@@ -1,0 +1,42 @@
+ja:
+  buckler:
+    characters:
+      ryu: リュウ
+      luke: ルーク
+      kimberly: キンバリー
+      chun_li: 春麗
+      manon: マノン
+      zangief: ザンギエフ
+      jp: JP
+      dhalsim: ダルシム
+      cammy: キャミィ
+      ken: ケン
+      dee_jay: ディージェイ
+      lilly: リリー
+      aki: A.K.I.
+      rashid: ラシード
+      blanka: ブランカ
+      juri: ジュリ
+      marisa: マリーザ
+      guile: ガイル
+      ed: ED
+      e_honda: 本田
+      jamie: ジェイミー
+      akuma: 豪鬼
+      m_bison: ベガ
+      terry: テリー
+      mai: 舞
+      elena: エレナ
+      random: ランダム
+    control_types:
+      long:
+        classic: クラシック
+        modern: モダン
+      short:
+        classic: C
+        modern: M
+    battle_types:
+      ranked: ランクマッチ
+      casual_match: カジュアルマッチ
+      battle_hub: バトルハブ
+      custom_room: カスタムルーム

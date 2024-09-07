@@ -5,7 +5,7 @@
         <th><%= t('attributes.name') %></th>
         <th class="d-none d-lg-table-cell"><%= t('attributes.short_id')  %></th>
         <th><%= t('attributes.main_character') %></th>
-        <th><%= t('attributes.mr') %> / <%= t('attributes.lp') %></th>
+        <th><%= t('attributes.master_rating.short') %> / <%= t('attributes.league_point.short') %></th>
         <th><%= t('attributes.country') %></th>
         <th></th>
       </tr>
@@ -19,7 +19,7 @@
           <td><%= mr_lp(mr: fighter.master_rating, lp: fighter.league_point) %></td>
           <td><%= fighter.country %></td>
           <td>
-            <%= button_to t('actions.select'), player_path(fighter.short_id),
+            <%= button_to t('buttons.select'), player_path(fighter.short_id),
               method: :get, class: 'btn btn-primary' %>
           </td>
         </tr>
