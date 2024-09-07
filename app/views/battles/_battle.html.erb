@@ -23,9 +23,9 @@
     </div>
     <%= render 'battles/challenger', challenger: battle.p2 %>
   </div>
-  <% if block_given? %>
+  <% if content_for? :battle_footer %>
     <div class="card-footer">
-      <%= yield %>
+      <%= yield :battle_footer %>
     </div>
   <% end %>
 <% end %>
