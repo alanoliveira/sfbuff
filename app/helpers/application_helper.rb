@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def page_title(title)
+    content_for(:title) { [ title, "SFBUFF" ].join(" - ") }
+  end
+
   def alert(message = nil, kind: :info, **opts, &)
     content_tag(:div, message, **opts, role: "alert",
       class: [ "alert", "alert-#{kind}", opts[:class] ], &)
