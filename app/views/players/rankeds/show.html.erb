@@ -6,6 +6,8 @@
   <div class="card card-body">
     <%= history_chart(@history) %>
   </div>
+<% else %>
+  <%= no_data_alert %>
 <% end %>
 
 <%= turbo_frame_tag "turbo-modal" %>

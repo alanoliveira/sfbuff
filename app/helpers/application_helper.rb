@@ -47,6 +47,10 @@ module ApplicationHelper
     end
   end
 
+  def no_data_alert
+    alert(t("helpers.no_data_alert.message"), kind: "warning")
+  end
+
   def signed_number(number)
     css_class = case number
     when ..-1 then "text-danger"

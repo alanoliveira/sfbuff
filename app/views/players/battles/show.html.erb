@@ -8,4 +8,6 @@
   <% end %>
   <%= render 'score', score: @statistics.first[:score] %>
   <%= render 'battle_list', battles: @battles %>
+<% else %>
+  <%= no_data_alert %>
 <% end %>
