@@ -7,6 +7,7 @@ class BucklerClient < ApplicationRecord
   include ActiveSupport::Rescuable
 
   enum :status, [ "ok", "expired" ]
+  attribute :build_id, default: -> { Buckler::Api::Client.remote_build_id }
 
   rescue_from Faraday::ForbiddenError do |e|
     if with_lock { expired! unless expired? }
