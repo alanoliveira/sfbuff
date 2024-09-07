@@ -1,8 +1,8 @@
 module Buckler::Api::Connection
-  BASE_URL = ENV.fetch("BUCKLER_BASE_URL", nil)
-  USER_AGENT = ENV.fetch("BUCKLER_USER_AGENT", nil)
+  def self.build(base_url: nil, user_agent: nil, rescue_handler: nil)
+    base_url ||= Rails.configuration.buckler["base_url"]
+    user_agent ||= Rails.configuration.buckler["user_agent"]
 
-  def self.build(base_url: BASE_URL, user_agent: USER_AGENT, rescue_handler: nil)
     Faraday.new base_url do |conf|
       conf.headers["User-Agent"] = user_agent
       conf.use :rescue_from_error, handler: rescue_handler if rescue_handler.present?

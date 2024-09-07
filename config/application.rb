@@ -40,5 +40,7 @@ module Sfbuff
     config.generators.system_tests = nil
 
     config.i18n.available_locales = [ :en, :"pt-BR", :ja ]
+
+    config.buckler = config_for("buckler")
   end
 end
