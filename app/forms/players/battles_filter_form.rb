@@ -9,11 +9,19 @@ class Players::BattlesFilterForm < BaseForm
   attribute :vs_character
   attribute :vs_control_type
   attribute :battle_type
-  attribute :played_from, :date, default: -> { 7.days.ago }
-  attribute :played_to, :date, default: -> { Time.zone.now }
+  attribute :played_from, :date
+  attribute :played_to, :date
 
   def submit
     battle_rel.joins(:challengers).merge(challenger_rel)
+  end
+
+  def played_from
+    super.presence || 7.days.ago.to_date
+  end
+
+  def played_to
+    super.presence || Time.zone.now.to_date
   end
 
   private

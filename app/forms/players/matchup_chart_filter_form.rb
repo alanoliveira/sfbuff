@@ -5,19 +5,27 @@ class Players::MatchupChartFilterForm < BaseForm
   attr_accessor :player
   attribute :character
   attribute :battle_type
-  attribute :played_from, :date, default: -> { 7.days.ago }
-  attribute :played_to, :date, default: -> { Time.zone.now }
+  attribute :played_from, :date
+  attribute :played_to, :date
 
   def submit
     battles = battle_rel.joins(:challengers).merge(challenger_rel.join_vs)
     MatchupChart.new(battles)
   end
 
-  private
-
-  def default_attributes
-    { character: player.main_character }
+  def played_from
+    super.presence || 7.days.ago.to_date
   end
+
+  def played_to
+    super.presence || Time.zone.now.to_date
+  end
+
+  def character
+    super.presence || player.main_character
+  end
+
+  private
 
   def battle_rel
     Battle.all.tap do |rel|
