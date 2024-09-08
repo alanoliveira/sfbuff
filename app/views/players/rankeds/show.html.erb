@@ -3,7 +3,7 @@
 </div>
 
 <% if @history.any? %>
-  <div class="card card-body">
+  <div class="card card-body" data-turbo-temporary>
     <%= history_chart(@history) %>
   </div>
 <% else %>
