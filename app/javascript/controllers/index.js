@@ -7,9 +7,6 @@ import { application } from "./application"
 import ColorModeController from "./color_mode_controller"
 application.register("color-mode", ColorModeController)
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
-
 import I18nController from "./i18n_controller"
 application.register("i18n", I18nController)
 
