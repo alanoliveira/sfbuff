@@ -12,7 +12,7 @@ module BootstrapHelper
   private
 
   def bar_for_progress_bar_stacked(percent:, bg_class: "bg-info", **)
-    content = "#{percent.to_i}%"
+    content = "%0.2f%%" % percent
     content_tag :div, class: "progress", role: "progressbar", style: "width: #{percent}%", ** do
       content_tag :div, content, title: content, class: [ "progress-bar", bg_class ]
     end
