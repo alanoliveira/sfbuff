@@ -6,12 +6,22 @@
         <%= color_mode_select %>
       </div>
       <div>
-        <% ENV['REPOSITORY_URL'].try do |url| %>
-          <a target="_blank" class="link-secondary link-underline-opacity-0" href="<%= url %>">
-            <i class="bi bi-github"></i>
-            github
-          </a>
-        <% end %>
+        <ul class="navbar-nav flex-row flex-wrap">
+          <% ENV['REPOSITORY_URL'].try do |url| %>
+            <li class="nav-item col-6 col-lg-auto">
+              <a target="_blank" class="nav-link py-2 px-2 link-secondary link-underline-opacity-0" href="<%= url %>">
+                <i class="bi bi-github"></i>
+              </a>
+            </li>
+          <% end %>
+          <% ENV['TWITTER_URL'].try do |url| %>
+            <li class="nav-item col-6 col-lg-auto">
+              <a target="_blank" class="nav-link py-2 px-2 link-secondary link-underline-opacity-0" href="<%= url %>">
+                <i class="bi bi-twitter-x"></i>
+              </a>
+            </li>
+          <% end %>
+        </ul>
       </div>
     </div>
   </div>
