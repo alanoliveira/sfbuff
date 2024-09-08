@@ -27,16 +27,26 @@ class Buckler
 
   def search_fighter_banner(term:)
     raise ArgumentError if term.length < 4
+    fighter_banner = api.fighter_banner
 
-    api.fighter_banner.search_fighter_banner(term:).map do |raw_data|
+    result = fighter_banner.search_fighter_banner(term:)
+    if validate_short_id(term)
+      fighter_banner.player_fighter_banner(short_id: term).try { result << _1 }
+    end
+
+    result.map do |raw_data|
       parse_fighter_banner(raw_data)
     end
   end
 
   private
 
+  def validate_short_id(short_id)
+    short_id.to_s[/\A\d{9,}\z/]
+  end
+
   def validate_short_id!(short_id)
-    raise ArgumentError unless short_id.to_s[/\A\d{9,}\z/]
+    raise ArgumentError unless validate_short_id(short_id)
   end
 
   def parse_fighter_banner(raw_data)
