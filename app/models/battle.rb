@@ -1,5 +1,9 @@
 class Battle < ApplicationRecord
-  has_many :challengers, dependent: :destroy
+  has_many :challengers, dependent: :destroy do
+    def by_short_id(short_id)
+      find { _1.short_id == short_id }
+    end
+  end
 
   scope :ranked, -> { where(battle_type: Buckler::Enums::BATTLE_TYPES["ranked"]) }
   scope :ordered, -> { order(:played_at) }
