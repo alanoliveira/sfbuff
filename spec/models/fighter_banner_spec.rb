@@ -11,25 +11,9 @@ RSpec.describe FighterBanner, type: :model do
     )
   end
 
-  describe "#as_player" do
-    subject(:player) { fighter_banner.as_player }
+  describe "#player_attributes" do
+    subject(:player_attributes) { fighter_banner.player_attributes }
 
-    context "when the player is new" do
-      it "build a new record" do
-        expect(player).to be_new_record
-          .and have_attributes(name: "Player Test",  main_character: 1)
-      end
-    end
-
-    context "when the player already exists" do
-      before do
-        create(:player, short_id: fighter_banner.short_id)
-      end
-
-      it "alters the existent player" do
-        expect(player).not_to be_new_record
-        expect(player).to have_attributes(name: "Player Test",  main_character: 1)
-      end
-    end
+    it { is_expected.to match("name" => "Player Test",  "main_character" => 1) }
   end
 end
