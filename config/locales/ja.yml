@@ -25,6 +25,9 @@ ja:
     matchup_charts:
       matchup_chart_table:
         sum: 合計
+  homepage:
+    index:
+      about: データは公式サイトをスクレイピングして入手した（直近100戦分しかありません）。
   helpers:
     select_options:
       any: 全て

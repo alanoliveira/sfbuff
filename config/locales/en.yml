@@ -25,6 +25,9 @@ en:
     matchup_charts:
       matchup_chart_table:
         sum: Sum
+  homepage:
+    index:
+      about: The data is obtained by scraping the official website (only data from the last 100 matches is available).
   helpers:
     select_options:
       any: Any
