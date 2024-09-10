@@ -7,10 +7,13 @@
   </div>
 <% end %>
 
-<div class="position-absolute top-50 start-50 translate-middle d-none d-md-block d-sm-none w-50">
-  <%= content_for :search_form %>
-</div>
-
-<div class="position-absolute top-50 start-50 translate-middle d-sm-block d-md-none w-100">
-  <%= content_for :search_form %>
+<div class="position-absolute top-50 start-50 translate-middle w-100">
+  <div class="d-flex flex-column align-items-center">
+    <%= image_tag "sfbuff-icon", width: "300", height: "300" %>
+    <h2>Welcome to SFBUFF</h2>
+    <div>A statistics website for SF6 matches</div>
+    <div>
+      <%= content_for :search_form %>
+    </div>
+  </div>
 </div>
