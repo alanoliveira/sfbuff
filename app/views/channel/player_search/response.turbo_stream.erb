@@ -1,3 +1,7 @@
 <%= turbo_stream.replace "player-search-result" do %>
-  <%= render "buckler/player_search_result", data: %>
+  <% if data.any? %>
+    <%= render "buckler/player_search_result", data: %>
+  <% else %>
+    <%= no_data_alert %>
+  <% end %>
 <% end %>
