@@ -28,6 +28,8 @@ pt-BR:
   homepage:
     index:
       about: Os dados são obtidos através de "raspagem" do site oficial (somente as últimas 100 partidas estão disponíveis).
+      welcome: Bem vindo ao SFBUFF
+      description: Um site de estatísticas para matches de SF6
   helpers:
     select_options:
       any: Qualquer

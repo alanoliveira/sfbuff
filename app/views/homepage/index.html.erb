@@ -10,8 +10,8 @@
 <div class="position-absolute top-50 start-50 translate-middle w-100">
   <div class="d-flex flex-column align-items-center">
     <%= image_tag "sfbuff-icon.svg", width: "300", height: "300" %>
-    <h2>Welcome to SFBUFF</h2>
-    <div>A statistics website for SF6 matches</div>
+    <h2><%= t '.welcome' %></h2>
+    <div><%= t '.description' %></div>
     <div>
       <%= content_for :search_form %>
     </div>

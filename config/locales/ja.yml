@@ -28,6 +28,8 @@ ja:
   homepage:
     index:
       about: データは公式サイトをスクレイピングして入手した（直近100戦分しかありません）。
+      welcome: SFBUFFにようこそ
+      description: スト6の対戦を分析するサイト
   helpers:
     select_options:
       any: 全て
