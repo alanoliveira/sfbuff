@@ -70,8 +70,11 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # Use a async to keep low budget
-  config.active_job.queue_adapter = ActiveJob::QueueAdapters::AsyncAdapter.new min_threads: 1, max_threads: 1
+  # Use async to keep low budget
+  # IMPORTANT: ASYNC_QUEUE_MAX_THREADS must be low, because buckler's CDN starts
+  # to return 405 when there are too many requests
+  config.active_job.queue_adapter = ActiveJob::QueueAdapters::AsyncAdapter.new min_threads: 1,
+    max_threads: ENV.fetch("ASYNC_QUEUE_MAX_THREADS") { 1 }
 
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
