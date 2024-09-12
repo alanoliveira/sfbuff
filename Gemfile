@@ -71,3 +71,5 @@ gem "selenium-webdriver", "~> 4.24"
 gem "sentry-rails", "~> 5.19"
 
 gem "stackprof", "~> 0.2.26"
+
+gem "ahoy_matey", "~> 5.2"
