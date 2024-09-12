@@ -71,7 +71,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a async to keep low budget
-  config.active_job.queue_adapter = :async
+  config.active_job.queue_adapter = ActiveJob::QueueAdapters::AsyncAdapter.new min_threads: 1, max_threads: 1
 
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
