@@ -3,7 +3,8 @@ module Buckler::Api
     attr_reader :build_id, :cookies, :locale, :connection
 
     def self.remote_build_id(connection = Connection.build)
-      connection.get("/6/buckler").body[/"buildId":"([^"]*)"/, 1] or raise("Unexpected response")
+      connection.get("/6/buckler", { cache: Time.zone.now.to_i })
+        .body[/"buildId":"([^"]*)"/, 1] or raise("Unexpected response")
     end
 
     def self.under_maintenance?(connection = Connection.build)
