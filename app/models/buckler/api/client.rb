@@ -9,9 +9,8 @@ module Buckler::Api
     def self.under_maintenance?(connection = Connection.build)
       connection.head("/6/buckler/fighterslist/friend")
       false
-    rescue Faraday::ServerError => e
-      raise e unless e.response[:status] == 503
-      true
+    rescue Faraday::ClientError, Faraday::ServerError => e
+      e.response[:status] == 503
     end
 
     def initialize(cookies:, build_id: self.class.remote_build_id, locale: "en", connection: Connection.build)
