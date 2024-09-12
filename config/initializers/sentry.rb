@@ -4,5 +4,10 @@ Sentry.init do |config|
   config.breadcrumbs_logger = [ :active_support_logger, :http_logger ]
   config.enable_tracing = false
   config.enabled_environments = [ "production" ]
-  config.excluded_exceptions += [ "Buckler::PlayerNotFound", "BucklerClient::UnderMaintenance", "BucklerClient::BuildIdChanged" ]
+  config.excluded_exceptions += [
+    "Buckler::PlayerNotFound",
+    "BucklerClient::CredentialExpired",
+    "BucklerClient::UnderMaintenance",
+    "BucklerClient::BuildIdChanged"
+  ]
 end
