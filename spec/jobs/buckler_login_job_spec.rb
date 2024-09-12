@@ -9,9 +9,11 @@ RSpec.describe BucklerLoginJob, type: :job do
     ENV['BUCKLER_PASSWORD'] = 'bar'
   end
 
-  let(:buckler_client) { BucklerClient.new }
+  let(:buckler_client) { BucklerClient.new(status: "expired") }
 
   it 'updates the BucklerClient cookie' do
-    expect { described_class.perform_now }.to change(buckler_client, :cookies).to('cookie=chocolate')
+    expect { described_class.perform_now }
+      .to change(buckler_client, :cookies).to('cookie=chocolate')
+      .and change(buckler_client, :status).to("ok")
   end
 end

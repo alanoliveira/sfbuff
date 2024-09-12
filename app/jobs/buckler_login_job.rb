@@ -7,6 +7,6 @@ class BucklerLoginJob < ApplicationJob
       password: ENV.fetch("BUCKLER_PASSWORD")
     )
 
-    BucklerClient.take.update(cookies:)
+    BucklerClient.take.update(cookies:, status: "ok")
   end
 end
