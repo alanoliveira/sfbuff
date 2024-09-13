@@ -6,12 +6,15 @@ class Players::BattlesController < ApplicationController
 
   def show
     result = @battles_filter_form.submit
-    @statistics = Statistics.new(result)
     # it using a nested select to prevent pg from sorting before the filter
     @battles = Battle.from(result.ordered, "battles")
       .ordered.reverse_order.page(params[:page]).preload(:challengers)
 
-    render partial: "battle_list", locals: { battles: @battles } if turbo_frame_request_id == "battle-list"
+    cache_key = [ @player.latest_replay_id, result.cache_key ].join("-")
+    cache_store.with_options expires_in: 5.minutes do |it|
+      @total_pages = it.fetch("#{cache_key}-total_pages") { @battles.total_pages }
+      @score = it.fetch("#{cache_key}-score") { Statistics.new(result).first.try { _1[:score] } }
+    end
   end
 
   def rivals

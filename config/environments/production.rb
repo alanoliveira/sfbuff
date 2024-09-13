@@ -68,7 +68,7 @@ Rails.application.configure do
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :redis_cache_store
 
   # Use async to keep low budget
   # IMPORTANT: ASYNC_QUEUE_MAX_THREADS must be low, because buckler's CDN starts
