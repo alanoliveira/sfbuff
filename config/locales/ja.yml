@@ -52,3 +52,4 @@ ja:
     buckler_client/error: 公式サイトからのデータ取得時にエラーが発生しました
     buckler/player_not_found: プレイヤーが見つかりません
     buckler_client/under_maintenance: Bucklerはメンテナンス中です
+    buckler_client/rate_limit_exceeded: 現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください。

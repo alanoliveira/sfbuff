@@ -47,6 +47,17 @@ RSpec.describe BucklerClient, type: :model do
     end
   end
 
+  context "when rate limit exceeds" do
+    before do
+      stubs.get(%r{.*/405}) { [ 405, { "x-amzn-waf-action": "captcha" }, nil ] }
+    end
+
+    it do
+      expect { buckler_client.api.request(action_path: '/405') }
+        .to raise_error(BucklerClient::RateLimitExceeded)
+    end
+  end
+
   describe '#api' do
     context "when credentials are expired" do
       before { buckler_client.expired! }

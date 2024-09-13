@@ -3,32 +3,15 @@ class BucklerClient < ApplicationRecord
   class CredentialExpired < Error; end
   class UnderMaintenance < Error; end
   class BuildIdChanged < Error; end
+  class RateLimitExceeded < Error; end
 
   include ActiveSupport::Rescuable
 
   enum :status, [ "ok", "expired" ]
   attribute :build_id, default: -> { Buckler::Api::Client.remote_build_id }
 
-  rescue_from Faraday::ForbiddenError do |e|
-    if with_lock { expired! unless expired? }
-      # TODO: run the login using a one off dyno instead a job
-      BucklerLoginJob.perform_later
-    end
-
-    raise e
-  end
-
-  rescue_from Faraday::ResourceNotFound do |e|
-    raise UnderMaintenance if api.under_maintenance?
-
-    remote_build_id = Buckler::Api::Client.remote_build_id
-    if remote_build_id != build_id
-      update(build_id: remote_build_id)
-      raise BuildIdChanged
-    end
-
-    raise e
-  end
+  rescue_from Faraday::ClientError, with: :client_error_handler!
+  rescue_from Faraday::ForbiddenError, with: :forbidden_error_handler!
 
   def api
     raise CredentialExpired if expired?
@@ -49,5 +32,33 @@ class BucklerClient < ApplicationRecord
   def connection
     rescue_handler = ->(e) { rescue_with_handler(e) || raise }
     Buckler::Api::Connection.build(rescue_handler:)
+  end
+
+  def client_error_handler!(e)
+    resource_not_found_handler!(e) if e.is_a? Faraday::ResourceNotFound
+    raise RateLimitExceeded if e.response[:status] == 405 && e.response.dig(:headers, "x-amzn-waf-action")
+
+    raise e
+  end
+
+  def resource_not_found_handler!(e)
+    raise UnderMaintenance if api.under_maintenance?
+
+    remote_build_id = Buckler::Api::Client.remote_build_id
+    if remote_build_id != build_id
+      update(build_id: remote_build_id)
+      raise BuildIdChanged
+    end
+
+    raise e
+  end
+
+  def forbidden_error_handler!(e)
+    if with_lock { expired! unless expired? }
+      # TODO: run the login using a one off dyno instead a job
+      BucklerLoginJob.perform_later
+    end
+
+    raise e
   end
 end

@@ -52,3 +52,4 @@ pt-BR:
     buckler_client/error: Ocorreu um erro ao tentar obter os dados do site oficial
     buckler/player_not_found: Jogador não encontrado
     buckler_client/under_maintenance: Buckler está em manutenção
+    buckler_client/rate_limit_exceeded: Estamos enviando muitas solicitações para o site oficial no momento. Tente novamente em alguns minutos
