@@ -19,6 +19,10 @@ class Statistics
     end
   end
 
+  def cache_key
+    @rel.cache_key
+  end
+
   private
 
   def connection
