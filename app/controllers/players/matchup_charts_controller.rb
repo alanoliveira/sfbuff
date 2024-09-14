@@ -1,8 +1,4 @@
-class Players::MatchupChartsController < ApplicationController
-  include PlayerScoped
-
-  layout "players"
-
+class Players::MatchupChartsController < Players::BaseController
   def show
     @filter_form = Players::MatchupChartFilterForm.new(player: @player)
     @filter_form.fill(params)

@@ -1,7 +1,4 @@
-class Players::BattlesController < ApplicationController
-  include PlayerScoped
-
-  layout "players"
+class Players::BattlesController < Players::BaseController
   before_action :set_battles_filter_form
 
   def show

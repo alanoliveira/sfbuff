@@ -1,9 +1,7 @@
-module PlayerScoped
-  extend ActiveSupport::Concern
+class Players::BaseController < ApplicationController
+  before_action :set_player
 
-  included do
-    before_action :set_player
-  end
+  layout "players"
 
   private
 

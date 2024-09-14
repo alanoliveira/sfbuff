@@ -1,8 +1,4 @@
-class Players::RankedsController < ApplicationController
-  include PlayerScoped
-
-  layout "players"
-
+class Players::RankedsController < Players::BaseController
   def show
     @filter_form = Players::RankedFilterForm.new(player: @player)
     @filter_form.fill(params)
