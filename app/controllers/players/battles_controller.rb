@@ -11,7 +11,7 @@ class Players::BattlesController < ApplicationController
     cache_key = [ @player.latest_replay_id, result.cache_key ].join("-")
     cache_store.with_options expires_in: 5.minutes do |it|
       @total_pages = it.fetch("#{cache_key}-total_pages") { @battles.total_pages }
-      @score = it.fetch("#{cache_key}-score") { Statistics.new(result).first.try { _1[:score] } }
+      @score = it.fetch("#{cache_key}-score") { Statistics.new(result).sum }
     end
   end
 

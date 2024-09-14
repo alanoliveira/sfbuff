@@ -1,26 +1,53 @@
 class Statistics
   include Enumerable
 
-  SCORE_SELECT = Challenger.results.map do |k, v|
-    ArelHelpers.count_if(Challenger.arel_table[:result].eq(v)).as(k)
-  end.push(
-    # the below values are eagerly calculated in the query because postgres
-    # don't allow to use expressions in order by (for example `order by (win - lose)`)
-    Arel::Nodes::Count.new([ 1 ]).as("total"),
-    Arel::Nodes::Subtraction.new(
-      ArelHelpers.count_if(Challenger.arel_table[:result].eq(Challenger.results["win"])),
-      ArelHelpers.count_if(Challenger.arel_table[:result].eq(Challenger.results["lose"])),
-    ).as("diff")
-  )
+  COLUMNS = Score.members.map(&:to_s)
 
   def initialize(rel)
-    @rel = rel.select(SCORE_SELECT)
+    @rel = rel.extending(ScoreScope)
   end
 
   def each(&)
-    @rel.connection.select_all(@rel, "Statistics#for").filter_map do |row|
-      score = Score.new(**row.extract!(*Challenger.results.keys, "total", "diff"))
-      { score:, values: row } if score.total.positive?
+    connection.select_all(@rel.select_score).map do |row|
+      [ Score.new(**row.extract!(*COLUMNS)), row ]
     end.each(&)
+  end
+
+  def sum
+    connection.select_one(@rel.except(:select, :group).select_score).then do |row|
+      Score.new(**row)
+    end
+  end
+
+  private
+
+  def connection
+    @rel.connection
+  end
+
+  module ScoreScope
+    def select_score
+      COLUMNS.map { |name| send(name).as(name) }.then { select _1 }
+    end
+
+    def win
+      ArelHelpers.count_if(Challenger.arel_table[:result].eq(Challenger.results["win"]))
+    end
+
+    def lose
+      ArelHelpers.count_if(Challenger.arel_table[:result].eq(Challenger.results["lose"]))
+    end
+
+    def draw
+      ArelHelpers.count_if(Challenger.arel_table[:result].eq(Challenger.results["draw"]))
+    end
+
+    def total
+      Arel::Nodes::Count.new([ 1 ])
+    end
+
+    def diff
+      Arel::Nodes::Subtraction.new(win, lose)
+    end
   end
 end

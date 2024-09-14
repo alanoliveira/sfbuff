@@ -11,9 +11,8 @@
     </tr>
   </thead>
   <tbody>
-    <% matchup_chart.each do |m| %>
+    <% matchup_chart.each do |score, values| %>
       <tr>
-        <% m => score:, values: %>
         <td><%= t_character(values["character"]) %></td>
         <td><%= t_control_type(values["control_type"]) %></td>
         <td><%= score.try(:total) || '-' %></td>

@@ -12,8 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <% rival.each do |r| %>
-      <% r => score:, values: %>
+    <% rival.each do |score, values| %>
       <tr class="text-center">
         <td><%= link_to values['name'], player_path(values['short_id']) %></td>
         <td><%= t_character(values['character']) %></td>
