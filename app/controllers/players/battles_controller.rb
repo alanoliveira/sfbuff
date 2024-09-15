@@ -3,7 +3,9 @@ class Players::BattlesController < Players::BaseController
 
   def show
     result = @battles_filter_form.submit
-    @battles = result.ordered.reverse_order.page(params[:page]).preload(:challengers)
+    # it using a nested select to prevent pg from sorting before the filter
+    @battles = Battle.from(result.ordered, "battles")
+      .ordered.reverse_order.page(params[:page]).preload(:challengers)
 
     @total_pages = cache_store.fetch("#{result.cache_key}-total_pages") { @battles.total_pages }
     @statistics = Statistics.new(result)
