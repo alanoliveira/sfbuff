@@ -45,10 +45,4 @@ RSpec.describe Statistics do
       ])
     end
   end
-
-  describe "#sum" do
-    subject(:sum) { statistics.sum }
-
-    it { is_expected.to an_object_having_attributes(total: 13, win: 6, lose: 5, draw: 2, diff: 1) }
-  end
 end

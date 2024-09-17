@@ -13,12 +13,6 @@ class Statistics
     end.each(&)
   end
 
-  def sum
-    connection.select_one(@rel.except(:select, :group).select_score).then do |row|
-      Score.new(**row)
-    end
-  end
-
   def cache_key
     @rel.cache_key
   end

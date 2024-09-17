@@ -1,8 +1,6 @@
 class MatchupChart
   include Enumerable
 
-  delegate :sum, to: :statistics
-
   def initialize(rel)
     @rel = rel
   end
