@@ -6,9 +6,7 @@
   <%= turbo_frame_tag "rival-list" do %>
     <%= button_to t('.rivals'), rivals_player_battles_path(@player), method: :get, params: @battles_filter_form.attributes, class: "btn btn-outline-primary mb-3 w-100" %>
   <% end %>
-  <% cache @scores do %>
-    <%= render 'score', score: @scores.first[0] %>
-  <% end %>
+  <%= render 'score', score: @score %>
   <%= render 'battle_list', battles: @battles, total_pages: @total_pages %>
 <% else %>
   <%= no_data_alert %>

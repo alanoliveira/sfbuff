@@ -1,11 +1,11 @@
 module ResultScorable
   COLUMNS = %w[win lose draw total diff]
 
-  def scores
+  def scores(&)
     connection.select_all(select(*score_select_values), "ResultScorable#scores").map do |row|
-      score = Score.new(**row.extract!(*COLUMNS))
-      [ score, row ]
-    end.to_enum
+        score = Score.new(**row.extract!(*COLUMNS))
+        [ score, row ]
+    end.each(&)
   end
 
   private

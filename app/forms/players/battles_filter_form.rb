@@ -12,8 +12,10 @@ class Players::BattlesFilterForm < BaseForm
   attribute :played_from, :date
   attribute :played_to, :date
 
+  delegate :cache_key, to: :relation
+
   def submit
-    battle_rel.with_scores.joins(:challengers).merge(challenger_rel)
+    relation
   end
 
   def played_from
@@ -25,6 +27,10 @@ class Players::BattlesFilterForm < BaseForm
   end
 
   private
+
+  def relation
+    battle_rel.with_scores.joins(:challengers).merge(challenger_rel)
+  end
 
   def battle_rel
     Battle.all.tap do |rel|
