@@ -4,6 +4,10 @@ RSpec.describe Challenger, type: :model do
   it { expect(Challenger.new(master_rating: 1)).to be_master }
   it { expect(Challenger.new(master_rating: 0)).not_to be_master }
 
+  it_behaves_like('a ResultScorable') do
+    let(:scorable) { described_class }
+  end
+
   describe "vs" do
     let(:p1) { build(:p1, battle: nil)  }
     let(:p2) { build(:p2, battle: nil)  }
