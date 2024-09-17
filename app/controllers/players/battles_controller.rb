@@ -8,7 +8,7 @@ class Players::BattlesController < Players::BaseController
       .ordered.reverse_order.page(params[:page]).preload(:challengers)
 
     @total_pages = cache_store.fetch("#{result.cache_key}-total_pages") { @battles.total_pages }
-    @statistics = Statistics.new(result)
+    @scores = result.scores
   end
 
   def rivals

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Statistics do
-  subject(:statistics) { described_class.new(relation) }
+RSpec.describe ResultScorable do
+  subject(:scorable) { relation.extending(ResultScorable) }
 
   before do
     mik = { short_id: 1234567890, character: 1 }
@@ -22,7 +22,7 @@ RSpec.describe Statistics do
     end
 
   it do
-    expect(statistics).to match([
+    expect(scorable.scores).to match([
       [ an_object_having_attributes(total: 3, win: 3, lose: 0, draw: 0, diff: 3), {} ],
       [ an_object_having_attributes(total: 2, win: 0, lose: 2, draw: 0, diff: -2), {} ],
       [ an_object_having_attributes(total: 8, win: 3, lose: 3, draw: 2, diff: 0),  {} ]
@@ -38,7 +38,7 @@ RSpec.describe Statistics do
     end
 
     it do
-      expect(statistics).to match([
+      expect(scorable.scores).to match([
         [ an_object_having_attributes(total: 3, win: 3, lose: 0, draw: 0, diff: 3), { "short_id" => 1234567891 } ],
         [ an_object_having_attributes(total: 2, win: 0, lose: 2, draw: 0, diff: -2), { "short_id" => 1234567892 } ],
         [ an_object_having_attributes(total: 8, win: 3, lose: 3, draw: 2, diff: 0), { "short_id" => 1234567893 } ]

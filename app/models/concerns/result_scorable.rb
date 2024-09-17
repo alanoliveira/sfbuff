@@ -1,31 +1,24 @@
-class Statistics
-  include Enumerable
+module ResultScorable
+  COLUMNS = %w[win lose draw total diff]
 
-  COLUMNS = Score.members.map(&:to_s)
-
-  def initialize(rel)
-    @rel = rel.extending(ScoreScope)
-  end
-
-  def each(&)
-    connection.select_all(@rel.select_score).map do |row|
-      [ Score.new(**row.extract!(*COLUMNS)), row ]
-    end.each(&)
-  end
-
-  def cache_key
-    @rel.cache_key
+  def scores
+    connection.select_all(select(*score_select_values), "ResultScorable#scores").map do |row|
+      score = Score.new(**row.extract!(*COLUMNS))
+      [ score, row ]
+    end.to_enum
   end
 
   private
 
-  def connection
-    @rel.connection
+  def score_select_values
+    ScoreSelectBuilder.select_values
   end
 
-  module ScoreScope
-    def select_score
-      COLUMNS.map { |name| send(name).as(name) }.then { select _1 }
+  module ScoreSelectBuilder
+    module_function
+
+    def select_values
+      @select_values ||= COLUMNS.map { |name| send(name).as(name) }
     end
 
     def win

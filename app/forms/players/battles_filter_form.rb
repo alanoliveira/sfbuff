@@ -13,7 +13,7 @@ class Players::BattlesFilterForm < BaseForm
   attribute :played_to, :date
 
   def submit
-    battle_rel.joins(:challengers).merge(challenger_rel)
+    battle_rel.with_scores.joins(:challengers).merge(challenger_rel)
   end
 
   def played_from
