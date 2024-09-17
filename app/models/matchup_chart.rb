@@ -8,8 +8,8 @@ class MatchupChart
   def each
     Buckler::Enums::CHARACTERS.values.each do |character|
       Buckler::Enums::CONTROL_TYPES.values.each do |control_type|
-        values = { character:, control_type: }.stringify_keys
-        yield scores.find { |_, r| r == values } || [ nil, values ]
+        group = { character:, control_type: }.stringify_keys
+        yield scores.find { |g, _| g == group } || [ group, nil ]
       end
     end
   end

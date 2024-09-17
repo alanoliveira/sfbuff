@@ -12,11 +12,11 @@
     </tr>
   </thead>
   <tbody>
-    <% rival.each do |score, values| %>
+    <% rival.each do |group, score| %>
       <tr class="text-center">
-        <td><%= link_to values['name'], player_path(values['short_id']) %></td>
-        <td><%= t_character(values['character']) %></td>
-        <td><%= t_control_type(values['control_type']) %></td>
+        <td><%= link_to group['name'], player_path(group['short_id']) %></td>
+        <td><%= t_character(group['character']) %></td>
+        <td><%= t_control_type(group['control_type']) %></td>
         <td><%= score.total %></td>
         <td><%= score.win %></td>
         <td><%= score.draw %></td>

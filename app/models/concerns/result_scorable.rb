@@ -4,7 +4,7 @@ module ResultScorable
   def scores(&)
     connection.select_all(select(*score_select_values), "ResultScorable#scores").map do |row|
         score = Score.new(**row.extract!(*COLUMNS))
-        [ score, row ]
+        [ row, score ]
     end.each(&)
   end
 

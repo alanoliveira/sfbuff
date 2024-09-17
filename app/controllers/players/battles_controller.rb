@@ -8,7 +8,7 @@ class Players::BattlesController < Players::BaseController
       .ordered.reverse_order.page(params[:page]).preload(:challengers)
 
     @total_pages = cache([ @battles_filter_form, "total_pages" ]) { @battles.total_pages }
-    @score = cache([ @battles_filter_form, "score" ]) { result.scores.first[0] }
+    @score = cache([ @battles_filter_form, "score" ]) { result.scores.first[1] }
   end
 
   def rivals
