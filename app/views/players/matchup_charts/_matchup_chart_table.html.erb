@@ -31,7 +31,7 @@
       <td><%= scores.map(&:win).sum %></td>
       <td><%= scores.map(&:lose).sum %></td>
       <td><%= scores.map(&:draw).sum %></td>
-      <td><%= signed_number scores.map(&:total).sum %></td>
+      <td><%= signed_number scores.map(&:diff).sum %></td>
     </tr>
   </tfoot>
 </table>
