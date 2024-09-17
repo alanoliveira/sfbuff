@@ -8,6 +8,14 @@ module ResultScorable
     end.each(&)
   end
 
+  def matchup_chart
+    MatchupChart.new(self)
+  end
+
+  def rivals
+    Rivals.new(self)
+  end
+
   private
 
   def score_select_values

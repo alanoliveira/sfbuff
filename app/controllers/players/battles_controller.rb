@@ -12,8 +12,7 @@ class Players::BattlesController < Players::BaseController
   end
 
   def rivals
-    result = @battles_filter_form.submit
-    @rivals = Rivals.new(result.limit(8))
+    @rivals = @battles_filter_form.submit.limit(8).rivals
   end
 
   private
