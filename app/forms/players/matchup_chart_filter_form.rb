@@ -9,8 +9,7 @@ class Players::MatchupChartFilterForm < BaseForm
   attribute :played_to, :date
 
   def submit
-    battles = battle_rel.joins(:challengers).merge(challenger_rel.join_vs)
-    MatchupChart.new(battles)
+    battle_rel.with_scores.joins(:challengers).merge(challenger_rel.join_vs).matchup_chart
   end
 
   def played_from

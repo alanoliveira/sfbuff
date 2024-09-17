@@ -1,4 +1,6 @@
 class Challenger < ApplicationRecord
+  extend ResultScorable
+
   enum :result, %w[draw win lose]
   enum :side, { "p1" => 1, "p2" => 2 }
   decorate_attributes([ :rounds ]) { |_, subtype| RoundsType.new(subtype) }

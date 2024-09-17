@@ -13,8 +13,4 @@ Score = Data.define(:win, :lose, :draw, :total, :diff) do
     return 0 if total.zero?
     (draw / total.to_f) * 100
   end
-
-  def +(other)
-    Score.new(*[ deconstruct, other.deconstruct ].transpose.map(&:sum))
-  end
 end
