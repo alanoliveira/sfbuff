@@ -4,7 +4,7 @@ class Players::BaseController < ApplicationController
   layout "players"
 
   def cache_store
-    super.with_options version: @player.cache_version, expires_in: 5.minutes
+    super.with_options version: @player.cache_key_with_version, expires_in: 5.minutes
   end
 
   private
