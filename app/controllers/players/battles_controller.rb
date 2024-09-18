@@ -3,9 +3,8 @@ class Players::BattlesController < Players::BaseController
 
   def show
     result = @battles_filter_form.submit
-    # it using a nested select to prevent pg from sorting before the filter
-    @battles = Battle.from(result.ordered, "battles")
-      .ordered.reverse_order.page(params[:page]).preload(:challengers)
+
+    @battles = result.preload(:challengers).ordered.reverse_order.page(params[:page])
 
     @total_pages = cache([ @battles_filter_form, "total_pages" ]) { @battles.total_pages }
     @score = cache([ @battles_filter_form, "score" ]) { result.scores.first[1] }
