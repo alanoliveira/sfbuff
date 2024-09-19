@@ -22,7 +22,7 @@ class Battle < ApplicationRecord
   end
 
   def winner
-    challengers.find { |c| c.win? }
+    challengers.find(&:win?)
   end
 
   def mr_calculator
