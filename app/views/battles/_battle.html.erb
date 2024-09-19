@@ -1,4 +1,4 @@
-<%= content_tag :div, class: 'card', id: dom_id(battle) do %>
+<%= content_tag :div, class: "card", id: dom_id(battle) do %>
   <div class="card-header">
     <div class="d-flex">
       <div class="col text-start"><%= battle.replay_id %></div>
@@ -7,21 +7,21 @@
     </div>
   </div>
   <div class="card-body d-flex align-items-center text-center">
-    <%= render 'battles/challenger', challenger: battle.p1 %>
+    <%= render "battles/challenger", challenger: battle.p1 %>
     <div class="col-1">
-      <%= render 'battles/rounds', rounds: battle.p1.rounds %>
+      <%= render "battles/rounds", rounds: battle.p1.rounds %>
       <% battle.p1.mr_variation.try do |variation| %>
         <div><%= signed_number variation %></div>
       <% end %>
     </div>
     <div class="col-2 fs-1 text-center fw-bold">VS</div>
     <div class="col-1">
-      <%= render 'battles/rounds', rounds: battle.p2.rounds %>
+      <%= render "battles/rounds", rounds: battle.p2.rounds %>
       <% battle.p2.mr_variation.try do |variation| %>
         <div><%= signed_number variation %></div>
       <% end %>
     </div>
-    <%= render 'battles/challenger', challenger: battle.p2 %>
+    <%= render "battles/challenger", challenger: battle.p2 %>
   </div>
   <% if content_for? :battle_footer %>
     <div class="card-footer">

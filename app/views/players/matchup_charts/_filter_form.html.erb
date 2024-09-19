@@ -4,11 +4,11 @@
       <div class="row mb-3">
         <div class="col-md-3">
           <%= f.label :character, class: "form-label" %>
-          <%= f.select :character, options_for_character_select, {}, class: 'form-select' %>
+          <%= f.select :character, options_for_character_select, {}, class: "form-select" %>
         </div>
         <div class="col-md-3">
           <%= f.label :battle_type, class: "form-label" %>
-          <%= f.select :battle_type, options_for_battle_type_select, select_options(include_any: true), class: 'form-select' %>
+          <%= f.select :battle_type, options_for_battle_type_select, select_options(include_any: true), class: "form-select" %>
         </div>
         <div class="col-md-3">
           <%= f.label :played_from, class: "form-label" %>
@@ -21,7 +21,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <%= f.submit t("buttons.filter"), name: '', class: "btn btn-primary" %>
+          <%= f.submit t("buttons.filter"), name: "", class: "btn btn-primary" %>
           <%= link_to t("buttons.reset"), url_for(only_path: true), class: "btn btn-secondary" %>
         </div>
       </div>

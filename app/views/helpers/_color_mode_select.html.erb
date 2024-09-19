@@ -2,12 +2,12 @@
   <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     <%= bs_icon "palette" %>
   </button>
-  <ul class="dropdown-menu" >
+  <ul class="dropdown-menu">
     <% options.each do |mode, icon| %>
       <li>
-        <%= content_tag :button, type: "button", value: mode, class: "dropdown-item", data: { color_mode_target: "buttons", action:"click->color-mode##{mode}" } do %>
+        <%= content_tag :button, type: "button", value: mode, class: "dropdown-item", data: { color_mode_target: "buttons", action: "click->color-mode##{mode}" } do %>
           <%= bs_icon icon %>
-          <%= t(mode, scope: 'helpers.color_mode') %>
+          <%= t(mode, scope: "helpers.color_mode") %>
         <% end %>
       </li>
     <% end %>

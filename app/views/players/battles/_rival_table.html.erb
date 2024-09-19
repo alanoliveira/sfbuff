@@ -4,19 +4,19 @@
       <th><%= Challenger.human_attribute_name(:name) %></th>
       <th><%= Challenger.human_attribute_name(:character) %></th>
       <th><%= Challenger.human_attribute_name(:control_type) %></th>
-      <th><%= t('attributes.total') %></th>
-      <th><%= t('attributes.win') %></th>
-      <th><%= t('attributes.draw') %></th>
-      <th><%= t('attributes.lose') %></th>
-      <th><%= t('attributes.diff') %></th>
+      <th><%= t("attributes.total") %></th>
+      <th><%= t("attributes.win") %></th>
+      <th><%= t("attributes.draw") %></th>
+      <th><%= t("attributes.lose") %></th>
+      <th><%= t("attributes.diff") %></th>
     </tr>
   </thead>
   <tbody>
     <% rival.each do |group, score| %>
       <tr class="text-center">
-        <td><%= link_to group['name'], player_path(group['short_id']) %></td>
-        <td><%= t_character(group['character']) %></td>
-        <td><%= t_control_type(group['control_type']) %></td>
+        <td><%= link_to group["name"], player_path(group["short_id"]) %></td>
+        <td><%= t_character(group["character"]) %></td>
+        <td><%= t_control_type(group["control_type"]) %></td>
         <td><%= score.total %></td>
         <td><%= score.win %></td>
         <td><%= score.draw %></td>

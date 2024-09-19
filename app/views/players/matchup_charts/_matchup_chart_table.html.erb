@@ -3,11 +3,11 @@
     <tr>
       <th><%= Challenger.human_attribute_name(:character) %></th>
       <th><%= Challenger.human_attribute_name(:control_type) %></th>
-      <th><%= t('attributes.total') %></th>
-      <th><%= t('attributes.win') %></th>
-      <th><%= t('attributes.lose') %></th>
-      <th><%= t('attributes.draw') %></th>
-      <th><%= t('attributes.diff') %></th>
+      <th><%= t("attributes.total") %></th>
+      <th><%= t("attributes.win") %></th>
+      <th><%= t("attributes.lose") %></th>
+      <th><%= t("attributes.draw") %></th>
+      <th><%= t("attributes.diff") %></th>
     </tr>
   </thead>
   <tbody>
@@ -15,18 +15,18 @@
       <tr>
         <td><%= t_character(group["character"]) %></td>
         <td><%= t_control_type(group["control_type"]) %></td>
-        <td><%= score.try(:total) || '-' %></td>
-        <td><%= score.try(:win) || '-' %></td>
-        <td><%= score.try(:lose) || '-' %></td>
-        <td><%= score.try(:draw) || '-' %></td>
-        <td><%= score.try { signed_number(_1.diff) } || '-' %></td>
+        <td><%= score.try(:total) || "-" %></td>
+        <td><%= score.try(:win) || "-" %></td>
+        <td><%= score.try(:lose) || "-" %></td>
+        <td><%= score.try(:draw) || "-" %></td>
+        <td><%= score.try { signed_number(_1.diff) } || "-" %></td>
       </tr>
     <% end %>
   </tbody>
   <tfoot>
     <tr>
       <% scores = matchup_chart.filter_map { |_, score| score } %>
-      <th colspan="2"><%= t('.sum') %></th>
+      <th colspan="2"><%= t(".sum") %></th>
       <td><%= scores.map(&:total).sum %></td>
       <td><%= scores.map(&:win).sum %></td>
       <td><%= scores.map(&:lose).sum %></td>

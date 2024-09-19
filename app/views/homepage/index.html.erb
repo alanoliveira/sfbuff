@@ -1,17 +1,17 @@
 <% content_for :search_form do %>
   <div class="p-5">
     <%= search_form do |f| %>
-      <%= f.submit t('buttons.search'), name: nil, class: "btn btn-primary" %>
+      <%= f.submit t("buttons.search"), name: nil, class: "btn btn-primary" %>
     <% end %>
-    <small class="text-body-secondary fw-light"><%= t('.about') %></small>
+    <small class="text-body-secondary fw-light"><%= t(".about") %></small>
   </div>
 <% end %>
 
 <div class="position-absolute top-50 start-50 translate-middle w-100">
   <div class="d-flex flex-column align-items-center">
     <%= image_tag "sfbuff-icon.svg", width: "300", height: "300" %>
-    <h2><%= t '.welcome' %></h2>
-    <div><%= t '.description' %></div>
+    <h2><%= t ".welcome" %></h2>
+    <div><%= t ".description" %></div>
     <div>
       <%= content_for :search_form %>
     </div>

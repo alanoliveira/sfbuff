@@ -53,6 +53,9 @@ group :development, :test do
 
   # Factory
   gem "factory_bot_rails", "~> 6.4"
+
+  # erb linter
+  gem "erb_lint", require: false
 end
 
 group :development do
