@@ -3,7 +3,6 @@ class Players::BattlesFilterForm < BaseForm
   model_name.param_key = ""
 
   attr_accessor :player
-  attribute :short_id
   attribute :character
   attribute :control_type
   attribute :vs_character
@@ -24,6 +23,10 @@ class Players::BattlesFilterForm < BaseForm
 
   def played_to
     super.presence || Time.zone.now.to_date
+  end
+
+  def character
+    super.presence || player.main_character
   end
 
   private
