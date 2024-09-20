@@ -1,5 +1,5 @@
 class Players::RankedFilterForm < BaseForm
-  model_name.route_key = ""
+  model_name.route_key = "player_ranked"
   model_name.param_key = ""
 
   attr_accessor :player

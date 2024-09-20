@@ -1,6 +1,6 @@
-<div class="card">
+<div class="card" data-turbo-permanent>
   <div class="card-body">
-    <%= form_with model: object, url: false, method: :get do |f| %>
+    <%= form_with model: object, method: :get, data: { controller: "form-helper", action: "turbo:before-fetch-request->form-helper#compactBlank" } do |f| %>
       <div class="row mb-3">
         <div class="col-md-3">
           <%= f.label :character, class: "form-label" %>
