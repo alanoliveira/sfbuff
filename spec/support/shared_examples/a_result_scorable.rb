@@ -20,7 +20,7 @@ RSpec.shared_examples 'a ResultScorable' do
       .scores
   end
 
-  fit do
+  it do
     expect(scores.to_a).to match([
       [ {}, an_object_having_attributes(total: 3, win: 3, lose: 0, draw: 0, diff: 3) ],
       [ {}, an_object_having_attributes(total: 2, win: 0, lose: 2, draw: 0, diff: -2) ],

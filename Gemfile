@@ -51,6 +51,9 @@ group :development, :test do
   # Unit tests
   gem "rspec-rails", "~> 7.0"
 
+  # rubocop rspec linter
+  gem "rubocop-rspec_rails", "~> 2.30"
+
   # Factory
   gem "factory_bot_rails", "~> 6.4"
 
