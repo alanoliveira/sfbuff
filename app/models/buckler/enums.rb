@@ -23,7 +23,7 @@ module Buckler::Enums
     "jamie" => 21,
     "akuma" => 22,
     "m_bison" => 26,
-    # "terry" => ?,
+    "terry" => 27,
     # "mai" => ?,
     # "elena" => ?,
     "random" => 254
