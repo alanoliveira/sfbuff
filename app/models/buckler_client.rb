@@ -11,7 +11,7 @@ class BucklerClient < ApplicationRecord
   attribute :build_id, default: -> { Buckler::Api::Client.remote_build_id }
 
   rescue_from Faraday::ClientError, with: :client_error_handler!
-  rescue_from Faraday::ForbiddenError, with: :forbidden_error_handler!
+  rescue_from Faraday::ServerError, with: :server_error_handler!
 
   def api
     raise CredentialExpired if expired?
@@ -36,7 +36,14 @@ class BucklerClient < ApplicationRecord
 
   def client_error_handler!(e)
     resource_not_found_handler!(e) if e.is_a? Faraday::ResourceNotFound
+    forbidden_error_handler!(e) if e.is_a? Faraday::ForbiddenError
     raise RateLimitExceeded if e.response[:status] == 405 && e.response.dig(:headers, "x-amzn-waf-action")
+
+    raise e
+  end
+
+  def server_error_handler!(e)
+    raise UnderMaintenance if e.response[:status] == 503
 
     raise e
   end

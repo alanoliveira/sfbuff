@@ -23,6 +23,17 @@ RSpec.describe BucklerClient, type: :model do
     end
   end
 
+  context "when api is under maintenance" do
+    before do
+      stubs.get(%r{.*/503}) { [ 503, {}, nil ] }
+    end
+
+    it "raises an error" do
+      expect { buckler_client.api.request(action_path: '/503') }
+        .to raise_error(BucklerClient::UnderMaintenance)
+    end
+  end
+
   context "when api build_id changed" do
     before do
       stubs.get(%r{.*/404}) { [ 404, {}, nil ] }
