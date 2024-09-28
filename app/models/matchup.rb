@@ -1,4 +1,6 @@
 class Matchup < ApplicationRecord
+  include Scorable
+
   belongs_to :battle
   belongs_to :home_challenger, class_name: "Challenger"
   belongs_to :away_challenger, class_name: "Challenger"
