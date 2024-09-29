@@ -1,7 +1,32 @@
 class Players::MatchupChartsController < Players::BaseController
+  before_action :set_default_params
+
   def show
-    @filter_form = Players::MatchupChartFilterForm.new(player: @player)
-    @filter_form.fill(params)
-    @matchup_chart = @filter_form.submit
+    @filter_form = Players::MatchupChartFilterForm.new.fill(params)
+    filled_chart = @filter_form
+      .submit
+      .group(away_challenger: [ :character, :control_type ])
+      .select(away_challenger: [ :character, :control_type ])
+      .score
+      .inject({}, :merge)
+    @matchup_chart = blank_chart.merge(filled_chart)
+  end
+
+  private
+
+  def blank_chart
+    Buckler::Enums::CHARACTERS.values.product(
+      Buckler::Enums::CONTROL_TYPES.values
+    ).each_with_object({}) do |prod, hash|
+      hash[{ "character" => prod[0], "control_type" => prod[1] }] = nil
+    end
+  end
+
+  def set_default_params
+    params.compact_blank!.with_defaults!(
+      "played_from" => 7.days.ago.to_date,
+      "played_to" => Time.zone.now.to_date,
+      "character" => @player.main_character
+    )
   end
 end
