@@ -12,8 +12,12 @@ class Battle < ApplicationRecord
     battle_type == Buckler::Enums::BATTLE_TYPES["ranked"]
   end
 
+  def master_battle?
+    ranked? && challengers.all?(&:master?)
+  end
+
   def mr_calculator
-    MrCalculator if ranked? && challengers.all?(&:master?)
+    MrCalculator if master_battle?
   end
 
   def to_param
