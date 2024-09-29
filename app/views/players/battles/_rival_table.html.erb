@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <% rival.each do |group, score| %>
+    <% rival.map(&:flatten).each do |group, score| %>
       <tr class="text-center">
         <td><%= link_to group["name"], player_path(group["short_id"]) %></td>
         <td><%= t_character(group["character"]) %></td>
