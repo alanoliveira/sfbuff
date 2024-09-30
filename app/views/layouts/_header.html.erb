@@ -7,7 +7,7 @@
         <% end %>
       </div>
       <div>
-        <%= search_form do |f| %>
+        <%= render "shared/search_form" do |f| %>
           <%= f.submit t("buttons.search"), name: nil, class: "btn btn-primary" %>
         <% end %>
       </div>

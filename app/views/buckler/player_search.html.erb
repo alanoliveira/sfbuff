@@ -1,6 +1,10 @@
-<div id="player-search-result">
-  <div class="text-center">
-    <%= spinner %>
+<% if @term.present? %>
+  <div id="player-search-result">
+    <div class="text-center">
+      <%= spinner %>
+    </div>
+    <%= turbo_stream_from @term, channel: "PlayerSearchChannel" %>
   </div>
-  <%= turbo_stream_from params[:q], channel: "PlayerSearchChannel" %>
-</div>
+<% else %>
+  <%= no_data_alert %>
+<% end %>
