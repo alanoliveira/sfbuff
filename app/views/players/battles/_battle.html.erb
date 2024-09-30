@@ -1,7 +1,0 @@
-<% content_for :battle_footer, flush: true do %>
-  <div class="text-center">
-    <%= challenger_result battle.challengers.by_short_id(@player.short_id) %>
-  </div>
-<% end %>
-
-<%= render "battles/battle", battle: %>

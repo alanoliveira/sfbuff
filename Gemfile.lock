@@ -300,6 +300,9 @@ GEM
     ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
     safely_block (0.4.1)
+    scenic (1.8.0)
+      activerecord (>= 4.0.0)
+      railties (>= 4.0.0)
     securerandom (0.3.1)
     selenium-webdriver (4.24.0)
       base64 (~> 0.2)
@@ -376,6 +379,7 @@ DEPENDENCIES
   rspec-rails (~> 7.0)
   rubocop-rails-omakase
   rubocop-rspec_rails (~> 2.30)
+  scenic (~> 1.8)
   selenium-webdriver (~> 4.24)
   sentry-rails (~> 5.19)
   sprockets-rails

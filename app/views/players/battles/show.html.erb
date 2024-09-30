@@ -2,12 +2,21 @@
   <%= render "filter_form", object: @battles_filter_form %>
 </div>
 
-<% if @battles.present? %>
+<% if @matchups.present? %>
+
   <%= turbo_frame_tag "rival-list" do %>
     <%= button_to t(".rivals"), rivals_player_battles_path(@player), method: :get, params: @battles_filter_form.attributes, class: "btn btn-outline-primary mb-3 w-100" %>
   <% end %>
-  <%= render "score", score: @score %>
-  <%= render "battle_list", battles: @battles, total_pages: @total_pages %>
+
+  <%= render "score", score: @matchups.except(:order, :offset, :limit).score %>
+
+  <%= turbo_frame_tag "battle-list" do %>
+    <div class="d-flex flex-column gap-3 mb-3">
+      <%= render partial: "matchup", collection: @matchups %>
+    </div>
+    <%= paginate @matchups %>
+  <% end %>
+
 <% else %>
   <%= no_data_alert %>
 <% end %>
