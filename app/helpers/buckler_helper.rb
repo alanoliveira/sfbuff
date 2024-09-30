@@ -27,15 +27,26 @@ module BucklerHelper
     name
   end
 
-  def options_for_character_select
-    Buckler::Enums::CHARACTERS.values.index_by { t_character _1 }
+  def character_select_tag(name, **)
+    options = Buckler::Enums::CHARACTERS.values.index_by { t_character _1 }
+    buckler_select_tag(name, options, **)
   end
 
-  def options_for_control_type_select
-    Buckler::Enums::CONTROL_TYPES.values.index_by { t_control_type _1 }
+  def control_type_select_tag(name, **)
+    options = Buckler::Enums::CONTROL_TYPES.values.index_by { t_control_type _1 }
+    buckler_select_tag(name, options, **)
   end
 
-  def options_for_battle_type_select
-    Buckler::Enums::BATTLE_TYPES.values.index_by { t_battle_type _1 }
+  def battle_type_select_tag(name, **)
+    options = Buckler::Enums::BATTLE_TYPES.values.index_by { t_battle_type _1 }
+    buckler_select_tag(name, options, **)
+  end
+
+  private
+
+  def buckler_select_tag(name, options, selected: nil, include_any: false, **)
+    options_tags = options_for_select(options, selected)
+    options_tags = option_any.safe_concat(options_tags) if include_any
+    select_tag(name, options_tags, **)
   end
 end

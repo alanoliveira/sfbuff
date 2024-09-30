@@ -4,25 +4,25 @@
       <div class="row mb-3">
         <div class="col-md-3">
           <%= f.label :character, class: "form-label" %>
-          <%= f.select :character, options_for_character_select, select_options(include_any: false), class: "form-select" %>
+          <%= character_select_tag :character, selected: object.character, include_any: true, class: "form-select" %>
         </div>
         <div class="col-md-3">
           <%= f.label :control_type, class: "form-label" %>
-          <%= f.select :control_type, options_for_control_type_select, select_options(include_any: true), class: "form-select" %>
+          <%= control_type_select_tag :control_type, selected: object.control_type, include_any: true, class: "form-select" %>
         </div>
         <div class="col-md-3">
           <%= f.label :vs_character, class: "form-label" %>
-          <%= f.select :vs_character, options_for_character_select, select_options(include_any: true), class: "form-select" %>
+          <%= character_select_tag :vs_character, selected: object.vs_character, include_any: true, class: "form-select" %>
         </div>
         <div class="col-md-3">
           <%= f.label :vs_control_type, class: "form-label" %>
-          <%= f.select :vs_control_type, options_for_control_type_select, select_options(include_any: true), class: "form-select" %>
+          <%= control_type_select_tag :vs_control_type, selected: object.vs_control_type, include_any: true, class: "form-select" %>
         </div>
       </div>
       <div class="row mb-3">
         <div class="col-md-3">
           <%= f.label :battle_type, class: "form-label" %>
-          <%= f.select :battle_type, options_for_battle_type_select, select_options(include_any: true), class: "form-select" %>
+          <%= battle_type_select_tag :battle_type, selected: object.battle_type, include_any: true, class: "form-select" %>
         </div>
         <div class="col-md-3">
           <%= f.label :played_from, class: "form-label" %>

@@ -51,11 +51,6 @@ module ApplicationHelper
     end
   end
 
-  def select_options(include_any: false, **opts)
-    opts = opts.merge(include_blank: t("helpers.select_options.any")) if include_any
-    opts
-  end
-
   def no_data_alert
     alert(t("helpers.no_data_alert.message"), kind: "warning")
   end
@@ -67,6 +62,10 @@ module ApplicationHelper
     else ""
     end
     content_tag(:span, format("%+d", number), class: css_class)
+  end
+
+  def option_any
+    content_tag :option, t("helpers.option_any.label"), value: ""
   end
 
   def score_bar(score, **)

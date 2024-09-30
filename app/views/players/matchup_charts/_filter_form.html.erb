@@ -4,11 +4,11 @@
       <div class="row mb-3">
         <div class="col-md-3">
           <%= f.label :character, class: "form-label" %>
-          <%= f.select :character, options_for_character_select, {}, class: "form-select" %>
+          <%= character_select_tag :character, selected: object.character, include_any: false, class: "form-select" %>
         </div>
         <div class="col-md-3">
           <%= f.label :battle_type, class: "form-label" %>
-          <%= f.select :battle_type, options_for_battle_type_select, select_options(include_any: true), class: "form-select" %>
+          <%= battle_type_select_tag :battle_type, selected: object.battle_type, include_any: true, class: "form-select" %>
         </div>
         <div class="col-md-3">
           <%= f.label :played_from, class: "form-label" %>

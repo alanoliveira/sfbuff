@@ -31,8 +31,8 @@ ja:
       welcome: SFBUFFにようこそ
       description: スト6の対戦を分析するサイト
   helpers:
-    select_options:
-      any: 全て
+    option_any:
+      label: 全て
     search_form:
       placeholder: プレイヤーネームまたユーザーコード
     color_mode:

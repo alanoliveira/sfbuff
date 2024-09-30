@@ -31,8 +31,8 @@ pt-BR:
       welcome: Bem vindo ao SFBUFF
       description: Um site de estatísticas para matches de SF6
   helpers:
-    select_options:
-      any: Qualquer
+    option_any:
+      label: Qualquer
     search_form:
       placeholder: 'Nome de jogador ou código de usuario'
     color_mode:
