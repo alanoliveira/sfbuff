@@ -11,13 +11,19 @@ class Players::MatchupsFilterForm < BaseForm
 
   validates :played_from, :played_to, presence: true
 
+  delegate :cache_key, to: :matchups
+
   def submit
+    matchups
+  end
+
+  private
+
+  def matchups
     return Matchup.none unless valid?
 
     Matchup.where(matchup_criteria)
   end
-
-  private
 
   def matchup_criteria
     {

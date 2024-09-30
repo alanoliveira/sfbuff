@@ -8,13 +8,13 @@
     <%= button_to t(".rivals"), rivals_player_battles_path(@player), method: :get, params: @filter_form.attributes, class: "btn btn-outline-primary mb-3 w-100" %>
   <% end %>
 
-  <%= render "score", score: @matchups.except(:order, :offset, :limit).score %>
+  <%= render "score", score: @score %>
 
   <%= turbo_frame_tag "battle-list" do %>
     <div class="d-flex flex-column gap-3 mb-3">
       <%= render partial: "matchup", collection: @matchups %>
     </div>
-    <%= paginate @matchups %>
+    <%= paginate @matchups, total_pages: @total_pages %>
   <% end %>
 
 <% else %>

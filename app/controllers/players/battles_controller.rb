@@ -7,6 +7,8 @@ class Players::BattlesController < Players::BaseController
       .includes(battle: :challengers)
       .ordered.reverse_order
       .page(params[:page])
+    @score = cache([ @filter_form, "score" ]) { @matchups.except(:order, :offset, :limit).score }
+    @total_pages = cache([ @filter_form, "total_pages" ]) { @matchups.total_pages }
   end
 
   def rivals
