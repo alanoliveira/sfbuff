@@ -1,11 +1,11 @@
 <div class="mb-3">
-  <%= render "filter_form", object: @battles_filter_form %>
+  <%= render "filter_form", object: @filter_form %>
 </div>
 
 <% if @matchups.present? %>
 
   <%= turbo_frame_tag "rival-list" do %>
-    <%= button_to t(".rivals"), rivals_player_battles_path(@player), method: :get, params: @battles_filter_form.attributes, class: "btn btn-outline-primary mb-3 w-100" %>
+    <%= button_to t(".rivals"), rivals_player_battles_path(@player), method: :get, params: @filter_form.attributes, class: "btn btn-outline-primary mb-3 w-100" %>
   <% end %>
 
   <%= render "score", score: @matchups.except(:order, :offset, :limit).score %>

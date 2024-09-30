@@ -6,6 +6,7 @@ class Matchup < ApplicationRecord
   belongs_to :away_challenger, class_name: "Challenger"
 
   scope :ordered, -> { order("battle.played_at") }
+  scope :by_home_short_id, ->(short_id) { where(home_challenger: { short_id: }) if short_id }
 
   default_scope do
     joins(:battle, :home_challenger, :away_challenger).tap do |it|
