@@ -12,9 +12,8 @@ class Players::BattlesController < Players::BaseController
   end
 
   def rivals
-    @matchups = Matchup
-      .where(home_challenger: { short_id: @player.short_id })
-      .and(@filter_form.submit)
+    @matchups = @player.matchups
+      .merge(@filter_form.submit)
       .group(away_challenger: [ :short_id, :character, :control_type ])
       .select(Arel.sql("ANY_VALUE(away_challenger.name)").as("name"), away_challenger: [ :short_id, :character, :control_type ])
       .limit(8)
