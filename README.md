@@ -38,8 +38,8 @@ The following environment variables must be set before run the application:
 
 ### Prerequisites
 
-- Ruby 3.3.4
-- Bundle 2.5.3
+- Ruby 3.3.5
+- Bundle 2.5.17
 - Node.js 20.9.0
 - Yarn 1.22.21
 - Postgresql 16.2
