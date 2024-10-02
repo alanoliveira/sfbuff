@@ -11,6 +11,13 @@ FactoryBot.define do
     side { nil }
     battle
 
+    Challenger::LEAGUE_THRESHOLD.each do |lp, name|
+      trait name.to_sym do
+        league_point { lp }
+        master_rating { name == "master" ? 1500 : -1 }
+      end
+    end
+
     trait :win do
       rounds { [ 1, 1 ] }
     end
