@@ -4,7 +4,7 @@
       <div class="row mb-3">
         <div class="col-md-3">
           <%= f.label :character, class: "form-label" %>
-          <%= character_select_tag :character, selected: object.character, include_any: true, class: "form-select" %>
+          <%= character_select_tag :character, selected: object.character, include_any: false, class: "form-select" %>
         </div>
         <div class="col-md-3">
           <%= f.label :control_type, class: "form-label" %>
