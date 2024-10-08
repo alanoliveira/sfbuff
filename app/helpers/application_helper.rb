@@ -53,6 +53,10 @@ module ApplicationHelper
     content_tag(:span, format("%+d", number), class: css_class)
   end
 
+  def played_at_filter_params
+    request.parameters.slice("played_from", "played_to")
+  end
+
   def option_any
     content_tag :option, t("helpers.option_any.label"), value: ""
   end
