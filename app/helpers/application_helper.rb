@@ -57,6 +57,11 @@ module ApplicationHelper
     content_tag :option, t("helpers.option_any.label"), value: ""
   end
 
+  def reset_button(url = nil, **)
+    url ||= url_for(only_path: true, commit: "reset")
+    link_to t("buttons.reset"), url, **
+  end
+
   def score_bar(score, **)
     bs_progress_bar_stacked(progresses: [
       { percent: score.win_percent, bg_class: "bg-success", aria: { value_now: score.win_percent } },
