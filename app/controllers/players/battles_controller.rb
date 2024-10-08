@@ -28,8 +28,7 @@ class Players::BattlesController < Players::BaseController
   def filter_form_params
     params
       .compact_blank
-      .with_defaults(played_from:  7.days.ago.to_date,
-        played_to: Time.zone.now.to_date, character: @player.main_character)
+      .with_defaults(played_from:  7.days.ago.to_date, played_to: Time.zone.now.to_date)
       .permit(:character, :control_type, :vs_character, :vs_control_type,
         :played_from, :played_to, :battle_type)
   end
