@@ -9,6 +9,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <meta name="twitter:title" content="SFBUFF">
+    <meta name="twitter:description" content="a statistics website for SF6 matches">
+    <meta name="twitter:image" content="<%= "#{root_url}icon_256x256.png" %>">
+    <meta name="twitter:card" content="summary">
+
     <%= yield :head %>
 
     <link rel="manifest" href="/manifest.json">
