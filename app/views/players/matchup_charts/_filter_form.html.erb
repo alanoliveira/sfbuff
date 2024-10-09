@@ -4,8 +4,14 @@
       <div class="row mb-3">
         <div class="col-md-3">
           <%= f.label :character, class: "form-label" %>
-          <%= f.character_select :character, include_any: false, class: "form-select" %>
+          <%= f.character_select :character, include_any: true, class: "form-select" %>
         </div>
+        <div class="col-md-3">
+          <%= f.label :control_type, class: "form-label" %>
+          <%= f.control_type_select :control_type, include_any: true, class: "form-select" %>
+        </div>
+      </div>
+      <div class="row mb-3">
         <div class="col-md-3">
           <%= f.label :battle_type, class: "form-label" %>
           <%= f.battle_type_select :battle_type, include_any: true, class: "form-select" %>
