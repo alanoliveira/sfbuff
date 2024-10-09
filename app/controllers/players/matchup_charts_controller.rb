@@ -16,8 +16,8 @@ class Players::MatchupChartsController < Players::BaseController
 
   def default_params
     {
-      played_from:  7.days.ago.to_date,
-      played_to: Time.zone.now.to_date
+      played_from: (Date.today - 1.week).to_s,
+      played_to: (Date.today).to_s
     }
   end
 

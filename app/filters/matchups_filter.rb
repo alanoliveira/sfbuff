@@ -1,10 +1,16 @@
 class MatchupsFilter < ApplicationFilter
   def played_from(played_from)
+    played_from = Time.zone.parse(played_from).beginning_of_day
     relation.where(battle: { played_at: (played_from..) })
+  rescue ArgumentError
+    relation.none
   end
 
   def played_to(played_to)
+    played_to = Time.zone.parse(played_to).end_of_day
     relation.where(battle: { played_at: (..played_to) })
+  rescue ArgumentError
+    relation.none
   end
 
   def battle_type(battle_type)
