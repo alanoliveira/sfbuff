@@ -8,9 +8,9 @@ module ApplicationHelper
       class: [ "alert", "alert-#{kind}", opts[:class] ], &)
   end
 
-  def nav_link(name, url, active_class: "active", **opts)
+  def nav_item(name, url, active_class: "active", **opts)
     active = active_class if current_page?(url)
-    link_to name, url, class: [ opts.delete(:class), active ], **opts
+    button_to name, url, method: :get, class: [ opts.delete(:class), active ], **opts
   end
 
   def time_ago(time)
