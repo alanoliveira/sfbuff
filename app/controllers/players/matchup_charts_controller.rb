@@ -1,4 +1,8 @@
 class Players::MatchupChartsController < Players::BaseController
+  include DefaultParams
+
+  before_action :set_default_params
+
   def show
     @filter_form = Players::MatchupsFilterForm.new(filter_form_params)
     filled_chart = @player.matchups
@@ -12,6 +16,14 @@ class Players::MatchupChartsController < Players::BaseController
 
   private
 
+  def default_params
+    {
+      played_from:  7.days.ago.to_date,
+      played_to: Time.zone.now.to_date,
+      character: @player.main_character
+    }
+  end
+
   def blank_chart
     Buckler::Enums::CHARACTERS.values.product(
       Buckler::Enums::CONTROL_TYPES.values
@@ -21,10 +33,6 @@ class Players::MatchupChartsController < Players::BaseController
   end
 
   def filter_form_params
-    params
-      .compact_blank
-      .with_defaults(played_from:  7.days.ago.to_date,
-        played_to: Time.zone.now.to_date, character: @player.main_character)
-      .permit(:character, :control_type, :played_from, :played_to, :battle_type)
+    params.permit(:character, :control_type, :played_from, :played_to, :battle_type)
   end
 end
