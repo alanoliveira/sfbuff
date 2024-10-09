@@ -2,21 +2,18 @@ class Players::BattlesController < Players::BaseController
   include DefaultParams
 
   before_action :set_default_params
-  before_action :set_filter_form
 
   def show
-    @matchups = @player.matchups
-      .merge(@filter_form.submit)
-      .includes(battle: :challengers)
+    matchups = MatchupsFilter.filter(@player.matchups, filter_params)
+    @matchups = matchups.includes(battle: :challengers)
       .ordered.reverse_order
       .page(params[:page])
-    @score = cache([ @filter_form, "score" ]) { @matchups.except(:order, :offset, :limit).score }
-    @total_pages = cache([ @filter_form, "total_pages" ]) { @matchups.total_pages }
+    @total_pages = cache([ matchups.cache_key, "total_pages" ]) { @matchups.total_pages }
+    @score = cache([ matchups.cache_key, "score" ]) { matchups.score }
   end
 
   def rivals
-    @matchups = @player.matchups
-      .merge(@filter_form.submit)
+    @matchups = MatchupsFilter.filter(@player.matchups, filter_params)
       .group(away_challenger: [ :short_id, :character, :control_type ])
       .select(Arel.sql("ANY_VALUE(away_challenger.name)").as("name"), away_challenger: [ :short_id, :character, :control_type ])
       .limit(8)
@@ -31,11 +28,7 @@ class Players::BattlesController < Players::BaseController
     }
   end
 
-  def set_filter_form
-    @filter_form = Players::MatchupsFilterForm.new(filter_form_params)
-  end
-
-  def filter_form_params
+  def filter_params
     params.permit(:character, :control_type, :vs_character, :vs_control_type,
         :played_from, :played_to, :battle_type)
   end

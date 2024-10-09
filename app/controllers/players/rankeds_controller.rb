@@ -4,9 +4,7 @@ class Players::RankedsController < Players::BaseController
   before_action :set_default_params
 
   def show
-    @filter_form = Players::MatchupsFilterForm.new(filter_form_params)
-    @history = @player.matchups
-      .merge(@filter_form.submit)
+    @history = MatchupsFilter.filter(@player.matchups, filter_params)
       .where(battle: Battle.ranked)
       .includes(battle: :challengers)
       .ordered
@@ -14,7 +12,7 @@ class Players::RankedsController < Players::BaseController
 
   private
 
-  def filter_form_params
+  def filter_params
     params.permit(:character, :control_type, :played_from, :played_to)
   end
 

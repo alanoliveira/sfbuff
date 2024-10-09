@@ -4,9 +4,7 @@ class Players::MatchupChartsController < Players::BaseController
   before_action :set_default_params
 
   def show
-    @filter_form = Players::MatchupsFilterForm.new(filter_form_params)
-    filled_chart = @player.matchups
-      .merge(@filter_form.submit)
+    filled_chart = MatchupsFilter.filter(@player.matchups, filter_params)
       .group(away_challenger: [ :character, :control_type ])
       .select(away_challenger: [ :character, :control_type ])
       .score
@@ -32,7 +30,7 @@ class Players::MatchupChartsController < Players::BaseController
     end
   end
 
-  def filter_form_params
+  def filter_params
     params.permit(:character, :control_type, :played_from, :played_to, :battle_type)
   end
 end
