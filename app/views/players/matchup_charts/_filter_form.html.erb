@@ -1,14 +1,14 @@
 <div class="card" data-turbo-permanent>
   <div class="card-body">
-    <%= form_with model: object, url: false, method: :get, data: { controller: "form-helper", action: "turbo:before-fetch-request->form-helper#compactBlank" } do |f| %>
+    <%= form_with url: false, builder: BattlesFilterFormBuilder, method: :get, data: { controller: "form-helper", action: "turbo:before-fetch-request->form-helper#compactBlank" } do |f| %>
       <div class="row mb-3">
         <div class="col-md-3">
           <%= f.label :character, class: "form-label" %>
-          <%= character_select_tag :character, selected: object.character, include_any: false, class: "form-select" %>
+          <%= f.character_select :character, include_any: false, class: "form-select" %>
         </div>
         <div class="col-md-3">
           <%= f.label :battle_type, class: "form-label" %>
-          <%= battle_type_select_tag :battle_type, selected: object.battle_type, include_any: true, class: "form-select" %>
+          <%= f.battle_type_select :battle_type, include_any: true, class: "form-select" %>
         </div>
         <div class="col-md-3">
           <%= f.label :played_from, class: "form-label" %>
@@ -21,8 +21,8 @@
       </div>
       <div class="row">
         <div class="col">
-          <%= f.submit t("buttons.filter"), name: "", class: "btn btn-primary" %>
-          <%= link_to t("buttons.reset"), url_for(only_path: true), class: "btn btn-secondary" %>
+          <%= f.submit class: "btn btn-primary" %>
+          <%= f.reset class: "btn btn-secondary" %>
         </div>
       </div>
     <% end %>
