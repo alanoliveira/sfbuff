@@ -4,9 +4,7 @@ SFBuff is a statistics website for SF6.
 It gathers match information from the official website, then provides a variety  
 of information for players to track their own performance.
 
-## Configuration
-
-The following environment variables must be set before run the application:
+## Environment variables
 
 | variable                                       | description                                                          |
 | ---------------------------------------------- | -------------------------------------------------------------------- |

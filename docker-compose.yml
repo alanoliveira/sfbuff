@@ -1,26 +1,21 @@
-version: "3.5"
-
-sfbuff: &default-sfbuff
-  # build: .
-  image: docker.io/alanoliveira89/sfbuff:latest
-  environment:
-    - RAILS_ENV=docker
-    - RAILS_MASTER_KEY=6ec91152ecc7c8601683eb0936e10bc4
-    - REDIS_URL=redis://redis/1
-    - DATABASE_URL=postgres://sfbuff:sfbuff@db/sfbuff_docker
-    - BUCKLER_CID_DOMAIN
-    - BUCKLER_BASE_URL
-    - BUCKLER_EMAIL
-    - BUCKLER_PASSWORD
-    - BUCKLER_USER_AGENT
-    - REPOSITORY_URL
-  depends_on:
-    - db
-    - redis
-
 services:
   web:
-    <<: *default-sfbuff
+    # build: .
+    image: docker.io/alanoliveira89/sfbuff:latest
+    environment:
+      - RAILS_ENV=docker
+      - RAILS_MASTER_KEY=6ec91152ecc7c8601683eb0936e10bc4
+      - REDIS_URL=redis://redis/1
+      - DATABASE_URL=postgres://sfbuff:sfbuff@db/sfbuff_docker
+      - BUCKLER_CID_DOMAIN
+      - BUCKLER_BASE_URL
+      - BUCKLER_EMAIL
+      - BUCKLER_PASSWORD
+      - BUCKLER_USER_AGENT
+      - REPOSITORY_URL
+    depends_on:
+      - db
+      - redis
     ports:
       - "3000:3000"
   db:
