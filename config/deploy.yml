@@ -1,0 +1,110 @@
+# Name of your application. Used to uniquely configure containers.
+service: sfbuff
+
+# Name of the container image.
+image: alanoliveira89/sfbuff
+
+# Deploy to these servers.
+servers:
+  web:
+    hosts:
+      - sfbuff.online
+    options:
+      memory: 512m
+
+  # job:
+  #   hosts:
+  #     - sfbuff.online
+  #   cmd: bin/jobs
+
+# Enable SSL auto certification via Let's Encrypt (and allow for multiple apps on one server).
+# If using something like Cloudflare, it is recommended to set encryption mode 
+# in Cloudflare's SSL/TLS setting to "Full" to enable end-to-end encryption. 
+proxy: 
+  ssl: true
+  hosts:
+    - sfbuff.online
+    - www.sfbuff.online
+  # kamal-proxy connects to your container over port 80, use `app_port` to specify a different port.
+  app_port: 3000
+
+# Credentials for your image host.
+registry:
+  # Specify the registry server, if you're not using Docker Hub
+  # server: registry.digitalocean.com / ghcr.io / ...
+  username: alanoliveira89
+
+  # Always use an access token rather than real password (pulled from .kamal/secrets).
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+# Configure builder setup.
+builder:
+  arch: amd64
+
+# Inject ENV variables into containers (secrets come from .kamal/secrets).
+#
+env:
+  clear:
+    DATABASE_URL: postgres://sfbuff@sfbuff-db
+    REDIS_URL: redis://sfbuff-redis
+    RAILS_ENV: production
+  secret:
+    - SECRET_KEY_BASE
+    - BUCKLER_EMAIL
+    - BUCKLER_PASSWORD
+    - BUCKLER_USER_AGENT
+    - SFBUFF_DATABASE_PASSWORD
+
+# Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
+# "bin/kamal logs -r job" will tail logs from the first server in the job section.
+#
+aliases:
+  shell: app exec --interactive --reuse "bash"
+  console: app exec --interactive --reuse "bin/rails console"
+  logs: app logs -f
+
+# Use a different ssh user than root
+#
+ssh:
+  user: admin
+
+# Use a persistent storage volume.
+#
+# volumes:
+#   - "app_storage:/app/storage"
+
+# Bridge fingerprinted assets, like JS and CSS, between versions to avoid
+# hitting 404 on in-flight requests. Combines all files from new and old
+# version inside the asset_path.
+#
+# asset_path: /app/public/assets
+
+# Configure rolling deploys by setting a wait time between batches of restarts.
+#
+# boot:
+#   limit: 10 # Can also specify as a percentage of total hosts, such as "25%"
+#   wait: 2
+
+# Use accessory services (secrets come from .kamal/secrets).
+#
+accessories:
+  db:
+    image: postgres:16.2-alpine
+    host: sfbuff.online
+    port: "127.0.0.1:5432:5432"
+    env:
+      clear:
+        POSTGRES_USER: sfbuff
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql
+    options:
+      memory: 128m
+  redis:
+    image: valkey/valkey:8
+    host: sfbuff.online
+    port: "127.0.0.1:6379:6379"
+    options:
+      memory: 16m
