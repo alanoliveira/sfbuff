@@ -4,27 +4,32 @@ module ApplicationHelper
   end
 
   def alert(message = nil, kind: :info, **opts, &)
-    content_tag(:div, message, **opts, role: "alert",
-      class: [ "alert", "alert-#{kind}", opts[:class] ], &)
+    opts[:class] = Array(opts[:class]) | [ "alert", "alert-#{kind}" ]
+    content_tag(:div, message, role: "alert", **opts, &)
   end
 
-  def nav_item(name, url, active_class: "active", **opts)
-    active = active_class if current_page?(url)
-    button_to name, url, method: :get, class: [ opts.delete(:class), active ], **opts
+  def nav_item(name, url, active_class: "active", params: nil, **opts)
+    opts[:class] = Array(opts[:class]) | [ active_class ] if current_page?(url)
+    if params.present?
+      uri = URI(url)
+      uri.query = [ uri.query, params.to_query ].compact_blank.join("&")
+      url = uri.to_s
+    end
+    link_to name, url, method: :get, **opts
   end
 
-  def time_ago(time)
-    content_tag :span, t("datetime.time_ago", time: time_ago_in_words(time)),
-                title: l(time, format: :short)
+  def time_ago(time, **opts)
+    opts[:title] = l(time, format: :short)
+    content_tag :span, t("datetime.time_ago", time: time_ago_in_words(time)), **opts
   end
 
-  def spinner(**opts)
-    content_tag :div, class: [ "spinner-border", opts.delete(:class) ], role: "status" do
+  def spinner
+    content_tag :div, class: "spinner-border", role: "status" do
       content_tag :span, "#{t("aria.texts.loading")}...", class: "visually-hidden"
     end
   end
 
-  def error_alert(error:)
+  def error_alert(error)
     key = error.class.name.underscore
     key = "generic" unless I18n.exists?(key, scope: "errors")
     alert(t(key, scope: "errors"), kind: "danger")
@@ -50,23 +55,13 @@ module ApplicationHelper
     when 1.. then "text-success"
     else ""
     end
-    content_tag(:span, format("%+d", number), class: css_class)
-  end
-
-  def played_at_filter_params
-    request.parameters.slice("played_from", "played_to")
+    content_tag(:span, class: css_class) do
+      number.zero? ? "0" : format("%+d", number)
+    end
   end
 
   def option_any
     content_tag :option, t("helpers.option_any.label"), value: ""
-  end
-
-  def score_bar(score, **)
-    bs_progress_bar_stacked(progresses: [
-      { percent: score.win_percent, bg_class: "bg-success", aria: { value_now: score.win_percent } },
-      { percent: score.draw_percent, bg_class: "bg-warning", aria: { value_now: score.draw_percent } },
-      { percent: score.lose_percent, bg_class: "bg-danger", aria: { value_now: score.lose_percent } }
-    ], **)
   end
 
   def color_mode_select

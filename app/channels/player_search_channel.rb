@@ -10,7 +10,7 @@ class PlayerSearchChannel < ApplicationCable::JobTurboStreamsChannel
   end
 
   def self.broadcast_error(to:, error:)
-    broadcast_replace_to(to, inline: "<%= error_alert error: %>", locals: { error: })
+    broadcast_replace_to(to, inline: "<%= error_alert error %>", locals: { error: })
   end
 
   def create_job
