@@ -1,10 +1,5 @@
 <% if @term.present? %>
-  <div id="player-search-result">
-    <div class="text-center">
-      <%= spinner %>
-    </div>
-    <%= turbo_stream_from @term, channel: "PlayerSearchChannel" %>
-  </div>
+  <%= render template: "channels/player_search_channel", locals: { term: @term } %>
 <% else %>
   <%= no_data_alert %>
 <% end %>

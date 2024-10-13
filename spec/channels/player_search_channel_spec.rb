@@ -7,13 +7,4 @@ RSpec.describe PlayerSearchChannel, type: :channel do
   it 'enqueues a PlayerSearchJob' do
     expect { subscribe signed_stream_name: }.to have_enqueued_job(PlayerSearchJob).with(term)
   end
-
-  context 'when term is empty' do
-    let(:term) { '' }
-
-    it 'rejects the stream' do
-      subscribe(signed_stream_name:)
-      expect(subscription).to be_rejected
-    end
-  end
 end

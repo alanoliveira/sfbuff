@@ -1,0 +1,6 @@
+<%= content_tag :div, id: PlayerSearchChannel.target do %>
+  <div class="text-center">
+    <%= spinner %>
+  </div>
+  <%= turbo_stream_from term, channel: "PlayerSearchChannel" %>
+<% end %>

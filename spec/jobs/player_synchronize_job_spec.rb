@@ -15,7 +15,7 @@ RSpec.describe PlayerSynchronizeJob, type: :job do
 
   it 'broadcasts the success response' do
     job.perform_now
-    expect(PlayerSynchronizeChannel).to have_received(:broadcast_response).with(to: job.job_id)
+    expect(PlayerSynchronizeChannel).to have_received(:broadcast_response).with(to: job.job_id, data: nil)
   end
 
   context 'when the execution fails' do

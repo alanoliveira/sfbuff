@@ -1,30 +1,19 @@
-class PlayerSearchChannel < Turbo::StreamsChannel
-  RESULT_TARGET = "player-search-result"
+class PlayerSearchChannel < ApplicationCable::JobTurboStreamsChannel
+  alias term verified_stream_name_from_params
 
   def self.broadcast_response(to:, data:)
-    broadcast_render_to(to, template: "channel/player_search/response",
-      locals: { target: RESULT_TARGET, data: })
+    if data.any?
+      broadcast_replace_to(to, partial: "buckler/player_search_result", locals: { data: })
+    else
+      broadcast_replace_to(to, inline: "<%= no_data_alert %>")
+    end
   end
 
   def self.broadcast_error(to:, error:)
-    broadcast_render_to(to, template: "channel/error",
-      locals: { target: RESULT_TARGET, error: })
+    broadcast_replace_to(to, inline: "<%= error_alert error: %>", locals: { error: })
   end
 
-  def subscribed
-    return reject if term.blank?
-
-    @job_id = PlayerSearchJob.perform_later(term).job_id
-    stream_from @job_id
-  end
-
-  def unsubscribed
-    stop_stream_from(@job_id)
-  end
-
-  private
-
-  def term
-    verified_stream_name_from_params
+  def create_job
+    PlayerSearchJob.perform_later(term)
   end
 end

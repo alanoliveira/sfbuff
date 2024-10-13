@@ -7,12 +7,7 @@
   <% end %>
 
   <% unless @player.synchronized? %>
-    <div id="player-synchronize-result">
-      <div class="text-center">
-        <%= spinner %>
-      </div>
-      <%= turbo_stream_from @player.short_id, channel: "PlayerSynchronizeChannel" %>
-    </div>
+    <%= render template: "channels/player_synchronize_channel", locals: { short_id: @player.short_id } %>
   <% end %>
 
   <% if @player.persisted? %>

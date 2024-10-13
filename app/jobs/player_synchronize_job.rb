@@ -10,7 +10,7 @@ class PlayerSynchronizeJob < ApplicationJob
   def perform(short_id)
     Synchronizer.new(short_id:).synchronize!
 
-    channel.broadcast_response(to: job_id)
+    channel.broadcast_response(to: job_id, data: nil)
   end
 
   def channel

@@ -1,0 +1,6 @@
+<%= content_tag :div, id: PlayerSynchronizeChannel.target do %>
+  <div class="text-center">
+    <%= spinner %>
+  </div>
+  <%= turbo_stream_from short_id, channel: "PlayerSynchronizeChannel" %>
+<% end %>

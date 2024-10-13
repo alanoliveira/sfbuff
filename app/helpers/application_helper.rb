@@ -24,7 +24,7 @@ module ApplicationHelper
     end
   end
 
-  def channel_error_alert(error:)
+  def error_alert(error:)
     key = error.class.name.underscore
     key = "generic" unless I18n.exists?(key, scope: "errors")
     alert(t(key, scope: "errors"), kind: "danger")
