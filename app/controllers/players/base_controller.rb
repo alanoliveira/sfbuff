@@ -10,6 +10,6 @@ class Players::BaseController < ApplicationController
   private
 
   def set_player
-    @player = Player.find_or_initialize_by(short_id: params[:player_short_id])
+    @player = Player.find_or_initialize_by(short_id: params[:short_id])
   end
 end

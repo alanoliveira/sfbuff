@@ -5,7 +5,7 @@
 <% if @matchups.present? %>
 
   <%= turbo_frame_tag "rival-list" do %>
-    <%= button_to t(".rivals"), rivals_player_battles_path(@player), method: :get, params: request.query_parameters, class: "btn btn-outline-primary mb-3 w-100" %>
+    <%= button_to t(".rivals"), player_battles_rivals_path(@player), method: :get, params: request.query_parameters, class: "btn btn-outline-primary mb-3 w-100" %>
   <% end %>
 
   <%= render "score", score: @score %>
