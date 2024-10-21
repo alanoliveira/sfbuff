@@ -1,4 +1,6 @@
 class Battle::MrCalculator
+  ELO_CONSTANT = 16
+
   attr_reader :my_mr, :vs_mr
 
   def initialize(my_mr:, vs_mr:)
@@ -7,24 +9,20 @@ class Battle::MrCalculator
   end
 
   def win_variation
-    calculate(1)
+    calculator.calculate(1)
   end
 
   def lose_variation
-    calculate(0)
+    calculator.calculate(0)
   end
 
   def draw_variation
-    calculate(0.5)
+    calculator.calculate(0.5)
   end
 
   private
 
-  def calculate(minuend)
-    (16 * (minuend - base)).round
-  end
-
-  def base
-    @base ||= 1 / (1 + (10**((vs_mr - my_mr) / 400.0)))
+  def calculator
+    EloCalculator.new(rating_a: my_mr, rating_b: vs_mr, k: ELO_CONSTANT)
   end
 end
