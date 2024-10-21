@@ -10,8 +10,8 @@ module ChartsHelper
         next if mu.home_challenger.master_rating.zero? || !mu.away_challenger.master?
 
         data[:type] = "mr"
-        data[:label] = format("%d (%+d)", mu.home_challenger.master_rating, mu.home_challenger.mr_variation)
-        data[:y] = mu.home_challenger.master_rating + mu.home_challenger.mr_variation
+        data[:label] = format("%d (%+d)", mu.home_challenger.master_rating, mu.home_challenger.master_rating_variation)
+        data[:y] = mu.home_challenger.master_rating + mu.home_challenger.master_rating_variation
       else
         next if mu.home_challenger.calibrating?
         data[:type] = "lp"

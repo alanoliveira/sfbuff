@@ -10,14 +10,14 @@
     <%= render "battles/challenger", challenger: battle.challengers.p1 %>
     <div class="col-1">
       <%= render "battles/rounds", rounds: battle.challengers.p1.rounds %>
-      <% battle.challengers.p1.mr_variation.try do |variation| %>
+      <% battle.challengers.p1.master_rating_variation.try do |variation| %>
         <div><%= signed_number variation %></div>
       <% end %>
     </div>
     <div class="col-2 fs-1 text-center fw-bold">VS</div>
     <div class="col-1">
       <%= render "battles/rounds", rounds: battle.challengers.p2.rounds %>
-      <% battle.challengers.p2.mr_variation.try do |variation| %>
+      <% battle.challengers.p2.master_rating_variation.try do |variation| %>
         <div><%= signed_number variation %></div>
       <% end %>
     </div>

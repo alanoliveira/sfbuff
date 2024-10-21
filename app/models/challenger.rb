@@ -35,16 +35,6 @@ class Challenger < ApplicationRecord
     battle.challengers.send(vs_side)
   end
 
-  def mr_variation
-    calculator_class = battle.mr_calculator
-    return if calculator_class.nil?
-
-    calculator = calculator_class.new(my_mr: master_rating, vs_mr: vs.master_rating)
-    return calculator.win_variation if win?
-    return calculator.lose_variation if lose?
-    calculator.draw_variation
-  end
-
   private
 
   def vs_side
@@ -60,8 +50,14 @@ class Challenger < ApplicationRecord
   end
 
   def set_ranked_variation
-    # TODO: remove below guard clause after run migration 20241021071237_add_ranked_variation_to_challengers
-    return unless has_attribute?("ranked_variation")
-    self.master_rating_variation = mr_variation
+    calculator_class = battle.mr_calculator
+    return if calculator_class.nil?
+
+    calculator = calculator_class.new(my_mr: master_rating, vs_mr: vs.master_rating)
+    self.master_rating_variation = case
+    when win? then calculator.win_variation
+    when lose? then calculator.lose_variation
+    else calculator.draw_variation
+    end
   end
 end
