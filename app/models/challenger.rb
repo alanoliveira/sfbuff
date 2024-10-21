@@ -13,10 +13,12 @@ class Challenger < ApplicationRecord
   enum :result, %w[draw win lose]
   enum :side, { "p1" => 1, "p2" => 2 }
   decorate_attributes([ :rounds ]) { |_, subtype| RoundsType.new(subtype) }
+  store_accessor :ranked_variation, [ :master_rating_variation, :league_point_variation ]
 
   belongs_to :battle
 
   before_save :set_result
+  before_save :set_ranked_variation
 
   delegate *LEAGUE_THRESHOLD.values.map { "#{_1}?" }, to: :league
 
@@ -55,5 +57,11 @@ class Challenger < ApplicationRecord
     when (1..) then "win"
     when 0 then "draw"
     end
+  end
+
+  def set_ranked_variation
+    # TODO: remove below guard clause after run migration 20241021071237_add_ranked_variation_to_challengers
+    return unless has_attribute?("ranked_variation")
+    self.master_rating_variation = mr_variation
   end
 end
