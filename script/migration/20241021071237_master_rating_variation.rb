@@ -1,4 +1,4 @@
-require_relative "../config/environment"
+require_relative "../../config/environment"
 
 loop do
   battles = Battle.preload(:challengers).find_by_sql(<<-SQL)
