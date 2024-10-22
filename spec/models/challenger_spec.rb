@@ -17,8 +17,8 @@ RSpec.describe Challenger, type: :model do
   end
 
   describe "#result" do
-    it { expect(create(:p1, rounds: [ 1 ])).to be_win }
-    it { expect(create(:p1, rounds: [ 0 ])).to be_lose }
-    it { expect(create(:p1, rounds: [ 4 ])).to be_draw }
+    it { expect(create(:battle, p1: build(:p1, :win), p2: build(:p2, :lose)).challengers.p1.result).to be_win }
+    it { expect(create(:battle, p1: build(:p1, :lose), p2: build(:p2, :win)).challengers.p1.result).to be_lose }
+    it { expect(create(:battle, p1: build(:p1, :draw), p2: build(:p2, :draw)).challengers.p1.result).to be_draw }
   end
 end

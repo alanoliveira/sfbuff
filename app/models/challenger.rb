@@ -10,14 +10,12 @@ class Challenger < ApplicationRecord
     25000 => "master"
   }
 
-  enum :result, %w[draw win lose]
   enum :side, { "p1" => 1, "p2" => 2 }
   decorate_attributes([ :rounds ]) { |_, subtype| RoundsType.new(subtype) }
   store_accessor :ranked_variation, [ :master_rating_variation, :league_point_variation ]
 
   belongs_to :battle
 
-  before_save :set_result
   before_save :set_ranked_variation
 
   delegate *LEAGUE_THRESHOLD.values.map { "#{_1}?" }, to: :league
@@ -35,18 +33,18 @@ class Challenger < ApplicationRecord
     battle.challengers.send(vs_side)
   end
 
+  def result
+    case battle.winner_side
+    when side then "win"
+    when nil then "draw"
+    else "lose"
+    end.inquiry
+  end
+
   private
 
   def vs_side
     p1? ? "p2" : "p1"
-  end
-
-  def set_result
-    self.result = case rounds.count(&:win?) - rounds.count(&:lose?)
-    when (..-1) then "lose"
-    when (1..) then "win"
-    when 0 then "draw"
-    end
   end
 
   def set_ranked_variation
@@ -54,9 +52,9 @@ class Challenger < ApplicationRecord
     return if calculator_class.nil?
 
     calculator = calculator_class.new(my_mr: master_rating, vs_mr: vs.master_rating)
-    self.master_rating_variation = case
-    when win? then calculator.win_variation
-    when lose? then calculator.lose_variation
+    self.master_rating_variation = case result
+    when "win" then calculator.win_variation
+    when "lose" then calculator.lose_variation
     else calculator.draw_variation
     end
   end

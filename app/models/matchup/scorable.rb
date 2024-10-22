@@ -34,15 +34,15 @@ module Matchup::Scorable
     end
 
     def win
-      ArelHelpers.count_if(home_challenger_result_attribute.eq(Challenger.results["win"]))
+      ArelHelpers.count_if(arel_column("battle.winner_side").eq(arel_column("home_challenger.side")))
     end
 
     def lose
-      ArelHelpers.count_if(home_challenger_result_attribute.eq(Challenger.results["lose"]))
+      ArelHelpers.count_if(arel_column("battle.winner_side").eq(arel_column("away_challenger.side")))
     end
 
     def draw
-      ArelHelpers.count_if(home_challenger_result_attribute.eq(Challenger.results["draw"]))
+      ArelHelpers.count_if(arel_column("battle.winner_side").eq(nil))
     end
 
     def total
@@ -51,12 +51,6 @@ module Matchup::Scorable
 
     def diff
       Arel::Nodes::Subtraction.new(win, lose)
-    end
-
-    private
-
-    def home_challenger_result_attribute
-      predicate_builder.resolve_arel_attribute("home_challenger", :result)
     end
   end
 end
