@@ -12,10 +12,6 @@ class Challenger < ApplicationRecord
   end
   delegate *Buckler::Enums::LEAGUE_THRESHOLD.values.map { "#{_1}?" }, to: :league
 
-  def vs
-    battle.challengers.send(vs_side)
-  end
-
   def result
     case battle.winner_side
     when side then "win"
@@ -26,19 +22,7 @@ class Challenger < ApplicationRecord
 
   private
 
-  def vs_side
-    p1? ? "p2" : "p1"
-  end
-
   def set_ranked_variation
-    calculator_class = battle.mr_calculator
-    return if calculator_class.nil?
-
-    calculator = calculator_class.new(my_mr: master_rating, vs_mr: vs.master_rating)
-    self.master_rating_variation = case result
-    when "win" then calculator.win_variation
-    when "lose" then calculator.lose_variation
-    else calculator.draw_variation
-    end
+    self.master_rating_variation = battle.mr_calculator.try("#{side}_variation")
   end
 end

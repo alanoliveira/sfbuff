@@ -11,6 +11,7 @@ class Battle < ApplicationRecord
 
   scope :ranked, -> { where(battle_type: Buckler::Enums::BATTLE_TYPES["ranked"]) }
   scope :ordered, -> { order(:played_at) }
+  delegate :p1, :p2, :winner, to: :challengers
 
   def ranked?
     battle_type == Buckler::Enums::BATTLE_TYPES["ranked"]
@@ -21,7 +22,7 @@ class Battle < ApplicationRecord
   end
 
   def mr_calculator
-    MrCalculator if master_battle?
+    MrCalculator.new(self) if master_battle?
   end
 
   def to_param
