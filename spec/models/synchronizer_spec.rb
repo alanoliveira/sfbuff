@@ -29,7 +29,11 @@ RSpec.describe Synchronizer do
     end
 
     context "when it finds a battle already imported by the opponent" do
-      before { battle_list[2].dup.save! }
+      before do
+        dup_battle = battle_list[2].dup
+        dup_challengers = battle_list[2].challengers.map(&:dup)
+        dup_battle.tap { _1.challengers = dup_challengers }.save
+      end
 
       it "ignores the imported battle and imports the others" do
         expect { synchronizer.synchronize! }.to change(Battle, :count).by 4
