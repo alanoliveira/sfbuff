@@ -52,4 +52,16 @@ module Buckler::Enums
     "ca" => 7,
     "p" => 8
   }.freeze
+
+  LEAGUE_THRESHOLD = {
+    -1 => "calibrating",
+    0 => "rookie",
+    1000 => "iron",
+    3000 => "bronze",
+    5000 => "silver",
+    9000 => "gold",
+    13000 => "platinum",
+    19000 => "diamond",
+    25000 => "master"
+  }.freeze
 end

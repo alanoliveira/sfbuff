@@ -1,15 +1,4 @@
 class Challenger < ApplicationRecord
-  LEAGUE_THRESHOLD = {
-    0 => "rookie",
-    1000 => "iron",
-    3000 => "bronze",
-    5000 => "silver",
-    9000 => "gold",
-    13000 => "platinum",
-    19000 => "diamond",
-    25000 => "master"
-  }
-
   enum :side, { "p1" => 1, "p2" => 2 }
   decorate_attributes([ :rounds ]) { |_, subtype| RoundsType.new(subtype) }
   store_accessor :ranked_variation, [ :master_rating_variation, :league_point_variation ]
@@ -18,16 +7,10 @@ class Challenger < ApplicationRecord
 
   before_save :set_ranked_variation
 
-  delegate *LEAGUE_THRESHOLD.values.map { "#{_1}?" }, to: :league
-
-  def calibrating?
-    league_point.negative?
-  end
-
   def league
-    threshold = LEAGUE_THRESHOLD.keys.select { |it| league_point >= it }.max
-    (LEAGUE_THRESHOLD[threshold] || "").inquiry
+    Buckler::RankedLeague.for_league_point(league_point).inquiry
   end
+  delegate *Buckler::Enums::LEAGUE_THRESHOLD.values.map { "#{_1}?" }, to: :league
 
   def vs
     battle.challengers.send(vs_side)

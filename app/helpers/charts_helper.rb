@@ -42,6 +42,6 @@ module ChartsHelper
 
   def ranked_history_chart_lp_marks_value
     @ranked_history_chart_lp_marks_value ||=
-      Challenger::LEAGUE_THRESHOLD.to_h { |points, name| [ points, { name: name.upcase } ] }
+      Buckler::Enums::LEAGUE_THRESHOLD.to_h { |points, name| [ points, { name: name.upcase } ] }
   end
 end
