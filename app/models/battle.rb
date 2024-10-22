@@ -31,7 +31,6 @@ class Battle < ApplicationRecord
   private
 
   def set_winner_side
-    return unless has_attribute?("winner_side")
     p1_w = challengers.p1.rounds.count(&:win?)
     p2_w = challengers.p2.rounds.count(&:win?)
     self.winner_side = case
