@@ -8,8 +8,4 @@ class FighterBanner
   attribute :master_rating
   attribute :league_point
   attribute :country
-
-  def player_attributes
-    attributes.slice("name", "main_character")
-  end
 end

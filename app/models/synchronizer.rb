@@ -13,7 +13,7 @@ class Synchronizer
     battles = new_battles(player.latest_replay_id).to_a
     BattlesSynchronizer.new(battles:).synchronize!
 
-    player.assign_attributes(fighter_banner.player_attributes)
+    player.assign_attributes(fighter_banner.attributes.slice("name", "main_character"))
     player.latest_replay_id = battles.first.replay_id if battles.any?
     player.synchronized_at = Time.zone.now
     player.save!
