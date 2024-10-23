@@ -74,7 +74,7 @@ gem "rails-i18n", "~> 7.0"
 
 gem "selenium-webdriver", "~> 4.24"
 
-gem "sentry-rails", "~> 5.19"
+gem "sentry-rails", "~> 5.21"
 
 gem "stackprof", "~> 0.2.26"
 
