@@ -71,7 +71,7 @@ GEM
       minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
-    ahoy_matey (5.2.0)
+    ahoy_matey (5.2.1)
       activesupport (>= 6.1)
       device_detector (>= 1)
       safely_block (>= 0.4)
