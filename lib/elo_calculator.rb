@@ -8,7 +8,7 @@ class EloCalculator
   end
 
   def calculate(actual)
-    (k * (actual - expected)).round
+    k * (actual - expected)
   end
 
   private

@@ -1,7 +1,7 @@
 class Battle::MrCalculator
   attr_reader :battle
 
-  def initialize(battle, calculator_class: StandardCalculator)
+  def initialize(battle, calculator_class: Standard)
     @battle = battle
     @calculator_class = calculator_class
   end
