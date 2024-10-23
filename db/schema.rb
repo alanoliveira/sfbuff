@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_22_073618) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_23_030251) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -86,6 +86,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_073618) do
       away_challenger.id AS away_challenger_id
      FROM ((battles
        JOIN challengers home_challenger ON ((home_challenger.battle_id = battles.id)))
-       JOIN challengers away_challenger ON (((away_challenger.battle_id = battles.id) AND (away_challenger.id <> home_challenger.id))));
+       JOIN challengers away_challenger ON (((away_challenger.battle_id = battles.id) AND (away_challenger.side =
+          CASE
+              WHEN (home_challenger.side = 1) THEN 2
+              ELSE 1
+          END))));
   SQL
 end

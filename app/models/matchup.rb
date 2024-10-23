@@ -25,6 +25,14 @@ class Matchup < ApplicationRecord
     true
   end
 
+  def result
+    case battle.winner_side
+    when home_challenger.side then "win"
+    when away_challenger.side then "lose"
+    else "draw"
+    end
+  end
+
   def home_challenger
     battle.challengers.find { |c| c.id == home_challenger_id }
   end
