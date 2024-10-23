@@ -1,8 +1,7 @@
 class Battle < ApplicationRecord
-  has_many :challengers, dependent: :destroy do
-    def p1 = find(&:p1?)
-    def p2 = find(&:p2?)
-    def winner = find { _1.side == proxy_association.owner.winner_side }
+  with_options class_name: "Challenger", dependent: :destroy do
+    has_one :p1, -> { where(side: "p1") }
+    has_one :p2, -> { where(side: "p2") }
   end
 
   attribute :winner_side, Challenger.type_for_attribute(:side)
@@ -11,14 +10,17 @@ class Battle < ApplicationRecord
 
   scope :ranked, -> { where(battle_type: Buckler::Enums::BATTLE_TYPES["ranked"]) }
   scope :ordered, -> { order(:played_at) }
-  delegate :p1, :p2, :winner, to: :challengers
 
   def ranked?
     battle_type == Buckler::Enums::BATTLE_TYPES["ranked"]
   end
 
+  def challengers
+    [ p1, p2 ]
+  end
+
   def master_battle?
-    ranked? && challengers.all?(&:master?)
+    ranked? && p1.master? && p2.master?
   end
 
   def mr_calculator
@@ -32,11 +34,11 @@ class Battle < ApplicationRecord
   private
 
   def set_winner_side
-    p1_w = challengers.p1.rounds.count(&:win?)
-    p2_w = challengers.p2.rounds.count(&:win?)
+    p1_w = p1.rounds.count(&:win?)
+    p2_w = p2.rounds.count(&:win?)
     self.winner_side = case
-    when p1_w > p2_w then challengers.p1.side
-    when p2_w > p1_w then challengers.p2.side
+    when p1_w > p2_w then p1.side
+    when p2_w > p1_w then p2.side
     end
   end
 end

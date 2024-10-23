@@ -6,7 +6,7 @@ class Players::RankedsController < Players::BaseController
   def show
     @history = MatchupsFilter.filter(@player.matchups, filter_params)
       .where(battle: Battle.ranked)
-      .includes(battle: :challengers)
+      .includes(battle: [ :p1, :p2 ])
       .ordered
   end
 

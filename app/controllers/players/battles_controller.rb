@@ -5,7 +5,7 @@ class Players::BattlesController < Players::BaseController
 
   def show
     matchups = MatchupsFilter.filter(@player.matchups, filter_params)
-    @matchups = matchups.includes(battle: :challengers)
+    @matchups = matchups.includes(battle: [ :p1, :p2 ])
       .ordered.reverse_order
       .page(params[:page])
     @total_pages = cache([ matchups.cache_key, "total_pages" ]) { @matchups.total_pages }
