@@ -12,9 +12,9 @@ FactoryBot.define do
     battle
 
     Buckler::Enums::LEAGUE_THRESHOLD.each do |lp, name|
-      trait name.to_sym do
+      trait name.to_sym do |ctx|
         league_point { lp }
-        master_rating { name == "master" ? 1500 : -1 }
+        master_rating { ctx.master_rating || name == "master" ? 1501 : -1 }
       end
     end
 

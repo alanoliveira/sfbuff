@@ -25,11 +25,19 @@ class Battle::MrCalculator
   end
 
   def p1_calculator
-    @calculator_class.new(battle.p1.master_rating, battle.p2.master_rating)
+    @calculator_class.new(p1_master_rating, p2_master_rating)
   end
 
   def p2_calculator
-    @calculator_class.new(battle.p2.master_rating, battle.p1.master_rating)
+    @calculator_class.new(p2_master_rating, p1_master_rating)
+  end
+
+  def p1_master_rating
+    battle.p1.actual_master_rating
+  end
+
+  def p2_master_rating
+    battle.p2.actual_master_rating
   end
 
   class StandardCalculator

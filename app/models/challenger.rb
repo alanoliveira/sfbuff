@@ -12,6 +12,17 @@ class Challenger < ApplicationRecord
   end
   delegate *Buckler::Enums::LEAGUE_THRESHOLD.values.map { "#{_1}?" }, to: :league
 
+  def actual_master_rating
+    return Buckler::Enums::INITIAL_MASTER_RATING if mr_reseted?
+    master_rating
+  end
+
+  # IMPORTANT:
+  # This method returns a false positive if (quite unlikely) the mr is really 0
+  def mr_reseted?
+    master_rating.zero? && master?
+  end
+
   private
 
   def set_ranked_variation
