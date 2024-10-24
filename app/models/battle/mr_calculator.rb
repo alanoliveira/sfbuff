@@ -39,24 +39,4 @@ class Battle::MrCalculator
   def p2_master_rating
     battle.p2.actual_master_rating
   end
-
-  class StandardCalculator
-    ELO_CONSTANT = 16
-
-    def initialize(mr_a, mr_b)
-      @elo_calculator = EloCalculator.new(rating_a: mr_a, rating_b: mr_b, k: ELO_CONSTANT)
-    end
-
-    def win
-      @elo_calculator.calculate(1)
-    end
-
-    def lose
-      @elo_calculator.calculate(0)
-    end
-
-    def draw
-      @elo_calculator.calculate(0.5)
-    end
-  end
 end
