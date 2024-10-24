@@ -14,7 +14,10 @@
     <div class="d-flex flex-column gap-3 mb-3">
       <%= render partial: "matchup", collection: @matchups %>
     </div>
-    <%= paginate @matchups, total_pages: @total_pages %>
+
+    <div class="d-flex justify-content-center">
+      <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+    </div>
   <% end %>
 
 <% else %>

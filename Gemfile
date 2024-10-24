@@ -68,8 +68,6 @@ end
 
 gem "faraday", "~> 2.10"
 
-gem "kaminari", "~> 1.2"
-
 gem "rails-i18n", "~> 7.0"
 
 gem "selenium-webdriver", "~> 4.24"
@@ -81,3 +79,5 @@ gem "stackprof", "~> 0.2.26"
 gem "ahoy_matey", "~> 5.2"
 
 gem "scenic", "~> 1.8"
+
+gem "pagy", "~> 9.1"

@@ -43,9 +43,6 @@ pt-BR:
       message: "Nenhum dado encontrado"
   datetime:
     time_ago: '%{time} atrás'
-  pagination:
-    previous: Anterior
-    next: Próxima
   errors:
     generic: Ocorreu um erro
     argument_error: Parametro inválido

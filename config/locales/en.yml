@@ -43,9 +43,6 @@ en:
       message: "No data found"
   datetime:
     time_ago: '%{time} ago'
-  pagination:
-    previous: Previous
-    next: Next
   errors:
     generic: An error occurred
     argument_error: Argument error

@@ -1,9 +1,0 @@
-<% if current_page.last? %>
-  <li class="page-item disabled">
-    <%= link_to t("pagination.next"), url, rel: "next", remote:, class: "page-link" %>
-  </li>
-<% else %>
-  <li class="page-item">
-    <%= link_to t("pagination.next"), url, rel: "next", remote:, class: "page-link" %>
-  </li>
-<% end %>

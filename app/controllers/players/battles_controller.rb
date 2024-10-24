@@ -1,14 +1,12 @@
 class Players::BattlesController < Players::BaseController
   include DefaultParams
+  include Pagyable
 
   before_action :set_default_params
 
   def show
     matchups = MatchupsFilter.filter(@player.matchups, filter_params)
-    @matchups = matchups.includes(battle: [ :p1, :p2 ])
-      .ordered.reverse_order
-      .page(params[:page])
-    @total_pages = cache([ matchups.cache_key, "total_pages" ]) { @matchups.total_pages }
+    @pagy, @matchups = pagy(matchups.includes(battle: [ :p1, :p2 ]).ordered.reverse_order)
     @score = cache([ matchups.cache_key, "score" ]) { matchups.score }
   end
 

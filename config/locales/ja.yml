@@ -43,9 +43,6 @@ ja:
       message: "データが見つかりません"
   datetime:
     time_ago: "%{time} 前"
-  pagination:
-    previous: 前へ
-    next: 次へ
   errors:
     generic: エラーが発生しました
     argument_error: 無効な引数
