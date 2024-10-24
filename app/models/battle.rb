@@ -10,6 +10,7 @@ class Battle < ApplicationRecord
 
   scope :ranked, -> { where(battle_type: Buckler::Enums::BATTLE_TYPES["ranked"]) }
   scope :ordered, -> { order(:played_at) }
+  scope :matchup, -> { extending(Matchup) }
 
   def ranked?
     battle_type == Buckler::Enums::BATTLE_TYPES["ranked"]
