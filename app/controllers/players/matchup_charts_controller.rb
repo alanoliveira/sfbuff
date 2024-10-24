@@ -4,12 +4,10 @@ class Players::MatchupChartsController < Players::BaseController
   before_action :set_default_params
 
   def show
-    filled_chart = MatchupsFilter.filter(@player.matchups, filter_params)
+    @matchup_chart = MatchupsFilter.filter(@player.matchups, filter_params)
       .group(away_challenger: [ :character, :control_type ])
-      .select(away_challenger: [ :character, :control_type ])
       .score
-      .inject({}, :merge)
-    @matchup_chart = blank_chart.merge(filled_chart)
+      .inject(blank_chart, :merge)
   end
 
   private

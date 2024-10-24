@@ -1,26 +1,49 @@
 module Matchup::Scorable
   extend ActiveSupport::Concern
 
-  included do
-    scope :score, -> { extending(ScoreScope).then { |it| it.select_values.any? ? it.grouped_score : it.simple_score } }
-    scope :favorites, -> { order("total" => :desc).score }
-    scope :victims, -> { order("diff" => :desc, "win" => :desc, "lose" => :asc).score }
-    scope :tormentors, -> { order("diff" => :asc, "lose" => :desc, "win" => :asc).score }
+  class_methods do
+    def score
+      extending(ScoreScope).fetch_score
+    end
+
+    def favorites
+      order("total" => :desc).score
+    end
+
+    def victims
+      order("diff" => :desc, "win" => :desc, "lose" => :asc).score
+    end
+
+    def tormentors
+      order("diff" => :asc, "lose" => :desc, "win" => :asc).score
+    end
   end
 
   module ScoreScope
     COLUMNS = %w[win lose draw total diff]
 
+    def fetch_score
+      group_values.any? ? grouped_score : simple_score
+    end
+
+    private
+
     def grouped_score
-      connection.select_all(select_score, "#{self.class.name}#grouped_scores").map do |row|
-        score = Score.new(**row.extract!(*COLUMNS))
-        { row => score }
+      @klass.with_connection do |conn|
+        conn.select_all(select_score, "#{self.class.name}#grouped_scores", async: @async).then do |rows|
+          rows.map do |row|
+            score = Score.new(**row.extract!(*COLUMNS))
+            { row => score }
+          end
+        end
       end
     end
 
     def simple_score
-      row = connection.select_one(select_score, "#{self.class.name}#simple_score")
-      Score.new(**row)
+      @klass.with_connection do |conn|
+        conn.select_one(select_score, "#{self.class.name}#simple_score", async: @async)
+          .then { |row| Score.new(**row.extract!(*COLUMNS)) }
+      end
     end
 
     def select_score
@@ -29,7 +52,8 @@ module Matchup::Scorable
         lose.as("lose"),
         draw.as("draw"),
         diff.as("diff"),
-        total.as("total")
+        total.as("total"),
+        *group_values
       )
     end
 
