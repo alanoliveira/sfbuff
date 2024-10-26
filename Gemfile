@@ -78,6 +78,5 @@ gem "stackprof", "~> 0.2.26"
 
 gem "ahoy_matey", "~> 5.2"
 
-gem "scenic", "~> 1.8"
 
 gem "pagy", "~> 9.1"

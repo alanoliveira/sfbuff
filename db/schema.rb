@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_23_030251) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_26_062547) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,17 +79,4 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_030251) do
     t.datetime "updated_at", null: false
     t.index ["short_id"], name: "index_players_on_short_id", unique: true
   end
-
-  create_view "matchups", sql_definition: <<-SQL
-      SELECT battles.id AS battle_id,
-      home_challenger.id AS home_challenger_id,
-      away_challenger.id AS away_challenger_id
-     FROM ((battles
-       JOIN challengers home_challenger ON ((home_challenger.battle_id = battles.id)))
-       JOIN challengers away_challenger ON (((away_challenger.battle_id = battles.id) AND (away_challenger.side =
-          CASE
-              WHEN (home_challenger.side = 1) THEN 2
-              ELSE 1
-          END))));
-  SQL
 end
