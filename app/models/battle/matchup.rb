@@ -23,6 +23,10 @@ module Battle::Matchup
     index_with { |b| results[b.id] }
   end
 
+  def performance
+    Battle::Matchup::Performance.new(self)
+  end
+
   def with_values
     super | [ { home: }, { away: } ]
   end
