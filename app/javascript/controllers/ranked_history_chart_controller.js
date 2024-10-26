@@ -38,13 +38,13 @@ export default class extends Controller {
   }
 
   getScales() {
-    let scales = { }
+    let scales = {}
 
     if (this.lpDataValue.length) {
       scales["lp"] = { stack: 'ranked', offset: true }
     }
     if (this.mrDataValue.length) {
-      scales["mr"] = { stack: 'ranked', offset: true }
+      scales["mr"] = { stack: 'ranked', stackWeight: 4, offset: true }
     }
 
     return scales
