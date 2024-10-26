@@ -4,16 +4,19 @@ class Players::RankedsController < Players::BaseController
   before_action :set_default_params
 
   def show
-    @history = MatchupsFilter.filter(@player.matchups, filter_params)
-      .where(battle: Battle.ranked)
-      .includes(battle: [ :p1, :p2 ])
-      .ordered
+    matchups = MatchupsFilter
+      .filter(Battle.ranked.matchup, filter_params)
+      .select("home.id challenger_id")
+
+    @history = Challenger
+      .with(matchups:).joins(:matchups)
+      .joins(:battle).includes(:battle).merge(Battle.ordered)
   end
 
   private
 
   def filter_params
-    params.permit(:character, :control_type, :played_from, :played_to)
+    params.permit(:short_id, :character, :control_type, :played_from, :played_to)
   end
 
   def default_params

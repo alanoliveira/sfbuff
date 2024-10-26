@@ -2,7 +2,7 @@
   <%= render "filter_form", object: @filter_form %>
 </div>
 
-<% if @matchups.present? %>
+<% if @battles.present? %>
 
   <%= turbo_frame_tag "rival-list" do %>
     <%= button_to t(".rivals"), player_battles_rivals_path(@player), method: :get, params: request.query_parameters, class: "btn btn-outline-primary mb-3 w-100" %>
@@ -12,7 +12,9 @@
 
   <%= turbo_frame_tag "battle-list" do %>
     <div class="d-flex flex-column gap-3 mb-3">
-      <%= render partial: "matchup", collection: @matchups %>
+      <% @battles.index_with_result.each do |battle, result| %>
+        <%= render "battles/battle", battle:, result: %>
+      <% end %>
     </div>
 
     <div class="d-flex justify-content-center">

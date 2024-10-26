@@ -1,3 +1,4 @@
+<%# locals: (battle:, result: nil) -%>
 <%= content_tag :div, class: "card", id: dom_id(battle) do %>
   <div class="card-header">
     <div class="d-flex">
@@ -23,9 +24,11 @@
     </div>
     <%= render "battles/challenger", challenger: battle.p2 %>
   </div>
-  <% if content_for? :battle_footer %>
+  <% if result.present? %>
     <div class="card-footer">
-      <%= yield :battle_footer %>
+      <div class="text-center">
+        <%= battle_result result %>
+      </div>
     </div>
   <% end %>
 <% end %>
