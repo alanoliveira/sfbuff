@@ -15,6 +15,7 @@ env:
     - BUCKLER_PASSWORD
     - BUCKLER_USER_AGENT
     - SFBUFF_DATABASE_PASSWORD
+    - SENTRY_DSN
 
 ssh:
   user: <%= ENV.fetch("SFBUFF_DEPLOY_USER") %>
