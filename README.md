@@ -8,6 +8,7 @@ of information for players to track their own performance.
 
 | variable                                       | description                                                          |
 | ---------------------------------------------- | -------------------------------------------------------------------- |
+| `SECRET_KEY_BASE`                              | Base secret for all MessageVerifiers in Rails                        |
 | `BUCKLER_USER_AGENT`                           | HTTP header `User-Agent` used to make requests to the official site¹ |
 | `BUCKLER_EMAIL`                                | Email used to access the official site                               |
 | `BUCKLER_PASSWORD`                             | Password used to access the official site                            |
@@ -20,9 +21,10 @@ of information for players to track their own performance.
 
 - Set the environment variables
 
-      export BUCKLER_USER_AGENT = Mozilla/5.0...
-      export BUCKLER_EMAIL = player@domain...
-      export BUCKLER_PASSWORD = 623P
+      export SECRET_KEY_BASE=$(openssl rand -hex 64)
+      export BUCKLER_USER_AGENT=Mozilla/5.0...
+      export BUCKLER_EMAIL=player@domain...
+      export BUCKLER_PASSWORD=623P
     
 - Run
 
@@ -53,12 +55,13 @@ of information for players to track their own performance.
   
 - Set the environment variables
 
-      export RAILS_ENV = production
-      export BUCKLER_USER_AGENT = Mozilla/5.0...
-      export BUCKLER_EMAIL = player@domain...
-      export BUCKLER_PASSWORD = 623P
-      export DATABASE_URL = postgres://...
-      export REDIS_URL = redis://...
+      export RAILS_ENV=production
+      export SECRET_KEY_BASE=$(openssl rand -hex 64)
+      export BUCKLER_USER_AGENT=Mozilla/5.0...
+      export BUCKLER_EMAIL=player@domain...
+      export BUCKLER_PASSWORD=623P
+      export DATABASE_URL=postgres://...
+      export REDIS_URL=redis://...
 
 - Prepare the application
 

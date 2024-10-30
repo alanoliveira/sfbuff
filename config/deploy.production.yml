@@ -1,0 +1,39 @@
+servers:
+  web:
+    hosts: <%= ENV.fetch("SFBUFF_WEB_HOSTS").split %>
+    options:
+      memory: 512m
+
+proxy:
+  ssl: true
+  hosts: <%= ENV.fetch("SFBUFF_PROXY_HOSTS").split %>
+
+env:
+  secret:
+    - SECRET_KEY_BASE
+    - BUCKLER_EMAIL
+    - BUCKLER_PASSWORD
+    - BUCKLER_USER_AGENT
+    - SFBUFF_DATABASE_PASSWORD
+
+ssh:
+  user: <%= ENV.fetch("SFBUFF_DEPLOY_USER") %>
+
+accessories:
+  db:
+    host: <%= ENV.fetch("SFBUFF_DB_HOST") %>
+    port: "127.0.0.1:5432:5432"
+    env:
+      clear:
+        POSTGRES_USER: sfbuff
+      secret:
+        - POSTGRES_PASSWORD
+    options:
+      memory: 128m
+    directories:
+      - data:/var/lib/postgresql/data
+  redis:
+    host: <%= ENV.fetch("SFBUFF_REDIS_HOST") %>
+    port: "127.0.0.1:6379:6379"
+    options:
+      memory: 16m
