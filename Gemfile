@@ -64,6 +64,9 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # gem "kamal", "~> 2.2", require: false
+  gem "kamal", github: "basecamp/kamal", branch: "main", require: false
 end
 
 gem "faraday", "~> 2.10"
@@ -77,6 +80,5 @@ gem "sentry-rails", "~> 5.19"
 gem "stackprof", "~> 0.2.26"
 
 gem "ahoy_matey", "~> 5.2"
-
 
 gem "pagy", "~> 9.1"

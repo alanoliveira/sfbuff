@@ -1,0 +1,42 @@
+service: sfbuff
+image: alanoliveira89/sfbuff
+
+servers:
+  web:
+    hosts: []
+
+proxy:
+  app_port: 3000
+  hosts: []
+
+registry:
+  username: <%= ENV.fetch("KAMAL_REGISTRY_USERNAME") %>
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+builder:
+  arch: amd64
+
+env:
+  clear:
+    DATABASE_URL: postgres://sfbuff@sfbuff-db
+    REDIS_URL: redis://sfbuff-redis
+    RAILS_ENV: production
+    REPOSITORY_URL: <%= ENV.fetch("REPOSITORY_URL", "") %>
+
+aliases:
+  shell: app exec --interactive --reuse "bash"
+  console: app exec --interactive --reuse "bin/rails console"
+  logs: app logs -f
+
+accessories:
+  db:
+    image: postgres:16.2-alpine
+    host:
+    port:
+    directories:
+      - data:/var/lib/postgresql/data
+  redis:
+    image: valkey/valkey:8
+    host:
+    port:
