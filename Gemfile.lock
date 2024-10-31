@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/basecamp/kamal.git
-  revision: cd4e183213d94317c7af5d595540cc711a17c98e
+  revision: 685312c9f802bb7eeac4a6493487e5937cdf4980
   branch: main
   specs:
-    kamal (2.2.2)
+    kamal (2.3.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
       bcrypt_pbkdf (~> 1.0)
