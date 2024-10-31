@@ -51,6 +51,8 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=${{ vars.DOCKER_IMAGE_NAME }}:latest
+          cache-to: type=inline
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
