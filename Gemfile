@@ -73,7 +73,7 @@ gem "faraday", "~> 2.10"
 
 gem "rails-i18n", "~> 7.0"
 
-gem "selenium-webdriver", "~> 4.24"
+gem "selenium-webdriver", "~> 4.26"
 
 gem "sentry-rails", "~> 5.19"
 
