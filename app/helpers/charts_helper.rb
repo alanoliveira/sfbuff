@@ -10,8 +10,8 @@ module ChartsHelper
         next if challenger.master_rating_variation.blank?
 
         data[:type] = "mr"
-        data[:label] = format("%d (%+d)", challenger.master_rating, challenger.master_rating_variation)
-        data[:y] = challenger.master_rating + challenger.master_rating_variation
+        data[:label] = format("%d (%+d)", challenger.actual_master_rating, challenger.master_rating_variation)
+        data[:y] = challenger.actual_master_rating + challenger.master_rating_variation
       else
         next if challenger.calibrating?
         data[:type] = "lp"

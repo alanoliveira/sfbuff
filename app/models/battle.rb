@@ -25,7 +25,7 @@ class Battle < ApplicationRecord
   end
 
   def mr_calculator
-    MrCalculator.new(self) if master_battle? && challengers.none?(&:mr_reseted?)
+    MrCalculator.new(self) if master_battle?
   end
 
   def to_param
