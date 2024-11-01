@@ -1,6 +1,4 @@
 module Buckler::Enums
-  INITIAL_MASTER_RATING = 1500
-
   CHARACTERS = {
     "ryu" => 1,
     "luke" => 2,

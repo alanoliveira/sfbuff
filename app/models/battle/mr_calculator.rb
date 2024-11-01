@@ -33,10 +33,10 @@ class Battle::MrCalculator
   end
 
   def p1_master_rating
-    battle.p1.actual_master_rating
+    battle.p1.master_rating
   end
 
   def p2_master_rating
-    battle.p2.actual_master_rating
+    battle.p2.master_rating
   end
 end
