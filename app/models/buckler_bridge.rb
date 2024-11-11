@@ -1,4 +1,4 @@
-class Buckler
+class BucklerBridge
   class Error < StandardError; end
   class PlayerNotFound < Error; end
 

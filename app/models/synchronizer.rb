@@ -1,13 +1,13 @@
 class Synchronizer
-  attr_reader :short_id, :buckler
+  attr_reader :short_id, :buckler_bridge
 
-  def initialize(short_id:, buckler: Buckler.new)
+  def initialize(short_id:, buckler_bridge: BucklerBridge.new)
     @short_id = short_id
-    @buckler = buckler
+    @buckler_bridge = buckler_bridge
   end
 
   def synchronize!
-    fighter_banner = buckler.fighter_banner(short_id:)
+    fighter_banner = buckler_bridge.fighter_banner(short_id:)
     player = Player.find_or_create_by!(short_id:)
 
     battles = new_battles(player.latest_replay_id).to_a
@@ -22,7 +22,7 @@ class Synchronizer
   private
 
   def new_battles(latest_replay_id)
-    buckler.battle_list(short_id:)
+    buckler_bridge.battle_list(short_id:)
       .take_while { |b| b[:replay_id] != latest_replay_id }
   end
 end
