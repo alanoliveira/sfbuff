@@ -46,7 +46,7 @@ en:
   errors:
     generic: An error occurred
     argument_error: Argument error
-    buckler_client/error: An error occurred while trying to get the data from the official website
     buckler_bridge/player_not_found: Player not found
-    buckler_client/under_maintenance: Buckler is under maintenance
-    buckler_client/rate_limit_exceeded: We're sending too many requests to the the official website at the moment. Please try again in a few minutes
+    buckler/http_error: An error occurred while trying to get the data from the official website
+    buckler/under_maintenance: Buckler is under maintenance
+    buckler/rate_limit_exceeded: We're sending too many requests to the the official website at the moment. Please try again in a few minutes

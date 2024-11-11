@@ -1,4 +1,7 @@
 module Buckler
+  class UnderMaintenance < HttpError; end
+  class RateLimitExceeded < HttpError; end
+
   class << self
     def configuration
       @configuration ||= Configuration.new
