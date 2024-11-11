@@ -3,8 +3,6 @@
 # If running the rails server then create or migrate existing database
 if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
   ./bin/rails db:prepare
-    # **IMPORTANT** `sfbuff:prepare` not works with jemal_enabled
-  ./bin/rails sfbuff:prepare
 fi
 
 # Enable jemalloc for reduced memory usage and latency.
