@@ -1,6 +1,6 @@
 module Buckler
   class Client
-    CONFIG_ATTRS = %i[email password base_url user_agent]
+    CONFIG_ATTRS = %i[email password base_url user_agent logger]
 
     attr_reader *CONFIG_ATTRS
 
@@ -56,6 +56,7 @@ module Buckler
 
     def build_connection
       Faraday.new base_url do |conf|
+        conf.response :logger, logger
         conf.headers["user-agent"] = user_agent
         conf.headers["Priority"] = "u=0,i"
         yield conf if block_given?

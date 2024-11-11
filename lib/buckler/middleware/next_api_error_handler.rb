@@ -6,8 +6,15 @@ module Buckler
 
         analyzer = ResponseAnalyzer.new(env)
 
-        client.reset_build_id! if analyzer.not_found? && !analyzer.json?
-        client.reset_authentication! if analyzer.forbidden?
+        if analyzer.not_found? && !analyzer.json?
+          client.logger.info("resetting build_id due to a 404 and not json response")
+          client.reset_build_id!
+        end
+
+        if analyzer.forbidden?
+          client.logger.info("resetting authentication due to a 403 response")
+          client.reset_authentication!
+        end
 
         raise UnderMaintenance, env if analyzer.under_maintenance?
         raise RateLimitExceeded, env if analyzer.rate_limit_exceeded?
