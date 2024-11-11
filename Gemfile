@@ -69,6 +69,8 @@ group :development do
 end
 
 gem "faraday", "~> 2.10"
+gem "faraday-cookie_jar", "~> 0.0.7"
+gem "faraday-follow_redirects", "~> 0.3.0"
 
 gem "rails-i18n", "~> 7.0"
 
