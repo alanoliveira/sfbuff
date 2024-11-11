@@ -44,7 +44,6 @@ of information for players to track their own performance.
 - Yarn 1.22.21
 - Postgresql 16.2
 - Redis
-- Chromium (used to perform login on the official website)
 
 ### Building
 
@@ -67,7 +66,6 @@ of information for players to track their own performance.
 
       SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
       ./bin/rails db:prepare
-      ./bin/rails sfbuff:prepare
 
 ### Running
 

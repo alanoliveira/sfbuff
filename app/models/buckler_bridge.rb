@@ -1,25 +1,24 @@
-class Buckler
+class BucklerBridge
   class Error < StandardError; end
   class PlayerNotFound < Error; end
 
-  attr_reader :api
+  attr_reader :client
 
-  def initialize(api: BucklerClient.take.api)
-    @api = api
+  def initialize(client: Buckler.default_client)
+    @client = client
   end
 
   def battle_list(short_id:)
     validate_short_id!(short_id)
 
-    api.replay_list(short_id:).lazy.map do |raw_data|
-      Parsers::BattleParser.parse(raw_data:)
-    end
+    Buckler::BattlelogIterator.new(next_api:, short_id:)
+      .lazy.map { |raw_data| Parsers::BattleParser.parse(raw_data:) }
   end
 
   def fighter_banner(short_id:)
     validate_short_id!(short_id)
 
-    raw_data = api.fighter_banner.player_fighter_banner(short_id:)
+    raw_data = next_api.fighterslist(short_id:).first
     raise PlayerNotFound if raw_data.nil?
 
     parse_fighter_banner(raw_data)
@@ -27,11 +26,10 @@ class Buckler
 
   def search_fighter_banner(term:)
     raise ArgumentError if term.length < 4
-    fighter_banner = api.fighter_banner
 
-    result = fighter_banner.search_fighter_banner(term:)
+    result = next_api.fighterslist(fighter_id: term)
     if validate_short_id(term)
-      fighter_banner.player_fighter_banner(short_id: term).try { result << _1 }
+      next_api.fighterslist(short_id: term).first.try { result << _1 }
     end
 
     result.map do |raw_data|
@@ -40,6 +38,18 @@ class Buckler
   end
 
   private
+
+  def next_api
+    client.next_api(locale:)
+  end
+
+  def locale
+    case I18n.locale
+    when :ja then "ja-jp"
+    when :'pt-BR' then "pt-br"
+    else "en"
+    end
+  end
 
   def validate_short_id(short_id)
     short_id.to_s[/\A\d{9,}\z/]

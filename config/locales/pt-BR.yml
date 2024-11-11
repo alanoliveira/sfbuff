@@ -46,7 +46,7 @@ pt-BR:
   errors:
     generic: Ocorreu um erro
     argument_error: Parametro inválido
-    buckler_client/error: Ocorreu um erro ao tentar obter os dados do site oficial
-    buckler/player_not_found: Jogador não encontrado
-    buckler_client/under_maintenance: Buckler está em manutenção
-    buckler_client/rate_limit_exceeded: Estamos enviando muitas solicitações para o site oficial no momento. Tente novamente em alguns minutos
+    buckler_bridge/player_not_found: Jogador não encontrado
+    buckler/http_error: Ocorreu um erro ao tentar obter os dados do site oficial
+    buckler/under_maintenance: Buckler está em manutenção
+    buckler/rate_limit_exceeded: Estamos enviando muitas solicitações para o site oficial no momento. Tente novamente em alguns minutos

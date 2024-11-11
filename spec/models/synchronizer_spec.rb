@@ -1,18 +1,18 @@
 require "rails_helper"
 
 RSpec.describe Synchronizer do
-  subject(:synchronizer) { described_class.new(short_id:, buckler:) }
+  subject(:synchronizer) { described_class.new(short_id:, buckler_bridge:) }
 
   let(:short_id) { generate(:short_id) }
-  let(:buckler) { instance_double Buckler }
+  let(:buckler_bridge) { instance_double BucklerBridge }
   let(:battle_list) { build_list(:battle, 5) }
   let(:fighter_banner) { build(:fighter_banner, short_id:, main_character: 2, name: "Player Test") }
 
   describe "#synchronize!" do
     before do
       freeze_time
-      allow(buckler).to receive(:battle_list).and_return(battle_list)
-      allow(buckler).to receive(:fighter_banner).and_return(fighter_banner)
+      allow(buckler_bridge).to receive(:battle_list).and_return(battle_list)
+      allow(buckler_bridge).to receive(:fighter_banner).and_return(fighter_banner)
     end
 
     it "synchronizes player data" do

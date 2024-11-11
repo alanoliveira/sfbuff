@@ -46,7 +46,7 @@ ja:
   errors:
     generic: エラーが発生しました
     argument_error: 無効な引数
-    buckler_client/error: 公式サイトからのデータ取得時にエラーが発生しました
-    buckler/player_not_found: プレイヤーが見つかりません
-    buckler_client/under_maintenance: Bucklerはメンテナンス中です
-    buckler_client/rate_limit_exceeded: 現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください。
+    buckler_bridge/player_not_found: プレイヤーが見つかりません
+    buckler/http_error: 公式サイトからのデータ取得時にエラーが発生しました
+    buckler/under_maintenance: Bucklerはメンテナンス中です
+    buckler/rate_limit_exceeded: 現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください。

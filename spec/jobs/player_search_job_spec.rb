@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe PlayerSearchJob, type: :job do
   subject(:job) { described_class.perform_later(term) }
 
-  let(:buckler) { instance_double Buckler }
+  let(:buckler_bridge) { instance_double BucklerBridge }
   let(:term) { 'player 1234' }
   let(:response) { [] }
 
   before do
-    allow(Buckler).to receive(:new).and_return(buckler)
-    allow(buckler).to receive(:search_fighter_banner).with(term:).and_return(response)
+    allow(BucklerBridge).to receive(:new).and_return(buckler_bridge)
+    allow(buckler_bridge).to receive(:search_fighter_banner).with(term:).and_return(response)
     allow(PlayerSearchChannel).to receive(:broadcast_response)
     allow(PlayerSearchChannel).to receive(:broadcast_error)
   end
@@ -22,7 +22,7 @@ RSpec.describe PlayerSearchJob, type: :job do
   context 'when the execution fails' do
     let(:error) { RuntimeError.new("boom") }
 
-    before { allow(buckler).to receive(:search_fighter_banner).with(term:).and_raise(error) }
+    before { allow(buckler_bridge).to receive(:search_fighter_banner).with(term:).and_raise(error) }
 
     it 'broadcasts the error response' do
       expect { job.perform_now }.to raise_error(error) do

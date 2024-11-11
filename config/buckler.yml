@@ -1,9 +1,0 @@
-shared:
-  base_url: <%= ENV.fetch("BUCKLER_BASE_URL") { "https://www.streetfighter.com" } %>
-  cid_domain:  <%= ENV.fetch("BUCKLER_CID_DOMAIN") { "cid.capcom.com" } %>
-  user_agent: <%= ENV["BUCKLER_USER_AGENT"] %>
-  email: <%= ENV["BUCKLER_EMAIL"] %>
-  password: <%= ENV["BUCKLER_PASSWORD"] %>
-
-test:
-  base_url: "http://www.example.com"
