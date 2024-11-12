@@ -30,6 +30,13 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev node-gyp pkg-config python-is-python3 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+# build updated openssl
+RUN curl -sL https://www.openssl.org/source/openssl-3.4.0.tar.gz | tar xz -C /tmp/ && \
+    cd /tmp/openssl-3.4.0 && \
+    ./config --prefix=/usr/local/openssl-3.4.0 --openssldir=/usr/local/openssl-3.4.0 shared zlib && \
+    make && make install && \
+    cd && rm -rf /tmp/openssl-3.4.0
+
 # Install JavaScript dependencies
 ARG NODE_VERSION=20.9.0
 ARG YARN_VERSION=1.22.21
@@ -68,6 +75,14 @@ FROM base
 # Copy built artifacts: gems, application
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
+
+# Copy compiled openssl
+COPY --from=build /usr/local/openssl-3.4.0 /usr/local/openssl-3.4.0
+RUN apt-get remove -y openssl && \
+    ln -s /etc/ssl/certs/ca-certificates.crt /usr/local/openssl-3.4.0/cert.pem && \
+    echo "/usr/local/openssl-3.4.0/lib64" > /etc/ld.so.conf.d/openssl-3.4.0.conf && \
+    ldconfig
+ENV PATH=/usr/local/openssl-3.4.0/bin:$PATH
 
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
