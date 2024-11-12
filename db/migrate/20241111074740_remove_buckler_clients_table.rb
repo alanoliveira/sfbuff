@@ -5,6 +5,7 @@ class RemoveBucklerClientsTable < ActiveRecord::Migration[7.2]
 
   def down
     create_table :buckler_clients do |t|
+      t.integer :status, default: 0
       t.string :build_id
       t.string :cookies
 
