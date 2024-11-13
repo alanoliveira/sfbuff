@@ -9,7 +9,7 @@ module Buckler
 
     def build
       Faraday.new @base_url do |conf|
-        conf.response :logger, @logger
+        conf.response :logger, @logger, { headers: false, bodies: false, errors: true }
         conf.headers["user-agent"] = @user_agent
         conf.headers["priority"] = "u=0,i"
         conf.headers["dnt"] = "1"
