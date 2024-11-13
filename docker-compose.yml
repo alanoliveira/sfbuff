@@ -12,6 +12,7 @@ services:
       - BUCKLER_PASSWORD
       - BUCKLER_USER_AGENT
       - REPOSITORY_URL
+      - SOLID_QUEUE_IN_PUMA=1
     depends_on:
       - db
       - redis

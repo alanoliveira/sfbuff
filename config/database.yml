@@ -79,7 +79,20 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: sfbuff_production
-  username: sfbuff
-  password: <%= ENV["SFBUFF_DATABASE_PASSWORD"] %>
+  primary:
+    <<: *default
+    database: sfbuff_production
+    username: sfbuff
+    password: <%= ENV["SFBUFF_DATABASE_PASSWORD"] %>
+  cable:
+    adapter: sqlite3
+    database: storage/production_cable.sqlite3
+    migrations_paths: db/cable_migrate
+  cache:
+    adapter: sqlite3
+    database: storage/production_cache.sqlite3
+    migrations_paths: db/cache_migrate
+  queue:
+    adapter: sqlite3
+    database: storage/production_queue.sqlite3
+    migrations_paths: db/queue_migrate

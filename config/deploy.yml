@@ -22,6 +22,7 @@ env:
     DATABASE_URL: postgres://sfbuff@sfbuff-db
     REDIS_URL: redis://sfbuff-redis
     RAILS_ENV: production
+    SOLID_QUEUE_IN_PUMA: 1
     REPOSITORY_URL: <%= ENV.fetch("REPOSITORY_URL", "") %>
 
 aliases:
