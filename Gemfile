@@ -3,9 +3,9 @@ source "https://rubygems.org"
 ruby file: ".ruby-version"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.1"
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
+gem "rails", "~> 8.0.0"
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "propshaft"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.5"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -72,7 +72,7 @@ gem "faraday", "~> 2.10"
 gem "faraday-cookie_jar", "~> 0.0.7"
 gem "faraday-follow_redirects", "~> 0.3.0"
 
-gem "rails-i18n", "~> 7.0"
+gem "rails-i18n", "~> 8.0"
 
 gem "sentry-rails", "~> 5.19"
 

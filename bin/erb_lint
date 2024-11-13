@@ -24,4 +24,4 @@ end
 require "rubygems"
 require "bundler/setup"
 
-load Gem.bin_path("erb_lint", "erblint")
+load Gem.bin_path("erb_lint", "erb_lint")

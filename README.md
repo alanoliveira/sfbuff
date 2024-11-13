@@ -38,7 +38,7 @@ of information for players to track their own performance.
 
 ### Prerequisites
 
-- Ruby 3.3.5
+- Ruby 3.3.6
 - Bundle 2.5.17
 - Node.js 20.9.0
 - Yarn 1.22.21
