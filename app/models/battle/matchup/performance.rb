@@ -39,7 +39,7 @@ class Battle::Matchup::Performance
     end
 
     def grouped_score
-      @klass.with_connection do |conn|
+      klass.with_connection do |conn|
         conn.select_all(all, "#{self.class.name}#grouped_scores", async: @async).then do |rows|
           rows.map do |row|
             score = Score.new(**row.extract!(*COLUMNS))
@@ -50,7 +50,7 @@ class Battle::Matchup::Performance
     end
 
     def simple_score
-      @klass.with_connection do |conn|
+      klass.with_connection do |conn|
         conn.select_one(all, "#{self.class.name}#simple_score", async: @async).then { Score.new(**_1) }
       end
     end
