@@ -212,6 +212,11 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
+    propshaft (1.1.0)
+      actionpack (>= 7.0.0)
+      activesupport (>= 7.0.0)
+      rack
+      railties (>= 7.0.0)
     psych (5.2.0)
       stringio
     puma (6.4.3)
@@ -327,13 +332,6 @@ GEM
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     smart_properties (1.17.0)
-    sprockets (4.2.1)
-      concurrent-ruby (~> 1.0)
-      rack (>= 2.2.4, < 4)
-    sprockets-rails (3.5.2)
-      actionpack (>= 6.1)
-      activesupport (>= 6.1)
-      sprockets (>= 3.0.0)
     sshkit (1.23.2)
       base64
       net-scp (>= 1.1.2)
@@ -388,6 +386,7 @@ DEPENDENCIES
   kamal (~> 2.3)
   pagy (~> 9.2)
   pg (~> 1.5)
+  propshaft
   puma (>= 5.0)
   rails (~> 8.0.0)
   rails-i18n (~> 8.0)
@@ -396,7 +395,6 @@ DEPENDENCIES
   rubocop-rails-omakase
   rubocop-rspec_rails (~> 2.30)
   sentry-rails (~> 5.19)
-  sprockets-rails
   stackprof (~> 0.2.26)
   stimulus-rails
   turbo-rails
