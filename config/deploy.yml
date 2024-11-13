@@ -20,7 +20,6 @@ builder:
 env:
   clear:
     DATABASE_URL: postgres://sfbuff@sfbuff-db
-    REDIS_URL: redis://sfbuff-redis
     RAILS_ENV: production
     SOLID_QUEUE_IN_PUMA: 1
     REPOSITORY_URL: <%= ENV.fetch("REPOSITORY_URL", "") %>
@@ -37,7 +36,3 @@ accessories:
     port:
     directories:
       - data:/var/lib/postgresql/data
-  redis:
-    image: valkey/valkey:8
-    host:
-    port:

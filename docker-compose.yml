@@ -5,7 +5,6 @@ services:
     environment:
       - RAILS_ENV=docker
       - SECRET_KEY_BASE=123456
-      - REDIS_URL=redis://redis/1
       - DATABASE_URL=postgres://sfbuff:sfbuff@db/sfbuff_docker
       - BUCKLER_BASE_URL
       - BUCKLER_EMAIL
@@ -15,7 +14,6 @@ services:
       - SOLID_QUEUE_IN_PUMA=1
     depends_on:
       - db
-      - redis
     ports:
       - "3000:3000"
   db:
@@ -32,9 +30,3 @@ services:
       timeout: 10s
       retries: 5
       start_period: 10s
-  redis:
-    image: bitnami/valkey:7.2.5-debian-12-r5
-    environment:
-      ALLOW_EMPTY_PASSWORD: 1
-    ports:
-      - "11211:11211"

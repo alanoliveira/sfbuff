@@ -25,6 +25,3 @@ accessories:
         POSTGRES_USER: sfbuff
         POSTGRES_PASSWORD: sfbuff
       secret: []
-  redis:
-    host: <%= ENV.fetch("SFBUFF_LOCAL_HOST") %>
-    port: 6379

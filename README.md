@@ -13,7 +13,6 @@ of information for players to track their own performance.
 | `BUCKLER_EMAIL`                                | Email used to access the official site                               |
 | `BUCKLER_PASSWORD`                             | Password used to access the official site                            |
 | `DATABASE_URL`                                 | Postgres database url                                                |
-| `REDIS_URL`                                    | Redis server host                                                    |
 
 ¹ The official site is quite restrictive about it. Be sure to use something valid.
 
@@ -43,7 +42,6 @@ of information for players to track their own performance.
 - Node.js 20.9.0
 - Yarn 1.22.21
 - Postgresql 16.2
-- Redis
 
 ### Building
 
@@ -60,7 +58,6 @@ of information for players to track their own performance.
       export BUCKLER_EMAIL=player@domain...
       export BUCKLER_PASSWORD=623P
       export DATABASE_URL=postgres://...
-      export REDIS_URL=redis://...
 
 - Prepare the application
 
