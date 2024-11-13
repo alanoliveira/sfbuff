@@ -11,11 +11,28 @@ module Buckler
       yield(configuration)
     end
 
-    def default_client
-      @default_client ||= Client.new
+    def build_client(
+      base_url: configuration.base_url,
+      user_agent: configuration.user_agent,
+      email: configuration.email,
+      password: configuration.password,
+      logger: configuration.logger
+    )
+      connection_builder = ConnectionBuilder.new(base_url:, user_agent:, logger:)
+      build_id_fetcher = proc { Api::SiteApi.new(connection: connection_builder.build).next_data["buildId"] }
+      auth_cookies_fetcher = proc do
+        Api::AuthApi.new(connection: connection_builder.build)
+          .authenticate(email:, password:)
+      end
+
+      Client.new(connection_builder:, auth_cookies_fetcher:, build_id_fetcher:)
     end
 
     private
+
+    def default_client
+      @default_client ||= build_client
+    end
 
     def respond_to_missing?(...)
       default_client.respond_to?(...) || super

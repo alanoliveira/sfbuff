@@ -4,7 +4,7 @@ class BucklerBridge
 
   attr_reader :client
 
-  def initialize(client: Buckler.default_client)
+  def initialize(client: Buckler)
     @client = client
   end
 

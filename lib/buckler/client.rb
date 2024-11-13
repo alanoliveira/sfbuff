@@ -1,56 +1,35 @@
 module Buckler
   class Client
-    CONFIG_ATTRS = %i[email password base_url user_agent logger]
+    attr_reader :connection_builder, :build_id_fetcher, :auth_cookies_fetcher
 
-    attr_reader *CONFIG_ATTRS
-
-    def initialize(**config, &connection_middleware)
+    def initialize(connection_builder:, build_id_fetcher:, auth_cookies_fetcher:)
+      @connection_builder = connection_builder
+      @build_id_fetcher = build_id_fetcher
+      @auth_cookies_fetcher = auth_cookies_fetcher
       @error_handler_semaphore = Mutex.new
-      @connection_middleware = connection_middleware
-      CONFIG_ATTRS.each do |name|
-        value = config[name] || Buckler.configuration.public_send(name)
-        instance_variable_set("@#{name}", value)
-      end
-      update_next_data && update_auth_cookies
+
+      update_build_id; update_auth_cookies
     end
 
     def next_api(locale: "en")
-      Api::NextApi.new(connection: build_api_connection(locale))
+      Api::NextApi.new(connection: build_connection(locale))
     end
 
     private
 
-    def site_api
-      Api::SiteApi.new(connection: build_connection)
-    end
-
-    def auth_api
-      Api::AuthApi.new(connection: build_connection)
-    end
-
-    def update_next_data
-      @next_data = site_api.next_data
+    def update_build_id
+      @build_id = @build_id_fetcher.call
     end
 
     def update_auth_cookies
-      @auth_cookies = auth_api.authenticate(email:, password:)
+      @auth_cookies = @auth_cookies_fetcher.call
     end
 
-    def build_api_connection(locale)
-      build_connection do |conf|
-        conf.path_prefix = "/6/buckler/_next/data/#{@next_data["buildId"]}/#{locale}/"
+    def build_connection(locale)
+      @connection_builder.build do |conf|
+        conf.path_prefix = "/6/buckler/_next/data/#{@build_id}/#{locale}/"
         conf.headers["cookie"] = @auth_cookies
         conf.use Middleware::ResponseErrorHandler, handler: method(:handle_response_error)
-      end
-    end
-
-    def build_connection
-      Faraday.new base_url do |conf|
-        conf.response :logger, logger
-        conf.headers["user-agent"] = user_agent
-        conf.headers["Priority"] = "u=0,i"
-        yield conf if block_given?
-        @connection_middleware&.call(conf)
       end
     end
 
@@ -58,7 +37,7 @@ module Buckler
       analyzer = ResponseErrorAnalyzer.new(response_env)
 
       @error_handler_semaphore.try_lock && begin
-        update_next_data if analyzer.path_not_found?
+        update_build_id if analyzer.path_not_found?
         update_auth_cookies if analyzer.forbidden?
       ensure
         @error_handler_semaphore.unlock
