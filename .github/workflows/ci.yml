@@ -38,7 +38,7 @@ jobs:
         run: bin/rubocop -f github
 
       - name: Lint erb files for consistent style
-        run: bin/erblint --lint-all
+        run: bin/erb_lint --lint-all
 
   test:
     runs-on: ubuntu-latest
