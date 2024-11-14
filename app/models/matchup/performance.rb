@@ -6,6 +6,31 @@ module Matchup
       end
     end
 
+    def group_by_matchup
+      select([ away: [ :character, :control_type ] ])
+        .group([ away: [ :character, :control_type ] ])
+    end
+
+    def group_by_rival
+      group(away: [ :short_id, :character, :control_type ])
+        .select(
+          Arel.sql("ANY_VALUE(away.name)").as("name"),
+          away: [ :short_id, :character, :control_type ]
+        )
+    end
+
+    def favorites
+      order("total" => :desc)
+    end
+
+    def victims
+      order("diff" => :desc, "win" => :desc, "lose" => :asc)
+    end
+
+    def tormentors
+      order("diff" => :asc, "lose" => :desc, "win" => :asc)
+    end
+
     def select_values
       super | [
         win_column.as("win"),
