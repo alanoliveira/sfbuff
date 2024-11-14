@@ -8,7 +8,7 @@ module Buckler
       end
 
       def next_data
-        response = @connection.get("/6/buckler")
+        response = @connection.get("/6/buckler", cache_buster: Time.now.to_i)
         Parser::NextDataParser.parse(response.body)
       end
     end
