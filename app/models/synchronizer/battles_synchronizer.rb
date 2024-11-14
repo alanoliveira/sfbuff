@@ -7,7 +7,9 @@ class Synchronizer::BattlesSynchronizer
 
   def synchronize!
     battles.each do |battle|
-      battle.save!
+      Battle.transaction requires_new: true do
+        battle.save!
+      end
     rescue ActiveRecord::RecordNotUnique
       # ignore, the battle was already imported by the opponent
     end

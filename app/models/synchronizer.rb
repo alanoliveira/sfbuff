@@ -7,16 +7,20 @@ class Synchronizer
   end
 
   def synchronize!
-    fighter_banner = buckler_bridge.fighter_banner(short_id:)
-    player = Player.find_or_create_by!(short_id:)
+    Player.transaction do
+      player = Player.lock.find_or_create_by!(short_id:)
+      next if player.synchronized?
 
-    battles = new_battles(player.latest_replay_id).to_a
-    BattlesSynchronizer.new(battles:).synchronize!
+      fighter_banner = buckler_bridge.fighter_banner(short_id:)
 
-    player.assign_attributes(fighter_banner.attributes.slice("name", "main_character"))
-    player.latest_replay_id = battles.first.replay_id if battles.any?
-    player.synchronized_at = Time.zone.now
-    player.save!
+      battles = new_battles(player.latest_replay_id).to_a
+      BattlesSynchronizer.new(battles:).synchronize!
+
+      player.assign_attributes(fighter_banner.attributes.slice("name", "main_character"))
+      player.latest_replay_id = battles.first.replay_id if battles.any?
+      player.synchronized_at = Time.zone.now
+      player.save!
+    end
   end
 
   private
