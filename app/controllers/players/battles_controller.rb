@@ -13,8 +13,7 @@ class Players::BattlesController < Players::BaseController
   def rivals
     performance = MatchupsFilter.filter(Matchup, filter_params)
       .performance
-      .group(away: [ :short_id, :character, :control_type ])
-      .select(Arel.sql("ANY_VALUE(away.name)").as("name"))
+      .group_by_rival
       .limit(8)
     @rivals = [ :favorites, :tormentors, :victims ].index_with do |name|
       performance.public_send(name)
