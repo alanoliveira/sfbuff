@@ -29,9 +29,11 @@ module Matchup
     RUBY
   end
 
+  def results
+    @results ||= extending(Results).where(id: records.pluck(:id)).to_h
+  end
+
   def index_with_result
-    rel = select_result.except(:limit, :offset, :order).where(id: records.pluck(:id))
-    results = rel.with_connection { |conn| conn.select_rows(rel.to_sql).to_h }
     index_with { |b| results[b.id] }
   end
 
@@ -51,16 +53,8 @@ module Matchup
     JOIN
   end
 
-  private
-
-  def select_result
-    reselect(<<-SQL.squeeze(" "))
-      "battles"."id",
-      CASE
-      WHEN "battles"."winner_side" = "home"."side" THEN 'win'
-      WHEN "battles"."winner_side" = "away"."side" THEN 'lose'
-      ELSE 'draw'
-      END "result"
-    SQL
+  def reset
+    @results = nil
+    super
   end
 end
