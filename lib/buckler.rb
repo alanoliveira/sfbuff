@@ -19,9 +19,12 @@ module Buckler
       logger: configuration.logger
     )
       connection_builder = ConnectionBuilder.new(base_url:, user_agent:, logger:)
-      build_id_fetcher = proc { Api::SiteApi.new(connection: connection_builder.build).next_data["buildId"] }
+      build_id_fetcher = proc do
+        ENV["BUCKLER_BUILD_ID"] ||
+          Api::SiteApi.new(connection: connection_builder.build).next_data["buildId"]
+      end
       auth_cookies_fetcher = proc do
-        Api::AuthApi.new(connection: connection_builder.build)
+        ENV["BUCKLER_AUTH_COOKIES"] || Api::AuthApi.new(connection: connection_builder.build)
           .authenticate(email:, password:)
       end
 
