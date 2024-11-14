@@ -29,16 +29,16 @@ module Matchup
     RUBY
   end
 
+  def performance
+    extending(Performance)
+  end
+
   def results
     @results ||= extending(Results).where(id: records.pluck(:id)).to_h
   end
 
   def index_with_result
     index_with { |b| results[b.id] }
-  end
-
-  def performance
-    Performance.new(self)
   end
 
   def with_values

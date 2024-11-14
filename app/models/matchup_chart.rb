@@ -7,7 +7,7 @@ class MatchupChart
     matchup
       .performance
       .group(away: [ :character, :control_type ])
-      .score
+      .select(away: [ :character, :control_type ])
       .each_with_object(new) do |item, chart|
         group, score = item.to_a.flatten
         chart[**group.symbolize_keys].score = score

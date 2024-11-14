@@ -7,7 +7,7 @@ class Players::BattlesController < Players::BaseController
   def show
     battles = MatchupsFilter.filter(Matchup, filter_params)
     @pagy, @battles = pagy(battles.includes(:p1, :p2).ordered.reverse_order)
-    @score = cache([ battles.cache_key, "score" ]) { battles.performance.score }
+    @score = cache([ battles.cache_key, "score" ]) { battles.performance.sum }
   end
 
   def rivals
