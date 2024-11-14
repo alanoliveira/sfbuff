@@ -4,7 +4,7 @@ class Players::MatchupChartsController < Players::BaseController
   before_action :set_default_params
 
   def show
-    matchup = MatchupsFilter.filter(Battle.matchup, filter_params)
+    matchup = MatchupsFilter.filter(Matchup, filter_params)
     @matchup_chart = MatchupChart.from_matchup(matchup)
   end
 

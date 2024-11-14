@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe Battle::Matchup::Performance do
-  let(:performance) { Battle.matchup.where_home(short_id: 1234567890).performance }
+RSpec.describe Matchup::Performance do
+  let(:performance) { Matchup.where_home(short_id: 1234567890).performance }
 
   before do
     mik = { short_id: 1234567890, character: 1 }

@@ -5,13 +5,13 @@ class Players::BattlesController < Players::BaseController
   before_action :set_default_params
 
   def show
-    battles = MatchupsFilter.filter(Battle.matchup, filter_params)
+    battles = MatchupsFilter.filter(Matchup, filter_params)
     @pagy, @battles = pagy(battles.includes(:p1, :p2).ordered.reverse_order)
     @score = cache([ battles.cache_key, "score" ]) { battles.performance.score }
   end
 
   def rivals
-    performance = MatchupsFilter.filter(Battle.matchup, filter_params)
+    performance = MatchupsFilter.filter(Matchup, filter_params)
       .performance
       .group(away: [ :short_id, :character, :control_type ])
       .select(Arel.sql("ANY_VALUE(away.name)").as("name"))

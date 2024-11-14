@@ -1,4 +1,4 @@
-class Battle::Matchup::Performance
+class Matchup::Performance
   def initialize(matchups, select: nil, group: nil, limit: nil)
     @matchups = matchups.extending(Scoring)
   end

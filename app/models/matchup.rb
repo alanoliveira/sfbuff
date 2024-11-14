@@ -1,4 +1,16 @@
-module Battle::Matchup
+module Matchup
+  class << self
+    private
+
+    def respond_to_missing?(...)
+      Battle.respond_to?(...) || super
+    end
+
+    def method_missing(method_name, ...)
+      Battle.extending(self).send(method_name, ...)
+    end
+  end
+
   [ "home", "away" ].each do |side|
     class_eval <<-RUBY
       def where_#{side}(...)
@@ -24,7 +36,7 @@ module Battle::Matchup
   end
 
   def performance
-    Battle::Matchup::Performance.new(self)
+    Performance.new(self)
   end
 
   def with_values
