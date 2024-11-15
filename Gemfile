@@ -71,7 +71,7 @@ group :development do
   gem "kamal", "~> 2.3", require: false
 end
 
-gem "faraday", "~> 2.10"
+gem "faraday", "~> 2.12"
 gem "faraday-cookie_jar", "~> 0.0.7"
 gem "faraday-follow_redirects", "~> 0.3.0"
 
