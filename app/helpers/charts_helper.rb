@@ -1,21 +1,18 @@
 module ChartsHelper
-  def history_chart(challengers, **opts)
-    challengers.filter_map do |challenger|
+  def ranked_history_chart(ranked_history, **opts)
+    ranked_history.filter_map do |history_item|
       data = {
-        x: l(challenger.battle.played_at, format: :short),
-        link: battle_path(challenger.battle.replay_id)
+        x: l(history_item.played_at, format: :short),
+        link: battle_path(history_item.replay_id)
       }
 
-      if challenger.master?
-        next if challenger.master_rating_variation.blank?
-
+      if history_item.master_rating_variation.present?
         data[:type] = "mr"
-        data[:label] = format("%d (%+d)", challenger.actual_master_rating, challenger.master_rating_variation)
-        data[:y] = challenger.actual_master_rating + challenger.master_rating_variation
+        data[:label] = format("%d (%+d)", history_item.master_rating, history_item.master_rating_variation)
+        data[:y] = history_item.master_rating + history_item.master_rating_variation
       else
-        next if challenger.calibrating?
         data[:type] = "lp"
-        data[:y] = challenger.league_point
+        data[:y] = history_item.league_point
       end
 
       data

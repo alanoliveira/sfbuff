@@ -2,9 +2,9 @@
   <%= render "filter_form", object: @filter_form %>
 </div>
 
-<% if @history.present? %>
+<% if @ranked_history.present? %>
   <div class="card card-body" data-turbo-temporary>
-    <%= history_chart(@history) %>
+    <%= ranked_history_chart(@ranked_history) %>
   </div>
 <% else %>
   <%= no_data_alert %>
