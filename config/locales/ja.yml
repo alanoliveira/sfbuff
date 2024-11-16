@@ -47,6 +47,7 @@ ja:
     generic: エラーが発生しました
     argument_error: 無効な引数
     buckler_bridge/player_not_found: プレイヤーが見つかりません
+    buckler/invalid_short_id: 無効なID
     buckler/http_error: 公式サイトからのデータ取得時にエラーが発生しました
     buckler/under_maintenance: Bucklerはメンテナンス中です
     buckler/rate_limit_exceeded: 現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください。

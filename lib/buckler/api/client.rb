@@ -12,8 +12,8 @@ module Buckler
         update_build_id; update_auth_cookies
       end
 
-      def next_api(locale: "en")
-        NextApi.new(connection: build_connection(locale))
+      def next_client(locale: "en")
+        NextApi.new(connection: build_connection(locale)).then { NextClient.new _1 }
       end
 
       private
