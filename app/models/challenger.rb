@@ -1,6 +1,8 @@
 class Challenger < ApplicationRecord
   enum :side, { "p1" => 1, "p2" => 2 }
   decorate_attributes([ :rounds ]) { |_, subtype| RoundsType.new(subtype) }
+  decorate_attributes([ :league_point ]) { |_, subtype| LeaguePointType.new(subtype) }
+  decorate_attributes([ :master_rating ]) { |_, subtype| MasterRatingType.new(subtype) }
   store_accessor :ranked_variation, [ :master_rating_variation, :league_point_variation ]
 
   belongs_to :battle
@@ -8,9 +10,9 @@ class Challenger < ApplicationRecord
   before_save :set_ranked_variation
 
   def league
-    Buckler::RankedLeague.for_league_point(league_point).inquiry
+    league_point.name
   end
-  delegate *Buckler::Enums::LEAGUE_THRESHOLD.values.map { "#{_1}?" }, to: :league
+  delegate *Buckler::Enums::LEAGUE_THRESHOLD.values.map { "#{_1}?" }, to: :league_point
 
   def actual_master_rating
     return Buckler::Enums::INITIAL_MASTER_RATING if mr_reseted?

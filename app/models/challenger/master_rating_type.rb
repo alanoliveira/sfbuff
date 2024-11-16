@@ -1,5 +1,5 @@
 class Challenger
-  class RoundsType < ActiveRecord::Type::Value
+  class MasterRatingType < ActiveRecord::Type::Value
     attr_reader :subtype
 
     delegate :type, to: :subtype
@@ -23,7 +23,7 @@ class Challenger
     private
 
     def cast_value(value)
-      value.map { |v| Buckler::Round.new(v) }
+      Buckler::LeaguePoint.new(value)
     end
   end
 end
