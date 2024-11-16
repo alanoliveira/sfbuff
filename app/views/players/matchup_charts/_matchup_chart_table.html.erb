@@ -11,27 +11,26 @@
     </tr>
   </thead>
   <tbody>
-    <% matchup_chart.each do |group, score| %>
+    <% matchup_chart.each do |line| %>
       <tr>
-        <td><%= t_character(group["character"]) %></td>
-        <td><%= t_control_type(group["control_type"]) %></td>
-        <td><%= score.try(:total) || "-" %></td>
-        <td><%= score.try(:win) || "-" %></td>
-        <td><%= score.try(:lose) || "-" %></td>
-        <td><%= score.try(:draw) || "-" %></td>
-        <td><%= score.try { signed_number(_1.diff) } || "-" %></td>
+        <td><%= t_character(line["character"]) %></td>
+        <td><%= t_control_type(line["control_type"]) %></td>
+        <td><%= line.score.try(:total) || "-" %></td>
+        <td><%= line.score.try(:win) || "-" %></td>
+        <td><%= line.score.try(:lose) || "-" %></td>
+        <td><%= line.score.try(:draw) || "-" %></td>
+        <td><%= line.score.try { signed_number(_1.diff) } || "-" %></td>
       </tr>
     <% end %>
   </tbody>
   <tfoot>
     <tr>
-      <% scores = matchup_chart.filter_map { |_, score| score } %>
       <th colspan="2"><%= t(".sum") %></th>
-      <td><%= scores.map(&:total).sum %></td>
-      <td><%= scores.map(&:win).sum %></td>
-      <td><%= scores.map(&:lose).sum %></td>
-      <td><%= scores.map(&:draw).sum %></td>
-      <td><%= signed_number scores.map(&:diff).sum %></td>
+      <td><%= matchup_chart.sum.total %></td>
+      <td><%= matchup_chart.sum.win %></td>
+      <td><%= matchup_chart.sum.lose %></td>
+      <td><%= matchup_chart.sum.draw %></td>
+      <td><%= signed_number matchup_chart.sum.diff %></td>
     </tr>
   </tfoot>
 </table>

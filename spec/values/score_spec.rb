@@ -6,4 +6,11 @@ RSpec.describe Score do
   it { expect(score.win_percent).to be_within(0.1).of(50) }
   it { expect(score.lose_percent).to be_within(0.1).of(33.33) }
   it { expect(score.draw_percent).to be_within(0.1).of(16.66) }
+
+  describe "#+" do
+    it do
+      other = described_class.new(win: 1, lose: 2, draw: 3, total: 6, diff: -1)
+      expect(score + other).to have_attributes(win: 4, lose: 4, draw: 4, total: 12, diff: 0)
+    end
+  end
 end
