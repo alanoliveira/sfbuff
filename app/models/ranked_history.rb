@@ -16,6 +16,7 @@ class RankedHistory
   include Enumerable
 
   attr_accessor :short_id, :character, :played_at
+  delegate :each, :empty?, to: :data
 
   def initialize(short_id:, character:, played_at: nil)
     @short_id = short_id
@@ -23,16 +24,14 @@ class RankedHistory
     @played_at = played_at
   end
 
-  def each(...)
-    challenger_criteria
+  private
+
+  def data
+    @data ||= challenger_criteria
       .includes(:battle).merge(battle_criteria)
-      .reject { _1.master? && _1.master_rating_variation.nil? }
       .reject(&:calibrating?)
       .map { Item.from_challenger(_1) }
-      .each(...)
   end
-
-  private
 
   def battle_criteria
     Battle.ranked.ordered.select(:replay_id, :played_at).tap do |battle|

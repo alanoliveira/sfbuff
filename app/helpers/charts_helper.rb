@@ -1,30 +1,10 @@
 module ChartsHelper
-  def ranked_history_chart(ranked_history, **opts)
-    ranked_history.filter_map do |history_item|
-      data = {
-        x: l(history_item.played_at, format: :short),
-        link: battle_path(history_item.replay_id)
-      }
-
-      if history_item.master_rating_variation.present?
-        data[:type] = "mr"
-        data[:label] = format("%d (%+d)", history_item.master_rating, history_item.master_rating_variation)
-        data[:y] = history_item.master_rating + history_item.master_rating_variation
-      else
-        data[:type] = "lp"
-        data[:y] = history_item.league_point
-      end
-
-      data
-    end.then { draw_chart(_1, **opts) }
-  end
-
-  private
-
-  def draw_chart(data, width: "100%", height: "100%")
+  def ranked_history_chart(data, width: "100%", height: "100%")
     return if data.empty?
 
-    lp_data, mr_data = data.partition { _1[:type] == "lp" }
+    lp_data, mr_data = data
+      .map { RankedChartItemPresenter.from_ranked_history_item(_1) }
+      .partition { _1[:kind] == "lp" }
 
     div_data = {
       controller: "ranked-history-chart",
