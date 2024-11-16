@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Buckler::Parser::NextDataParser do
+RSpec.describe Buckler::Api::Parser::NextDataParser do
   let(:body) do
     <<-HTML
       <!DOCTYPE html>

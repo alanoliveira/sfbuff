@@ -16,7 +16,7 @@ RSpec.describe Buckler::Api::SiteApi do
       stubs.get("/6/buckler") do
         [ 200, { "content-type" => "text/html" }, "OK" ]
       end
-      allow(Buckler::Parser::NextDataParser).to receive(:parse) { "PARSED #{_1}" }
+      allow(Buckler::Api::Parser::NextDataParser).to receive(:parse) { "PARSED #{_1}" }
 
       expect(site_api.next_data).to eq "PARSED OK"
     end

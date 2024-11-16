@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Buckler::Middleware::ResponseErrorHandler do
+RSpec.describe Buckler::Api::Middleware::ResponseErrorHandler do
   let(:handler) { spy.tap { allow(_1).to receive(:call) } }
   let(:stubs) { Faraday::Adapter::Test::Stubs.new }
   let(:connection) do

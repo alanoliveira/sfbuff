@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Buckler::Client::ResponseErrorAnalyzer do
+RSpec.describe Buckler::Api::ResponseErrorAnalyzer do
   subject(:analyzer) { described_class.new(response_env) }
   let(:response_env) { spy }
 

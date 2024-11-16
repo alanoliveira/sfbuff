@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Buckler::Parser::CallbackConfigParser do
+RSpec.describe Buckler::Api::Parser::CallbackConfigParser do
   subject(:auth_config) { described_class.new(html) }
 
   let(:body) do

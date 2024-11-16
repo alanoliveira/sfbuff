@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe BucklerBridge do
   subject(:buckler_bridge) do
-    described_class.new(client: instance_double(Buckler::Client, next_api:))
+    described_class.new(client: instance_double(Buckler::Api::Client, next_api:))
   end
 
   let(:next_api) { instance_double(Buckler::Api::NextApi) }

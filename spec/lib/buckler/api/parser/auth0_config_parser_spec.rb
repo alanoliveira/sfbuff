@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Buckler::Parser::Auth0ConfigParser do
+RSpec.describe Buckler::Api::Parser::Auth0ConfigParser do
   subject(:auth_config) { described_class.new(html) }
 
   let(:config_b64) { Base64.encode64({ "result" => "OK" }.to_json) }

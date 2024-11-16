@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Buckler::BattlelogIterator do
+RSpec.describe Buckler::Api::BattlelogIterator do
   subject(:replays) { described_class.new(next_api:, short_id:) }
 
   let(:next_api) { instance_double Buckler::Api::NextApi }

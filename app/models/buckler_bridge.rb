@@ -4,14 +4,14 @@ class BucklerBridge
 
   attr_reader :client
 
-  def initialize(client: Buckler)
+  def initialize(client: Buckler::Api)
     @client = client
   end
 
   def battle_list(short_id:)
     validate_short_id!(short_id)
 
-    Buckler::BattlelogIterator.new(next_api:, short_id:)
+    Buckler::Api::BattlelogIterator.new(next_api:, short_id:)
       .lazy.map { |raw_data| Parsers::BattleParser.parse(raw_data:) }
   end
 

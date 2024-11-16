@@ -1,5 +1,5 @@
 module Buckler
-  class Client
+  module Api
     class ResponseErrorAnalyzer
       def initialize(response_env)
         @response_env = response_env
