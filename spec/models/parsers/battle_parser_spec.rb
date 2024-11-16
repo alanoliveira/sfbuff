@@ -11,7 +11,7 @@ RSpec.describe Parsers::BattleParser do
         'uploaded_at' => 1_712_537_824,
         'player1_info' => {
           'player' => {
-            'short_id' => 123_456,
+            'short_id' => 123_456_789,
             'fighter_id' => 'TEST_FIGHTER_1'
           },
           'round_results' => [ 1, 1 ],
@@ -23,7 +23,7 @@ RSpec.describe Parsers::BattleParser do
         },
         'player2_info' => {
           'player' => {
-            'short_id' => 123_457,
+            'short_id' => 123_987_654,
             'fighter_id' => 'TEST_FIGHTER_2'
           },
           'round_results' => [ 0, 0 ],
@@ -41,7 +41,7 @@ RSpec.describe Parsers::BattleParser do
       expect(parsed_battle.battle_type).to eq(4)
       expect(parsed_battle.played_at).to eq(Time.zone.at(1_712_537_824))
 
-      expect(parsed_battle.p1.short_id).to eq(123_456)
+      expect(parsed_battle.p1.short_id).to eq(123_456_789)
       expect(parsed_battle.p1.name).to eq('TEST_FIGHTER_1')
       expect(parsed_battle.p1.rounds).to eq [ 1, 1 ]
       expect(parsed_battle.p1.character).to eq(254)
@@ -50,7 +50,7 @@ RSpec.describe Parsers::BattleParser do
       expect(parsed_battle.p1.master_rating).to eq(2000)
       expect(parsed_battle.p1.league_point).to eq(30_000)
 
-      expect(parsed_battle.p2.short_id).to eq(123_457)
+      expect(parsed_battle.p2.short_id).to eq(123_987_654)
       expect(parsed_battle.p2.name).to eq('TEST_FIGHTER_2')
       expect(parsed_battle.p2.rounds).to eq [ 0, 0 ]
       expect(parsed_battle.p2.character).to eq(4)

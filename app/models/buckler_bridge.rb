@@ -52,7 +52,7 @@ class BucklerBridge
   end
 
   def validate_short_id(short_id)
-    short_id.to_s[/\A\d{9,}\z/]
+    Buckler::ShortId.valid? short_id
   end
 
   def validate_short_id!(short_id)
