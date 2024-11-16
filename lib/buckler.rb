@@ -1,3 +1,5 @@
+require_relative "buckler/railtie"
+
 module Buckler
   class << self
     def configuration

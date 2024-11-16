@@ -1,8 +1,8 @@
 class Challenger < ApplicationRecord
   enum :side, { "p1" => 1, "p2" => 2 }
-  decorate_attributes([ :rounds ]) { |_, subtype| RoundsType.new(subtype) }
-  decorate_attributes([ :league_point ]) { |_, subtype| LeaguePointType.new(subtype) }
-  decorate_attributes([ :master_rating ]) { |_, subtype| MasterRatingType.new(subtype) }
+  attribute :master_rating, :buckler_master_rating
+  attribute :league_point, :buckler_league_point
+  attribute :rounds, :buckler_round, array: true
   store_accessor :ranked_variation, [ :master_rating_variation, :league_point_variation ]
 
   belongs_to :battle
