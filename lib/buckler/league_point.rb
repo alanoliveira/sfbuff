@@ -14,7 +14,6 @@ module Buckler
       threshold = Enums::LEAGUE_THRESHOLD.keys.select { |it| self >= it }.max
       Enums::LEAGUE_THRESHOLD[threshold]
     end
-    alias to_s name
 
     def inspect
       "#<#{self.class} #{to_i}:#{self}>"
