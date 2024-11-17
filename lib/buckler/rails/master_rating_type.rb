@@ -1,6 +1,6 @@
 module Buckler
-  module RailsTypes
-    class LeaguePoint < ActiveRecord::Type::Value
+  module Rails
+    class MasterRatingType < ActiveRecord::Type::Value
       def serialize(value)
         value.to_i
       end
@@ -8,7 +8,7 @@ module Buckler
       private
 
       def cast_value(value)
-        Buckler::LeaguePoint.new(value)
+        Buckler::MasterRating.new(value)
       end
     end
   end

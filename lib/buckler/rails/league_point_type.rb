@@ -1,6 +1,6 @@
 module Buckler
-  module RailsTypes
-    class ShortId < ActiveRecord::Type::Value
+  module Rails
+    class LeaguePointType < ActiveRecord::Type::Value
       def serialize(value)
         value.to_i
       end
@@ -8,7 +8,7 @@ module Buckler
       private
 
       def cast_value(value)
-        Buckler::ShortId.new(value)
+        Buckler::LeaguePoint.new(value)
       end
     end
   end

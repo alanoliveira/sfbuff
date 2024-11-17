@@ -1,6 +1,6 @@
 module Buckler
-  module RailsTypes
-    class MasterRating < ActiveRecord::Type::Value
+  module Rails
+    class RoundType < ActiveRecord::Type::Value
       def serialize(value)
         value.to_i
       end
@@ -8,7 +8,7 @@ module Buckler
       private
 
       def cast_value(value)
-        Buckler::MasterRating.new(value)
+        Buckler::Round.new(value)
       end
     end
   end

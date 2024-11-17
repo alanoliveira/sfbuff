@@ -1,4 +1,4 @@
-require_relative "buckler/railtie"
+require "buckler/railtie" if defined?(Rails)
 
 module Buckler
   class InvalidShortId < ArgumentError; end

@@ -1,6 +1,6 @@
 module Buckler
-  module RailsTypes
-    class Round < ActiveRecord::Type::Value
+  module Rails
+    class ShortIdType < ActiveRecord::Type::Value
       def serialize(value)
         value.to_i
       end
@@ -8,7 +8,7 @@ module Buckler
       private
 
       def cast_value(value)
-        Buckler::Round.new(value)
+        Buckler::ShortId.new(value)
       end
     end
   end
