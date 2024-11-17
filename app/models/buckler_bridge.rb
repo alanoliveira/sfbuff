@@ -2,10 +2,12 @@ class BucklerBridge
   class Error < StandardError; end
   class PlayerNotFound < Error; end
 
+  cattr_accessor :buckler_client, default: Buckler::Api
+
   attr_reader :next_client
 
-  def initialize(next_client: Buckler::Api.next_client)
-    @next_client = next_client
+  def initialize(next_client: nil)
+    @next_client = next_client || buckler_client.next_client(locale:)
   end
 
   def battle_list(short_id:)

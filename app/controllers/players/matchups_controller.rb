@@ -4,7 +4,9 @@ class Players::MatchupsController < Players::BaseController
   before_action :set_default_params
 
   def performance_group_by_date_chart
-    @matchups = MatchupsFilter.filter(Matchup, filter_params).performance.group_by_date
+    @matchups = MatchupsFilter
+      .filter(Matchup, filter_params.with_defaults(character: @player.main_character))
+      .performance.group_by_date
     render "matchups/performance_group_by_date_chart"
   end
 
