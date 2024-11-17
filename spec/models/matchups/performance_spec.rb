@@ -41,6 +41,21 @@ RSpec.describe Matchup::Performance do
     end
   end
 
+  describe "#group_by_date" do
+    subject(:group_by_date) { Matchup.where_home(side: 1).performance.group_by_date }
+
+    it "returns results grouped by date" do
+      create(:battle, played_at: Time.new("2020-01-01 12:34:00"), p1: build(:p1), p2: build(:p2))
+      create(:battle, played_at: Time.new("2020-01-01 13:34:00"), p1: build(:p1), p2: build(:p2))
+      create(:battle, played_at: Time.new("2020-01-02 13:34:00"), p1: build(:p1), p2: build(:p2))
+
+      expect(group_by_date).to include(
+        [ { "date" => Date.new(2020, 1, 1) }, an_object_having_attributes(total: 2) ],
+        [ { "date" => Date.new(2020, 1, 2) }, an_object_having_attributes(total: 1) ],
+      )
+    end
+  end
+
   describe "#favorites" do
     subject(:favorites) { Matchup.where_home(side: 1).performance.group(away: [ :character ]).select(away: [ :character ]).favorites }
 

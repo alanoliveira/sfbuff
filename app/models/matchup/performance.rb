@@ -11,6 +11,13 @@ module Matchup
         .group([ away: [ :character, :control_type ] ])
     end
 
+    def group_by_date
+      arel_column("battles.played_at")
+        .then { ArelHelpers.convert_tz(_1, to: Time.zone.name) }
+        .then { ArelHelpers.date(_1) }
+        .then { select(_1.as("date")).group("date") }
+    end
+
     def group_by_rival
       group(away: [ :short_id, :character, :control_type ])
         .select(

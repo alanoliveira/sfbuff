@@ -21,4 +21,12 @@ module ChartsHelper
     @ranked_history_chart_lp_marks_value ||=
       Buckler::Enums::LEAGUE_THRESHOLD.to_h { |points, name| [ points, { name: name.upcase } ] }
   end
+
+  def matchups_group_by_date_chart(matchups, width: "100%", height: "100%")
+    data = matchups.map { MatchupsGroupByDateChartItemPresenter.from_result_query(_1) }
+
+    content_tag :div, data: { controller: "matchups-group-by-date-chart", matchups_group_by_date_chart_data_value: data } do
+      content_tag :canvas, nil, data: { matchups_group_by_date_chart_target: "canvas" }
+    end
+  end
 end

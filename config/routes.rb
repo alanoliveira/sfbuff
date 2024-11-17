@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get "battles/rivals" => "battles#rivals"
     get "matchup_chart" => "matchup_charts#show"
     get "ranked" => "rankeds#show"
+    get "matchups/performance_group_by_date_chart" => "matchups#performance_group_by_date_chart"
   end
 
   get "buckler/player_search"

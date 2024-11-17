@@ -13,6 +13,9 @@ application.register("form-helper", FormHelperController)
 import I18nController from "./i18n_controller"
 application.register("i18n", I18nController)
 
+import MatchupsGroupByDateChartController from "./matchups_group_by_date_chart_controller"
+application.register("matchups-group-by-date-chart", MatchupsGroupByDateChartController)
+
 import RankedHistoryChartController from "./ranked_history_chart_controller"
 application.register("ranked-history-chart", RankedHistoryChartController)
 
