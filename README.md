@@ -42,6 +42,7 @@ of information for players to track their own performance.
 - Node.js 20.9.0
 - Yarn 1.22.21
 - Postgresql 16.2
+- Chrome (used as a fallback for login if the attempt using http fails)
 
 ### Building
 

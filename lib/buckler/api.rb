@@ -11,30 +11,31 @@ module Buckler
     class RateLimitExceeded < HttpError; end
 
     class << self
-      def build_client(
-        base_url: Buckler.configuration.base_url,
-        user_agent: Buckler.configuration.user_agent,
-        email: Buckler.configuration.email,
-        password: Buckler.configuration.password,
-        logger: Buckler.configuration.logger
-      )
-        connection_builder = Api::ConnectionBuilder.new(base_url:, user_agent:, logger:)
-        build_id_fetcher = proc do
-          ENV["BUCKLER_BUILD_ID"] ||
-            Api::SiteApi.new(connection: connection_builder.build).next_data["buildId"]
-        end
-        auth_cookies_fetcher = proc do
-          ENV["BUCKLER_AUTH_COOKIES"] || Api::AuthApi.new(connection: connection_builder.build)
-            .authenticate(email:, password:)
-        end
+      attr_writer :default_client
 
-        Client.new(connection_builder:, auth_cookies_fetcher:, build_id_fetcher:)
+      def default_client
+        @default_client ||= begin
+          Client.new(
+            connection_builder: ConnectionBuilder,
+            auth_cookies_fetcher: method(:auth_cookies_fetcher),
+            build_id_fetcher: method(:build_id_fetcher)
+          )
+        end
       end
 
       private
 
-      def default_client
-        @default_client ||= build_client
+      def auth_cookies_fetcher
+        AuthCookiesFetcherAdapters::Http.new.call ||
+          AuthCookiesFetcherAdapters::SeleniumDriver.new.call ||
+          AuthCookiesFetcherAdapters::Env.call ||
+          raise("failed to retrieve auth_cookies")
+      end
+
+      def build_id_fetcher
+        BuildIdFetcherAdapters::Http.new.call ||
+          BuildIdFetcherAdapters::Env.call ||
+          raise("failed to retrieve build_id")
       end
 
       def respond_to_missing?(...)
