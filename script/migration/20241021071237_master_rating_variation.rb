@@ -5,7 +5,7 @@ loop do
     select battles.* from battles
     inner join challengers p1 on p1.battle_id = battles.id and p1.side = 1
     inner join challengers p2 on p2.battle_id = battles.id and p2.side = 2
-    where battles.battle_type = #{Buckler::Enums::BATTLE_TYPES["ranked"]}
+    where battles.battle_type = #{Buckler::BATTLE_TYPES["ranked"]}
     and p1.league_point > 25000
     and p2.league_point > 25000
     and (p1.ranked_variation is null or p2.ranked_variation is null)

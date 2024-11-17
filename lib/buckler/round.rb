@@ -9,15 +9,15 @@ module Buckler
     end
 
     def lose?
-      self == Enums::ROUNDS["l"]
+      self == ROUNDS["l"]
     end
 
     def draw?
-      self == Enums::ROUNDS["d"]
+      self == ROUNDS["d"]
     end
 
     def to_s
-      (Enums::ROUNDS.key self).upcase
+      (ROUNDS.key self).upcase
     end
 
     def inspect

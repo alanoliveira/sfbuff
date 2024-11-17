@@ -8,11 +8,11 @@ class Battle < ApplicationRecord
 
   before_save :set_winner_side
 
-  scope :ranked, -> { where(battle_type: Buckler::Enums::BATTLE_TYPES["ranked"]) }
+  scope :ranked, -> { where(battle_type: Buckler::BATTLE_TYPES["ranked"]) }
   scope :ordered, -> { order(:played_at) }
 
   def ranked?
-    battle_type == Buckler::Enums::BATTLE_TYPES["ranked"]
+    battle_type == Buckler::BATTLE_TYPES["ranked"]
   end
 
   def challengers

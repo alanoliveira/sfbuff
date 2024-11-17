@@ -14,8 +14,8 @@ class MatchupChart
   end
 
   def initialize
-    @lines = Buckler::Enums::CHARACTERS.values.product(
-        Buckler::Enums::CONTROL_TYPES.values
+    @lines = Buckler::CHARACTERS.values.product(
+        Buckler::CONTROL_TYPES.values
     ).to_h { |char, ctrl| [ [ char, ctrl ], Line.new(char, ctrl, nil) ] }
   end
 

@@ -13,10 +13,10 @@ class Challenger < ApplicationRecord
   def league
     league_point.name
   end
-  delegate *Buckler::Enums::LEAGUE_THRESHOLD.values.map { "#{_1}?" }, to: :league_point
+  delegate *Buckler::LEAGUE_THRESHOLD.values.map { "#{_1}?" }, to: :league_point
 
   def actual_master_rating
-    return Buckler::Enums::INITIAL_MASTER_RATING if mr_reseted?
+    return Buckler::INITIAL_MASTER_RATING if mr_reseted?
     master_rating
   end
 

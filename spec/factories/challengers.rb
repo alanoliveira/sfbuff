@@ -11,7 +11,7 @@ FactoryBot.define do
     side { nil }
     battle
 
-    Buckler::Enums::LEAGUE_THRESHOLD.each do |lp, name|
+    Buckler::LEAGUE_THRESHOLD.each do |lp, name|
       trait name.to_sym do |ctx|
         league_point { lp }
         master_rating { ctx.master_rating || name == "master" ? 1501 : -1 }
