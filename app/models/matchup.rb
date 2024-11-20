@@ -34,7 +34,10 @@ module Matchup
   end
 
   def results
-    @results ||= extending(Results).where(id: records.pluck(:id)).to_h
+    @results ||= extending(Results)
+      .unscope(:order, :limit, :offset)
+      .where(id: records.pluck(:id))
+      .to_h
   end
 
   def index_with_result

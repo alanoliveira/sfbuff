@@ -33,5 +33,19 @@ RSpec.describe Matchup do
 
       expect(indexed_results).to match(b1 => "win", b2 => "lose", b3 => "draw")
     end
+
+    context "using limit + offset" do
+      subject(:indexed_results) do
+        matchup.where_home(side: 1).limit(1).offset(1).index_with_result
+      end
+
+      it do
+        b1 = create(:battle, p1: build(:p1, :win), p2: build(:p2, :lose))
+        b2 = create(:battle, p1: build(:p1, :lose), p2: build(:p2, :win))
+        b3 = create(:battle, p1: build(:p1, :draw), p2: build(:p2, :draw))
+
+        expect(indexed_results).to match(b2 => "lose")
+      end
+    end
   end
 end

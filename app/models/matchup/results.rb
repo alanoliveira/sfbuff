@@ -13,10 +13,6 @@ module Matchup
       super | [ SELECT_STATEMENT ]
     end
 
-    def unscope_values
-      super | [ :limit, :offset, :order ]
-    end
-
     def load
       @records ||= with_connection do |conn|
         conn.select_rows(self, "#{__FILE__}:#{__LINE__}", async: @async).then(&:to_h)
