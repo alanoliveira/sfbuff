@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Matchup::Results do
-  subject(:results) { Matchup.where_home(side: 1).results }
+  subject(:results) { Matchup.where(home: { side: 1 }).results }
 
   it "returns the sum of all Scores" do
     create(:battle, id: 1, p1: build(:p1, :win), p2: build(:p2, :lose))

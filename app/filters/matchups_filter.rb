@@ -17,27 +17,10 @@ class MatchupsFilter < ApplicationFilter
     relation.where(battle_type:)
   end
 
-  def short_id(sid)
-    relation.where_home(short_id: sid)
-  end
-
-  def character(character)
-    relation.where_home(character:)
-  end
-
-  def control_type(control_type)
-    relation.where_home(control_type:)
-  end
-
-  def vs_short_id(sid)
-    relation.where_away(short_id: sid)
-  end
-
-  def vs_character(character)
-    relation.where_away(character:)
-  end
-
-  def vs_control_type(control_type)
-    relation.where_away(control_type:)
+  %i[short_id character control_type].each do |name|
+    class_eval <<-RUBY, __FILE__, __LINE__ + 1
+      def #{name}(val) = relation.where(home: { #{name}: val })
+      def vs_#{name}(val) = relation.where(away: { #{name}: val })
+    RUBY
   end
 end

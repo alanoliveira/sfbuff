@@ -1,5 +1,12 @@
 module Matchup
   class << self
+    def call(home: Challenger.all, away: Challenger.all)
+      Battle.extending(self).tap do |matchup|
+        matchup.instance_variable_set(:@home, home)
+        matchup.instance_variable_set(:@away, away)
+      end
+    end
+
     private
 
     def respond_to_missing?(...)
@@ -7,26 +14,21 @@ module Matchup
     end
 
     def method_missing(method_name, ...)
-      Battle.extending(self).send(method_name, ...)
+      call.public_send(method_name, ...)
     end
   end
 
-  [ "home", "away" ].each do |side|
-    class_eval <<-RUBY
-      def where_#{side}(...)
-        spawn.where_#{side}!(...)
-      end
+  attr_accessor :home, :away
 
-      def where_#{side}!(...)
-        #{side}.where!(...)
-        self
-      end
+  def where!(opts, *rest)
+    return super if opts.blank?
 
-      def #{side}
-        @#{side} ||= Challenger.all
-      end
-      private :#{side}
-    RUBY
+    home_criteria = opts.delete(:home) if opts.is_a? Hash
+    away_criteria = opts.delete(:away) if opts.is_a? Hash
+    (opts.present? ? super : self).tap do |it|
+      it.home = home.where(home_criteria) if home_criteria
+      it.away = away.where(away_criteria) if away_criteria
+    end
   end
 
   def performance
@@ -60,4 +62,8 @@ module Matchup
     @results = nil
     super
   end
+
+  protected
+
+  attr_accessor :home, :away
 end

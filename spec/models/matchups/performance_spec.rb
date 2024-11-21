@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Matchup::Performance do
   describe "#sum" do
-    let(:sum) { Matchup.where_home(side: 1).performance.sum }
+    let(:sum) { Matchup.where(home: { side: 1 }).performance.sum }
 
     it "returns the sum of all Scores" do
       2.times { create(:battle, p1: build(:p1, :win), p2: build(:p2, :lose)) }
@@ -14,7 +14,7 @@ RSpec.describe Matchup::Performance do
   end
 
   describe "#group_by_matchup" do
-    subject(:group_by_matchup) { Matchup.where_home(side: 1).performance.group_by_matchup }
+    subject(:group_by_matchup) { Matchup.where(home: { side: 1 }).performance.group_by_matchup }
 
     it "returns results grouped by character and control_type" do
       2.times { create(:battle, p1: build(:p1, :win), p2: build(:p2, :lose, character: 1, control_type: 1)) }
@@ -28,7 +28,7 @@ RSpec.describe Matchup::Performance do
   end
 
   describe "#group_by_rival" do
-    subject(:group_by_rival) { Matchup.where_home(side: 1).performance.group_by_rival }
+    subject(:group_by_rival) { Matchup.where(home: { side: 1 }).performance.group_by_rival }
 
     it "returns results grouped by character, control_type, short_id and name" do
       2.times { create(:battle, p1: build(:p1), p2: build(:p2, character: 1, control_type: 1, short_id: 123_456_789, name: "hogehoge")) }
@@ -42,7 +42,7 @@ RSpec.describe Matchup::Performance do
   end
 
   describe "#group_by_date" do
-    subject(:group_by_date) { Matchup.where_home(side: 1).performance.group_by_date }
+    subject(:group_by_date) { Matchup.where(home: { side: 1 }).performance.group_by_date }
 
     it "returns results grouped by date" do
       create(:battle, played_at: Time.new("2020-01-01 12:34:00"), p1: build(:p1), p2: build(:p2))
@@ -57,7 +57,7 @@ RSpec.describe Matchup::Performance do
   end
 
   describe "#favorites" do
-    subject(:favorites) { Matchup.where_home(side: 1).performance.group(away: [ :character ]).select(away: [ :character ]).favorites }
+    subject(:favorites) { Matchup.where(home: { side: 1 }).performance.group(away: [ :character ]).select(away: [ :character ]).favorites }
 
     it do
       2.times { create(:battle, p1: build(:p1), p2: build(:p2, character: 1)) }
@@ -72,7 +72,7 @@ RSpec.describe Matchup::Performance do
     end
 
     describe "#tormentors" do
-      subject(:tormentors) { Matchup.where_home(side: 1).performance.group(away: [ :character ]).select(away: [ :character ]).tormentors }
+      subject(:tormentors) { Matchup.where(home: { side: 1 }).performance.group(away: [ :character ]).select(away: [ :character ]).tormentors }
 
       it do
         2.times { create(:battle, p1: build(:p1, :lose), p2: build(:p2, :win, character: 1)) }
@@ -89,7 +89,7 @@ RSpec.describe Matchup::Performance do
     end
 
     describe "#victims" do
-      subject(:victims) { Matchup.where_home(side: 1).performance.group(away: [ :character ]).select(away: [ :character ]).victims }
+      subject(:victims) { Matchup.where(home: { side: 1 }).performance.group(away: [ :character ]).select(away: [ :character ]).victims }
 
       it do
         2.times { create(:battle, p1: build(:p1, :win), p2: build(:p2, :lose, character: 1)) }
