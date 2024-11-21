@@ -1,7 +1,5 @@
 class Players::MatchupsController < Players::BaseController
-  include DefaultParams
-
-  before_action :set_default_params
+  include ParamsWithDefaultPlayedAtRange
 
   def performance_group_by_date_chart
     @matchups = MatchupsFilter
@@ -11,13 +9,6 @@ class Players::MatchupsController < Players::BaseController
   end
 
   private
-
-  def default_params
-    {
-      played_from: (Date.today - 1.week).to_s,
-      played_to: (Date.today).to_s
-    }
-  end
 
   def filter_params
     params.permit(:short_id, :character, :control_type, :vs_character,
