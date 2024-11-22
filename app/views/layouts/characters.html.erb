@@ -1,3 +1,7 @@
+<% content_for :search_form do %>
+  <%= render "shared/character_search_form" %>
+<% end %>
+
 <% content_for :main do %>
 
   <h1><%= "#{t_character(params[:character])} - #{t_control_type(params[:control_type])}" %></h1>

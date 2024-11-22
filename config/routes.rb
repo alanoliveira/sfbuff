@@ -17,7 +17,8 @@ Rails.application.routes.draw do
 
   get "characters" => "characters#index", as: :characters
   scope "characters/:character/:control_type", as: :character do
-    get "matchup_chart" => "players#matchup_chart"
+    get "/" => redirect("/characters/%{character}/%{control_type}/matchup_chart")
+    get "matchup_chart" => "characters#matchup_chart"
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

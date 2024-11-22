@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import CharacterSearchFormController from "./character_search_form_controller"
+application.register("character-search-form", CharacterSearchFormController)
+
 import ColorModeController from "./color_mode_controller"
 application.register("color-mode", ColorModeController)
 

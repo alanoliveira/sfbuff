@@ -1,0 +1,12 @@
+<%= form_tag nil, data: { controller: "character-search-form", action: "submit->character-search-form#submit" } do %>
+  <div class="input-group">
+    <div class="input-group-text p-0 m-0 rounded-0">
+      <%= radio_button_tag :control_type, "0", params[:control_type] != "1", class: "btn-check", id: "character-ctrl-type-c" %>
+      <label class="btn rounded-0" for="character-ctrl-type-c">C</label>
+      <%= radio_button_tag :control_type, "1", params[:control_type] == "1", class: "btn-check", id: "character-ctrl-type-m" %>
+      <label class="btn rounded-0" for="character-ctrl-type-m">M</label>
+    </div>
+    <%= character_select_tag :character, selected: params[:character], class: "form-select" %>
+    <%= button_tag t("buttons.search"), name: nil, class: "btn btn-primary" %>
+  </div>
+<% end %>
