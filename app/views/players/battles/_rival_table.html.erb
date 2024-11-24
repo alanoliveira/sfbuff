@@ -14,7 +14,7 @@
   <tbody>
     <% rival.each do |group, score| %>
       <tr class="text-center">
-        <td><%= link_to group["name"], player_path(group["short_id"]) %></td>
+        <td><%= link_to group["name"], player_path(group["short_id"]), data: { turbo_frame: :_top } %></td>
         <td><%= t_character(group["character"]) %></td>
         <td><%= t_control_type(group["control_type"]) %></td>
         <td><%= score.total %></td>
