@@ -5,7 +5,7 @@ class Players::MatchupsController < Players::BaseController
     @matchups = MatchupsFilter
       .filter(Matchup, filter_params)
       .performance.group_by_date
-    render "matchups/performance_group_by_date_chart"
+    render "matchups/performance_group_by_date_chart", variants: [ :modal ] if turbo_frame_request_id == "turbo-modal"
   end
 
   private

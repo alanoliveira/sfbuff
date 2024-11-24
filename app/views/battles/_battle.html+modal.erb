@@ -1,0 +1,27 @@
+<%= turbo_frame_tag "turbo-modal" do %>
+  <div class="modal-header">
+    <div class="col text-start"><%= battle.replay_id %></div>
+    <div class="col text-center"><%= time_ago battle.played_at %></div>
+    <div class="col text-end"><%= t_battle_type battle.battle_type %></div>
+  </div>
+  <div class="modal-body d-flex align-items-center text-center">
+    <%= render "battles/challenger", challenger: battle.p1 %>
+    <div class="col-1">
+      <%= render "battles/rounds", rounds: battle.p1.rounds %>
+      <% battle.p1.master_rating_variation.try do |variation| %>
+        <div><%= signed_number variation %></div>
+      <% end %>
+    </div>
+    <div class="col-2 fs-1 text-center fw-bold">VS</div>
+    <div class="col-1">
+      <%= render "battles/rounds", rounds: battle.p2.rounds %>
+      <% battle.p2.master_rating_variation.try do |variation| %>
+        <div><%= signed_number variation %></div>
+      <% end %>
+    </div>
+    <%= render "battles/challenger", challenger: battle.p2 %>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t "buttons.close" %></button>
+  </div>
+<% end %>

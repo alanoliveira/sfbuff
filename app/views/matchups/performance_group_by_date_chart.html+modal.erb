@@ -1,14 +1,5 @@
 <%= turbo_frame_tag "turbo-modal" do %>
-  <div class="modal" tabindex="-1" data-controller="turbo-modal" data-turbo-temporary>
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content">
-        <div class="modal-body">
-          <%= matchups_group_by_date_chart(@matchups) %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t "buttons.close" %></button>
-        </div>
-      </div>
-    </div>
+  <div class="modal-body">
+    <%= matchups_group_by_date_chart(@matchups) %>
   </div>
 <% end %>

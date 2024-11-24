@@ -4,6 +4,7 @@ class BattlesController < ApplicationController
   before_action :set_battle
 
   def show
+    render @battle, variants: [ :modal ] if turbo_frame_request_id == "turbo-modal"
   end
 
   private

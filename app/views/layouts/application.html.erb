@@ -37,5 +37,16 @@
     <footer id="footer">
       <%= yield :footer %>
     </footer>
+
+    <div class="modal" tabindex="-1" data-controller="turbo-modal" data-turbo-temporary>
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="text-center" data-turbo-modal-target="spinner">
+            <%= spinner %>
+          </div>
+          <%= turbo_frame_tag "turbo-modal", data: { turbo_modal_target: "content" } %>
+        </div>
+      </div>
+    </div>
   </body>
 <% end %>

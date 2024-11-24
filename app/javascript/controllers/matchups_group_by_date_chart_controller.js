@@ -23,6 +23,9 @@ export default class extends Controller {
         }],
       },
       options: {
+        animation: {
+          duration: 0
+        },
         plugins: {
           legend: { display: false },
           tooltip: {
