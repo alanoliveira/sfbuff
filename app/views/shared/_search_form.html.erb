@@ -1,7 +1,7 @@
-<%= form_with url: buckler_player_search_path, method: :get, role: "search" do |f| %>
+<%= form_with url: players_path, method: :get, role: "search" do |f| %>
   <div class="input-group">
     <%= f.text_field :q, value: params[:q], placeholder: t("helpers.search_form.placeholder"),
           class: "form-control", type: "search", required: true, minlength: 4 %>
-    <%= yield f %>
+    <%= f.submit t("buttons.search"), name: nil, class: "btn btn-primary" %>
   </div>
 <% end %>

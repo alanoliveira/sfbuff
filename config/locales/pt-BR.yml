@@ -5,6 +5,8 @@ pt-BR:
     reset: Resetar
     filter: Filtrar
     close: Fechar
+  nav:
+    players: Players
   layouts:
     players:
       synchronized: Sincronizado

@@ -3,9 +3,7 @@
   <h2><%= t ".welcome" %></h2>
   <div><%= t ".description" %></div>
   <div class="py-3">
-    <%= render "shared/search_form" do |f| %>
-      <%= f.submit t("buttons.search"), name: nil, class: "btn btn-primary" %>
-    <% end %>
+    <%= render "shared/search_form" %>
     <small class="text-body-secondary fw-light"><%= t(".about") %></small>
   </div>
 </div>

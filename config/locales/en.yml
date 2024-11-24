@@ -5,6 +5,8 @@ en:
     reset: 'Reset'
     filter: 'Filter'
     close: Close
+  nav:
+    players: Players
   layouts:
     players:
       synchronized: Synchronized

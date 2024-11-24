@@ -1,0 +1,7 @@
+<div class="py-3">
+  <%= render "shared/search_form" %>
+</div>
+
+<% if params[:q].present? %>
+  <%= render template: "channels/player_search_channel", locals: { term: params[:q] } %>
+<% end %>

@@ -5,6 +5,8 @@ ja:
     reset: リセット
     filter: フィルター
     close: 閉じる
+  nav:
+    players: プレイヤー
   layouts:
     players:
       synchronized: 同期済み

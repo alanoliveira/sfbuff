@@ -1,16 +1,20 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary">
   <div class="container">
-    <div class="d-flex w-100 justify-content-between align-items-center gap-4">
-      <div>
-        <%= link_to root_path do %>
-          <%= image_tag "sfbuff-icon.svg", size: 30, title: "SFBUFF" %>
-        <% end %>
-      </div>
-      <div>
-        <%= render "shared/search_form" do |f| %>
-          <%= f.submit t("buttons.search"), name: nil, class: "btn btn-primary" %>
-        <% end %>
-      </div>
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag "sfbuff-icon.svg", size: 30, title: "SFBUFF" %>
+    <% end %>
+    <div class="order-md-last col-md-3 col-8">
+      <%= yield :search_form %>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to t("nav.players"), players_path, class: [ "nav-link", ("active" if params[:controller][/^players/]) ] %>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>

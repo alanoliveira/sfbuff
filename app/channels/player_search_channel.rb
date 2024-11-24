@@ -3,7 +3,7 @@ class PlayerSearchChannel < ApplicationCable::JobTurboStreamsChannel
 
   def self.broadcast_response(to:, data:)
     if data.any?
-      broadcast_replace_to(to, partial: "buckler/player_search_result", locals: { data: })
+      broadcast_replace_to(to, partial: "fighter_banners/table", locals: { data: })
     else
       broadcast_replace_to(to, inline: "<%= no_data_alert %>")
     end
