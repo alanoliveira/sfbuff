@@ -7,6 +7,7 @@ en:
     close: Close
   nav:
     players: Players
+    characters: Characters
   layouts:
     players:
       synchronized: Synchronized

@@ -1,0 +1,8 @@
+<% content_for :main do %>
+
+  <h1><%= "#{t_character(params[:character])} - #{t_control_type(params[:control_type])}" %></h1>
+
+  <%= yield %>
+<% end %>
+
+<%= render template: "layouts/with_header_footer" %>

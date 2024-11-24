@@ -7,6 +7,7 @@ ja:
     close: 閉じる
   nav:
     players: プレイヤー
+    characters: キャラクター
   layouts:
     players:
       synchronized: 同期済み
