@@ -8,7 +8,6 @@
       <th><%= t("attributes.lose") %></th>
       <th><%= t("attributes.draw") %></th>
       <th><%= t("attributes.diff") %></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -21,15 +20,6 @@
           <td><%= line.score.try(:lose) || "-" %></td>
           <td><%= line.score.try(:draw) || "-" %></td>
           <td><%= line.score.try { signed_number(_1.diff) } || "-" %></td>
-          <td>
-            <% if line.score.present? %>
-              <%= link_to player_matchups_performance_group_by_date_chart_path(
-                    request.query_parameters.merge(vs_character: line["character"], vs_control_type: line["control_type"])
-                  ), data: { turbo_frame: "turbo-modal" } do %>
-                <%= bs_icon("bar-chart-line-fill") %>
-              <% end %>
-            <% end %>
-          </td>
         </tr>
     <% end %>
   </tbody>
@@ -41,15 +31,6 @@
       <td><%= matchup_chart.sum.lose %></td>
       <td><%= matchup_chart.sum.draw %></td>
       <td><%= signed_number matchup_chart.sum.diff %></td>
-      <td>
-        <% if matchup_chart.sum.total.positive? %>
-          <%= link_to player_matchups_performance_group_by_date_chart_path(
-                request.query_parameters
-              ), data: { turbo_frame: "turbo-modal" } do %>
-            <%= bs_icon("bar-chart-line-fill") %>
-          <% end %>
-        <% end %>
-      </td>
     </tr>
   </tfoot>
 </table>

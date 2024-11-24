@@ -1,13 +1,6 @@
 class Players::MatchupsController < Players::BaseController
   include ParamsWithDefaultPlayedAtRange
 
-  def performance_group_by_date_chart
-    @matchups = MatchupsFilter
-      .filter(Matchup, filter_params)
-      .performance.group_by_date
-    render "matchups/performance_group_by_date_chart", variants: [ :modal ] if turbo_frame_request_id == "turbo-modal"
-  end
-
   private
 
   def filter_params
