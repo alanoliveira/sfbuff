@@ -224,7 +224,7 @@ GEM
       railties (>= 7.0.0)
     psych (5.2.0)
       stringio
-    puma (6.4.3)
+    puma (6.5.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
