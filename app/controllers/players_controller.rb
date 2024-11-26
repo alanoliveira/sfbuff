@@ -2,8 +2,8 @@ class PlayersController < ApplicationController
   include DefaultPlayedAtRange
   include MatchupsActions
 
-  before_action :set_player
-  before_action :synchronize_player, unless: -> { @player.synchronized? }
+  before_action :set_player, except: :index
+  before_action :synchronize_player, except: :index, unless: -> { @player.synchronized? }
 
   layout "with_header_footer", only: :index
 
