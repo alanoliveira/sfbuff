@@ -3,6 +3,11 @@ Score = Data.define(:win, :lose, :draw, :total, :diff) do
     new(0, 0, 0, 0, 0)
   end
 
+  def absolute_win_percent
+    return 0 if total.zero?
+    (win / absolute_total.to_f) * 100
+  end
+
   def win_percent
     return 0 if total.zero?
     (win / total.to_f) * 100
@@ -22,5 +27,11 @@ Score = Data.define(:win, :lose, :draw, :total, :diff) do
     Score.new(
       *deconstruct.zip(other.deconstruct).map(&:sum)
     )
+  end
+
+  private
+
+  def absolute_total
+    win + lose
   end
 end

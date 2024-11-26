@@ -62,6 +62,15 @@ module ApplicationHelper
     end
   end
 
+  def percent_number(number)
+    css_class = case number
+    when ..40 then "text-danger"
+    when 60.. then "text-success"
+    else ""
+    end
+    content_tag :span, "#{number.round(2)} %", class: css_class
+  end
+
   def option_any
     content_tag :option, t("helpers.option_any.label"), value: ""
   end

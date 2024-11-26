@@ -7,6 +7,6 @@ class MatchupChartJob < ApplicationJob
     matchups = MatchupsFilter.filter(Matchup, filter_params)
     matchup_chart = MatchupChart.from_matchup(matchups)
 
-    cache_result partial: "matchup_charts/matchup_chart", locals: { matchup_chart: }
+    cache_result partial: "matchup_charts/matchup_chart_percent", locals: { matchup_chart: }
   end
 end
