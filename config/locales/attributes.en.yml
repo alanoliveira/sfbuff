@@ -16,6 +16,10 @@ en:
     played_to: Played To
     vs_character: VS Character
     vs_control_type: VS Control Type
+    home_mr: MR
+    home_lp: LP
+    away_mr: VS MR
+    away_lp: VS LP
     master_rating: 
       long: Master Rating
       short: MR

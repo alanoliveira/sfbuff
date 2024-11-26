@@ -23,4 +23,14 @@ class MatchupsFilter < ApplicationFilter
       def vs_#{name}(val) = relation.where(away: { #{name}: val })
     RUBY
   end
+
+  def mr_from(val) = relation.where(home: { master_rating: (val..) })
+  def mr_to(val) = relation.where(home: { master_rating: (..val) })
+  def lp_from(val) = relation.where(home: { league_point: (val..) })
+  def lp_to(val) = relation.where(home: { league_point: (..val) })
+
+  def vs_mr_from(val) = relation.where(away: { master_rating: (val..) })
+  def vs_mr_to(val) = relation.where(away: { master_rating: (..val) })
+  def vs_lp_from(val) = relation.where(away: { league_point: (val..) })
+  def vs_lp_to(val) = relation.where(away: { league_point: (..val) })
 end

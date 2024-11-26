@@ -16,6 +16,10 @@ ja:
     played_to: 集計終了日
     vs_character: 対戦相手のキャラクター
     vs_control_type: 対戦相手の操作タイプ
+    home_mr: MR
+    home_lp: LP
+    away_mr: 対戦相手のMR
+    away_lp: 対戦相手のLP
     master_rating: 
       long: マスターレート
       short: MR

@@ -16,6 +16,10 @@ pt-BR:
     played_to: Jogado Até
     vs_character: VS Personagem
     vs_control_type: VS Tipo de Controle
+    home_mr: MR
+    home_lp: LP
+    away_mr: VS MR
+    away_lp: VS LP
     master_rating: 
       long: Master Rating
       short: MR
