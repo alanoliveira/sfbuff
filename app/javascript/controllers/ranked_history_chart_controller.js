@@ -29,9 +29,11 @@ export default class extends Controller {
               title: ctxs => ctxs[0].raw.title,
             },
           },
+          marks: {
+            lp: this.lpMarksValue
+          }
         },
         scales: this.getScales(),
-        lpMarks: this.lpMarksValue
       },
       plugins: [marksPlugin]
     })
