@@ -4,7 +4,7 @@
 
 <% if @ranked_history.present? %>
   <div class="card card-body" data-turbo-temporary>
-    <%= ranked_history_chart(@ranked_history) %>
+    <%= render ChartsPresenter::RankedProgress.new(@ranked_history) %>
   </div>
 <% else %>
   <%= no_data_alert %>
