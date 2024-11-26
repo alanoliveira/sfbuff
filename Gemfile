@@ -85,4 +85,4 @@ gem "ahoy_matey", "~> 5.2"
 
 gem "pagy", "~> 9.2"
 
-gem "selenium-webdriver", "~> 4.24"
+gem "selenium-webdriver", "~> 4.27"
