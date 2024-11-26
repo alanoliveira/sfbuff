@@ -1,19 +1,11 @@
 class PlayerSynchronizeJob < ApplicationJob
+  include StreamableResultJob
+
   queue_as :default
-
-  rescue_from(StandardError) do |error|
-    channel.broadcast_error(to: job_id, error:)
-
-    raise error
-  end
 
   def perform(short_id)
     Synchronizer.new(short_id:).synchronize!
 
-    channel.broadcast_response(to: job_id, data: nil)
-  end
-
-  def channel
-    PlayerSynchronizeChannel
+    cache_result(inline: "<%= turbo_stream.action(:refresh, nil) %>")
   end
 end

@@ -3,30 +3,24 @@ require 'rails_helper'
 RSpec.describe PlayerSynchronizeJob, type: :job do
   subject(:job) { described_class.perform_later(short_id) }
 
+  around(:example) do |ex|
+    Rails.with(cache: ActiveSupport::Cache.lookup_store(:memory_store)) do
+      ex.run
+    end
+  end
+
   let(:synchronizer) { instance_double Synchronizer }
   let(:short_id) { '123456789' }
 
   before do
     allow(Synchronizer).to receive(:new).with(short_id:).and_return(synchronizer)
     allow(synchronizer).to receive(:synchronize!)
-    allow(PlayerSynchronizeChannel).to receive(:broadcast_response)
-    allow(PlayerSynchronizeChannel).to receive(:broadcast_error)
   end
 
-  it 'broadcasts the success response' do
+  it_behaves_like "a streamable job"
+
+  it "synchronizes the player" do
     job.perform_now
-    expect(PlayerSynchronizeChannel).to have_received(:broadcast_response).with(to: job.job_id, data: nil)
-  end
-
-  context 'when the execution fails' do
-    let(:error) { RuntimeError.new("boom") }
-
-    before { allow(synchronizer).to receive(:synchronize!).and_raise(error) }
-
-    it 'broadcasts the error response' do
-      expect { job.perform_now }.to raise_error(error) do
-        expect(PlayerSynchronizeChannel).to have_received(:broadcast_error).with(to: job.job_id, error:)
-      end
-    end
+    expect(synchronizer).to have_received(:synchronize!)
   end
 end

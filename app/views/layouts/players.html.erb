@@ -10,9 +10,7 @@
     <small><%= t ".synchronized" %>: <%= time_ago synchronized_at %></small>
   <% end %>
 
-  <% unless @player.synchronized? %>
-    <%= render template: "channels/player_synchronize_channel", locals: { short_id: @player.short_id } %>
-  <% end %>
+  <%= turbo_stream_from_job @synchronize_job_id if @synchronize_job_id %>
 
   <% if @player.persisted? %>
     <% page_title @player.name %>

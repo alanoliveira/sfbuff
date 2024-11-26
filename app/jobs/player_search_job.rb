@@ -1,20 +1,11 @@
 class PlayerSearchJob < ApplicationJob
+  include StreamableResultJob
+
   queue_as :default
 
-  rescue_from(StandardError) do |error|
-    channel.broadcast_error(to: job_id, error:)
-
-    raise error
-  end
-
   def perform(term)
-    data = BucklerBridge.new.search_fighter_banner(term:)
-    channel.broadcast_response(to: job_id, data:)
-  end
+    fighter_banner_list = BucklerBridge.new.search_fighter_banner(term:)
 
-  private
-
-  def channel
-    PlayerSearchChannel
+    cache_result partial: "fighter_banners/fighter_banner_list", locals: { fighter_banner_list: }
   end
 end

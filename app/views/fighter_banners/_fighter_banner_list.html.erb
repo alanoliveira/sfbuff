@@ -1,3 +1,5 @@
+<%= return no_data_alert if fighter_banner_list.empty? %>
+
 <div class="table-responsive">
   <table class="table text-center">
     <thead>
@@ -11,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <% data.each do |fighter| %>
+      <% fighter_banner_list.each do |fighter| %>
         <tr>
           <td><%= fighter.name %></td>
           <td class="d-none d-lg-table-cell"><%= fighter.short_id %></td>

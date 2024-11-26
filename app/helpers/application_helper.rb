@@ -31,10 +31,10 @@ module ApplicationHelper
     end
   end
 
-  def error_alert(error)
-    key = error.class.name.underscore
+  def error_message(error_class_name)
+    key = error_class_name.underscore
     key = "generic" unless I18n.exists?(key, scope: "errors")
-    alert(t(key, scope: "errors"), kind: "danger")
+    t(key, scope: "errors")
   end
 
   def mr_lp(mr:, lp:)
@@ -80,5 +80,12 @@ module ApplicationHelper
       "Português" => :"pt-BR",
       "日本語" => :ja
     }
+  end
+
+  def turbo_stream_from_job(job_id)
+    content_tag :div, id: job_id do
+      concat content_tag :div, spinner, class: "text-center"
+      concat turbo_stream_from job_id, channel: "JobChannel"
+    end
   end
 end
