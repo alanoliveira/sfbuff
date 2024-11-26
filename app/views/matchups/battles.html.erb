@@ -1,14 +1,13 @@
 <div class="mb-3">
-  <%= render "filter_form", object: @filter_form %>
+  <%= render "battles_filter_form" %>
 </div>
 
 <% if @battles.present? %>
-
   <%= turbo_frame_tag "rival-list" do %>
-    <%= button_to t(".rivals"), player_battles_rivals_path(@player), method: :get, params: request.query_parameters, class: "btn btn-outline-primary mb-3 w-100" %>
+    <%= button_to t(".rivals"), { action: :rivals }, method: :get, params: request.query_parameters, class: "btn btn-outline-primary mb-3 w-100" %>
   <% end %>
 
-  <%= render "score", score: @score %>
+  <%= render "matchups/score", score: @score %>
 
   <%= turbo_frame_tag "battle-list" do %>
     <div class="d-flex flex-column gap-3 mb-3">

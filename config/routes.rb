@@ -7,12 +7,12 @@ Rails.application.routes.draw do
     get "/" => redirect("/players/%{short_id}/battles"), on: :member
   end
 
-  scope "players/:short_id", module: :players, as: :player do
-    get "battles" => "battles#show"
-    get "battles/rivals" => "battles#rivals"
-    get "matchup_chart" => "matchup_charts#show"
-    get "ranked" => "rankeds#show"
-    get "matchups/performance_group_by_date_chart" => "matchups#performance_group_by_date_chart"
+  scope "players/:short_id", as: :player do
+    get "/", to: redirect("/players/%{short_id}/battles")
+    get "battles" => "players#battles"
+    get "rivals" => "players#rivals"
+    get "matchup_chart" => "players#matchup_chart"
+    get "ranked" => "players#ranked"
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

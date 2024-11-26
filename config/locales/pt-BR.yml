@@ -14,16 +14,15 @@ pt-BR:
         battles: Matches
         matchup_chart: Matchup Chart
         ranked: Ranked
-  players:
+  matchups:
     battles:
-      show:
-        rivals: Rivais
-      score:
-        title: Placar
-      rivals:
-        favorites: Favoritos
-        victims: Vítimas
-        tormentors: Carrascos
+      rivals: Rivais
+    score:
+      title: Placar
+    rivals:
+      favorites: Favoritos
+      victims: Vítimas
+      tormentors: Carrascos
     matchup_charts:
       matchup_chart_table:
         sum: Soma

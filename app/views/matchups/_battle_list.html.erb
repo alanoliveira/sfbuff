@@ -1,0 +1,11 @@
+<%= turbo_frame_tag "battle-list" do %>
+  <div class="d-flex flex-column gap-3 mb-3">
+    <% matchups.index_with_result.each do |battle, result| %>
+      <%= render "battles/battle", battle:, result: %>
+    <% end %>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <%== pagy_bootstrap_nav(pagy) if pagy.pages > 1 %>
+  </div>
+<% end %>

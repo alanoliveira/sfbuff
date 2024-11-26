@@ -14,16 +14,15 @@ en:
         battles: Matches
         matchup_chart: Matchup Chart
         ranked: Ranked
-  players:
+  matchups:
     battles:
-      show:
-        rivals: Rivals
-      score:
-        title: Score
-      rivals:
-        favorites: Favorites
-        victims: Victims
-        tormentors: Tormentors
+      rivals: Rivals
+    score:
+      title: Score
+    rivals:
+      favorites: Favorites
+      victims: Victims
+      tormentors: Tormentors
     matchup_charts:
       matchup_chart_table:
         sum: Sum

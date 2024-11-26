@@ -1,12 +1,12 @@
 <%= turbo_frame_tag "rival-list" do %>
-    <% @rivals.each do |kind, result| %>
+    <% rivals.each do |kind, result| %>
       <div class="card mb-3">
         <div class="card-header text-center">
           <%= t ".#{kind}" %>
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <%= render "rival_table", rival: result %>
+            <%= render "matchups/rival_table", rival: result %>
           </div>
         </div>
       </div>
