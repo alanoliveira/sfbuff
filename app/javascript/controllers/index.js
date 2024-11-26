@@ -7,6 +7,9 @@ import { application } from "./application"
 import CharacterSearchFormController from "./character_search_form_controller"
 application.register("character-search-form", CharacterSearchFormController)
 
+import ChartjsController from "./chartjs_controller"
+application.register("chartjs", ChartjsController)
+
 import ColorModeController from "./color_mode_controller"
 application.register("color-mode", ColorModeController)
 
