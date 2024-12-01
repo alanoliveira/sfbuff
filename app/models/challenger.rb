@@ -10,13 +10,10 @@ class Challenger < ApplicationRecord
 
   before_save :set_ranked_variation
 
-  def league
-    league_point.name
-  end
-  delegate *Buckler::LEAGUE_THRESHOLD.values.map { "#{_1}?" }, to: :league_point
+  delegate *LeaguePoint.instance_methods(false).filter { _1[/\?$/] }, to: :league_point
 
   def actual_master_rating
-    return Buckler::INITIAL_MASTER_RATING if mr_reseted?
+    return MasterRating.initial_master_rating if mr_reseted?
     master_rating
   end
 

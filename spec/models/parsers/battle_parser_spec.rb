@@ -36,28 +36,34 @@ RSpec.describe Parsers::BattleParser do
       }
     end
 
-    it "returns the parsed battle" do
-      expect(parsed_battle.replay_id).to eq('TESTAAABBB')
-      expect(parsed_battle.battle_type).to eq(4)
-      expect(parsed_battle.played_at).to eq(Time.zone.at(1_712_537_824))
+    it "returns a battle with the parsed attributes" do
+      expect(parsed_battle.attributes_for_database).to include(
+        "replay_id" => "TESTAAABBB",
+        "battle_type" => 4,
+        "played_at" => Time.zone.at(1_712_537_824),
+      )
 
-      expect(parsed_battle.p1.short_id).to eq(123_456_789)
-      expect(parsed_battle.p1.name).to eq('TEST_FIGHTER_1')
-      expect(parsed_battle.p1.rounds).to eq [ 1, 1 ]
-      expect(parsed_battle.p1.character).to eq(254)
-      expect(parsed_battle.p1.playing_character).to eq(3)
-      expect(parsed_battle.p1.control_type).to eq(0)
-      expect(parsed_battle.p1.master_rating).to eq(2000)
-      expect(parsed_battle.p1.league_point).to eq(30_000)
+      expect(parsed_battle.p1.attributes_for_database).to include(
+        "short_id" => 123_456_789,
+        "name" => 'TEST_FIGHTER_1',
+        "character" => 254,
+        "playing_character" => 3,
+        "control_type" => 0,
+        "master_rating" => 2000,
+        "league_point" => 30_000,
+        "rounds"=> an_object_having_attributes(values: [ 1, 1 ])
+      )
 
-      expect(parsed_battle.p2.short_id).to eq(123_987_654)
-      expect(parsed_battle.p2.name).to eq('TEST_FIGHTER_2')
-      expect(parsed_battle.p2.rounds).to eq [ 0, 0 ]
-      expect(parsed_battle.p2.character).to eq(4)
-      expect(parsed_battle.p2.playing_character).to eq(4)
-      expect(parsed_battle.p2.control_type).to eq(1)
-      expect(parsed_battle.p2.master_rating).to eq(2001)
-      expect(parsed_battle.p2.league_point).to eq(30_001)
+      expect(parsed_battle.p2.attributes_for_database).to include(
+        "short_id" => 123_987_654,
+        "name" => 'TEST_FIGHTER_2',
+        "character" => 4,
+        "playing_character" => 4,
+        "control_type" => 1,
+        "master_rating" => 2001,
+        "league_point" => 30_001,
+        "rounds"=> an_object_having_attributes(values: [ 0, 0 ])
+      )
     end
   end
 end

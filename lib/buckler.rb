@@ -1,5 +1,3 @@
-require "buckler/railtie" if defined?(Rails)
-
 module Buckler
   class InvalidShortId < ArgumentError; end
 
@@ -24,8 +22,6 @@ module Buckler
       yield(configuration)
     end
   end
-
-  INITIAL_MASTER_RATING = 1500
 
   CHARACTERS = {
     "ryu" => 1,
@@ -67,29 +63,5 @@ module Buckler
   CONTROL_TYPES = {
     "classic" => 0,
     "modern" => 1
-  }.freeze
-
-  ROUNDS = {
-    "l" => 0,
-    "v" => 1,
-    "c" => 2,
-    "t" => 3,
-    "d" => 4,
-    "od" => 5,
-    "sa" => 6,
-    "ca" => 7,
-    "p" => 8
-  }.freeze
-
-  LEAGUE_THRESHOLD = {
-    -1 => "calibrating",
-    0 => "rookie",
-    1000 => "iron",
-    3000 => "bronze",
-    5000 => "silver",
-    9000 => "gold",
-    13000 => "platinum",
-    19000 => "diamond",
-    25000 => "master"
   }.freeze
 end

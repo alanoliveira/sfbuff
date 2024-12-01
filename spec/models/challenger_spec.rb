@@ -11,6 +11,6 @@ RSpec.describe Challenger, type: :model do
     subject(:challenger) { Challenger.new(league_point: 25000, master_rating: 0) }
 
     it { is_expected.to be_mr_reseted }
-    it { expect(challenger.actual_master_rating).to eq Buckler::INITIAL_MASTER_RATING }
+    it { expect(challenger.actual_master_rating).to eq MasterRating.initial_master_rating }
   end
 end

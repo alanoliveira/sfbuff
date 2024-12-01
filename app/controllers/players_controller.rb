@@ -45,6 +45,6 @@ class PlayersController < ApplicationController
   end
 
   def synchronize_player
-    @synchronize_job_id = PlayerSynchronizeJob.perform_later(@player.short_id).job_id if trustable?
+    @synchronize_job_id = PlayerSynchronizeJob.perform_later(@player.short_id.to_i).job_id if trustable?
   end
 end

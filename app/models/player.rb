@@ -1,4 +1,6 @@
 class Player < ApplicationRecord
+  attribute :short_id, :buckler_short_id
+
   cattr_accessor :synchronized_threshold, default: 10.minutes
 
   def synchronized?

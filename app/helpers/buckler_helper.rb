@@ -20,13 +20,6 @@ module BucklerHelper
     t("buckler.battle_types.#{name}")
   end
 
-  def t_round(value)
-    name = Buckler::ROUNDS.key value.to_i
-    return value if name.nil?
-
-    name
-  end
-
   def character_select_tag(name, **)
     options = Buckler::CHARACTERS.values.index_by { t_character _1 }
     buckler_select_tag(name, options, **)

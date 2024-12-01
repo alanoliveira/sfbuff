@@ -26,7 +26,7 @@ module Buckler
         begin
           short_id_result = find_fighter_banner(term)
           result << short_id_result if short_id_result.present?
-        rescue InvalidShortId
+        rescue ArgumentError
           # do nothing
         end
 

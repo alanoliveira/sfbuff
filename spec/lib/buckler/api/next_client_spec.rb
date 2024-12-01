@@ -56,7 +56,7 @@ RSpec.describe Buckler::Api::NextClient do
     end
 
     context "with a invalid short_id" do
-      it { expect { next_client.find_fighter_banner('1234678FOO') }.to raise_error Buckler::InvalidShortId }
+      it { expect { next_client.find_fighter_banner('1234678FOO') }.to raise_error ArgumentError }
     end
   end
 
@@ -71,7 +71,7 @@ RSpec.describe Buckler::Api::NextClient do
     end
 
     context "with a invalid short_id" do
-      it { expect { next_client.battle_list(12389) }.to raise_error Buckler::InvalidShortId }
+      it { expect { next_client.battle_list(12389) }.to raise_error ArgumentError }
     end
   end
 end
