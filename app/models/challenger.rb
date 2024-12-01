@@ -28,6 +28,6 @@ class Challenger < ApplicationRecord
   private
 
   def set_ranked_variation
-    self.master_rating_variation = battle.mr_calculator.try("#{side}_variation")
+    self.master_rating_variation = battle.mr_variation(side)
   end
 end

@@ -24,8 +24,8 @@ class Battle < ApplicationRecord
     ranked? && p1.master? && p2.master?
   end
 
-  def mr_calculator
-    MrCalculator.new(self) if master_battle?
+  def mr_variation(side)
+    mr_calculator.try("#{side}_variation")
   end
 
   def to_param
@@ -42,6 +42,10 @@ class Battle < ApplicationRecord
   end
 
   private
+
+  def mr_calculator
+    MrCalculator.new(self) if master_battle?
+  end
 
   def set_winner_side
     self.winner_side = winner&.side_for_database
