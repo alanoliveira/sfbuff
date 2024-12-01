@@ -14,9 +14,8 @@ class MatchupChart
   end
 
   def initialize
-    @lines = Buckler::CHARACTERS.values.product(
-        Buckler::CONTROL_TYPES.values
-    ).to_h { |char, ctrl| [ [ char, ctrl ], Line.new(char, ctrl, nil) ] }
+    @lines = Character.map(&:to_i).product(ControlType.map(&:to_i))
+      .to_h { |char, ctrl| [ [ char, ctrl ], Line.new(char, ctrl, nil) ] }
   end
 
   def [](character:, control_type:)

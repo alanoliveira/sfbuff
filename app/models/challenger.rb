@@ -1,6 +1,8 @@
 class Challenger < ApplicationRecord
   enum :side, { "p1" => 1, "p2" => 2 }
   attribute :short_id, :buckler_short_id
+  attribute :character, :buckler_character
+  attribute :control_type, :buckler_control_type
   attribute :master_rating, :buckler_master_rating
   attribute :league_point, :buckler_league_point
   attribute :rounds, :buckler_round, array: true

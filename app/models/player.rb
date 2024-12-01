@@ -1,5 +1,6 @@
 class Player < ApplicationRecord
   attribute :short_id, :buckler_short_id
+  attribute :main_character, :buckler_character
 
   cattr_accessor :synchronized_threshold, default: 10.minutes
 

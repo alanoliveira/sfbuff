@@ -4,16 +4,17 @@ class Battle < ApplicationRecord
     has_one :p2, -> { where(side: "p2") }
   end
 
+  attribute :battle_type, :buckler_battle_type
   attribute :winner_side, Challenger.type_for_attribute(:side)
 
   before_save :set_winner_side
 
   scope :by_matchup, Matchup
-  scope :ranked, -> { where(battle_type: Buckler::BATTLE_TYPES["ranked"]) }
+  scope :ranked, -> { where(battle_type: BattleType["ranked"]) }
   scope :ordered, -> { order(:played_at) }
 
   def ranked?
-    battle_type == Buckler::BATTLE_TYPES["ranked"]
+    battle_type == BattleType["ranked"]
   end
 
   def challengers
