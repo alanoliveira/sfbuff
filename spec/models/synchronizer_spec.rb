@@ -32,8 +32,7 @@ RSpec.describe Synchronizer do
       before do
         src = battle_list[2]
         dup_battle = src.dup
-        dup_battle.p1 = src.p1.dup
-        dup_battle.p2 = src.p2.dup
+        dup_battle.challengers = src.challengers.map(&:dup)
         dup_battle.save
       end
 

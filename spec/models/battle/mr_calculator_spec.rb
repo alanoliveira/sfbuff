@@ -10,21 +10,21 @@ RSpec.describe Battle::MrCalculator do
   end
 
   context "when p1 wins" do
-    let(:battle) { create(:battle, p1: build(:p1, :win), p2: build(:p2, :lose)) }
+    let(:battle) { build(:battle, p1: build(:p1, :win), p2: build(:p2, :lose)) }
 
     it { expect(calculator.p1_variation).to be 10 }
     it { expect(calculator.p2_variation).to be -10 }
   end
 
   context "when p2 wins" do
-    let(:battle) { create(:battle, p1: build(:p1, :lose), p2: build(:p2, :win)) }
+    let(:battle) { build(:battle, p1: build(:p1, :lose), p2: build(:p2, :win)) }
 
     it { expect(calculator.p1_variation).to be -10 }
     it { expect(calculator.p2_variation).to be 10 }
   end
 
   context "when it is a draw" do
-    let(:battle) { create(:battle, p1: build(:p1, :draw), p2: build(:p2, :draw)) }
+    let(:battle) { build(:battle, p1: build(:p1, :draw), p2: build(:p2, :draw)) }
 
     it { expect(calculator.p1_variation).to be 5 }
     it { expect(calculator.p2_variation).to be 5 }

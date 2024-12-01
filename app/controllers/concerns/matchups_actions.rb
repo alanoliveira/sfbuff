@@ -1,6 +1,6 @@
 module MatchupsActions
   def battles(matchups)
-    @pagy, @battles = pagy(matchups.includes(:p1, :p2).ordered.reverse_order)
+    @pagy, @battles = pagy(matchups.includes(:challengers).ordered.reverse_order)
     @score = cache([ matchups.cache_key, "score" ]) { matchups.performance.sum }
     render "matchups/battles"
   end

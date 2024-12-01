@@ -1,8 +1,8 @@
 class Parsers::BattleParser < Parsers::BaseParser
   def parse
     Battle.new(parse_battle).tap do |battle|
-      battle.p1 = Challenger.new(parse_p1)
-      battle.p2 = Challenger.new(parse_p2)
+      battle.challengers << Challenger.new(parse_p1)
+      battle.challengers << Challenger.new(parse_p2)
     end
   end
 

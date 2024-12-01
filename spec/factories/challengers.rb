@@ -9,7 +9,6 @@ FactoryBot.define do
     name { "Player #{short_id}" }
     rounds { [ 1, 1 ] }
     side { nil }
-    battle
 
     LeaguePoint::LEAGUE_THRESHOLD.each do |lp, name|
       trait name.to_sym do |ctx|
