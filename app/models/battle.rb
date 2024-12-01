@@ -5,7 +5,6 @@ class Battle < ApplicationRecord
   end
 
   attribute :battle_type, :buckler_battle_type
-  attribute :winner_side, Challenger.type_for_attribute(:side)
 
   before_save :set_winner_side
 
@@ -33,14 +32,18 @@ class Battle < ApplicationRecord
     replay_id
   end
 
-  private
-
-  def set_winner_side
+  def winner
     p1_w = p1.rounds.count(&:win?)
     p2_w = p2.rounds.count(&:win?)
     self.winner_side = case
-    when p1_w > p2_w then p1.side
-    when p2_w > p1_w then p2.side
+    when p1_w > p2_w then p1
+    when p2_w > p1_w then p2
     end
+  end
+
+  private
+
+  def set_winner_side
+    self.winner_side = winner&.side_for_database
   end
 end

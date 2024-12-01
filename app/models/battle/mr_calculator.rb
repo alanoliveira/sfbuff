@@ -17,7 +17,7 @@ class Battle::MrCalculator
   private
 
   def variations
-    @variations = case battle.winner_side
+    @variations = case battle.winner&.side
     when "p1" then [ p1_calculator.win, p2_calculator.lose ]
     when "p2" then [ p1_calculator.lose, p2_calculator.win ]
     else [ p1_calculator.draw, p2_calculator.draw ]
