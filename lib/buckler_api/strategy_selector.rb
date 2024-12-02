@@ -1,4 +1,4 @@
-class StrategySelector
+class BucklerApi::StrategySelector
   attr_accessor :strategies
 
   def initialize(*strategies)
