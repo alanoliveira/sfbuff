@@ -9,13 +9,11 @@ RSpec.describe PlayerSearchJob, type: :job do
     end
   end
 
-  let(:buckler_bridge) { instance_double BucklerBridge }
   let(:term) { 'player 1234' }
   let(:response) { [] }
 
   before do
-    allow(BucklerBridge).to receive(:new).and_return(buckler_bridge)
-    allow(buckler_bridge).to receive(:search_fighter_banner).with(term:).and_return(response)
+    allow(FighterBanner).to receive(:search).with(term).and_return(response)
   end
 
   it_behaves_like "a streamable job"

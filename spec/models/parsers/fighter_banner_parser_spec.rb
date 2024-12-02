@@ -13,19 +13,19 @@ RSpec.describe Parsers::FighterBannerParser do
         },
         'personal_info' => {
           'fighter_id' => 'Player ABC',
-          'short_id' => 12345678
+          'short_id' => 123456789
         },
-        'home_name' => 'Brazil'
+        'home_id' => 24
       }
     end
 
     it "returns a hash with the expected structure" do
-      expect(parsed_fighter_banner.short_id).to eq(12345678)
+      expect(parsed_fighter_banner.short_id).to eq(123456789)
       expect(parsed_fighter_banner.name).to eq('Player ABC')
       expect(parsed_fighter_banner.main_character).to eq(3)
       expect(parsed_fighter_banner.master_rating).to eq(2000)
       expect(parsed_fighter_banner.league_point).to eq(30_000)
-      expect(parsed_fighter_banner.country).to eq('Brazil')
+      expect(parsed_fighter_banner.home_id).to eq(24)
     end
   end
 end
