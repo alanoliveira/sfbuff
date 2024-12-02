@@ -17,15 +17,11 @@ class BucklerApi::Connection
     response
   end
 
-  def client(locale = "en")
-    BucklerApi::Client.new(self, locale)
-  end
-
   private
 
   def build_uri(path)
     URI(BucklerApi::BASE_URL).tap do |it|
-      it.path = "#{PATH_PREFIX}/#{build_id}/#{path}"
+      it.path = "#{PATH_PREFIX}/#{build_id}/en/#{path}"
     end
   end
 

@@ -22,7 +22,7 @@ RSpec.describe BucklerApi::Connection do
       allow(response).to receive_messages(success?: true)
       connection.get("foo", bar: 1)
       expect(adapter).to have_received("get")
-        .with(URI("http://www.example.com/6/buckler/_next/data/build_id/foo"), params: { bar: 1 }, headers: { "cookie" => "foo=bar", "user-agent" => "test" })
+        .with(URI("http://www.example.com/6/buckler/_next/data/build_id/en/foo"), params: { bar: 1 }, headers: { "cookie" => "foo=bar", "user-agent" => "test" })
     end
 
     it "returns the response" do
