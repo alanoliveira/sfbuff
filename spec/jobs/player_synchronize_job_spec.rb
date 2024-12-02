@@ -9,18 +9,16 @@ RSpec.describe PlayerSynchronizeJob, type: :job do
     end
   end
 
-  let(:synchronizer) { instance_double Synchronizer }
-  let(:short_id) { '123456789' }
+  let(:short_id) { 123456789 }
 
   before do
-    allow(Synchronizer).to receive(:new).with(short_id:).and_return(synchronizer)
-    allow(synchronizer).to receive(:synchronize!)
+    allow(PlayerSynchronizer).to receive(:run)
   end
 
   it_behaves_like "a streamable job"
 
   it "synchronizes the player" do
     job.perform_now
-    expect(synchronizer).to have_received(:synchronize!)
+    expect(PlayerSynchronizer).to have_received(:run).with(player: an_object_having_attributes(short_id:))
   end
 end

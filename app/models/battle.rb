@@ -9,6 +9,11 @@ class Battle < ApplicationRecord
   scope :ranked, -> { where(battle_type: BattleType["ranked"]) }
   scope :ordered, -> { order(:played_at) }
 
+  def self.import(short_id)
+    BucklerApi::BattlelogIterator.new(BucklerApi, short_id)
+      .lazy.map { |raw_data| Parsers::BattleParser.parse(raw_data:) }
+  end
+
   def p1 = challengers.find(&:p1?)
   def p2 = challengers.find(&:p2?)
 
