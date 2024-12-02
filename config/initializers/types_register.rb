@@ -6,4 +6,5 @@ ActiveSupport.on_load(:active_record) do
   ActiveRecord::Type.register(:buckler_character, BucklerTypes::Character)
   ActiveRecord::Type.register(:buckler_control_type, BucklerTypes::ControlType)
   ActiveRecord::Type.register(:buckler_battle_type, BucklerTypes::BattleType)
+  ActiveRecord::Type.register(:buckler_home_id, BucklerTypes::HomeId)
 end
