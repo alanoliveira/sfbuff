@@ -1,52 +1,32 @@
 <!DOCTYPE html>
-<%= content_tag :html, lang: I18n.locale, data: { controller: "color-mode i18n" } do %>
+<html>
   <head>
     <title><%= content_for(:title) || "SFBUFF" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="turbo-prefetch" content="false">
-    <meta name="description" content="SFBUFF is a statistics website for SF6 matches.">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <meta name="twitter:title" content="SFBUFF">
-    <meta name="twitter:description" content="a statistics website for SF6 matches">
-    <meta name="twitter:image" content="<%= "#{root_url}icon_256x256.png" %>">
-    <meta name="twitter:card" content="summary">
-
     <%= yield :head %>
 
-    <link rel="manifest" href="/manifest.json">
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="icon" href="/icon_96x96.png" sizes="96x96">
     <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body class="vh-100 d-flex flex-column">
-    <header id="header">
-      <%= yield :nav %>
-    </header>
-
-    <main id="main-content" class="flex-fill my-3 container">
-      <%= content_for?(:main) ? yield(:main) : yield %>
+  <body>
+    <main>
+      <%= yield %>
     </main>
-
-    <footer id="footer">
-      <%= yield :footer %>
-    </footer>
-
-    <div class="modal" tabindex="-1" data-controller="turbo-modal" data-turbo-temporary>
-      <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content">
-          <div class="text-center" data-turbo-modal-target="spinner">
-            <%= spinner %>
-          </div>
-          <%= turbo_frame_tag "turbo-modal", data: { turbo_modal_target: "content" } %>
-        </div>
-      </div>
-    </div>
+    <%= render "application/modal" %>
   </body>
-<% end %>
+</html>

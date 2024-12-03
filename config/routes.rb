@@ -1,26 +1,6 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  resources :battles, only: [ :show ], param: :replay_id
-
-  resources :players, only: [ :index ], param: :short_id do
-    get "/" => redirect("/players/%{short_id}/battles"), on: :member
-  end
-
-  scope "players/:short_id", as: :player do
-    get "/", to: redirect("/players/%{short_id}/battles")
-    get "battles" => "players#battles"
-    get "rivals" => "players#rivals"
-    get "matchup_chart" => "players#matchup_chart"
-    get "ranked" => "players#ranked"
-  end
-
-  get "characters" => "characters#index", as: :characters
-  scope "characters/:character/:control_type", as: :character do
-    get "/" => redirect("/characters/%{character}/%{control_type}/matchup_chart")
-    get "matchup_chart" => "characters#matchup_chart"
-  end
-
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check

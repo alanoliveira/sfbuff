@@ -5,7 +5,6 @@ class Battle < ApplicationRecord
 
   before_save :set_winner_side
 
-  scope :by_matchup, Matchup
   scope :ranked, -> { where(battle_type: BattleType["ranked"]) }
   scope :ordered, -> { order(:played_at) }
 

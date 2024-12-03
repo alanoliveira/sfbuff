@@ -39,8 +39,6 @@ of information for players to track their own performance.
 
 - Ruby 3.3.6
 - Bundle 2.5.17
-- Node.js 20.9.0
-- Yarn 1.22.21
 - Postgresql 16.2
 - Chrome (used as a fallback for login if the attempt using http fails)
 
@@ -49,7 +47,6 @@ of information for players to track their own performance.
 - Install the dependencies
 
       bundle install
-      yarn install
   
 - Set the environment variables
 
