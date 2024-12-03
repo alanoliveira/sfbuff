@@ -67,6 +67,8 @@ group :development do
   gem "web-console"
 
   gem "kamal", "~> 2.3", require: false
+
+  gem "hotwire-livereload", "~> 1.4"
 end
 
 gem "faraday", "~> 2.12"
