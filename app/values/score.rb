@@ -1,6 +1,14 @@
-Score = Data.define(:win, :lose, :draw, :total, :diff) do
+Score = Data.define(:win, :lose, :draw) do
   def self.zero
-    new(0, 0, 0, 0, 0)
+    new(0, 0, 0)
+  end
+
+  def total
+    win + lose + draw
+  end
+
+  def diff
+    win - lose
   end
 
   def absolute_win_percent

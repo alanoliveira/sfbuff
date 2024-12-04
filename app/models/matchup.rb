@@ -52,6 +52,10 @@ class Matchup
       end
   end
 
+  def performance
+    relation.extending(Performance)
+  end
+
   private
 
   def relation
