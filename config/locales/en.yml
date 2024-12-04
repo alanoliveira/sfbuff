@@ -1,1 +1,15 @@
 en:
+  activemodel:
+    models:
+      matchup: Matchup
+    attributes:
+      matchup/result:
+        win:
+          one: Win
+          other: Wins
+        lose:
+          one : Lose
+          other : Loses
+        draw:
+          one: Draw
+          other: Draws
