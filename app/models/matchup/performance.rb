@@ -9,7 +9,7 @@ module Matchup::Performance
     super | [
       win_column.as("win"),
       lose_column.as("lose"),
-      ArelHelpers.count_if(arel_column("battles.winner_side").eq(nil)).as("draw"),
+      ArelPgHelpers.count_if(arel_column("battles.winner_side").eq(nil)).as("draw"),
       Arel::Nodes::Subtraction.new(win_column, lose_column).as("diff"),
       Arel::Nodes::Count.new([ 1 ]).as("total")
     ]
@@ -30,10 +30,10 @@ module Matchup::Performance
   private
 
   def win_column
-    ArelHelpers.count_if(arel_column("battles.winner_side").eq(arel_column("home.side")))
+    ArelPgHelpers.count_if(arel_column("battles.winner_side").eq(arel_column("home.side")))
   end
 
   def lose_column
-    ArelHelpers.count_if(arel_column("battles.winner_side").eq(arel_column("away.side")))
+    ArelPgHelpers.count_if(arel_column("battles.winner_side").eq(arel_column("away.side")))
   end
 end
