@@ -144,6 +144,10 @@ GEM
       domain_name (~> 0.5)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
+    importmap-rails (2.0.3)
+      actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
+      railties (>= 6.0.0)
     io-console (0.7.2)
     irb (1.14.1)
       rdoc (>= 4.0.0)
@@ -409,6 +413,7 @@ DEPENDENCIES
   faraday (~> 2.12)
   faraday-cookie_jar (~> 0.0.7)
   faraday-follow_redirects (~> 0.3.0)
+  importmap-rails
   jbuilder
   kamal (~> 2.3)
   pagy (~> 9.2)
