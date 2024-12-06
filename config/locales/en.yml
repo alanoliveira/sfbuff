@@ -4,6 +4,7 @@ en:
       matchup: Matchup
       rivals: Rivals
       matchup_chart: Matchup Chart
+      ranked_history: Ranked History
     attributes:
       matchup/result:
         win:
