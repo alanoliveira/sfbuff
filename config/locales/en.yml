@@ -2,6 +2,7 @@ en:
   activemodel:
     models:
       matchup: Matchup
+      rivals: Rivals
     attributes:
       matchup/result:
         win:
@@ -13,3 +14,7 @@ en:
         draw:
           one: Draw
           other: Draws
+      rivals:
+        favorites: Favorites
+        tormentors: Tormentors
+        victims: Victims

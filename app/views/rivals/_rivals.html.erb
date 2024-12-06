@@ -1,0 +1,13 @@
+<% [ :favorites, :victims, :tormentors ].index_with { rivals.public_send(_1) }.map do |kind, data| %>
+  <table>
+    <caption><%= kind %></caption>
+    <% data.each do |short_id:, name:, character:, control_type:, score:| %>
+      <tr>
+        <td><%= name %></td>
+        <td><%= character %></td>
+        <td><%= control_type %></td>
+        <td><%= score %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
