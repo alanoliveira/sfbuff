@@ -1,0 +1,21 @@
+<table>
+  <tbody>
+    <% matchup_chart.each do |item| %>
+      <tr>
+        <td><%= item[:character] %></td>
+        <td><%= item[:control_type] %></td>
+        <td><%= item[:score]&.win %></td>
+        <td><%= item[:score]&.lose %></td>
+        <td><%= item[:score]&.draw %></td>
+        <td><%= item[:score]&.absolute_win_percent %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="2"></td>
+      <td><%= matchup_chart.sum.win %></td>
+      <td><%= matchup_chart.sum.lose %></td>
+      <td><%= matchup_chart.sum.draw %></td>
+      <td><%= matchup_chart.sum.absolute_win_percent %></td>
+    </tr>
+  </tbody>
+</table>

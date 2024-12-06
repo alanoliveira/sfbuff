@@ -3,6 +3,7 @@ en:
     models:
       matchup: Matchup
       rivals: Rivals
+      matchup_chart: Matchup Chart
     attributes:
       matchup/result:
         win:
