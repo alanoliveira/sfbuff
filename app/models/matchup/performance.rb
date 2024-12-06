@@ -5,6 +5,13 @@ module Matchup::Performance
     end
   end
 
+  def group_by_date(date_column)
+    arel_column(date_column)
+      .then { ArelPgHelpers.convert_tz(_1, to: Time.zone.name) }
+      .then { ArelPgHelpers.date(_1) }
+      .then { select(_1.as("date")).group("date") }
+  end
+
   def select_values
     super | [
       win_column.as("win"),
