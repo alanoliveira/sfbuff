@@ -1,31 +1,57 @@
 en:
   buttons:
-    close: Close
+    select: Select
     search: Search
+    reset: Reset
     filter: Filter
+    close: Close
+  homepage:
+    index:
+      about: The data is obtained by scraping the official website (only data from the last 100 matches is available).
+      welcome: Welcome to SFBUFF
+      description: A statistics website for SF6 matches
+  players:
+    search_form:
+      placeholder: Player name or user code
+  alerts:
+    no_data: No data found
+    generic_error: An error occurred
+    player_not_found: Player not found
+    buckler_under_maintenance: Buckler is under maintenance
+    buckler_rate_limit_exceeded: We're sending too many requests to the the official website at the moment. Please try again in a few minutes
+  helpers:
+    any_xxx: "Any %{xxx}"
+  activemodel:
+    models:
+      matchup_chart: Matchup chart
+      ranked_history: Ranked history
+      rivals: Rivals
+  activerecord:
+    models:
+      battle: Match
+      player: Player
   attributes:
+    name: Name
+    short_id: ID
+    main_character: Main char
+    mr_or_lp: MR / LP
+    home_id: Country
+    synchronized_at: Synchronized at
+    home: Me
+    away: Vs
+    character: Character
+    control_type: Control
+    battle_type: Match Type
+    played_from: From
+    played_to: To
+    result: Result
+    played_at: Played at
+    replay_id: Replay ID
     results:
       win: Win
       lose: Lose
       draw: Draw
-  activemodel:
-    models:
-      matchup: Matchup
-      rivals: Rivals
-      matchup_chart: Matchup Chart
-      ranked_history: Ranked History
-    attributes:
-      matchup/result:
-        win:
-          one: Win
-          other: Wins
-        lose:
-          one : Lose
-          other : Loses
-        draw:
-          one: Draw
-          other: Draws
-      rivals:
-        favorites: Favorites
-        tormentors: Tormentors
-        victims: Victims
+      total: Total
+    favorites: Favorites
+    victims: Victims
+    tormentors: Tormentors

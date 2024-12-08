@@ -1,1 +1,57 @@
 pt-BR:
+  buttons:
+    select: Selecionar
+    search: Pesquisar
+    reset: Resetar
+    filter: Filtrar
+    close: Fechar
+  homepage:
+    index:
+      about: Os dados são obtidos através de "raspagem" do site oficial (somente as últimas 100 partidas estão disponíveis).
+      welcome: Bem vindo ao SFBUFF
+      description: Um site de estatísticas para matches de SF6
+  players:
+    search_form:
+      placeholder: Nome de jogador ou código de usuário
+  alerts:
+    no_data: Nenhum resultado encontrado
+    generic_error: Ocorreu um erro
+    player_not_found: Jogador não encontrado
+    buckler_under_maintenance: Buckler está em manutenção
+    buckler_rate_limit_exceeded: Estamos enviando muitas solicitações para o site oficial no momento. Tente novamente em alguns minutos
+  helpers:
+    any_xxx: "Qualquer %{xxx}"
+  activemodel:
+    models:
+      matchup_chart: Matchup chart
+      ranked_history: Historico de rankeadas
+      rivals: Rivalidade
+  activerecord:
+    models:
+      battle: Match
+      player: Jogador
+  attributes:
+    name: Nome
+    short_id: ID
+    main_character: Main char
+    mr_or_lp: MR / LP
+    home_id: País
+    synchronized_at: Última sincronização
+    home: Eu
+    away: Vs
+    character: Personagem
+    control_type: Controle
+    battle_type: Tipo de Match
+    played_from: De
+    played_to: Até
+    result: Resultado
+    played_at: Data
+    replay_id: Replay ID
+    results:
+      win: Vitória
+      lose: Derrota
+      draw: Empate
+      total: Total
+    favorites: Favoritos
+    victims: Vítimas
+    tormentors: Carrascos

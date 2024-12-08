@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="row">
-    <label class="col-md-1 mb-3 col-form-label align-self-end"><%= Matchup.human_attribute_name("battle") %></label>
+    <label class="col-md-1 mb-3 col-form-label align-self-end"><%= Battle.model_name.human %></label>
     <div class="col-md-3 mb-3">
       <%= battle_type_select_tag :battle_type, include_any: true, selected: CurrentMatchupFilter.battle_type, class: "form-select" %>
     </div>

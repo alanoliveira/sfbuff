@@ -29,8 +29,8 @@ en:
       elena: Elena
       random: Random
     control_type:
-      classic: Classic
-      modern: Modern
+      C: Classic
+      M: Modern
     battle_type:
       ranked: Ranked
       casual_match: Casual Match

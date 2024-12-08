@@ -29,8 +29,8 @@ ja:
       elena: エレナ
       random: ランダム
     control_type:
-      classic: クラシック
-      modern: モダン
+      C: クラシック
+      M: モダン
     battle_type:
       ranked: ランクマッチ
       casual_match: カジュアルマッチ

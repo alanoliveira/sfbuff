@@ -2,11 +2,11 @@
   <div class="row">
     <label class="col-md-1 mb-3 col-form-label align-self-end"><%= Matchup.human_attribute_name("home") %></label>
     <div class="col-md-3 mb-3">
-      <%= character_select_tag :home_character, include_blank: t("common.any"), selected: CurrentMatchupFilter.home_character, class: "form-select" %>
+      <%= character_select_tag :home_character, include_any: false, selected: CurrentMatchupFilter.home_character, class: "form-select" %>
     </div>
   </div>
   <div class="row">
-    <label class="col-md-1 mb-3 col-form-label align-self-end"><%= Matchup.human_attribute_name("battle") %></label>
+    <label class="col-md-1 mb-3 col-form-label align-self-end"><%= Battle.model_name.human %></label>
     <div class="col-md-3 mb-3">
       <div class="input-group">
         <span class="input-group-text"><%= t("attributes.played_from") %></span>

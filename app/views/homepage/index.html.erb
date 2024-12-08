@@ -5,8 +5,8 @@
   <div class="py-3 w-100" style="max-width: 670px">
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-players" type="button" role="tab" aria-controls="nav-players" aria-selected="true"><%= t("models.player", count: 2) %></button>
-        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-characters" type="button" role="tab" aria-controls="nav-characters" aria-selected="false"><%= t("models.character", count: 2) %></button>
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-players" type="button" role="tab" aria-controls="nav-players" aria-selected="true"><%= Player.model_name.human %></button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-characters" type="button" role="tab" aria-controls="nav-characters" aria-selected="false"><%= t("attributes.character") %></button>
       </div>
     </nav>
     <div class="tab-content py-4 px-3 border border-top-0" style="min-height: 115px">

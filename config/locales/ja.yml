@@ -1,1 +1,57 @@
 ja:
+  buttons:
+    select: 選択
+    search: 検索
+    reset: リセット
+    filter: フィルター
+    close: 閉じる
+  homepage:
+    index:
+      about: データは公式サイトをスクレイピングして入手した（直近100戦分しかありません）。
+      welcome: SFBUFFにようこそ
+      description: スト6の対戦を分析するサイト
+  players:
+    search_form:
+      placeholder: プレイヤーネームまたユーザーコード
+  alerts:
+    no_data: データが見つかりません
+    generic_error: エラーが発生しました
+    player_not_found: プレイヤーが見つかりません
+    buckler_under_maintenance: Bucklerはメンテナンス中です
+    buckler_rate_limit_exceeded:  現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください
+  helpers:
+    any_xxx: "全ての%{xxx}"
+  activemodel:
+    models:
+      matchup_chart: キャラ別統計
+      ranked_history: ランク統計
+      rivals: ライバル
+  activerecord:
+    models:
+      battle: 対戦
+      player: プレイヤー
+  attributes:
+    name: 名前
+    short_id: ID
+    main_character: メインキャラクター
+    mr_or_lp: MR / LP
+    home_id: 国
+    synchronized_at: 同期済み
+    home: 自分
+    away: 相手
+    character: キャラクター
+    control_type: 操作タイプ
+    battle_type: ゲームモード
+    played_from: 始日
+    played_to: 了日
+    result: 試合結果
+    played_at: 試合日
+    replay_id: リプレイID
+    results:
+      win: 勝利
+      lose: 敗北
+      draw: 引き分け
+      total: 合計
+    favorites: 多く戦った対戦相手
+    victims: 勝率が高い対戦相手
+    tormentors: 勝率が低い対戦相手
