@@ -9,6 +9,14 @@
     class: "btn btn-outline-primary mb-3 w-100",
     form: { data: { turbo_frame: "turbo-modal" } } %>
 
+  <%= turbo_frame_tag "matchup-rivals" do %>
+    <%= button_to Rivals.model_name.human,
+      rivals_path(home_short_id: @player.short_id),
+      method: :get,
+      params: CurrentMatchupFilter.attributes.compact,
+      class: "btn btn-outline-primary mb-3 w-100" %>
+  <% end %>
+
   <%= turbo_frame_tag "battle-list" do %>
     <div class="card card-body my-3 table-responsive">
       <%= render "matchups/matchup_list", matchup_list: @page_matchups %>
