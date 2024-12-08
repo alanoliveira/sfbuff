@@ -28,7 +28,7 @@
 
   <body class="vh-100 d-flex flex-column">
     <main id="main" class="flex-fill my-3 container">
-      <%= yield %>
+      <%= content_for?(:main) ? yield(:main) : yield %>
     </main>
     <%= render "application/modal" %>
   </body>
