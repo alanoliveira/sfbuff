@@ -8,9 +8,9 @@
 
   <nav class="py-3">
     <ul class="nav nav-fill nav-underline">
-      <li class="nav-item"><%= players_header_nav_link Battle.model_name.human, battles_path(@player), class: "nav-link" %></li>
-      <li class="nav-item"><%= players_header_nav_link MatchupChart.model_name.human, matchup_chart_path(@player), class: "nav-link" %></li>
-      <li class="nav-item"><%= players_header_nav_link RankedHistory.model_name.human, ranked_history_path(@player), class: "nav-link" %></li>
+      <li class="nav-item"><%= players_header_nav_link Battle.model_name.human, battles_path(@player, request.query_parameters), class: "nav-link" %></li>
+      <li class="nav-item"><%= players_header_nav_link MatchupChart.model_name.human, matchup_chart_path(@player, request.query_parameters), class: "nav-link" %></li>
+      <li class="nav-item"><%= players_header_nav_link RankedHistory.model_name.human, ranked_history_path(@player, request.query_parameters), class: "nav-link" %></li>
     </ul>
   </nav>
 
