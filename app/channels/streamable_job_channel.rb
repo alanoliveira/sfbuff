@@ -1,4 +1,4 @@
-class JobChannel < Turbo::StreamsChannel
+class StreamableJobChannel < Turbo::StreamsChannel
   alias_method :job_id, :verified_stream_name_from_params
 
   periodically :broadcast_cached, every: 2.seconds
@@ -13,7 +13,7 @@ class JobChannel < Turbo::StreamsChannel
 
   def broadcast_cached
     if result = Rails.cache.read("job/#{job_id}")
-      JobChannel.broadcast_replace_to(job_id, target: job_id, **result)
+      StreamableJobChannel.broadcast_replace_to(job_id, target: job_id, **result)
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JobChannel, type: :channel do
+RSpec.describe StreamableJobChannel, type: :channel do
   let(:signed_stream_name) { described_class.signed_stream_name(job_id) }
   let(:job_id) { '12345' }
 
