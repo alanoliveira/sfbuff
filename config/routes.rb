@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :players, param: :short_id, only: :index do
     member do
       get "/" => redirect("/players/%{short_id}/battles")
+      get "/ranked" => redirect("/players/%{short_id}/ranked_history")
       scope module: :players do
         resource :battles, only: :show
         resource :ranked_history, only: :show
