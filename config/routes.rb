@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     member do
       scope module: :players do
         resource :ranked_history, only: :show
+        resource :matchup_chart, only: :show
       end
     end
   end

@@ -28,6 +28,26 @@ module ApplicationHelper
     tag.span "#{character.human_name} #{control_type}"
   end
 
+  def signed_number(number)
+    bs_class = case number
+    when ..-1 then "text-danger"
+    when 1.. then "text-success"
+    else ""
+    end
+    tag.span class: bs_class do
+      number.zero? ? "0" : format("%+d", number)
+    end
+  end
+
+  def percent_number(number)
+    bs_class = case number
+    when ..40 then "text-danger"
+    when 60.. then "text-success"
+    else ""
+    end
+    content_tag :span, number.round(2), class: bs_class
+  end
+
   def bs_icon(icon, **opts)
     content_tag(:i, nil, class: [ "bi", "bi-#{icon}", opts.delete(:class) ], **opts)
   end

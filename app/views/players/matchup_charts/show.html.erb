@@ -1,0 +1,9 @@
+<% if @matchup_chart.sum.total.zero? %>
+  <%= no_data_alert %>
+<% else %>
+  <div class="card card-body py-3">
+    <%= render "matchup_charts/matchup_chart",
+      matchup_chart: @matchup_chart,
+      url_for_chart: performance_by_date_chart_path(home_short_id: @player.short_id) %>
+  </div>
+<% end %>

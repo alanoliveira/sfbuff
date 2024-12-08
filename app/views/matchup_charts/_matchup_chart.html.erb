@@ -1,21 +1,65 @@
-<table>
+<%# locals: (url_for_chart: nil, matchup_chart:) -%>
+
+<table class="table table-striped text-center">
+  <thead>
+    <th><%= Challenger.human_attribute_name(:character) %></th>
+    <th><%= Challenger.human_attribute_name(:control_type) %></th>
+    <th><%= t("attributes.result.total") %></th>
+    <th><%= t("attributes.result.win") %></th>
+    <th><%= t("attributes.result.lose") %></th>
+    <th><%= t("attributes.result.draw") %></th>
+    <th>Σ</th>
+    <th>%</th>
+    <% if url_for_chart.present? %>
+      <th><%= bs_icon "bar-chart-fill" %></th>
+    <% end %>
+  </thead>
   <tbody>
     <% matchup_chart.each do |item| %>
+      <% item => { character:, control_type:, score: } %>
       <tr>
-        <td><%= item[:character] %></td>
-        <td><%= item[:control_type] %></td>
-        <td><%= item[:score]&.win %></td>
-        <td><%= item[:score]&.lose %></td>
-        <td><%= item[:score]&.draw %></td>
-        <td><%= item[:score]&.absolute_win_percent %></td>
+        <td><%= character.human_name %></td>
+        <td><%= control_type %></td>
+        <td><%= score&.total %></td>
+        <td><%= score&.win %></td>
+        <td><%= score&.lose %></td>
+        <td><%= score&.draw %></td>
+        <td><%= score.try { signed_number _1.diff } %></td>
+        <td><%= score.try { percent_number _1.absolute_win_percent } %></td>
+        <% if url_for_chart.present? %>
+          <td>
+            <% if score.present? %>
+              <%= button_to bs_icon("bar-chart-fill"),
+                url_for_chart,
+                method: :get,
+                params: CurrentMatchupFilter.attributes.compact.merge(away_character: character.id, away_control_type: control_type.id),
+                class: "btn p-0",
+                form: { data: { turbo_frame: "turbo-modal" } } %>
+            <% end %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
     <tr>
       <td colspan="2"></td>
+      <td><%= matchup_chart.sum.total %></td>
       <td><%= matchup_chart.sum.win %></td>
       <td><%= matchup_chart.sum.lose %></td>
       <td><%= matchup_chart.sum.draw %></td>
-      <td><%= matchup_chart.sum.absolute_win_percent %></td>
+      <td><%= signed_number matchup_chart.sum.diff %></td>
+      <td><%= percent_number matchup_chart.sum.absolute_win_percent %></td>
+      <% if url_for_chart.present? %>
+        <td>
+          <% if matchup_chart.sum.total.positive? %>
+            <%= button_to bs_icon("bar-chart-fill"),
+              url_for_chart,
+              method: :get,
+              params: CurrentMatchupFilter.attributes.compact,
+              class: "btn p-0",
+              form: { data: { turbo_frame: "turbo-modal" } } %>
+          <% end %>
+        </td>
+      <% end %>
     </tr>
   </tbody>
 </table>
