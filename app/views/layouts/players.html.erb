@@ -1,5 +1,9 @@
 <% content_for(:title) { page_title(@player.name) } %>
 
+<% content_for :search_form do %>
+  <%= render "players/search_form" %>
+<% end %>
+
 <% content_for :main do %>
   <div>
     <h1><%= @player.name %></h1>

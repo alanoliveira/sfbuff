@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-md bg-body-tertiary">
+  <div class="container">
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <img src="/icon.svg" width="30" height="30">
+    <% end %>
+    <div class="order-md-last col-md-3 col-8">
+      <%= yield :search_form %>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to t("models.player", count: 2), players_path, class: [ "nav-link", ("active" if controller_path.starts_with? "players") ] %>
+        </li>
+        <li class="nav-item">
+          <%= link_to t("models.character", count: 2), characters_path, class: [ "nav-link", ("active" if controller_path.starts_with? "characters") ] %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

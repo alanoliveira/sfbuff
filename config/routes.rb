@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   get "characters" => "characters#index", as: :characters
   scope "characters/:home_character/:home_control_type" do
+    get "/" => redirect("/characters/%{home_character}/%{home_control_type}/matchup_chart")
     resource :matchup_chart, only: :show, module: :characters
   end
 

@@ -1,6 +1,7 @@
 en:
   buttons:
     close: Close
+    search: Search
     filter: Filter
   attributes:
     results:

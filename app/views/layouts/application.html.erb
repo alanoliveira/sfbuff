@@ -27,9 +27,13 @@
   </head>
 
   <body class="vh-100 d-flex flex-column">
+    <%= render "layouts/nav" %>
+
     <main id="main" class="flex-fill my-3 container">
       <%= content_for?(:main) ? yield(:main) : yield %>
     </main>
     <%= render "application/modal" %>
+
+    <%= render "layouts/footer" %>
   </body>
 </html>
