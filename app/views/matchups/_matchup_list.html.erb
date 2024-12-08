@@ -1,0 +1,35 @@
+<table class="table table-striped text-center">
+  <thead>
+    <tr>
+      <th><%= Challenger.human_attribute_name(:character) %></th>
+      <th><%= Matchup.human_attribute_name(:result) %></th>
+      <th><%= Challenger.human_attribute_name(:name) %></th>
+      <th><%= Challenger.human_attribute_name(:character) %></th>
+      <th><%= Battle.human_attribute_name(:battle_type) %></th>
+      <th><%= Battle.human_attribute_name(:replay_id) %></th>
+      <th><%= Battle.human_attribute_name(:played_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% matchup_list.each do |item| %>
+      <% item => { battle:, home:, away:, result: } %>
+      <tr>
+        <td>
+          <%= pick_span character: home.character, control_type: home.control_type %>
+        </td>
+        <td><%= result_badge result %></td>
+        <td><%= link_to_player away.name, away.short_id %></td>
+        <td>
+          <%= pick_span character: away.character, control_type: away.control_type %>
+        </td>
+        <td><%= battle.battle_type.human_name %></td>
+        <td>
+          <%= link_to battle.replay_id,
+              battle_path(battle),
+              data: { turbo_frame: "turbo-modal" } %>
+        </td>
+        <td><%= l battle.played_at, format: :short %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

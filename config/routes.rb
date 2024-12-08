@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :players, param: :short_id, only: :show do
     member do
       scope module: :players do
+        resource :battles, only: :show
         resource :ranked_history, only: :show
         resource :matchup_chart, only: :show
       end
