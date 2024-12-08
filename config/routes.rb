@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
   resources :battles, only: :show, param: :replay_id
 
-  direct :player do
-    "#"
+  resources :players, param: :short_id, only: :show do
+    member do
+      scope module: :players do
+        resource :ranked_history, only: :show
+      end
+    end
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

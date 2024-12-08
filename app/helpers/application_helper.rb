@@ -5,6 +5,15 @@ module ApplicationHelper
     content_for(:title) { [ title, "SFBUFF" ].join(" - ") }
   end
 
+  def alert(message = nil, kind: :info, **opts, &)
+    opts[:class] = Array(opts[:class]) | [ "alert", "alert-#{kind}" ]
+    tag.div(message, role: "alert", **opts, &)
+  end
+
+  def no_data_alert
+    alert t("alerts.no_data"), kind: :warning
+  end
+
   def link_to_player(name, short_id, **opts)
     opts = { data: { turbo_frame: "_top" } }.deep_merge(opts)
     link_to name, player_path(short_id), **opts

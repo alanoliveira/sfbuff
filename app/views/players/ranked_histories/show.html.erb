@@ -1,0 +1,7 @@
+<% unless @ranked_history.any? %>
+  <%= no_data_alert %>
+<% else %>
+  <div class="card card-body mb-3">
+    <%= ranked_history_line_chart @ranked_history %>
+  </div>
+<% end %>
