@@ -1,4 +1,6 @@
 en:
+  buttons:
+    close: Close
   activemodel:
     models:
       matchup: Matchup
