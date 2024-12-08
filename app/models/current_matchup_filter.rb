@@ -1,7 +1,7 @@
 class CurrentMatchupFilter < ActiveSupport::CurrentAttributes
   attribute :battle_type
-  attribute :played_from, default: -> { (Date.today - 7.days).to_s }
-  attribute :played_to, default: -> { Date.today.to_s }
+  attribute :played_from
+  attribute :played_to
 
   [ "home", "away" ].each do |name|
     class_eval <<~RUBY, __FILE__, __LINE__ + 1
