@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { setCookie, getCookie } from "helpers/cookie_helpers"
 
-// Connects to data-controller="timezone-cookie"
+// Connects to data-controller="timezone"
 export default class extends Controller {
   static TZ_COOKIE_NAME = "timezone"
 

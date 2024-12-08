@@ -6,4 +6,12 @@ module ComponentsHelper
       "auto" => "circle-half"
     }
   end
+
+  def locale_select
+    render "shared/locale_select", selected: I18n.locale, options: {
+      "English" => :en,
+      "Português" => :"pt-BR",
+      "日本語" => :ja
+    }
+  end
 end
