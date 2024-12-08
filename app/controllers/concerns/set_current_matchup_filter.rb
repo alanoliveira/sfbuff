@@ -13,6 +13,9 @@ module SetCurrentMatchupFilter
   private
 
   def set_current_matchup_filter(&)
-    CurrentMatchupFilter.set(params.permit(ALLOWED_ATTRIBUTES), &)
+    CurrentMatchupFilter.set(params.with_defaults(
+      played_from: (Time.zone.today-7.days).iso8601,
+      played_to: Time.zone.today.iso8601
+    ).permit(ALLOWED_ATTRIBUTES), &)
   end
 end
