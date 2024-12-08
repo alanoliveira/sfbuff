@@ -1,26 +1,28 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th><%= t("attributes.name") %></th>
-      <th><%= t("attributes.short_id") %></th>
-      <th><%= t("attributes.main_character") %></th>
-      <th><%= t("attributes.mr_or_lp") %></th>
-      <th><%= t("attributes.home_id") %></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% fighter_banner_list.each do |fighter| %>
+<div class="card card-body table-responsive">
+  <table class="table table-striped text-center">
+    <thead>
       <tr>
-        <td><%= fighter.name %></td>
-        <td><%= fighter.short_id %></td>
-        <td><%= fighter.main_character.human_name %></td>
-        <td><%= mr_or_lp mr: fighter.master_rating, lp: fighter.league_point %></td>
-        <td><%= fighter.home_id.human_name %></td>
-        <td>
-          <%= button_to t("buttons.select"), player_path(fighter.short_id), method: :get, class: "btn btn-primary" %>
-        </td>
+        <th><%= t("attributes.name") %></th>
+        <th><%= t("attributes.short_id") %></th>
+        <th><%= t("attributes.main_character") %></th>
+        <th><%= t("attributes.mr_or_lp") %></th>
+        <th><%= t("attributes.home_id") %></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% fighter_banner_list.each do |fighter| %>
+        <tr>
+          <td><%= fighter.name %></td>
+          <td><%= fighter.short_id %></td>
+          <td><%= fighter.main_character.human_name %></td>
+          <td><%= mr_or_lp mr: fighter.master_rating, lp: fighter.league_point %></td>
+          <td><%= fighter.home_id.human_name %></td>
+          <td>
+            <%= button_to t("buttons.select"), player_path(fighter.short_id), method: :get, class: "btn btn-primary" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
