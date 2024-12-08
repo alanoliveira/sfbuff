@@ -1,21 +1,18 @@
 module SetCurrentMatchupFilter
+  ALLOWED_ATTRIBUTES = %i[
+    battle_type played_from played_to
+    home_short_id home_character home_control_type home_mr_from home_mr_to home_lp_from home_lp_to
+    away_short_id away_character away_control_type away_mr_from away_mr_to away_lp_from away_lp_to]
+
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_current_matchup_filter
+    around_action :set_current_matchup_filter
   end
 
   private
 
-  def set_current_matchup_filter
-    CurrentMatchupFilter.battle_type = params[:battle_type]
-    CurrentMatchupFilter.played_from = params[:played_from]
-    CurrentMatchupFilter.played_to = params[:played_to]
-    CurrentMatchupFilter.home_short_id = params[:home_short_id]
-    CurrentMatchupFilter.home_character = params[:home_character]
-    CurrentMatchupFilter.home_control_type = params[:home_control_type]
-    CurrentMatchupFilter.away_short_id = params[:away_short_id]
-    CurrentMatchupFilter.away_character = params[:away_character]
-    CurrentMatchupFilter.away_control_type = params[:away_control_type]
+  def set_current_matchup_filter(&)
+    CurrentMatchupFilter.set(params.permit(ALLOWED_ATTRIBUTES), &)
   end
 end

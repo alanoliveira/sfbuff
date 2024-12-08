@@ -9,7 +9,7 @@ class Players::BattlesController < ApplicationController
 
   def params
     super.with_defaults(
-      home_short_id: @player&.short_id,
+      home_short_id: @player&.short_id&.to_i,
     )
   end
 end

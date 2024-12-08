@@ -1,6 +1,7 @@
 en:
   buttons:
     close: Close
+    filter: Filter
   attributes:
     results:
       win: Win

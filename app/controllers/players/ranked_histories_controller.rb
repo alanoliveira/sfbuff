@@ -10,9 +10,9 @@ class Players::RankedHistoriesController < ApplicationController
   end
 
   def params
-    super.with_defaults(
-      home_short_id: @player&.short_id,
-      home_character: @player&.main_character,
+    super.compact_blank.with_defaults(
+      home_short_id: @player&.short_id.to_i,
+      home_character: @player&.main_character.to_i,
     )
   end
 end
