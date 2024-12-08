@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   end
 
   get "characters" => "characters#index", as: :characters
+  scope "characters/:home_character/:home_control_type" do
+    resource :matchup_chart, only: :show, module: :characters
+  end
 
   resource :performance_by_date_chart, only: :show
 
