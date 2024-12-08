@@ -12,11 +12,12 @@ Rails.application.routes.draw do
     end
   end
   scope "players/:home_short_id" do
-    resource :performance_by_date_chart, only: :show
     resource :rivals, only: :show
   end
 
   get "characters" => "characters#index", as: :characters
+
+  resource :performance_by_date_chart, only: :show
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

@@ -1,5 +1,3 @@
-<%# locals: (url_for_chart: nil, matchup_chart:) -%>
-
 <table class="table table-striped text-center">
   <thead>
     <th><%= Challenger.human_attribute_name(:character) %></th>
@@ -10,9 +8,7 @@
     <th><%= t("attributes.result.draw") %></th>
     <th>Σ</th>
     <th>%</th>
-    <% if url_for_chart.present? %>
-      <th><%= bs_icon "bar-chart-fill" %></th>
-    <% end %>
+    <th><%= bs_icon "bar-chart-fill" %></th>
   </thead>
   <tbody>
     <% matchup_chart.each do |item| %>
@@ -26,18 +22,16 @@
         <td><%= score&.draw %></td>
         <td><%= score.try { signed_number _1.diff } %></td>
         <td><%= score.try { percent_number _1.absolute_win_percent } %></td>
-        <% if url_for_chart.present? %>
-          <td>
-            <% if score.present? %>
-              <%= button_to bs_icon("bar-chart-fill"),
-                url_for_chart,
-                method: :get,
-                params: CurrentMatchupFilter.attributes.compact.merge(away_character: character.id, away_control_type: control_type.id),
-                class: "btn p-0",
-                form: { data: { turbo_frame: "turbo-modal" } } %>
-            <% end %>
-          </td>
-        <% end %>
+        <td>
+          <% if score.present? %>
+            <%= button_to bs_icon("bar-chart-fill"),
+              performance_by_date_chart_path,
+              method: :get,
+              params: CurrentMatchupFilter.attributes.compact.merge(away_character: character.id, away_control_type: control_type.id),
+              class: "btn p-0",
+              form: { data: { turbo_frame: "turbo-modal" } } %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
     <tr>
@@ -48,18 +42,16 @@
       <td><%= matchup_chart.sum.draw %></td>
       <td><%= signed_number matchup_chart.sum.diff %></td>
       <td><%= percent_number matchup_chart.sum.absolute_win_percent %></td>
-      <% if url_for_chart.present? %>
-        <td>
-          <% if matchup_chart.sum.total.positive? %>
-            <%= button_to bs_icon("bar-chart-fill"),
-              url_for_chart,
-              method: :get,
-              params: CurrentMatchupFilter.attributes.compact,
-              class: "btn p-0",
-              form: { data: { turbo_frame: "turbo-modal" } } %>
-          <% end %>
-        </td>
-      <% end %>
+      <td>
+        <% if matchup_chart.sum.total.positive? %>
+          <%= button_to bs_icon("bar-chart-fill"),
+            performance_by_date_chart_path,
+            method: :get,
+            params: CurrentMatchupFilter.attributes.compact,
+            class: "btn p-0",
+            form: { data: { turbo_frame: "turbo-modal" } } %>
+        <% end %>
+      </td>
     </tr>
   </tbody>
 </table>
