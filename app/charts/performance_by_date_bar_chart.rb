@@ -23,9 +23,9 @@ class PerformanceByDateBarChart < ApplicationChart
   def datasets
     win_data, draw_data, lose_data = wdl_data
     [
-      { label: I18n.t("attributes.result.win"), backgroundColor: CHART_COLORS[:green], data: win_data },
-      { label: I18n.t("attributes.result.draw"), backgroundColor: CHART_COLORS[:yellow], data: draw_data },
-      { label: I18n.t("attributes.result.lose"), backgroundColor: CHART_COLORS[:red], data: lose_data }
+      { label: I18n.t("attributes.results.win"), backgroundColor: CHART_COLORS[:green], data: win_data },
+      { label: I18n.t("attributes.results.draw"), backgroundColor: CHART_COLORS[:yellow], data: draw_data },
+      { label: I18n.t("attributes.results.lose"), backgroundColor: CHART_COLORS[:red], data: lose_data }
     ]
   end
 

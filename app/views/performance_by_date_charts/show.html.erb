@@ -1,0 +1,8 @@
+<%= turbo_frame_tag "turbo-modal" do %>
+  <div class="modal-body">
+    <%= performance_by_date_bar_chart(@matchup) %>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t("buttons.close") %></button>
+  </div>
+<% end %>

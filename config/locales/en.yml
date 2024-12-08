@@ -1,6 +1,11 @@
 en:
   buttons:
     close: Close
+  attributes:
+    results:
+      win: Win
+      lose: Lose
+      draw: Draw
   activemodel:
     models:
       matchup: Matchup
