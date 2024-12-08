@@ -1,0 +1,4 @@
+<div id="<%= job.job_id %>">
+  <%= turbo_stream_from job.job_id, channel: StreamableJobChannel %>
+  loading...
+</div>

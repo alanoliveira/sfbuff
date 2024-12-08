@@ -11,7 +11,7 @@ RSpec.shared_examples "a streamable job" do
       expect { job.perform_now }.to raise_error("boom")
       expect(Rails.cache.read("job/#{job.job_id}")).to match(
         locals:  { error_class_name: "StandardError", message: "boom" },
-        partial: "jobs/error_alert",
+        partial: "streamable_result_jobs/error",
       )
     end
   end
