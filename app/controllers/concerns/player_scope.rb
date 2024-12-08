@@ -10,5 +10,8 @@ module PlayerScope
 
   def set_player
     @player = Player.find_or_initialize_by(short_id: params[:short_id])
+    @sync_job = PlayerSynchronizeJob.perform_later(@player.short_id.to_i) unless @player.synchronized?
+
+    # render "players/synchronizing", layout: "application" unless @player.persisted?
   end
 end

@@ -4,6 +4,7 @@
   <div>
     <h1><%= @player.name %></h1>
     <%= tag.small "#{Player.human_attribute_name(:syncrhonized)}: #{time_ago_in_words @player.synchronized_at}" if @player.synchronized_at.present? %>
+    <%= render "shared/delayed_job", job: @sync_job if @sync_job %>
   </div>
 
   <nav class="py-3">
@@ -15,6 +16,10 @@
   </nav>
 
   <%= yield %>
-<% end %>
+<% end if @player.persisted? %>
+
+<% content_for :main do %>
+  <%= render "shared/delayed_job", job: @sync_job if @sync_job %>
+<% end unless @player.persisted? %>
 
 <%= render template: "layouts/application" %>
