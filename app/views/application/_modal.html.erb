@@ -2,6 +2,9 @@
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <%= turbo_frame_tag "turbo-modal" %>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t("buttons.close") %></button>
+      </div>
     </div>
   </div>
 </div>
