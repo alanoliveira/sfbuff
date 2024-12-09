@@ -21,8 +21,15 @@ default: &default
 
 
 development:
-  <<: *default
-  database: sfbuff_development
+  primary:
+    <<: *default
+    database: sfbuff_development
+  migration:
+    adapter: sqlite3
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
+    database: storage/development.sqlite3
+    migrations_paths: db/migration_migrate
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -96,3 +103,9 @@ production:
     adapter: sqlite3
     database: storage/production_queue.sqlite3
     migrations_paths: db/queue_migrate
+  migration:
+    adapter: sqlite3
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
+    database: storage/production.sqlite3
+    migrations_paths: db/migration_migrate
