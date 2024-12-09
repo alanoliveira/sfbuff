@@ -11,7 +11,14 @@
         <% info_order, round_order = chall.p1? ? [ 1, 2 ] : [ 2, 1 ] %>
         <%= tag.div class: "col-9 text-center order-#{info_order}" do %>
           <div>
-            <small><%= mr_or_lp mr: chall.actual_master_rating, lp: chall.league_point %></small>
+            <small>
+              <% if chall.master_rating.positive? %>
+                <%= chall.actual_master_rating %>
+                <%= signed_number(chall.master_rating_variation) if chall.master_rating_variation.present? %>
+              <% elsif !chall.league_point.calibrating? %>
+                <%= chall.league_point %>
+              <% end %>
+            </small>
           </div>
           <div>
             <%= link_to_player chall.name, chall.short_id, class: "fs-1" %>
@@ -20,11 +27,8 @@
             <%= pick_span character: chall.character, control_type: chall.control_type %>
           </div>
         <% end %>
-        <%= tag.div class: "col-3 text-center order-#{round_order}" do %>
-          <%= tag.ul class: "col list-unstyled my-0 mb-1" do %>
-            <% chall.rounds.each { concat tag.li(round_badge _1) } %>
-          <% end %>
-          <%= tag.div signed_number(chall.master_rating_variation) if chall.master_rating_variation.present? %>
+        <%= tag.ul class: "col-3 text-center order-#{round_order} list-unstyled my-0 mb-1" do %>
+          <% chall.rounds.each { concat tag.li(round_badge _1) } %>
         <% end %>
       <% end %>
     <% end %>

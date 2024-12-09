@@ -20,8 +20,8 @@ module ApplicationHelper
   end
 
   def mr_or_lp(mr: nil, lp: nil)
-    return "#{mr} MR" if mr.try(:positive?)
-    "#{lp} LP" if lp.try(:positive?)
+    return mr if mr.try(:positive?)
+    lp if lp.try(:positive?)
   end
 
   def pick_span(character:, control_type:)
@@ -34,9 +34,7 @@ module ApplicationHelper
     when 1.. then "text-success"
     else ""
     end
-    tag.span class: bs_class do
-      number.zero? ? "0" : format("%+d", number)
-    end
+    tag.span format("%+d", number), class: bs_class
   end
 
   def percent_number(number)

@@ -18,6 +18,10 @@ class LeaguePoint < NumericAttribute
     LEAGUE_THRESHOLD[threshold]
   end
 
+  def to_s
+    "#{to_i} LP"
+  end
+
   def inspect
     "#<#{self.class} #{league}:#{to_i}>"
   end

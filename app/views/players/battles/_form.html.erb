@@ -1,4 +1,4 @@
-<%= form_tag false, method: :get, class: "card card-body mb-3" do %>
+<%= form_tag false, method: :get, class: "card card-body mb-3", data: { controller: "form-helper", action: "turbo:before-fetch-request->form-helper#compactBlank" } do %>
   <div class="row">
     <label class="col-md-1 mb-3 col-form-label align-self-end"><%= Matchup.human_attribute_name("home") %></label>
     <div class="col-md-3 mb-3">
@@ -36,7 +36,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <%= submit_tag t("buttons.filter"), name: "filter", class: "btn btn-primary" %>
+        <%= submit_tag t("buttons.filter"), name: "", class: "btn btn-primary" %>
         <%= link_to t("buttons.reset"), false, class: "btn btn-secondary" %>
       </div>
     </div>

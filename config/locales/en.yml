@@ -28,7 +28,9 @@ en:
       rivals: Rivals
   activerecord:
     models:
-      battle: Match
+      battle:
+        one: Match
+        other: Matches
       player: Player
   attributes:
     name: Name

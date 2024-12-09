@@ -1,11 +1,14 @@
 module MatchupsHelper
   def result_badge(result)
     badge_class = case result
-    when "win" then "text-bg-success"
-    when "lose" then "text-bg-danger"
-    when "draw" then "text-bg-warning"
+    when "win" then "bg-success"
+    when "lose" then "bg-danger"
+    when "draw" then "bg-warning"
     end
 
-    tag.span t("attributes.result.#{result}"), class: "badge #{badge_class}"
+    title = t("attributes.results.#{result}")
+    tag.span title:, class: "badge p-2 rounded-circle #{badge_class}" do
+      tag.span title, class: "visually-hidden"
+    end
   end
 end

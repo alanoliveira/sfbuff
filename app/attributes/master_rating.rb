@@ -4,4 +4,8 @@ class MasterRating < NumericAttribute
   def self.initial_master_rating
     new(INITIAL_MASTER_RATING)
   end
+
+  def to_s
+    "#{to_i} MR"
+  end
 end

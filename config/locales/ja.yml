@@ -28,7 +28,9 @@ ja:
       rivals: ライバル
   activerecord:
     models:
-      battle: 対戦
+      battle:
+        one: 対戦
+        other: 対戦
       player: プレイヤー
   attributes:
     name: 名前

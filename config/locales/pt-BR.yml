@@ -28,7 +28,9 @@ pt-BR:
       rivals: Rivalidade
   activerecord:
     models:
-      battle: Match
+      battle:
+        one: Match
+        other: Matches
       player: Jogador
   attributes:
     name: Nome
