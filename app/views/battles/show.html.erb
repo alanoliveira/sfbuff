@@ -20,8 +20,11 @@
             <%= pick_span character: chall.character, control_type: chall.control_type %>
           </div>
         <% end %>
-        <%= tag.ul class: "col-3 text-center list-unstyled order-#{round_order}" do %>
-          <% chall.rounds.each { concat tag.li(round_badge _1) } %>
+        <%= tag.div class: "col-3 text-center order-#{round_order}" do %>
+          <%= tag.ul class: "col list-unstyled my-0 mb-1" do %>
+            <% chall.rounds.each { concat tag.li(round_badge _1) } %>
+          <% end %>
+          <%= tag.div signed_number(chall.master_rating_variation) if chall.master_rating_variation.present? %>
         <% end %>
       <% end %>
     <% end %>
