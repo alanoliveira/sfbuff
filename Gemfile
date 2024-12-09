@@ -26,7 +26,7 @@ gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Use sqlite3 as the database for Solid stuffs
-gem "sqlite3", "~> 2.2"
+gem "sqlite3", "~> 2.4"
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
