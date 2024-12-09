@@ -4,9 +4,10 @@ RSpec.describe BucklerApi::FaradayAdapter do
   let(:stubs) { Faraday::Adapter::Test::Stubs.new }
 
   before do
-    Faraday.default_connection = Faraday::Connection.new do |conn|
+    test_connection = Faraday::Connection.new do |conn|
       conn.adapter :test, stubs
     end
+    allow(Faraday).to receive(:new).and_return(test_connection)
   end
 
   describe ".get" do
