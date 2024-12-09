@@ -51,7 +51,7 @@ RSpec.describe Parsers::BattleParser do
         "control_type" => 0,
         "master_rating" => 2000,
         "league_point" => 30_000,
-        "rounds"=> an_object_having_attributes(values: [ 1, 1 ])
+        "rounds"=> [ 1, 1 ].to_json
       )
 
       expect(parsed_battle.p2.attributes_for_database).to include(
@@ -62,7 +62,7 @@ RSpec.describe Parsers::BattleParser do
         "control_type" => 1,
         "master_rating" => 2001,
         "league_point" => 30_001,
-        "rounds"=> an_object_having_attributes(values: [ 0, 0 ])
+        "rounds"=> [ 0, 0 ].to_json
       )
     end
   end

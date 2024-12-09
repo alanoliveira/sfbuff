@@ -5,7 +5,7 @@ class Challenger < ApplicationRecord
   attribute :control_type, :buckler_control_type
   attribute :master_rating, :buckler_master_rating
   attribute :league_point, :buckler_league_point
-  attribute :rounds, :buckler_round, array: true
+  attribute :rounds, :buckler_round, json_array_wrapper: true
   store_accessor :ranked_variation, [ :master_rating_variation, :league_point_variation ]
 
   belongs_to :battle

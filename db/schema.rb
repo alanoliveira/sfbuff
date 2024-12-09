@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_11_074740) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_09_152328) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,7 +49,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_11_074740) do
     t.integer "master_rating"
     t.integer "league_point"
     t.string "name"
-    t.integer "rounds", null: false, array: true
+    t.json "rounds", null: false
     t.integer "side", null: false
     t.bigint "battle_id"
     t.datetime "created_at", null: false
