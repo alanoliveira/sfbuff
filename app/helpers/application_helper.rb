@@ -15,7 +15,7 @@ module ApplicationHelper
   end
 
   def link_to_player(name, short_id, **opts)
-    opts = { data: { turbo_frame: "_top" } }.deep_merge(opts)
+    opts = { data: { turbo_frame: "_top", turbo_prefetch: false } }.deep_merge(opts)
     link_to name, player_path(short_id), **opts
   end
 
