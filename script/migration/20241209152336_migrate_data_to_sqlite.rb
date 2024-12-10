@@ -5,7 +5,7 @@ def primary_conn = ActiveRecord::Base.establish_connection(:primary)
 def migration_conn = ActiveRecord::Base.establish_connection(:migration)
 
 [ :battles, :challengers, :players ].each do |table_name|
-  last_id = migration_conn.with_connection { _1.select_value("SELECT id FROM #{table_name} ORDER BY id DESC") } || 0
+  last_id = migration_conn.with_connection { _1.select_value("SELECT id FROM #{table_name} ORDER BY id DESC LIMIT 1") } || 0
 
   puts "Migrating #{table_name} starting from #{last_id}"
 
