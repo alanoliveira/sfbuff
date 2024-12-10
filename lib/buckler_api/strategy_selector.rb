@@ -1,10 +1,9 @@
 class BucklerApi::StrategySelector
   attr_accessor :strategies
 
-  def initialize(*strategies, eager_load: true)
+  def initialize(*strategies)
     @strategies = strategies
     @semaphore = Mutex.new
-    current if eager_load
   end
 
   def renew
