@@ -17,6 +17,9 @@
         <li class="nav-item">
           <%= link_to t("attributes.character"), characters_path, class: [ "nav-link", ("active" if controller_path.starts_with? "characters") ] %>
         </li>
+        <li class="nav-item">
+          <%= link_to t("homepage.about.title"), about_path, class: [ "nav-link", ("active" if current_page?(about_path)) ] %>
+        </li>
       </ul>
     </div>
   </div>

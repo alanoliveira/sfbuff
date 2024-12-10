@@ -1,0 +1,20 @@
+en:
+  homepage:
+    about:
+      title: About
+      faq: 
+        title: FAQ
+        list:
+          - q: What is the source of the data?
+            a: >
+                The data is scraped from the official website at the following URL:
+                <a target="_blank" href="https://www.streetfighter.com/6/buckler/fighterslist/search">https://www.streetfighter.com/6/buckler/profile/&ltPLAYER ID&gt/battlelog</a>.
+          - q: Why can’t I see my old matches?
+            a: The page above only provides data for the most recent 100 matches.
+          - q: I’m pretty sure I recently played some matches with ... Why can’t I see them here?
+            a: Check your profile on the official website. If the match is not listed there, it will not appear here either.
+               If the match is listed on the official website but is missing here, please let me know <a target="_blank" href="https://x.com/diademajin">@diademajin</a>.
+      acknowledgments: 
+        title: Acknowledgments
+        list:
+          - Special thanks to <a target="_blank" href="https://note.com/rustyneon/">錆繼廻音</a>さん (<a href="https://x.com/Sabitsuki_Neon">@Sabitsuki_Neon</a>) for kindly helping with the Japanese translation

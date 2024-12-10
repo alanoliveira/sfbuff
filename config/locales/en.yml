@@ -7,7 +7,6 @@ en:
     close: Close
   homepage:
     index:
-      about: The data is obtained by scraping the official website (only data from the last 100 matches is available).
       welcome: Welcome to SFBUFF
       description: A statistics website for SF6 matches
   players:

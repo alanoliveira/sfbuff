@@ -1,0 +1,20 @@
+<%= page_title("About") %>
+
+<h1 class="mb-3"><%= t(".title") %></h1>
+
+<h3 class="mb-3"><%= t(".faq.title") %></h3>
+<div class="row">
+  <% t(".faq.list").each do |item| %>
+    <div class="col-12 mb-3">
+      <h4><%== item[:q] %></h4>
+      <p><%== item[:a] %></p>
+    </div>
+  <% end %>
+</div>
+
+<h3 class="mb-3"><%= t(".acknowledgments.title") %></h3>
+<ul>
+  <% t(".acknowledgments.list").each do |item| %>
+    <li><%== item %></li>
+  <% end %>
+</ul>
