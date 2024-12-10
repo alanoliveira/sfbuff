@@ -2,6 +2,8 @@ ja:
   homepage:
     about:
       title: 概要
+      general: SFBUFFは、公式ウェブサイトから試合情報を収集し、ユーザーがさまざまな方法でデータを表示できる<b>ファンサイト</b>です。
+      not_capcom: これは、カプコンとの公式な提携や関係がない独立したプラットフォームです。
       faq: 
         title: よくある質問
         list:

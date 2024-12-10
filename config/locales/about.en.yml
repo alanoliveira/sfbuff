@@ -2,6 +2,9 @@ en:
   homepage:
     about:
       title: About
+      general: SFBUFF is a <b>fansite</b> that gathers match information from the 
+               official website, allowing users to view the data in various ways
+      not_capcom: It is an independent platform with no official affiliation or relationship with Capcom.
       faq: 
         title: FAQ
         list:

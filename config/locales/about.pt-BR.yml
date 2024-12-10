@@ -2,6 +2,8 @@ pt-BR:
   homepage:
     about:
       title: Sobre
+      general: SFBUFF é um <b>fansite</b> que coleta informações sobre partidas do site oficial, permitindo que os usuários visualizem os dados de várias maneiras.
+      not_capcom: É uma plataforma independente, sem afiliação ou relação oficial com a Capcom.
       faq: 
         title: Perguntas Frequentes
         list:
