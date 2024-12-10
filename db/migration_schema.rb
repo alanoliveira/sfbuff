@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_09_152328) do
-  # These are extensions that must be enabled in order to support this database
-
+ActiveRecord::Schema[8.0].define(version: 2024_12_10_084102) do
   create_table "battles", force: :cascade do |t|
     t.string "replay_id", null: false
     t.integer "battle_type", null: false

@@ -24,6 +24,12 @@ development:
   primary:
     <<: *default
     database: sfbuff_development
+  ahoy:
+    adapter: sqlite3
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
+    database: storage/ahoy.sqlite3
+    migrations_paths: db/ahoy_migrate
   migration:
     adapter: sqlite3
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -62,8 +68,13 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: sfbuff_test
+  primary:
+    <<: *default
+    database: sfbuff_test
+  ahoy:
+    adapter: sqlite3
+    database: storage/ahoy_test.sqlite3
+    migrations_paths: db/ahoy_migrate
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -109,3 +120,9 @@ production:
     timeout: 5000
     database: storage/production.sqlite3
     migrations_paths: db/migration_migrate
+  ahoy:
+    adapter: sqlite3
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
+    database: storage/ahoy.sqlite3
+    migrations_paths: db/ahoy_migrate
