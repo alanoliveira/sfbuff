@@ -21,7 +21,9 @@
 
   <%= turbo_frame_tag "battle-list" do %>
     <div class="mb-3">
-      <%= render "matchups/matchup_list", matchup_list: @page_matchups %>
+      <% cache @page_matchups, version: @player.latest_replay_id do %>
+        <%= render "matchups/matchup_list", matchup_list: @page_matchups %>
+      <% end %>
     </div>
     <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
   <% end %>

@@ -3,6 +3,8 @@ class Rivals
 
   attr_reader :matchup, :limit
 
+  delegate :cache_key, :cache_version, to: :matchup
+
   def initialize(matchup, limit: nil)
     @matchup = matchup
     @limit = limit

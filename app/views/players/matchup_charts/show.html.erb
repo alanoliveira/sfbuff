@@ -1,8 +1,6 @@
 <%= render "form" %>
 
-<% if @matchup_chart.sum.total.zero? %>
-  <%= no_data_alert %>
-<% else %>
+<% cache @matchup_chart, version: @player.latest_replay_id do %>
   <div class="mb-3">
     <%= render "matchup_charts/matchup_chart",
       matchup_chart: @matchup_chart,

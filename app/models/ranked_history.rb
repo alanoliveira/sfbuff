@@ -4,6 +4,8 @@ class RankedHistory
 
   attr_reader :short_id, :character, :date_range
 
+  delegate :cache_key, to: :relation
+
   def initialize(short_id, character, date_range: nil)
     @short_id = short_id
     @character = character
@@ -24,23 +26,28 @@ class RankedHistory
     end
   end
 
+  def cache_version
+    challenger_rel.order(:created_at).last.try(:cache_version)
+  end
+
   private
 
   def relation
     challenger_rel.joins(:battle).includes(:battle).merge(battle_rel)
+      .select(
+        :battle_id, :master_rating, :league_point, :ranked_variation,
+        battles: [ :id, :replay_id, :played_at ]
+      )
   end
 
   def battle_rel
     Battle
       .ranked
       .tap { _1.where!(played_at: date_range) if date_range.present? }
-      .select(:id, :replay_id, :played_at)
       .order(:played_at)
   end
 
   def challenger_rel
-    Challenger
-      .where(short_id:, character:)
-      .select(:battle_id, :master_rating, :league_point, :ranked_variation)
+    Challenger.where(short_id:, character:)
   end
 end

@@ -4,6 +4,8 @@ class MatchupChart
 
   attr_reader :matchup
 
+  delegate :cache_key, :cache_version, to: :matchup
+
   def initialize(matchup)
     @matchup = matchup
   end

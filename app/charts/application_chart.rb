@@ -10,11 +10,13 @@ class ApplicationChart
   }
 
   def render_in(context)
-    context.content_tag :canvas, nil, data: {
-      controller: "chartjs",
-      chartjs_type_value: chart_type,
-      chartjs_options_value: options,
-      chartjs_data_value: data
-    }
+    context.content_tag :div, class: "card card-body" do
+      context.content_tag :canvas, nil, data: {
+        controller: "chartjs",
+        chartjs_type_value: chart_type,
+        chartjs_options_value: options,
+        chartjs_data_value: data
+      }
+    end
   end
 end

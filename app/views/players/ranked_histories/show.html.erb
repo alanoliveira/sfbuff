@@ -1,9 +1,7 @@
 <%= render "form" %>
 
-<% unless @ranked_history.any? %>
-  <%= no_data_alert %>
-<% else %>
-  <div class="card card-body mb-3">
+<div class="mb-3">
+  <% cache @ranked_history, version: @player.latest_replay_id do %>
     <%= ranked_history_line_chart @ranked_history %>
-  </div>
-<% end %>
+  <% end %>
+</div>

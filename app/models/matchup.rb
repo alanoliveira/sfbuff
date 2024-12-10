@@ -17,7 +17,7 @@ class Matchup
   SQL
 
   attr_accessor :battle, :home, :away
-  delegate :count, :cache_key, :cache_version, to: :relation
+  delegate :count, :cache_key, to: :relation
 
   def initialize(battle: nil, home: nil, away: nil)
     @battle = (battle || Battle).all
@@ -54,6 +54,10 @@ class Matchup
 
   def performance
     relation.extending(Performance)
+  end
+
+  def cache_version
+    home.order(:created_at).last.try(:cache_version)
   end
 
   private
