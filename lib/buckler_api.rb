@@ -20,7 +20,11 @@ module BucklerApi
       Connection.new(
         adapter: FaradayAdapter,
         build_id: StrategySelector.new(-> { ENV["BUCKLER_BUILD_ID"] }, BuildIdStrategies::Faraday),
-        auth_cookies: StrategySelector.new(-> { ENV["BUCKLER_AUTH_COOKIES"] }, AuthCookiesStrategies::Selenium.new(email:, password:)),
+        auth_cookies: StrategySelector.new(
+          -> { ENV["BUCKLER_AUTH_COOKIES"] },
+          AuthCookiesStrategies::Faraday.new(email:, password:),
+          AuthCookiesStrategies::Selenium.new(email:, password:)
+        ),
       )
     end
 

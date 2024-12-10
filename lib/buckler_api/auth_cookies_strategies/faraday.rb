@@ -1,5 +1,5 @@
-module BucklerApi::AuthCookiesStrategies::Faraday
-  def initialize(email, password)
+class BucklerApi::AuthCookiesStrategies::Faraday
+  def initialize(email:, password:)
     @email = email
     @password = password
     @cookie_jar = HTTP::CookieJar.new
@@ -25,12 +25,12 @@ module BucklerApi::AuthCookiesStrategies::Faraday
       popup_options: {},
       sso: true,
       show_sing_up: "0"
-    })
-    ExecuteCallback.new(connection, callback_config.delete(:action), callback_config)
+    }).call
+    ExecuteCallback.new(connection, callback_config.delete(:action), callback_config).call
 
     @cookie_jar.cookies(connection.url_prefix.to_s).map(&:to_s).join(";")
   rescue => e
-    Buckler.logger.info("Atempt to fetch cookies using HTTP failed #{e}")
+    BucklerApi.logger.info("Atempt to fetch cookies using HTTP failed #{e}")
     nil
   end
 

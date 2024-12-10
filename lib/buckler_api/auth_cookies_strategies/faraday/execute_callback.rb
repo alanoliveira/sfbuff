@@ -8,7 +8,7 @@ class BucklerApi::AuthCookiesStrategies::Faraday::ExecuteCallback
   def call
     @connection.post(@url) do |req|
       req.headers["Content-Type"] = "application/json"
-      req.body = @body.to_json
+      req.body = @params.to_json
     end
   end
 end
