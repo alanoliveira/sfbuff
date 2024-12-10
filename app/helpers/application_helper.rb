@@ -14,6 +14,10 @@ module ApplicationHelper
     alert t("alerts.no_data"), kind: :warning
   end
 
+  def cache(name = {}, options = {}, &block)
+    super([ I18n.locale, name ], options, &block)
+  end
+
   def link_to_player(name, short_id, **opts)
     opts = { data: { turbo_frame: "_top", turbo_prefetch: false } }.deep_merge(opts)
     link_to name, player_path(short_id), **opts
