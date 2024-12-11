@@ -1,5 +1,3 @@
 <%= turbo_frame_tag "matchup-rivals" do %>
-  <% cache @rivals do %>
-    <%= render "rivals/rivals", rivals: @rivals %>
-  <% end %>
+  <%= render "rivals/rivals", rivals: @rivals %>
 <% end %>

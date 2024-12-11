@@ -1,7 +1,5 @@
 <%= render "form" %>
 
 <div class="mb-3">
-  <% cache @ranked_history, version: @player.latest_replay_id do %>
-    <%= ranked_history_line_chart @ranked_history %>
-  <% end %>
+  <%= ranked_history_line_chart @ranked_history %>
 </div>
