@@ -3,7 +3,9 @@ image: alanoliveira89/sfbuff
 
 servers:
   web:
-    hosts: []
+    hosts: <%= ENV.fetch("SFBUFF_WEB_HOSTS").split %>
+    options:
+      memory: 512m
 
 proxy:
   app_port: 3000
@@ -22,6 +24,16 @@ env:
     DATABASE_URL: postgres://sfbuff@sfbuff-db
     RAILS_ENV: production
     REPOSITORY_URL: <%= ENV.fetch("REPOSITORY_URL", "") %>
+  secret:
+    - SECRET_KEY_BASE
+    - BUCKLER_EMAIL
+    - BUCKLER_PASSWORD
+    - BUCKLER_USER_AGENT
+    - SFBUFF_DATABASE_PASSWORD
+    - SENTRY_DSN
+
+ssh:
+  user: <%= ENV.fetch("SFBUFF_DEPLOY_USER") %>
 
 aliases:
   shell: app exec --interactive --reuse "bash"
@@ -36,7 +48,14 @@ volumes:
 accessories:
   db:
     image: postgres:16.2-alpine
-    host:
-    port:
+    host: <%= ENV.fetch("SFBUFF_DB_HOST") %>
+    port: "127.0.0.1:5432:5432"
+    env:
+      clear:
+        POSTGRES_USER: sfbuff
+      secret:
+        - POSTGRES_PASSWORD
+    options:
+      memory: 128m
     directories:
       - data:/var/lib/postgresql/data
