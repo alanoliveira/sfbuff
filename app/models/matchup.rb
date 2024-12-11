@@ -39,17 +39,17 @@ class Matchup
   end
 
   def each
-    battles = relation.includes(:challengers).index_by(&:id)
-    relation
-      .pluck("id", "home.id", "away.id", Arel.sql(RESULT_SELECT))
-      .each do |battle_id, home_id, away_id, result|
-        yield({
-          battle: battles[battle_id],
-          home: battles[battle_id].challengers.find { |c| c.id == home_id },
-          away: battles[battle_id].challengers.find { |c| c.id == away_id },
-          result:
-        })
-      end
+    data = relation.pluck("id", "home.id", "away.id", Arel.sql(RESULT_SELECT))
+    battles = Battle.includes(:challengers).where(id: data.map(&:first)).index_by(&:id)
+
+    data.each do |battle_id, home_id, away_id, result|
+      yield({
+        battle: battles[battle_id],
+        home: battles[battle_id].challengers.find { |c| c.id == home_id },
+        away: battles[battle_id].challengers.find { |c| c.id == away_id },
+        result:
+      })
+    end
   end
 
   def performance
