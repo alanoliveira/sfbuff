@@ -19,15 +19,17 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
+default_sqlite: &default_sqlite
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 development:
   primary:
     <<: *default
     database: sfbuff_development
   ahoy:
-    adapter: sqlite3
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    timeout: 5000
+    <<: *default_sqlite
     database: storage/ahoy.sqlite3
     migrations_paths: db/ahoy_migrate
 
@@ -66,7 +68,7 @@ test:
     <<: *default
     database: sfbuff_test
   ahoy:
-    adapter: sqlite3
+    <<: *default_sqlite
     database: storage/ahoy_test.sqlite3
     migrations_paths: db/ahoy_migrate
 
@@ -97,20 +99,18 @@ production:
     username: sfbuff
     password: <%= ENV["SFBUFF_DATABASE_PASSWORD"] %>
   cable:
-    adapter: sqlite3
+    <<: *default_sqlite
     database: storage/production_cable.sqlite3
     migrations_paths: db/cable_migrate
   cache:
-    adapter: sqlite3
+    <<: *default_sqlite
     database: storage/production_cache.sqlite3
     migrations_paths: db/cache_migrate
   queue:
-    adapter: sqlite3
+    <<: *default_sqlite
     database: storage/production_queue.sqlite3
     migrations_paths: db/queue_migrate
   ahoy:
-    adapter: sqlite3
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    timeout: 5000
+    <<: *default_sqlite
     database: storage/ahoy.sqlite3
     migrations_paths: db/ahoy_migrate
