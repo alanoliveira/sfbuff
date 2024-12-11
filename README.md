@@ -27,7 +27,7 @@ of information for players to track their own performance.
     
 - Run
 
-      docker-compose up -e
+      docker-compose up
 
 - Application should be accessible at:
 
