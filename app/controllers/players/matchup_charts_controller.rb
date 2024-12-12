@@ -1,4 +1,5 @@
 class Players::MatchupChartsController < ApplicationController
+  include Players::MatchupScope
   include PlayerScope
   include SetCurrentMatchupFilter
 

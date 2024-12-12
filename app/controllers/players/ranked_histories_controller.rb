@@ -1,4 +1,5 @@
 class Players::RankedHistoriesController < ApplicationController
+  include Players::MatchupScope
   include PlayerScope
   include SetCurrentMatchupFilter
 

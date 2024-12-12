@@ -1,4 +1,5 @@
 class Players::BattlesController < ApplicationController
+  include Players::MatchupScope
   include Pagyable
   include PlayerScope
   include SetCurrentMatchupFilter
