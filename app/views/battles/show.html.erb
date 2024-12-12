@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "turbo-modal" do %>
   <div class="modal-header">
     <div class="col text-start"><%= @battle.replay_id %></div>
-    <div class="col text-center"><%= l @battle.played_at, format: :long %></div>
+    <div class="col text-center"><%= local_time @battle.played_at, :long %></div>
     <div class="col text-end"><%= @battle.battle_type.human_name %></div>
   </div>
   <div class="modal-body d-flex justify-content-around align-items-center">

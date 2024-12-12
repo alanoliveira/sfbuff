@@ -7,7 +7,12 @@
 <% content_for :main do %>
   <div>
     <h1><%= @player.name %></h1>
-    <%= tag.small "#{Player.human_attribute_name(:synchronized_at)}: #{time_ago_in_words @player.synchronized_at}" if @player.synchronized_at.present? %>
+    <% if @player.synchronized_at.present? %>
+      <small>
+        <%= Player.human_attribute_name(:synchronized_at) %>:
+        <%= local_time_ago @player.synchronized_at %>
+      </small>
+    <% end %>
     <%= render "shared/delayed_job", job: @sync_job if @sync_job %>
   </div>
 

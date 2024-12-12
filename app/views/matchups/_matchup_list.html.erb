@@ -29,7 +29,7 @@
                 battle_path(battle),
                 data: { turbo_frame: "turbo-modal" } %>
           </td>
-          <td><%= l battle.played_at, format: :short %></td>
+          <td><%= local_time(battle.played_at, :short) %></td>
         </tr>
       <% end %>
     </tbody>
