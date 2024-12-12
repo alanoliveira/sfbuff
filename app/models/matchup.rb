@@ -16,8 +16,8 @@ class Matchup
                      AND "away"."side" = CASE WHEN "home"."side" = 1 THEN 2 ELSE 1 END
   SQL
 
-  attr_accessor :battle, :home, :away
   delegate :count, to: :relation
+  delegate :each, to: :to_a
 
   def initialize(battle: nil, home: nil, away: nil)
     @battle = (battle || Battle).all
@@ -30,26 +30,28 @@ class Matchup
       def #{method_name}(...)
         #{name}.new(battle: battle.#{method_name}(...), home:, away:)
       end
-
-      def #{method_name}!(...)
-        battle.#{method_name}!(...)
-        self
-      end
     RUBY
   end
 
-  def each
-    data = relation.pluck("id", "home.id", "away.id", Arel.sql(RESULT_SELECT))
-    battles = Battle.includes(:challengers).where(id: data.map(&:first)).index_by(&:id)
+  def load
+    @data ||= begin
+      data = relation.pluck("id", "home.id", "away.id", Arel.sql(RESULT_SELECT))
+      battles = Battle.includes(:challengers).where(id: data.map(&:first)).index_by(&:id)
 
-    data.each do |battle_id, home_id, away_id, result|
-      yield({
-        battle: battles[battle_id],
-        home: battles[battle_id].challengers.find { |c| c.id == home_id },
-        away: battles[battle_id].challengers.find { |c| c.id == away_id },
-        result:
-      })
+      data.map do |battle_id, home_id, away_id, result|
+        {
+          battle: battles[battle_id],
+          home: battles[battle_id].challengers.find { |c| c.id == home_id },
+          away: battles[battle_id].challengers.find { |c| c.id == away_id },
+          result:
+        }
+      end
     end
+  end
+  alias to_a load
+
+  def loaded?
+    @data.present?
   end
 
   def performance
@@ -64,11 +66,17 @@ class Matchup
     "#{model_name.cache_key}/query-#{query_signature}"
   end
 
+  def to_key
+    [ query_signature ]
+  end
+
+  private
+
   def query_signature
     ActiveSupport::Digest.hexdigest(relation.to_sql)
   end
 
-  private
+  attr_reader :battle, :home, :away
 
   def relation
     battle.joins(JOIN_STATEMENT).with(home:, away:)

@@ -4,27 +4,47 @@ class MatchupChart
 
   attr_reader :matchup
 
-  delegate :cache_key, :cache_version, to: :matchup
+  delegate :cache_version, to: :matchup
+  delegate :each, to: :to_a
 
   def initialize(matchup)
     @matchup = matchup
   end
 
-  def each
-    Character.to_a.product(ControlType.to_a).each do |character, control_type|
-      score = items.find { |group, _| [ character, control_type ] == group.values_at("character", "control_type") }&.second
-      yield({ character:, control_type:, score: })
-    end
+  def sum
+    to_a.filter_map { _1[:score] }.reduce(Score.zero, &:+)
   end
 
-  def sum
-    items.map { |_, score| score }.reduce(Score.zero, &:+)
+  def load
+    @data ||= begin
+      Character.to_a.product(ControlType.to_a).map do |character, control_type|
+        score = relation.find { |group, _| [ character, control_type ] == group.values_at("character", "control_type") }&.second
+        { character:, control_type:, score: }
+      end
+    end
+  end
+  alias to_a load
+
+  def loaded?
+    @data.present?
+  end
+
+  def cache_key
+    "#{model_name.cache_key}/query-#{query_signature}"
+  end
+
+  def to_key
+    [ query_signature ]
   end
 
   private
 
-  def items
-    @items ||= matchup
+  def query_signature
+    ActiveSupport::Digest.hexdigest(relation.to_sql)
+  end
+
+  def relation
+    matchup
       .performance
       .group(away: [ :character, :control_type ])
       .select(away: [ :character, :control_type ])
