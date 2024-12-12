@@ -9,7 +9,8 @@ servers:
 
 proxy:
   app_port: 3000
-  hosts: []
+  ssl: true
+  hosts: <%= ENV.fetch("SFBUFF_PROXY_HOSTS").split %>
 
 registry:
   username: <%= ENV.fetch("KAMAL_REGISTRY_USERNAME") %>
