@@ -17,7 +17,7 @@ class Matchup
   SQL
 
   attr_accessor :battle, :home, :away
-  delegate :count, :cache_key, to: :relation
+  delegate :count, to: :relation
 
   def initialize(battle: nil, home: nil, away: nil)
     @battle = (battle || Battle).all
@@ -57,7 +57,15 @@ class Matchup
   end
 
   def cache_version
-    home.order(:created_at).last.try(:cache_version)
+    relation.order(:id).last.try(:cache_version)
+  end
+
+  def cache_key
+    "#{model_name.cache_key}/query-#{query_signature}"
+  end
+
+  def query_signature
+    ActiveSupport::Digest.hexdigest(relation.to_sql)
   end
 
   private
