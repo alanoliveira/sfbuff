@@ -1,7 +1,5 @@
 <%= render "form" %>
 
 <div class="mb-3">
-  <%= render "matchup_charts/matchup_chart",
-    matchup_chart: @matchup_chart,
-    url_for_chart: performance_by_date_chart_path(home_short_id: @player.short_id) %>
+  <%= render "matchup_charts/matchup_chart", matchup_chart: @matchup_chart %>
 </div>
