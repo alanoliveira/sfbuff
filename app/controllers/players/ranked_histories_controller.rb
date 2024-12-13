@@ -7,12 +7,13 @@ class Players::RankedHistoriesController < ApplicationController
     @ranked_history = RankedHistory.new(
       CurrentMatchupFilter.home_short_id,
       CurrentMatchupFilter.home_character,
-      date_range: CurrentMatchupFilter.played_at_range)
+      date_range: CurrentMatchupFilter.played_at_range).then do |ranked_history|
+        cache(ranked_history) { ranked_history.tap(&:load) }
+      end
   end
 
   def params
     super.compact_blank.with_defaults(
-      home_short_id: @player&.short_id.to_i,
       home_character: @player&.main_character.to_i,
     )
   end

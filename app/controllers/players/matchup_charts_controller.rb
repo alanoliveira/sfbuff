@@ -4,14 +4,8 @@ class Players::MatchupChartsController < ApplicationController
   include SetCurrentMatchupFilter
 
   def show
-    @matchup_chart = MatchupChart.new(
-      CurrentMatchupFilter.matchup
-    )
-  end
-
-  def params
-    super.with_defaults(
-      home_short_id: @player&.short_id&.to_i,
-    )
+    @matchup_chart = MatchupChart.new(CurrentMatchupFilter.matchup).then do |matchup_chart|
+      cache(matchup_chart) { matchup_chart.tap(&:load) }
+    end
   end
 end
