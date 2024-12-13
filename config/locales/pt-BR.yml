@@ -18,6 +18,7 @@ pt-BR:
     player_not_found: Jogador não encontrado
     buckler_under_maintenance: Buckler está em manutenção
     buckler_rate_limit_exceeded: Estamos enviando muitas solicitações para o site oficial no momento. Tente novamente em alguns minutos
+    browser_not_supported: <strong>Seu navegador não é compatível.</strong><br> Atualize-o para ter uma experiência melhor.
   helpers:
     any_xxx: "Qualquer %{xxx}"
   activemodel:

@@ -18,6 +18,7 @@ en:
     player_not_found: Player not found
     buckler_under_maintenance: Buckler is under maintenance
     buckler_rate_limit_exceeded: We're sending too many requests to the the official website at the moment. Please try again in a few minutes
+    browser_not_supported: <strong>Your browser is not supported.</strong><br> Please upgrade it for a better experience.
   helpers:
     any_xxx: "Any %{xxx}"
   activemodel:

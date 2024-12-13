@@ -18,6 +18,7 @@ ja:
     player_not_found: プレイヤーが見つかりません
     buckler_under_maintenance: Bucklerはメンテナンス中です
     buckler_rate_limit_exceeded:  現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください
+    browser_not_supported: <strong>お使いのブラウザはサポートされていません。</strong><br> アップグレードしてください。
   helpers:
     any_xxx: "全ての%{xxx}"
   activemodel:
