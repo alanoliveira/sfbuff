@@ -20,8 +20,8 @@
               <% end %>
             </small>
           </div>
-          <div>
-            <%= link_to_player chall.name, chall.short_id, class: "fs-1" %>
+          <div class="text-truncate">
+            <%= link_to_player chall.name, chall.short_id, title: chall.name, class: "fs-1" %>
           </div>
           <div>
             <%= pick_span character: chall.character, control_type: chall.control_type %>
