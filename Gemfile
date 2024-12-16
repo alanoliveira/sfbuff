@@ -77,7 +77,7 @@ gem "faraday-follow_redirects", "~> 0.3.0"
 
 gem "rails-i18n", "~> 8.0"
 
-gem "sentry-rails", "~> 5.19"
+gem "sentry-rails", "~> 5.22"
 
 gem "stackprof", "~> 0.2.26"
 

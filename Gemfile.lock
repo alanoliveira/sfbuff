@@ -351,17 +351,17 @@ GEM
     ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
     safely_block (0.4.1)
-    securerandom (0.4.0)
+    securerandom (0.4.1)
     selenium-webdriver (4.27.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sentry-rails (5.22.0)
+    sentry-rails (5.22.1)
       railties (>= 5.0)
-      sentry-ruby (~> 5.22.0)
-    sentry-ruby (5.22.0)
+      sentry-ruby (~> 5.22.1)
+    sentry-ruby (5.22.1)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     smart_properties (1.17.0)
@@ -455,7 +455,7 @@ DEPENDENCIES
   rubocop-rails-omakase
   rubocop-rspec_rails (~> 2.30)
   selenium-webdriver (~> 4.24)
-  sentry-rails (~> 5.19)
+  sentry-rails (~> 5.22)
   solid_cable
   solid_cache
   solid_queue
