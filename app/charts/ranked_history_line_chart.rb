@@ -36,8 +36,10 @@ class RankedHistoryLineChart < ApplicationChart
 
   def datasets
     [].tap do
-      _1 << { data: lp_data, yAxisID: "lp", borderColor: CHART_COLORS[:red], backgroundColor: CHART_COLORS[:red] } if lp_data.any?
-      _1 << { data: mr_data, yAxisID: "mr", borderColor: CHART_COLORS[:blue], backgroundColor: CHART_COLORS[:blue] } if mr_data.any?
+      _1 << { tension: 0.4, data: lp_data, yAxisID: "lp", borderColor: CHART_COLORS[:red],
+        backgroundColor: CHART_COLORS[:red] } if lp_data.any?
+      _1 << { tension: 0.4, data: mr_data, yAxisID: "mr", borderColor: CHART_COLORS[:blue],
+        backgroundColor: CHART_COLORS[:blue] } if mr_data.any?
     end
   end
 
