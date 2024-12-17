@@ -8,7 +8,7 @@ class RankedHistory
 
   def initialize(short_id, character, date_range: nil)
     @short_id = short_id
-    @character = Character.new(character)
+    @character = character
     @date_range = date_range
   end
 

@@ -77,6 +77,6 @@ class RankedHistoryLineChart < ApplicationChart
   end
 
   def chart_title
-    "#{RankedHistory.model_name.human} - #{@ranked_history.character.human_name}"
+    RankedHistory.model_name.human
   end
 end
