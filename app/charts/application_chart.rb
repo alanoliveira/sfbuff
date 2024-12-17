@@ -10,13 +10,18 @@ class ApplicationChart
   }
 
   def render_in(context)
+    chartjs_data = {
+      controller: "chartjs",
+      chartjs_type_value: chart_type,
+      chartjs_options_value: options,
+      chartjs_data_value: data
+    }
+
     context.content_tag :div, class: "card card-body" do
-      context.content_tag :canvas, nil, data: {
-        controller: "chartjs",
-        chartjs_type_value: chart_type,
-        chartjs_options_value: options,
-        chartjs_data_value: data
-      }
+      context.content_tag :div, data: chartjs_data do
+        context.concat context.content_tag :button, context.bs_icon("download"), class: "btn", data: { chartjs_target: "downloadButton" }
+        context.concat context.content_tag :canvas, nil, data: { chartjs_target: "canvas" }
+      end
     end
   end
 end

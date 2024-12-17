@@ -13,6 +13,7 @@ class RankedHistoryLineChart < ApplicationChart
     {
       layout: { padding: { left: 30 } },
       plugins: {
+        title: { text: chart_title },
         legend: { display: false },
         tooltip: { displayColors: false },
         marks: {
@@ -71,5 +72,9 @@ class RankedHistoryLineChart < ApplicationChart
     when variation.negative? then " - #{variation.abs}"
     else " + 0"
     end.then { "#{value}#{_1}" }
+  end
+
+  def chart_title
+    "#{RankedHistory.model_name.human} - #{@ranked_history.character.human_name}"
   end
 end
