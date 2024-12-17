@@ -29,7 +29,7 @@ const downloadOptions = {
       title: { display: true }
     }
   },
-  plugins: [bgColor]
+  plugins: [bgColor, marks]
 }
 
 // Connects to data-controller="ranked-history-chart"
