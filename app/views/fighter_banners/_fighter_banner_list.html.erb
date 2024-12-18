@@ -16,7 +16,7 @@
         <tr>
           <td><%= fighter.name %></td>
           <td class="d-none d-md-table-cell"><%= fighter.short_id %></td>
-          <td class="d-none d-md-table-cell"><%= local_time_ago fighter.last_play_at %></td>
+          <td class="d-none d-md-table-cell"><%= fighter.last_play_at.try { local_time_ago _1 } %></td>
           <td><%= fighter.main_character.human_name %></td>
           <td><%= mr_or_lp mr: fighter.master_rating, lp: fighter.league_point %></td>
           <td><%= fighter.home_id.human_name %></td>
