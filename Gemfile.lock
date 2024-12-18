@@ -464,6 +464,7 @@ DEPENDENCIES
   stimulus-rails
   turbo-rails
   tzinfo-data
+  useragent (~> 0.16.11)
   web-console
 
 RUBY VERSION

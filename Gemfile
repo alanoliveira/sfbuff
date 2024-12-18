@@ -90,3 +90,5 @@ gem "pagy", "~> 9.2"
 gem "selenium-webdriver", "~> 4.24"
 
 gem "local_time", "~> 3.0"
+
+gem "useragent", "~> 0.16.11"
