@@ -68,12 +68,11 @@ class RankedHistoryLineChart < ApplicationChart
   end
 
   def format_label(value, variation)
-    case
-    when variation.nil? then ""
-    when variation.positive? then " + #{variation.abs}"
-    when variation.negative? then " - #{variation.abs}"
-    else " + 0"
-    end.then { "#{value}#{_1}" }
+    if variation.nil?
+      value.to_s
+    else
+      "#{value + variation} (%+d)" % variation
+    end
   end
 
   def chart_title
