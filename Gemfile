@@ -68,7 +68,7 @@ group :development do
 
   gem "kamal", "~> 2.3", require: false
 
-  gem "hotwire-livereload", "~> 1.4"
+  gem "hotwire-spark", "~> 0.1.2"
 end
 
 gem "faraday", "~> 2.12"

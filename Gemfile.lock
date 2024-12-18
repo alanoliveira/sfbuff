@@ -151,10 +151,10 @@ GEM
     geoip (1.6.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    hotwire-livereload (1.4.1)
-      actioncable (>= 6.0.0)
-      listen (>= 3.0.0)
-      railties (>= 6.0.0)
+    hotwire-spark (0.1.2)
+      listen
+      rails (>= 8.0.0)
+      zeitwerk
     http-cookie (1.0.8)
       domain_name (~> 0.5)
     i18n (1.14.6)
@@ -440,7 +440,7 @@ DEPENDENCIES
   faraday-follow_redirects (~> 0.3.0)
   geocoder (~> 1.8)
   geoip (~> 1.6)
-  hotwire-livereload (~> 1.4)
+  hotwire-spark (~> 0.1.2)
   importmap-rails
   jbuilder
   kamal (~> 2.3)
