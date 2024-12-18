@@ -38,6 +38,7 @@ pt-BR:
     main_character: Main char
     mr_or_lp: MR / LP
     home_id: País
+    last_play_at: Última vez online
     synchronized_at: Última sincronização
     home: Eu
     away: Vs

@@ -28,4 +28,5 @@ class FighterBanner
   attribute :master_rating, :buckler_master_rating
   attribute :league_point, :buckler_league_point
   attribute :home_id, :buckler_home_id
+  attribute :last_play_at, :datetime
 end

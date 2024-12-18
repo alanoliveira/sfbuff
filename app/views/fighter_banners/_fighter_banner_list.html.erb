@@ -3,7 +3,8 @@
     <thead>
       <tr>
         <th><%= t("attributes.name") %></th>
-        <th><%= t("attributes.short_id") %></th>
+        <th class="d-none d-md-table-cell"><%= t("attributes.short_id") %></th>
+        <th class="d-none d-md-table-cell"><%= t("attributes.last_play_at") %></th>
         <th><%= t("attributes.main_character") %></th>
         <th><%= t("attributes.mr_or_lp") %></th>
         <th><%= t("attributes.home_id") %></th>
@@ -11,10 +12,11 @@
       </tr>
     </thead>
     <tbody>
-      <% fighter_banner_list.each do |fighter| %>
+      <% fighter_banner_list.sort_by(&:last_play_at).reverse.each do |fighter| %>
         <tr>
           <td><%= fighter.name %></td>
-          <td><%= fighter.short_id %></td>
+          <td class="d-none d-md-table-cell"><%= fighter.short_id %></td>
+          <td class="d-none d-md-table-cell"><%= local_time_ago fighter.last_play_at %></td>
           <td><%= fighter.main_character.human_name %></td>
           <td><%= mr_or_lp mr: fighter.master_rating, lp: fighter.league_point %></td>
           <td><%= fighter.home_id.human_name %></td>

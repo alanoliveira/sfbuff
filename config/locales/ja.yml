@@ -38,6 +38,7 @@ ja:
     main_character: メインキャラクター
     mr_or_lp: MR / LP
     home_id: 国
+    last_play_at: 最終オンライン
     synchronized_at: 同期済み
     home: 自分
     away: 相手

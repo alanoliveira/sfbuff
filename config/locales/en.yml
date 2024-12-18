@@ -38,6 +38,7 @@ en:
     main_character: Main char
     mr_or_lp: MR / LP
     home_id: Country
+    last_play_at: Last online at
     synchronized_at: Synchronized at
     home: Me
     away: Vs

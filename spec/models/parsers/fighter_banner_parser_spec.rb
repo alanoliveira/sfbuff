@@ -15,7 +15,8 @@ RSpec.describe Parsers::FighterBannerParser do
           'fighter_id' => 'Player ABC',
           'short_id' => 123456789
         },
-        'home_id' => 24
+        'home_id' => 24,
+        'last_play_at' => Time.parse("2020-01-01T00:00:00.000Z").to_i
       }
     end
 
@@ -26,6 +27,7 @@ RSpec.describe Parsers::FighterBannerParser do
       expect(parsed_fighter_banner.master_rating).to eq(2000)
       expect(parsed_fighter_banner.league_point).to eq(30_000)
       expect(parsed_fighter_banner.home_id).to eq(24)
+      expect(parsed_fighter_banner.last_play_at).to eq Time.utc(2020, 1, 1, 0, 0, 0)
     end
   end
 end
