@@ -5,9 +5,11 @@ module ApplicationHelper
     content_for(:title) { [ title, "SFBUFF" ].join(" - ") }
   end
 
-  def alert(message = nil, kind: :info, **opts, &)
-    opts[:class] = Array(opts[:class]) | [ "alert", "alert-#{kind}" ]
-    tag.div(message, role: "alert", **opts, &)
+  def alert(message = nil, kind: :info, dismissible: true)
+    tag.div role: "alert", class: [ "alert", "alert-#{kind}", dismissible && "alert-dismissible" ] do
+      concat block_given? ? yield : message
+      concat button_tag("", type: "button", class: "btn-close", data: { bs_dismiss: "alert" }) if dismissible
+    end
   end
 
   def no_data_alert
