@@ -53,4 +53,13 @@ module ApplicationHelper
   def bs_icon(icon, **opts)
     content_tag(:i, nil, class: [ "bi", "bi-#{icon}", opts.delete(:class) ], **opts)
   end
+
+  def bs_spinner(kind: "border", size: nil, **opts, &)
+    spinner_class = "spinner-#{kind}"
+    spinner_size_class = "#{spinner_class}-#{size}" if size.present?
+    tag.span class: [ spinner_class, spinner_size_class, opts.delete(:class) ], **opts do
+      concat tag.span "Loading...", class: "visually-hidden"
+      concat yield if block_given?
+    end
+  end
 end
