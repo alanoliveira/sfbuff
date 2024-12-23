@@ -151,7 +151,7 @@ GEM
     geoip (1.6.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    hotwire-spark (0.1.8)
+    hotwire-spark (0.1.9)
       listen
       rails (>= 8.0.0)
       zeitwerk
@@ -202,7 +202,7 @@ GEM
     msgpack (1.7.5)
     net-http (0.6.0)
       uri
-    net-imap (0.5.3)
+    net-imap (0.5.4)
       date
       net-protocol
     net-pop (0.1.2)
@@ -440,7 +440,7 @@ DEPENDENCIES
   faraday-follow_redirects (~> 0.3.0)
   geocoder (~> 1.8)
   geoip (~> 1.6)
-  hotwire-spark (~> 0.1.2)
+  hotwire-spark (~> 0.1.9)
   importmap-rails
   jbuilder
   kamal (~> 2.3)
