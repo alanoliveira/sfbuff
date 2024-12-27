@@ -14,6 +14,8 @@ class Player < ApplicationRecord
     end
   end
 
+  after_save_commit :broadcast_replace_header_later
+
   def synchronized?
     synchronized_at.present? && synchronized_at > synchronized_threshold.ago
   end
@@ -27,5 +29,9 @@ class Player < ApplicationRecord
 
   def to_param
     short_id.to_s
+  end
+
+  def broadcast_replace_header_later
+    broadcast_replace_later(target: [ self, "header" ], partial: "players/header", player: self)
   end
 end

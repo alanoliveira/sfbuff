@@ -36,6 +36,6 @@ class PlayerSynchronizeProcess < ApplicationRecord
   end
 
   def broadcast_result
-    broadcast_render_later_to(PlayerSynchronizeChannel.broadcasting_for(self))
+    broadcast_render_to(PlayerSynchronizeChannel.broadcasting_for(self))
   end
 end
