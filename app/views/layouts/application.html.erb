@@ -36,15 +36,13 @@
     <%= render "layouts/nav" %>
 
     <main id="main" class="flex-fill my-3 container">
-      <div id="alerts">
-        <% flash.each do |kind, message| %>
-          <%= alert message, kind: %>
-        <% end %>
-      </div>
+      <%= render "application/alerts_container" %>
 
       <%= content_for?(:main) ? yield(:main) : yield %>
     </main>
+
     <%= render "application/modal" %>
+    <%= render "application/toasts_container" %>
 
     <%= render "layouts/footer" %>
   </body>

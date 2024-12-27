@@ -12,6 +12,11 @@ module ApplicationHelper
     end
   end
 
+  def toast(message = nil, kind: "primary")
+    data = { controller: "toast" }
+    render partial: "application/toast", locals: { message:, kind:, data: }
+  end
+
   def no_data_alert
     alert t("alerts.no_data"), kind: :warning
   end
