@@ -6,6 +6,9 @@ servers:
     hosts: <%= ENV.fetch("SFBUFF_WEB_HOSTS").split %>
     options:
       memory: 512m
+  job:
+    hosts: <%= ENV.fetch("SFBUFF_JOB_HOSTS").split %>
+    cmd: bin/jobs
 
 proxy:
   app_port: 3000

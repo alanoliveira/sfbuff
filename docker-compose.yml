@@ -6,15 +6,29 @@ services:
       - RAILS_ENV=docker
       - SECRET_KEY_BASE=123456
       - DATABASE_URL=postgres://sfbuff:sfbuff@db/sfbuff_docker
+      - REPOSITORY_URL
+    ports:
+      - "3000:3000"
+    volumes:
+      - rails-storage:/rails/storage
+    depends_on:
+      - db
+  worker:
+    # build: .
+    image: docker.io/alanoliveira89/sfbuff:latest
+    environment:
+      - RAILS_ENV=docker
+      - SECRET_KEY_BASE=123456
+      - DATABASE_URL=postgres://sfbuff:sfbuff@db/sfbuff_docker
       - BUCKLER_BASE_URL
       - BUCKLER_EMAIL
       - BUCKLER_PASSWORD
       - BUCKLER_USER_AGENT
-      - REPOSITORY_URL
+    command: bin/jobs
+    volumes:
+      - rails-storage:/rails/storage
     depends_on:
       - db
-    ports:
-      - "3000:3000"
   db:
     image: postgres:16.2-alpine
     environment:
@@ -29,3 +43,6 @@ services:
       timeout: 10s
       retries: 5
       start_period: 10s
+
+volumes:
+  rails-storage:
