@@ -1,79 +1,46 @@
 require "rails_helper"
 
 RSpec.describe PlayerSynchronizer do
-  let(:player) { build(:player) }
+  subject(:service) { described_class.new(player:) }
 
-  def run_service
-    described_class.run(player:)
-  end
+  let(:player) { create(:player) }
+  let(:new_battles) { [] }
 
   before do
     freeze_time
-    fighter_banner = build(:fighter_banner, short_id: player.short_id.to_i, main_character: 2, name: "Sync Player")
-    allow(FighterBanner).to receive(:find).with(player.short_id).and_return(fighter_banner)
-    allow(BattlesSynchronizer).to receive(:run)
+    allow(PlayerSynchronizer::BattlesSynchronizer).to receive(:run).with(player:).and_return(new_battles)
+    allow(PlayerSynchronizer::ProfileSynchronizer).to receive(:run).with(player:)
   end
 
-  shared_examples "save with expected attributes" do
-    it "save the player with the expected attributes" do
-      run_service
-      expect(player.reload.attributes_for_database).to include(
-        "name" => "Sync Player", "main_character" => 2, "synchronized_at" => Time.zone.now, "latest_replay_id" => player.latest_replay_id)
+  it "update player synchronized_at" do
+    expect { service.run }.to change(player, :synchronized_at).to(Time.zone.now)
+  end
+
+  context "when there is no new battle" do
+    let(:player) { create(:player, latest_replay_id: "ASDFGH") }
+    let(:new_battles) { [] }
+
+    it "set imported_battles_count to 0" do
+      service.run
+      expect(service.imported_battles_count).to eq 0
     end
 
-    it "runs the BattlesSynchronizer" do
-      run_service
-      expect(BattlesSynchronizer).to have_received(:run).with(player:)
+    it "does not change player.latest_replay_id" do
+      expect { service.run }.not_to change(player, :latest_replay_id)
     end
   end
 
-  context "when the player exists and is not synchronized" do
-    before do
-      player.save
-      allow(player).to receive(:synchronized?).and_return(false)
+  context "when there are new battles" do
+    let(:player) { create(:player, latest_replay_id: "ASDFGH") }
+    let(:new_battles) { create_list(:battle, 3) }
+
+    it "set imported_battles_count to the new battles length" do
+      service.run
+      expect(service.imported_battles_count).to eq 3
     end
 
-    include_examples "save with expected attributes"
-  end
-
-  context "when the player exists and is synchronized" do
-    before do
-      player.save
-      allow(player).to receive(:synchronized?).and_return(true)
-    end
-
-    it { expect { run_service }.not_to change(player, :updated_at) }
-  end
-
-  context "when the player is new" do
-    it "creates a new player" do
-      expect { run_service }.to change(Player, :count).by(1)
-    end
-
-    include_examples "save with expected attributes"
-  end
-
-  context "when importing same player concurrently", :slow do
-    self.use_transactional_tests = false
-
-    after { Player.destroy_all }
-
-    it "runs synchronized" do
-      allow(FighterBanner).to receive(:find) do |short_id|
-        sleep 0.1
-        build(:fighter_banner, short_id:)
-      end
-
-      player1 = create(:player)
-      player2 = create(:player)
-      [
-        Thread.new { described_class.run(player: player1) },
-        Thread.new { described_class.run(player: player2) },
-        Thread.new { described_class.run(player: player1) }
-      ].each(&:join)
-
-      expect(FighterBanner).to have_received(:find).with(player1.short_id).exactly(1).time
-      expect(FighterBanner).to have_received(:find).with(player2.short_id).exactly(1).time
+    it "changes player.latest_replay_id to the first new battle" do
+      expect { service.run }.to change(player, :latest_replay_id).to(new_battles.first.replay_id)
     end
   end
 end

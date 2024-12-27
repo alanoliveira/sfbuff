@@ -1,11 +1,10 @@
 require "rails_helper"
 
-RSpec.describe BattlesSynchronizer do
-  let(:player) { create(:player, latest_replay_id:) }
-  let(:latest_replay_id) { nil }
-  let(:new_battles) { build_list(:battle, 5) }
+RSpec.describe PlayerSynchronizer::BattlesSynchronizer do
+  subject(:service) { described_class.new(player:) }
 
-  def run_service = described_class.run(player:)
+  let(:player) { create(:player, latest_replay_id: nil) }
+  let(:new_battles) { build_list(:battle, 5) }
 
   before do
     freeze_time
@@ -13,7 +12,7 @@ RSpec.describe BattlesSynchronizer do
   end
 
   it "imports the new battles" do
-    expect { run_service }.to change(Battle, :count).by 5
+    expect { service.run }.to change(Battle, :count).by 5
   end
 
   context "when it finds na already imported by the opponent" do
@@ -25,15 +24,15 @@ RSpec.describe BattlesSynchronizer do
     end
 
     it "ignores it and continue" do
-      expect { run_service }.to change(Battle, :count).by 4
+      expect { service.run }.to change(Battle, :count).by 4
     end
   end
 
   context "when it finds the palyer latest_replay_id" do
-    let(:latest_replay_id) { new_battles[2].replay_id }
+  let(:player) { create(:player, latest_replay_id: new_battles[2].replay_id) }
 
     it "stops to import" do
-      expect { run_service }.to change(Battle, :count).by 2
+      expect { service.run }.to change(Battle, :count).by 2
     end
   end
 end
