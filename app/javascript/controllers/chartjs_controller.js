@@ -1,11 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
-import { Chart, registerables } from "chartjs"
-import { merge } from "chartjs/helpers"
+import "chartjs"
 import marks from "chartjs-plugins/marks"
 import visit from "chartjs-plugins/visit"
 import bgColor from "chartjs-plugins/bg_color"
 
-Chart.register(...registerables);
+const merge = Chart.helpers.merge
 
 const defaultOptions = {
   options: {
