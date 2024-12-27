@@ -12,6 +12,11 @@ pt-BR:
   players:
     search_form:
       placeholder: Nome de jogador ou código de usuário
+  player_synchronize_processes:
+    player_synchronize_process:
+      imported_count:
+        one: "%{count} nova match importada"
+        other: "%{count} novas matches importadas"
   alerts:
     no_data: Nenhum resultado encontrado
     browser_not_supported: <strong>Seu navegador não é compatível.</strong><br> Atualize-o para ter uma experiência melhor.

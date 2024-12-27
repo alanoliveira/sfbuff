@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_10_084102) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_27_072507) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,6 +44,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_10_084102) do
     t.index ["character"], name: "index_challengers_on_character"
     t.index ["control_type"], name: "index_challengers_on_control_type"
     t.index ["short_id"], name: "index_challengers_on_short_id"
+  end
+
+  create_table "player_synchronize_processes", force: :cascade do |t|
+    t.bigint "short_id", null: false
+    t.integer "imported_battles_count", default: 0
+    t.json "error"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["short_id"], name: "index_player_synchronize_processes_on_short_id"
   end
 
   create_table "players", force: :cascade do |t|

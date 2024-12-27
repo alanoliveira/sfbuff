@@ -12,6 +12,11 @@ ja:
   players:
     search_form:
       placeholder: プレイヤーネームまたユーザーコード
+  player_synchronize_processes:
+    player_synchronize_process:
+      imported_count:
+        one: "%{count}戦が追加された"
+        other: "%{count}戦が追加された"
   alerts:
     no_data: データが見つかりません
     browser_not_supported: <strong>お使いのブラウザはサポートされていません。</strong><br> アップグレードしてください。

@@ -5,13 +5,22 @@
 <% end %>
 
 <% content_for :main do %>
+  <%= turbo_stream_from @player %>
+
   <div>
     <h1><%= @player.name %></h1>
     <small>
       <%= Player.human_attribute_name(:synchronized_at) %>:
       <%= @player.synchronized_at.try { local_time_ago _1 } %>
+      <% unless @player.synchronized? %>
+        <span>
+          <span id="<%= dom_id(@player, "synchronize") %>">
+            <%= turbo_stream_from @player, channel: PlayerSynchronizeChannel %>
+            <%= bs_spinner size: "sm" %>
+          </span>
+        </span>
+      <% end %>
     </small>
-    <%= render "shared/delayed_job", job: @sync_job if @sync_job %>
   </div>
 
   <nav class="py-3">
