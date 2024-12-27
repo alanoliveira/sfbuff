@@ -2,22 +2,21 @@ class FighterBanner
   include ActiveModel::API
   include ActiveModel::Attributes
 
+  class NotFound < StandardError; end
+
   class << self
     def find(short_id)
-      ShortId.new(short_id) rescue return nil
+      BucklerGateway.fighter_banners(short_id:).first
+    end
 
-      search_map(short_id:).first
+    def find!(short_id)
+      find(short_id) || raise(NotFound)
     end
 
     def search(query)
-      [ find(query) ].compact | search_map(fighter_id: query)
-    end
-
-    private
-
-    def search_map(**)
-      BucklerApi.fighterslist(**).map do |raw_data|
-        Parsers::FighterBannerParser.parse(raw_data:)
+      BucklerGateway.fighter_banners(query:).tap do
+        _1 << find(query)
+      rescue ArgumentError
       end
     end
   end

@@ -9,7 +9,7 @@ RSpec.describe BattlesSynchronizer do
 
   before do
     freeze_time
-    allow(Battle).to receive(:import).with(player.short_id).and_return(new_battles)
+    allow(BucklerGateway).to receive(:battles).with(player.short_id).and_return(new_battles)
   end
 
   it "imports the new battles" do

@@ -1,6 +1,4 @@
 class PlayerSynchronizer < ApplicationService
-  class PlayerNotFound < StandardError; end
-
   attr_reader :player
 
   def initialize(player:)
@@ -11,8 +9,7 @@ class PlayerSynchronizer < ApplicationService
     player.with_lock do
       next if player.synchronized?
 
-      fighter_banner = FighterBanner.find(player.short_id)
-      raise PlayerNotFound if fighter_banner.nil?
+      fighter_banner = FighterBanner.find!(player.short_id)
 
       BattlesSynchronizer.run(player:)
 

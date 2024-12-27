@@ -6,7 +6,7 @@ class BattlesSynchronizer < ApplicationService
   end
 
   def run
-    Battle.import(player.short_id)
+    BucklerGateway.battles(player.short_id)
       .take_while { _1.replay_id != player.latest_replay_id }
       .to_a
       .each do |battle|
