@@ -9,7 +9,7 @@ module PlayerScope
   private
 
   def set_player
-    @player = Player.find_or_initialize_by(short_id: params[:short_id])
+    @player = Player.find_or_create(params[:short_id])
     @sync_job = PlayerSynchronizeJob.perform_later(@player.short_id.to_i) unless @player.synchronized?
   rescue ArgumentError
     render file: "#{Rails.root}/public/404.html", status: 404, layout: false

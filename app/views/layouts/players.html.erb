@@ -7,12 +7,10 @@
 <% content_for :main do %>
   <div>
     <h1><%= @player.name %></h1>
-    <% if @player.synchronized_at.present? %>
-      <small>
-        <%= Player.human_attribute_name(:synchronized_at) %>:
-        <%= local_time_ago @player.synchronized_at %>
-      </small>
-    <% end %>
+    <small>
+      <%= Player.human_attribute_name(:synchronized_at) %>:
+      <%= @player.synchronized_at.try { local_time_ago _1 } %>
+    </small>
     <%= render "shared/delayed_job", job: @sync_job if @sync_job %>
   </div>
 
@@ -25,10 +23,6 @@
   </nav>
 
   <%= yield %>
-<% end if @player.persisted? %>
-
-<% content_for :main do %>
-  <%= render "shared/delayed_job", job: @sync_job if @sync_job %>
-<% end unless @player.persisted? %>
+<% end %>
 
 <%= render template: "layouts/application" %>
