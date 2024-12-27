@@ -5,6 +5,8 @@ class Matchup::Performance
     @relation = relation
   end
 
+  delegate :to_sql, :cache_key, to: :relation
+
   %i[select group limit order].each do |method_name|
     class_eval(<<-RUBY, __FILE__, __LINE__+1)
       def #{method_name}(...)
