@@ -6,8 +6,7 @@ name: "Docker Publish"
 # documentation.
 
 on:
-  push:
-    branches: [ "master" ]
+  workflow_dispatch:
 
 env:
   REGISTRY: ${{ vars.DOCKER_REGISTRY }}
