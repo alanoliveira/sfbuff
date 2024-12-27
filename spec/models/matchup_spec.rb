@@ -12,11 +12,11 @@ RSpec.describe Matchup, type: :model do
   it do
     expected_battles = [
       create(:battle, :ranked, p1: build(:p1, :win, character: Character["ryu"]), p2: build(:p2, :lose, character: Character["ken"]))
-        .then { |b| { battle: b, home: b.p1, away: b.p2, result: "win" } },
+        .then { |b| an_object_having_attributes(battle: b, home: b.p1, away: b.p2, result: "win") },
       create(:battle, :ranked, p1: build(:p1, :win, character: Character["ken"]), p2: build(:p2, :lose, character: Character["ryu"]))
-        .then { |b| { battle: b, home: b.p2, away: b.p1, result: "lose" } },
+        .then { |b| an_object_having_attributes(battle: b, home: b.p2, away: b.p1, result: "lose") },
       create(:battle, :ranked, p1: build(:p1, :draw, character: Character["ryu"]), p2: build(:p2, :draw, character: Character["ken"]))
-        .then { |b| { battle: b, home: b.p1, away: b.p2, result: "draw" } }
+        .then { |b| an_object_having_attributes(battle: b, home: b.p1, away: b.p2, result: "draw") }
     ]
 
     create(:battle, :custom_room, p1: build(:p1, character: Character["ryu"]), p2: build(:p2, character: Character["ken"]))

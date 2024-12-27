@@ -14,13 +14,13 @@ class CurrentMatchupFilter < ActiveSupport::CurrentAttributes
       attribute :"#{name}_lp_to"
 
       def #{name}
-        Challenger.all.tap do
-          _1.where!(short_id: #{name}_short_id) if #{name}_short_id.present?
-          _1.where!(character: #{name}_character) if #{name}_character.present?
-          _1.where!(control_type: #{name}_control_type) if #{name}_control_type.present?
-          _1.where!(master_rating: #{name}_mr_range) if #{name}_mr_range.present?
-          _1.where!(league_point: #{name}_lp_range) if #{name}_lp_range.present?
-        end
+        {
+          short_id: #{name}_short_id,
+          character: #{name}_character,
+          control_type: #{name}_control_type,
+          master_rating: #{name}_mr_range,
+          league_point: #{name}_lp_range,
+        }.compact_blank
       end
 
       def #{name}_mr_range#{' '}
@@ -40,10 +40,7 @@ class CurrentMatchupFilter < ActiveSupport::CurrentAttributes
   end
 
   def battle
-    Battle.all.tap do
-      _1.where!(battle_type:) if battle_type.present?
-      _1.where!(played_at: played_at_range) if played_at_range.present?
-    end
+    { battle_type:, played_at: played_at_range }.compact_blank
   end
 
   def played_at_range
@@ -53,7 +50,11 @@ class CurrentMatchupFilter < ActiveSupport::CurrentAttributes
   end
 
   def matchup
-    Matchup.new(battle:, home:, away:)
+    Matchup.new.tap do
+      _1.where_battle!(battle) if battle.present?
+      _1.where_home!(home) if home.present?
+      _1.where_away!(away) if away.present?
+    end
   end
 
   private

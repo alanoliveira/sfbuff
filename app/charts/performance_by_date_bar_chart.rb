@@ -1,6 +1,6 @@
 class PerformanceByDateBarChart < ApplicationChart
   def initialize(performance)
-    @performance = performance.group_by_date(:played_at).to_a
+    @performance = performance.group_by_date("played_at").to_a
   end
 
   def chart_type = "bar"
