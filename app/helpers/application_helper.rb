@@ -17,6 +17,10 @@ module ApplicationHelper
     render partial: "application/toast", locals: { message:, kind:, data: }
   end
 
+  def error_message(error)
+    t("errors.#{error}", default: t("errors.generic"))
+  end
+
   def no_data_alert
     alert t("alerts.no_data"), kind: :warning
   end

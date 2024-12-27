@@ -14,11 +14,13 @@ ja:
       placeholder: プレイヤーネームまたユーザーコード
   alerts:
     no_data: データが見つかりません
-    generic_error: エラーが発生しました
-    player_not_found: プレイヤーが見つかりません
-    buckler_under_maintenance: Bucklerはメンテナンス中です
-    buckler_rate_limit_exceeded:  現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください
     browser_not_supported: <strong>お使いのブラウザはサポートされていません。</strong><br> アップグレードしてください。
+  errors:
+    "ArgumentError": 無効な引数
+    "FighterBanner::NotFound": プレイヤーが見つかりません
+    "BucklerApi::UnderMaintenance": Bucklerはメンテナンス中です
+    "BucklerApi::RateLimitExceeded": 現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください
+    generic: エラーが発生しました
   helpers:
     any_xxx: "全ての%{xxx}"
   activemodel:

@@ -8,11 +8,11 @@ RSpec.shared_examples "a streamable job" do
     before { allow(job).to receive(:perform).and_raise(StandardError.new("boom")) }
 
     it "saves the result" do
-      expect { job.perform_now }.to raise_error("boom")
-      expect(Rails.cache.read("job/#{job.job_id}")).to match(
-        locals:  { error_class_name: "StandardError", message: "boom" },
-        partial: "streamable_result_jobs/error",
-      )
+      expect { job.perform_now }.to raise_error("boom") do |error|
+        expect(Rails.cache.read("job/#{job.job_id}")).to match(
+          html: a_string_including(ApplicationController.helpers.error_message(error))
+        )
+      end
     end
   end
 end

@@ -14,11 +14,13 @@ en:
       placeholder: Player name or user code
   alerts:
     no_data: No data found
-    generic_error: An error occurred
-    player_not_found: Player not found
-    buckler_under_maintenance: Buckler is under maintenance
-    buckler_rate_limit_exceeded: We're sending too many requests to the the official website at the moment. Please try again in a few minutes
     browser_not_supported: <strong>Your browser is not supported.</strong><br> Please upgrade it for a better experience.
+  errors:
+    "ArgumentError": Invalid parameter
+    "FighterBanner::NotFound": Player not found
+    "BucklerApi::UnderMaintenance": Buckler is under maintenance
+    "BucklerApi::RateLimitExceeded": We're sending too many requests to the the official website at the moment. Please try again in a few minutes
+    generic: An error occurred
   helpers:
     any_xxx: "Any %{xxx}"
   activemodel:

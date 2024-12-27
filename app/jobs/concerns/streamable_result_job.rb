@@ -3,8 +3,10 @@ module StreamableResultJob
 
   included do
     rescue_from(StandardError) do |error|
-      locals = { error_class_name: error.class.name, message: error.message }
-      Rails.cache.write("job/#{job_id}", { partial: "streamable_result_jobs/error", locals: })
+      raw = ApplicationController.renderer.render_to_string(
+        template: "turbo_streams/error",
+        locals: { error: })
+      Rails.cache.write("job/#{job_id}", { html: raw })
 
       raise error
     end
