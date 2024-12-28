@@ -37,7 +37,7 @@ of information for players to track their own performance.
 
 ### Prerequisites
 
-- Ruby 3.3.6
+- Ruby 3.4.1
 - Bundle 2.5.17
 - Postgresql 16.2
 - Chrome (used as a fallback for login if the attempt using http fails)
