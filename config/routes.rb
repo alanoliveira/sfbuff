@@ -16,12 +16,6 @@ Rails.application.routes.draw do
     resource :rivals, only: :show
   end
 
-  get "characters" => "characters#index", as: :characters
-  scope "characters/:home_character/:home_control_type" do
-    get "/" => redirect("/characters/%{home_character}/%{home_control_type}/matchup_chart")
-    resource :matchup_chart, only: :show, module: :characters
-  end
-
   resource :performance_by_date_chart, only: :show
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
