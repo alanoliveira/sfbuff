@@ -79,7 +79,7 @@ gem "rails-i18n", "~> 8.0"
 
 gem "sentry-rails", "~> 5.19"
 
-gem "stackprof", "~> 0.2.26"
+gem "stackprof", "~> 0.2.27"
 
 gem "ahoy_matey", "~> 5.2"
 gem "geoip", "~> 1.6"
