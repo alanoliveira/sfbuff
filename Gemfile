@@ -87,7 +87,7 @@ gem "geocoder", "~> 1.8"
 
 gem "pagy", "~> 9.2"
 
-gem "selenium-webdriver", "~> 4.24"
+gem "selenium-webdriver", "~> 4.28"
 
 gem "local_time", "~> 3.0"
 
