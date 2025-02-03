@@ -81,7 +81,7 @@ gem "sentry-rails", "~> 5.19"
 
 gem "stackprof", "~> 0.2.26"
 
-gem "ahoy_matey", "~> 5.2"
+gem "ahoy_matey", "~> 5.3"
 gem "geoip", "~> 1.6"
 gem "geocoder", "~> 1.8"
 
