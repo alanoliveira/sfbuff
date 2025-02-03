@@ -37,6 +37,8 @@
       <%= content_for?(:main) ? yield(:main) : yield %>
     </main>
 
+    <%= turbo_frame_tag "modal" %>
+
     <%= render "layouts/footer" %>
   </body>
 </html>
