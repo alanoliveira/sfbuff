@@ -23,6 +23,10 @@ class Matchup
     battles_rel.by_matchup(home: home_rel, away: away_rel)
   end
 
+  def rivals(limit)
+    Rivals.new(self, limit)
+  end
+
   private
 
   def battles_rel
