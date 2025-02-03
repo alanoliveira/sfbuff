@@ -1,0 +1,6 @@
+<%= turbo_frame_tag "matchups-matches" do %>
+  <div class="card card-body mb-3">
+    <%= render "challengers_list", challengers_list: @challengers %>
+  </div>
+  <%= paginate @pagy %>
+<% end %>

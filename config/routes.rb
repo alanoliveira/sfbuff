@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
   resources :battles, only: :show, param: :replay_id
 
+  scope "fighters/:home_fighter_id" do
+    namespace :matchups do
+      get "matches" => "matches#show", as: nil
+    end
+  end
+
+  direct :matchups_matches do |matchup, **opts|
+    url_for(controller: "matchups/matches", action: "show", **matchup.attributes)
+  end
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
