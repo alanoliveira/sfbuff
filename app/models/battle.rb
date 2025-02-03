@@ -8,4 +8,8 @@ class Battle < ApplicationRecord
   def challengers
     [ p1, p2 ].compact
   end
+
+  def to_param
+    replay_id
+  end
 end
