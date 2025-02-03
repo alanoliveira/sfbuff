@@ -13,6 +13,18 @@ FactoryBot.define do
       battle
     end
 
+    trait :win do
+      round_ids { [ 1, 0, 1 ] }
+    end
+
+    trait :lose do
+      round_ids { [ 1, 0, 0 ] }
+    end
+
+    trait :draw do
+      round_ids { [ 1, 0, 4 ] }
+    end
+
     factory :p1, class: Challengers::P1
     factory :p2, class: Challengers::P2
   end

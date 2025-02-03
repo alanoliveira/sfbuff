@@ -1,5 +1,6 @@
 class Challenger < ApplicationRecord
   include Sti
+  include Scoring
 
   lookup_enum :character
   lookup_enum :playing_character, class_name: "Character"

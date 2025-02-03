@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_03_084334) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_03_110820) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_084334) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "ranked_variation"
+    t.integer "cached_result"
     t.index ["battle_id"], name: "index_challengers_on_battle_id"
     t.index ["character_id"], name: "index_challengers_on_character_id"
     t.index ["fighter_id"], name: "index_challengers_on_fighter_id"
