@@ -1,7 +1,0 @@
-<%= form_with url: players_path, method: :get, role: "search" do |f| %>
-  <div class="input-group">
-    <%= f.text_field :q, value: params[:q], placeholder: t(".placeholder"),
-          class: "form-control", type: "search", required: true, minlength: 4 %>
-    <%= f.submit t("buttons.search"), name: nil, class: "btn btn-primary" %>
-  </div>
-<% end %>

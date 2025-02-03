@@ -1,6 +1,0 @@
-<div id="<%= job.job_id %>">
-  <%= turbo_stream_from job.job_id, channel: StreamableJobChannel %>
-  <div class="text-center">
-    <%= bs_spinner %>
-  </div>
-</div>

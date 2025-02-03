@@ -1,8 +1,0 @@
-<%= turbo_stream.remove([ player_synchronize_process.player, "synchronize" ]) %>
-
-<% if (error = player_synchronize_process.error) %>
-  <%= turbo_stream.alert error_message(error["class"]), kind: "danger" %>
-<% elsif (count = player_synchronize_process.imported_battles_count.to_i).positive? %>
-  <%= turbo_stream.toast t(".imported_count", count:), kind: "primary" %>
-  <%= turbo_stream.refresh %>
-<% end %>

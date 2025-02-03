@@ -1,23 +1,4 @@
 Rails.application.routes.draw do
-  resources :battles, only: :show, param: :replay_id
-
-  resources :players, param: :short_id, only: :index do
-    member do
-      get "/" => redirect("/players/%{short_id}/battles")
-      get "/ranked" => redirect("/players/%{short_id}/ranked_history")
-      scope module: :players do
-        resource :battles, only: :show
-        resource :ranked_history, only: :show
-        resource :matchup_chart, only: :show
-      end
-    end
-  end
-  scope "players/:home_short_id" do
-    resource :rivals, only: :show
-  end
-
-  resource :performance_by_date_chart, only: :show
-
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check

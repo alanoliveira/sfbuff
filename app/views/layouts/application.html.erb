@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-controller="timezone color-mode locale">
+<html>
   <head>
     <title><%= content_for(:title) || "SFBUFF" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -26,9 +26,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <% if UserAgent.parse(request.user_agent).browser[/safari/i] %>
-      <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.1/dist/es-module-shims.js" data-turbo-track="reload"></script>
-    <% end %>
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.1/dist/es-module-shims.js" data-turbo-track="reload"></script>
     <%= javascript_importmap_tags %>
   </head>
 
@@ -36,13 +34,8 @@
     <%= render "layouts/nav" %>
 
     <main id="main" class="flex-fill my-3 container">
-      <%= render "application/alerts_container" %>
-
       <%= content_for?(:main) ? yield(:main) : yield %>
     </main>
-
-    <%= render "application/modal" %>
-    <%= render "application/toasts_container" %>
 
     <%= render "layouts/footer" %>
   </body>
