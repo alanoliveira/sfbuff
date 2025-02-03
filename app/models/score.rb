@@ -22,4 +22,8 @@ Score = Struct.new(:win, :lose, :draw) do
   def ~
     Score.new(win: lose, lose: win, draw:)
   end
+
+  def +(other)
+    Score.new(win: win + other.win, lose: lose + other.lose, draw: draw + other.draw)
+  end
 end

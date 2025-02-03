@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get "matches" => "matches#show", as: nil
       get "score_by_date_chart" => "score_by_date_charts#show", as: nil
       get "rivals" => "rivals#show", as: nil
+      get "matchup_chart" => "matchup_charts#show", as: nil
     end
   end
 
@@ -19,6 +20,10 @@ Rails.application.routes.draw do
 
   direct :matchups_rivals do |matchup, **opts|
     url_for(controller: "matchups/rivals", action: "show", **matchup.attributes)
+  end
+
+  direct :matchups_matchup_chart do |matchup, **opts|
+    url_for(controller: "matchups/matchup_charts", action: "show", **matchup.attributes)
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

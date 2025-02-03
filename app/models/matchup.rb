@@ -27,6 +27,10 @@ class Matchup
     Rivals.new(self, limit)
   end
 
+  def matchup_chart
+    MatchupChart.new(self)
+  end
+
   private
 
   def battles_rel

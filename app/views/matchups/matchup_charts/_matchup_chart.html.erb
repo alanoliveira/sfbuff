@@ -1,0 +1,55 @@
+<table class="table table-striped text-center">
+  <thead>
+    <tr>
+      <th><%= t("attributes.home_pick") %></th>
+      <th><%= t("attributes.total") %></th>
+      <th><%= t("attributes.win") %></th>
+      <th><%= t("attributes.lose") %></th>
+      <th><%= t("attributes.draw") %></th>
+      <th><%= t("attributes.diff") %></th>
+      <th><%= t("attributes.win_percent") %></th>
+      <th><%= icon("bar-chart-fill") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% matchup_chart.each do |item| %>
+      <tr>
+        <td>
+          <%= character_name item.character %>
+          <%= input_type_name item.input_type %>
+        </td>
+        <% if item.score %>
+          <td><%= item.score.total %></td>
+          <td><%= item.score.win %></td>
+          <td><%= item.score.lose %></td>
+          <td><%= item.score.draw %></td>
+          <td><%= score_diff item.score.diff %></td>
+          <td><%= score_win_percent item.score.win_ratio %></td>
+          <td><%= link_to_matchup_score_by_date_chart(item.matchup) %></td>
+        <% else %>
+          <% 7.times do %>
+            <td>-</td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+    <tr>
+      <% sum = matchup_chart.sum %>
+      <% if sum %>
+        <td></td>
+        <td><%= matchup_chart.sum.total %></td>
+        <td><%= matchup_chart.sum.win %></td>
+        <td><%= matchup_chart.sum.lose %></td>
+        <td><%= matchup_chart.sum.draw %></td>
+        <td><%= score_diff matchup_chart.sum.diff %></td>
+        <td><%= score_win_percent matchup_chart.sum.win_ratio %></td>
+        <td><%= link_to_matchup_score_by_date_chart(matchup_chart.matchup) %></td>
+      <% else %>
+        <td></td>
+        <% 7.times do %>
+          <td>-</td>
+        <% end %>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
