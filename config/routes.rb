@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :battles, only: :show, param: :replay_id
 
+  get "fighters/:fighter_id/ranked" => "ranked_histories#show"
+
   scope "fighters/:home_fighter_id" do
     namespace :matchups do
       get "matches" => "matches#show", as: nil
