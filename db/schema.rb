@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_27_072507) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_03_084334) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,23 +27,23 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_072507) do
   end
 
   create_table "challengers", force: :cascade do |t|
-    t.bigint "short_id", null: false
-    t.integer "character", null: false
-    t.integer "playing_character", null: false
-    t.integer "control_type", null: false
+    t.bigint "fighter_id", null: false
+    t.integer "character_id", null: false
+    t.integer "playing_character_id", null: false
+    t.integer "input_type_id", null: false
     t.integer "master_rating"
     t.integer "league_point"
     t.string "name"
-    t.json "rounds", null: false
+    t.json "round_ids", null: false
     t.integer "side", null: false
     t.bigint "battle_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "ranked_variation"
     t.index ["battle_id"], name: "index_challengers_on_battle_id"
-    t.index ["character"], name: "index_challengers_on_character"
-    t.index ["control_type"], name: "index_challengers_on_control_type"
-    t.index ["short_id"], name: "index_challengers_on_short_id"
+    t.index ["character_id"], name: "index_challengers_on_character_id"
+    t.index ["fighter_id"], name: "index_challengers_on_fighter_id"
+    t.index ["input_type_id"], name: "index_challengers_on_input_type_id"
   end
 
   create_table "player_synchronize_processes", force: :cascade do |t|
