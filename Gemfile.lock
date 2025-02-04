@@ -149,6 +149,8 @@ GEM
     geoip (1.6.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    groupdate (6.5.1)
+      activesupport (>= 7)
     hotwire-spark (0.1.13)
       listen
       rails (>= 7.0.0)
@@ -443,6 +445,7 @@ DEPENDENCIES
   faraday-follow_redirects (~> 0.3.0)
   geocoder (~> 1.8)
   geoip (~> 1.6)
+  groupdate (~> 6.5)
   hotwire-spark (~> 0.1.2)
   importmap-rails
   jbuilder

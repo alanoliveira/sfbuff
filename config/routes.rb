@@ -4,11 +4,16 @@ Rails.application.routes.draw do
   scope "fighters/:home_fighter_id" do
     namespace :matchups do
       get "matches" => "matches#show", as: nil
+      get "score_by_date_chart" => "score_by_date_charts#show", as: nil
     end
   end
 
   direct :matchups_matches do |matchup, **opts|
     url_for(controller: "matchups/matches", action: "show", **matchup.attributes)
+  end
+
+  direct :matchups_score_by_date_chart do |matchup, **opts|
+    url_for(controller: "matchups/score_by_date_charts", action: "show", **matchup.attributes)
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
