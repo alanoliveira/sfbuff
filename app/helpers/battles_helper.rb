@@ -6,4 +6,8 @@ module BattlesHelper
   def battle_type_name(battle_type)
     Battle.human_attribute_name "battle_types/#{battle_type}"
   end
+
+  def battle_types_options_for_select
+    Battle.battle_types.to_h { |key, val| [ battle_type_name(key), val ] }
+  end
 end

@@ -1,0 +1,35 @@
+<%= form_with model: matchup, url: false, scope: "", method: "get" do |f| %>
+  <div class="row">
+    <label class="col-md-1 mb-3 col-form-label align-self-end"><%= t(".home") %></label>
+    <div class="col-md-3 mb-3">
+      <%= f.select(:home_character, characters_options_for_select, { include_blank: "Any" }, class: "form-select") %>
+    </div>
+    <div class="col-md-3 mb-3">
+      <%= f.select(:home_input_type, input_types_options_for_select, { include_blank: "Any" }, class: "form-select") %>
+    </div>
+  </div>
+  <div class="row">
+    <label class="col-md-1 mb-3 col-form-label align-self-end"><%= Battle.model_name.human %></label>
+    <div class="col-md-3 mb-3">
+      <%= f.select(:battle_type, battle_types_options_for_select, { include_blank: "Any" }, class: "form-select") %>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text"><%= t("attributes.played_from") %></span>
+        <%= f.date_field :played_from, class: "form-control" %>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text"><%= t("attributes.played_to") %></span>
+        <%= f.date_field :played_to, class: "form-control" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <%= f.submit t("buttons.search"), name: nil, class: "btn btn-primary" %>
+        <%= link_to t("buttons.reset"), false, class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
+<% end %>

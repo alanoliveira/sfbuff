@@ -1,0 +1,27 @@
+<div class="card card-body mb-3">
+  <%= render "form", matchup: @matchup %>
+</div>
+
+<%= link_to_matchup_score_by_date_chart @matchup, class: "btn btn-outline-primary mb-3 w-100" %>
+
+<div class="mb-3">
+  <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#fighter-rivals">
+    <%= Matchup::Rivals.model_name.human %>
+  </button>
+  <div class="collapse mt-3" id="fighter-rivals">
+    <%= turbo_frame_tag "matchups-rivals", src: matchups_rivals_path(@matchup), loading: "lazy" do %>
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= turbo_frame_tag "matchups-matches" do %>
+  <div class="card card-body mb-3">
+    <%= render "matchups/matches/challengers_list", challengers_list: @challengers %>
+  </div>
+  <%= paginate @pagy %>
+<% end %>

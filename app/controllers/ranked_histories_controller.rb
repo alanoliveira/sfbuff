@@ -1,4 +1,9 @@
 class RankedHistoriesController < ApplicationController
+  include FighterScoped
+  include DefaultPlayedAtRange
+
+  layout "fighters"
+
   before_action { params.compact_blank!.with_defaults!(default_params) }
 
   def show
@@ -14,6 +19,6 @@ class RankedHistoriesController < ApplicationController
   end
 
   def default_params
-    { home_character: 10 }
+    { home_character: @fighter.profile.main_character&.id }
   end
 end

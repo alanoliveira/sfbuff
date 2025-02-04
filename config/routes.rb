@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   resources :battles, only: :show, param: :replay_id
 
-  get "fighters/:fighter_id/ranked" => "ranked_histories#show"
+  resources :fighters, only: [] do
+    scope module: :fighters do
+      get "matches" => "matches#show"
+      get "matchup_chart" => "matchup_charts#show"
+    end
+    get "ranked" => "ranked_histories#show"
+  end
 
   scope "fighters/:home_fighter_id" do
     namespace :matchups do

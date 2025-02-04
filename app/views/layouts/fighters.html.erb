@@ -1,0 +1,19 @@
+<% content_for :main do %>
+  <%= turbo_stream_from @fighter %>
+
+  <%= render "fighters/header", fighter: @fighter %>
+
+  <%= turbo_frame_tag "fighter-content", data: { turbo_action: "advance" } do %>
+    <nav class="py-3">
+      <ul class="nav nav-fill nav-underline">
+        <li class="nav-item"><%= fighters_header_nav_link "Matches", :fighter_matches_path, class: "nav-link" %></li>
+        <li class="nav-item"><%= fighters_header_nav_link "Matchup Chart", :fighter_matchup_chart_path, class: "nav-link" %></li>
+        <li class="nav-item"><%= fighters_header_nav_link "Ranked", :fighter_ranked_path, class: "nav-link" %></li>
+      </ul>
+    </nav>
+
+    <%= yield %>
+  <% end %>
+<% end %>
+
+<%= render template: "layouts/application" %>
