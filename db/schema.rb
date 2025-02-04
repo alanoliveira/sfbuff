@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_03_110820) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_04_054752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,6 +45,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_110820) do
     t.index ["character_id"], name: "index_challengers_on_character_id"
     t.index ["fighter_id"], name: "index_challengers_on_fighter_id"
     t.index ["input_type_id"], name: "index_challengers_on_input_type_id"
+  end
+
+  create_table "fighters", id: :bigint, default: nil, force: :cascade do |t|
+    t.json "profile"
+    t.datetime "synchronized_at"
+    t.string "last_synchronized_replay_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "player_synchronize_processes", force: :cascade do |t|
