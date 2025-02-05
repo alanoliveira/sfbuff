@@ -1,8 +1,8 @@
 class BucklerApi::StrategySelector
-  attr_accessor :strategies
+  attr_reader :strategies
 
-  def initialize(*strategies)
-    @strategies = strategies
+  def initialize
+    @strategies = []
     @semaphore = Mutex.new
   end
 
@@ -10,19 +10,15 @@ class BucklerApi::StrategySelector
     @current = nil
   end
 
-  def to_s
-    current.to_s
-  end
-
-  private
-
   def current
-    @semaphore.synchronize do
+    @current || @semaphore.synchronize do
       @current ||= fetch
     end
   end
 
+  private
+
   def fetch
-    strategies.lazy.map(&:call).find(&:itself)
+    strategies.lazy.filter_map(&:call).first
   end
 end

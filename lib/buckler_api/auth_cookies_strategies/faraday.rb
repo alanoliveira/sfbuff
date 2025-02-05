@@ -1,5 +1,9 @@
 class BucklerApi::AuthCookiesStrategies::Faraday
-  def initialize(email:, password:)
+  attr_accessor :base_url, :user_agent, :email, :password
+
+  def initialize(base_url:, user_agent:, email:, password:)
+    @base_url = base_url
+    @user_agent = user_agent
     @email = email
     @password = password
     @cookie_jar = HTTP::CookieJar.new
@@ -9,8 +13,8 @@ class BucklerApi::AuthCookiesStrategies::Faraday
     connection = build_connection
     auth_config = FetchAuthConfig.new(connection).call
     callback_config = ExecuteLogin.new(connection, auth_config["clientConfigurationBaseUrl"], {
-      username: @email,
-      password: @password,
+      username: email,
+      password: password,
       client_id: auth_config["clientID"],
       redirect_uri: auth_config["callbackURL"],
       tenant: auth_config["auth0Tenant"],
@@ -29,16 +33,14 @@ class BucklerApi::AuthCookiesStrategies::Faraday
     ExecuteCallback.new(connection, callback_config.delete(:action), callback_config).call
 
     @cookie_jar.cookies(connection.url_prefix.to_s).map(&:to_s).join(";")
-  rescue => e
-    BucklerApi.logger.info("Atempt to fetch cookies using HTTP failed #{e}")
-    nil
+  rescue
   end
 
   private
 
   def build_connection
-    ::Faraday.new(BucklerApi::BASE_URL) do |conf|
-      conf.headers = { "user-agent" => BucklerApi::USER_AGENT }
+    ::Faraday.new(base_url) do |conf|
+      conf.headers = { "user-agent" => user_agent }
       conf.headers["priority"] = "u=0,i"
       conf.headers["dnt"] = "1"
       conf.headers["accept-language"] = "en-US,en;q=0.5"

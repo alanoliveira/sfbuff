@@ -5,6 +5,6 @@ Sentry.init do |config|
   config.enable_tracing = false
   config.enabled_environments = [ "production" ]
   config.excluded_exceptions += [
-    "BucklerApi::UnderMaintenance"
+    "BucklerApi::Errors::UnderMaintenance"
   ]
 end

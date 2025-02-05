@@ -1,21 +1,9 @@
 class BucklerApi::AuthCookiesStrategies::Selenium
-  def self.build_chrome_driver
-    options = ::Selenium::WebDriver::Options.chrome(
-      args: [
-        "--headless",
-        "--user-agent=#{BucklerApi::USER_AGENT}",
-        "--no-sandbox",
-        "--disable-gpu",
-        "--disable-dev-shm-usage",
-        "--blink-settings=imagesEnabled=false"
-      ]
-    )
-    ::Selenium::WebDriver.for(:chrome, options:)
-  end
+  attr_accessor :base_url, :user_agent, :email, :password
 
-  attr_accessor :email, :password
-
-  def initialize(email:, password:)
+  def initialize(base_url:, user_agent:, email:, password:)
+    @base_url = base_url
+    @user_agent = user_agent
     @email = email
     @password = password
   end
@@ -41,21 +29,33 @@ class BucklerApi::AuthCookiesStrategies::Selenium
     driver.manage.all_cookies.map do |c|
       c.values_at(:name, :value).join("=")
     end.join(";")
-  rescue => e
-    BucklerApi.logger.info("Atempt to fetch cookies using Selenium failed #{e}")
-    nil
+  rescue
   ensure
     driver.quit
   end
 
   def driver
-    @driver ||= self.class.build_chrome_driver
+    @driver ||= build_chrome_driver
   end
 
   private
 
+  def build_chrome_driver
+    options = ::Selenium::WebDriver::Options.chrome(
+      args: [
+        "--headless",
+        "--user-agent=#{user_agent}",
+        "--no-sandbox",
+        "--disable-gpu",
+        "--disable-dev-shm-usage",
+        "--blink-settings=imagesEnabled=false"
+      ]
+    )
+    ::Selenium::WebDriver.for(:chrome, options:)
+  end
+
   def visit_login
-    driver.navigate.to "https://www.streetfighter.com/6/buckler/auth/loginep?redirect_url=/information/all/1"
+    driver.navigate.to "#{base_url}/6/buckler/auth/loginep?redirect_url=/information/all/1"
   end
 
   def execute_login

@@ -1,19 +1,21 @@
-module BucklerApi::BuildIdStrategies::Faraday
-  extend self
+class BucklerApi::BuildIdStrategies::Faraday
+  attr_accessor :base_url, :user_agent
+
+  def initialize(base_url:, user_agent:)
+    @base_url, @user_agent = base_url, user_agent
+  end
 
   def call
     response = build_connection.get("/6/buckler", cache_buster: Time.now.to_i)
     ResponseParser.parse(response.body).fetch("buildId")
-  rescue => e
-    BucklerApi.logger.info("Atempt to fetch cookies using HTTP failed #{e}")
-    nil
+  rescue
   end
 
   private
 
   def build_connection
-    ::Faraday.new(BucklerApi::BASE_URL) do |conf|
-      conf.headers = { "user-agent" => BucklerApi::USER_AGENT }
+    ::Faraday.new(base_url) do |conf|
+      conf.headers = { "user-agent" => user_agent }
       conf.response :raise_error
     end
   end

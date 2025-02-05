@@ -31,11 +31,11 @@ class BucklerApi::Response
     json_body.fetch("pageProps")
   end
 
-  private
-
   def json_body
     JSON.parse(body)
   end
+
+  private
 
   def content_type
     headers["content-type"]
