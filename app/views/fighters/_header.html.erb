@@ -1,6 +1,7 @@
 <div id="<%= dom_id(fighter, "header") %>">
   <h1><%= fighter.profile.name %></h1>
-  <% if fighter.synchronized_at? %>
-    <small><%= Fighter.human_attribute_name :synchronized_at %>: <%= l fighter.synchronized_at, format: :short %></small>
-  <% end %>
+  <small>
+    <%= Fighter.human_attribute_name :synchronized_at %>:
+    <%= l fighter.synchronized_at, format: :short if fighter.synchronized_at? %>
+  </small>
 </div>

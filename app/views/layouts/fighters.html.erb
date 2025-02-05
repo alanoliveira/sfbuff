@@ -3,6 +3,14 @@
 
   <%= render "fighters/header", fighter: @fighter %>
 
+  <% unless @fighter.synchronized? %>
+    <%= auto_submit_form_with url: fighter_path(@fighter), method: "patch", data: { turbo_stream: true } %>
+
+    <div class="position-relative" id="<%= dom_id(@fighter, "synchronization") %>">
+      <%= turbo_stream_from(@fighter, "synchronization") %>
+    </div>
+  <% end %>
+
   <%= turbo_frame_tag "fighter-content", data: { turbo_action: "advance" } do %>
     <nav class="py-3">
       <ul class="nav nav-fill nav-underline">

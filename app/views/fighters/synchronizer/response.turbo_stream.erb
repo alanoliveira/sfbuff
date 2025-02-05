@@ -1,0 +1,13 @@
+<%= turbo_stream.toast simple_toast($!.message, "danger") if $! %>
+
+<% if synchronizer.synchronized_battles_count.to_i.positive? %>
+  <%= turbo_stream.toast do %>
+    <%= simple_toast "#{synchronizer.synchronized_battles_count} synchronized" %>
+  <% end %>
+<% end %>
+
+<% if synchronizer.fighter.last_synchronized_replay_id_previously_changed? %>
+  <%= turbo_stream.refresh %>
+<% end %>
+
+<%= turbo_stream.remove [ synchronizer.fighter, "synchronization" ] %>

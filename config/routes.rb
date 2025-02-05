@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :battles, only: :show, param: :replay_id
 
-  resources :fighters, only: [] do
+  resources :fighters, only: :update do
     scope module: :fighters do
       get "matches" => "matches#show"
       get "matchup_chart" => "matchup_charts#show"

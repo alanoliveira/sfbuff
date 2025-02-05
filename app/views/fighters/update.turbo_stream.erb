@@ -1,0 +1,9 @@
+<%= turbo_stream.append [ @fighter, "synchronization" ] do %>
+  <div class="position-absolute start-50 bottom-50 translate-middle">
+    <div class="badge rounded-pill text-bg-light opacity-50">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+<% end %>
