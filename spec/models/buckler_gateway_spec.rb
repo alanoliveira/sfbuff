@@ -58,4 +58,31 @@ RSpec.describe BucklerGateway do
       end
     end
   end
+
+  describe "#fetch_fighter_battles" do
+    subject(:result) { gateway.fetch_fighter_battles("fighter_id", page) }
+
+    let(:page) { 1 }
+
+    context "when api returns results" do
+      before do
+        allow(BucklerGateway::BattleParser).to receive(:parse) { "parsed #{it}" }
+        allow(mock_client).to receive(:fighter_battlelog).with("fighter_id", page).and_return([ "battle1", "battle2" ])
+      end
+
+      it "parses all the results and return it" do
+        expect(result).to eq ([ "parsed battle1", "parsed battle2" ])
+      end
+    end
+
+    context "when api returns an empty array" do
+      before do
+        allow(mock_client).to receive(:fighter_battlelog).with("fighter_id", page).and_return([])
+      end
+
+      it "returns an empty array" do
+        expect(result).to eq([])
+      end
+    end
+  end
 end

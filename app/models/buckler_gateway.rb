@@ -15,6 +15,10 @@ class BucklerGateway
     buckler_client.search_fighters(fighter_id: name).map { FighterProfileParser.parse(it) }
   end
 
+  def fetch_fighter_battles(fighter_id, page)
+    buckler_client.fighter_battlelog(fighter_id, page).map { BattleParser.parse(it) }
+  end
+
   private
 
   def buckler_client
