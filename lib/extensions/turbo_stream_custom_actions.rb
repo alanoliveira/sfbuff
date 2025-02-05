@@ -1,13 +1,7 @@
 ActiveSupport.on_load :turbo_streams_tag_builder do
-  def toast(...)
+  def toast(content = nil)
     append "toasts" do
-      @view_context.toast(...)
-    end
-  end
-
-  def alert(...)
-    append "alerts" do
-      @view_context.alert(...)
+      content || yield
     end
   end
 end
