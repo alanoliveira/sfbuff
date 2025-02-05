@@ -17,7 +17,8 @@ class RankedHistoryLineChart < ApplicationChart
         legend: { display: false },
         tooltip: { displayColors: false },
         marks: {
-          "lp" => LeaguePoint::LEAGUE_THRESHOLD.to_h { |points, name| [ points, { title: name.upcase } ] }
+          "lp" => LeaguePoint::LEAGUE_THRESHOLD.to_h { |points, name| [ points, { title: name.upcase } ] },
+          "mr" => { 1600 => { title: "HIGH" }, 1700 => { title: "GRAND" }, 1800 => { title: "ULTIMATE" } }
         },
         visit: {
           targets: @ranked_history.map { { url: Rails.application.routes.url_helpers.battle_path(_1[:replay_id]), options: { frame: "turbo-modal" } } }
