@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  resource :fighter_search, only: :create
   resources :battles, only: :show, param: :replay_id
 
-  resources :fighters, only: :update do
+  resources :fighters, only: [ :index, :update ] do
+    get "/" => redirect("/fighters/%{fighter_id}/matches")
     scope module: :fighters do
       get "matches" => "matches#show"
       get "matchup_chart" => "matchup_charts#show"

@@ -1,0 +1,6 @@
+<% if $! %>
+  <%= turbo_stream.toast simple_toast($!.message, "danger")  %>
+  <%= turbo_stream.remove(fighter_search) %>
+<% else %>
+  <%= turbo_stream.replace(fighter_search) %>
+<% end %>

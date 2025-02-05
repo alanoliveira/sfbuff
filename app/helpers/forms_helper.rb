@@ -3,8 +3,8 @@ module FormsHelper
     data[:controller] = [ "auto-submit", data[:controller] ].compact.join
     data[:auto_submit_delay_value] = delay if delay
 
-    form_with data:, **opts do
-      yield if block_given?
+    form_with data:, **opts do |f|
+      yield f if block_given?
     end
   end
 end

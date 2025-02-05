@@ -1,0 +1,14 @@
+<form action="" class="mb-3">
+  <div class="input-group">
+    <input type="text" name="q" value="<%= params[:q] %>" minlength="4" required class="form-control">
+    <input type="submit" class="btn btn-primary">
+  </div>
+</form>
+
+<% if @fighter_search %>
+  <%= turbo_frame_tag "fighter-search" do %>
+    <%= auto_submit_form_with model: @fighter_search, url: fighter_search_path do |f| %>
+      <%= f.hidden_field :query %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,14 @@
+<%= turbo_frame_tag "fighter-search" do %>
+  <div id="<%= dom_id(@fighter_search) %>">
+    <% if @fighter_search.cached? %>
+      <%= render @fighter_search %>
+    <% else %>
+      <%= turbo_stream_from @fighter_search %>
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

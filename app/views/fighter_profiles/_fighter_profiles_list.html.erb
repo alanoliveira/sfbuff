@@ -1,0 +1,24 @@
+<table class="table table-striped text-center">
+  <thead>
+    <th><%= FighterProfile.human_attribute_name :name %></th>
+    <th><%= FighterProfile.human_attribute_name :fighter_id %></th>
+    <th><%= FighterProfile.human_attribute_name :last_online_at %></th>
+    <th><%= FighterProfile.human_attribute_name :main_character %></th>
+    <th><%= FighterProfile.human_attribute_name :league_info %></th>
+    <th><%= FighterProfile.human_attribute_name :home %></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% fighter_profiles_list.each do |fighter_profile| %>
+      <tr>
+        <td><%= fighter_profile.name %></td>
+        <td><%= fighter_profile.fighter_id %></td>
+        <td><%= l fighter_profile.last_online_at, format: :short %></td>
+        <td><%= character_name fighter_profile.main_character %></td>
+        <td><%= league_info_span fighter_profile.league_info %></td>
+        <td><%= home_name fighter_profile.home_id %></td>
+        <td><%= link_to_fighter t("buttons.select"), fighter_profile.fighter_id, class: "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
