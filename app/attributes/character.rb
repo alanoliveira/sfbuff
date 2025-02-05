@@ -23,5 +23,6 @@ class Character < EnumAttribute
   names[22] = "akuma"
   names[26] = "m_bison"
   names[27] = "terry"
+  names[28] = "mai"
   names[254] = "random"
 end
