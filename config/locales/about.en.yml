@@ -1,0 +1,24 @@
+en:
+  homepage:
+    about:
+      title: About
+      general: SFBUFF is a <b>fansite</b> that gathers match information from the 
+               official website, allowing users to view the data in various ways
+      not_capcom: It is an independent platform with no official affiliation or relationship with Capcom.
+      faq:
+        title: FAQ
+        list:
+          data_source:
+            q: What is the source of the data?
+            a: "The data is scraped from the official website at the following URL:"
+          old_matches:
+            q: Why can’t I see my old matches?
+            a: The page above only provides data for the most recent 100 matches.
+          im_sure:
+            q: I’m pretty sure I recently played some matches with ... Why can’t I see them here?
+            a: Check your profile on the official website. If the match is not listed there, it will not appear here either.
+               If the match is listed on the official website but is missing here, please let me know %{email}.
+      acknowledgments:
+        title: Acknowledgments
+        list:
+          - Special thanks to %{rustyneon_note_link} 錆繼廻音</a>さん (%{rustyneon_twitter_link}) for kindly helping with the Japanese translation

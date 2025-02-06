@@ -1,0 +1,23 @@
+pt-BR:
+  homepage:
+    about:
+      title: Sobre
+      general: SFBUFF é um <b>fansite</b> que coleta informações sobre partidas do site oficial, permitindo que os usuários visualizem os dados de várias maneiras.
+      not_capcom: É uma plataforma independente, sem afiliação ou relação oficial com a Capcom.
+      faq:
+        title: Perguntas Frequentes
+        list:
+          data_source:
+            q: Qual é a fonte dos dados?
+            a: "Os dados são extraídos do site oficial no seguinte URL:"
+          old_matches:
+            q: Por que não consigo ver minhas partidas antigas?
+            a: A página mencionada acima fornece dados apenas das 100 partidas mais recentes.
+          im_sure:
+            q: Tenho certeza de que joguei algumas partidas recentemente com ... Por que não consigo vê-las aqui?
+            a: Verifique seu perfil no site oficial. Se a partida não estiver listada lá, ela também não aparecerá aqui.
+               Se a partida estiver listada no site oficial, mas não aparecer aqui, por favor, entre em contato comigo em %{email}.
+      acknowledgments:
+        title: Agradecimentos
+        list:
+          - Agradecimento especial a %{rustyneon_note_link} (%{rustyneon_twitter_link}) pela gentil ajuda com a tradução para japonês.
