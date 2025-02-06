@@ -1,5 +1,5 @@
 <% %i[favorites victims tormentors].index_with { rivals.public_send(it) }.each do |name, rival| %>
-  <div class="card card-body mb-3">
+  <div class="card card-body mb-3 table-responsive">
     <table class="table table-striped caption-top text-center">
       <caption class="fs-4 text-center">
         <%= Matchup::Rivals.human_attribute_name("rivals/#{name}") %>

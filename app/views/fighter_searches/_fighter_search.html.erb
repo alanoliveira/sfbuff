@@ -1,3 +1,5 @@
-<div class="card card-body table-responsive">
-  <%= render "fighter_profiles/fighter_profiles_list", fighter_profiles_list: fighter_search.result %>
-</div>
+<%= empty_alert_or_block(fighter_search.result) do %>
+  <div class="card card-body table-responsive">
+    <%= render "fighter_profiles/fighter_profiles_list", fighter_profiles_list: fighter_search.result %>
+  </div>
+<% end %>

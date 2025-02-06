@@ -5,6 +5,11 @@
         <%= render "theme_selector" %>
         <%= render "locale_selector" %>
       </div>
+      <div>
+        <% ENV["REPOSITORY_URL"].try do |url| %>
+          <%= link_to icon("github"), url, target: "_blank", class: "nav-link fs-5" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

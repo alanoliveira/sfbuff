@@ -13,6 +13,8 @@ class Matchup::MatchupChart
 
   def each(&)
     scoreboard = fetch_scoreboard
+    return [].each(&) if scoreboard.empty?
+
     Character.to_a.product(InputType.to_a).map do |character, input_type|
       score = scoreboard[[ character.id, input_type.id ]].try(:~)
       item_matchup = matchup_for_item(character, input_type)

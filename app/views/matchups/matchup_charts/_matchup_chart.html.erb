@@ -1,7 +1,7 @@
 <table class="table table-striped text-center">
   <thead>
     <tr>
-      <th>VS</th>
+      <th colspan="2">VS</th>
       <th><%= t("attributes.score/total") %></th>
       <th><%= t("attributes.score/win") %></th>
       <th><%= t("attributes.score/lose") %></th>
@@ -14,10 +14,8 @@
   <tbody>
     <% matchup_chart.each do |item| %>
       <tr>
-        <td>
-          <%= character_name item.character %>
-          <%= input_type_name item.input_type %>
-        </td>
+        <td><%= character_name item.character %></td>
+        <td><%= input_type_name item.input_type %></td>
         <% if item.score %>
           <td><%= item.score.total %></td>
           <td><%= item.score.win %></td>
@@ -34,9 +32,9 @@
       </tr>
     <% end %>
     <tr>
+      <td colspan="2"></td>
       <% sum = matchup_chart.sum %>
       <% if sum %>
-        <td></td>
         <td><%= matchup_chart.sum.total %></td>
         <td><%= matchup_chart.sum.win %></td>
         <td><%= matchup_chart.sum.lose %></td>
@@ -45,7 +43,6 @@
         <td><%= score_win_percent matchup_chart.sum.win_ratio %></td>
         <td><%= link_to_matchup_score_by_date_chart(matchup_chart.matchup) %></td>
       <% else %>
-        <td></td>
         <% 7.times do %>
           <td>-</td>
         <% end %>
