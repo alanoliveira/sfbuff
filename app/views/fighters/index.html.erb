@@ -1,9 +1,6 @@
-<form action="" class="mb-3">
-  <div class="input-group">
-    <input type="text" name="q" value="<%= params[:q] %>" minlength="4" required class="form-control">
-    <input type="submit" class="btn btn-primary">
-  </div>
-</form>
+<div class="mb-3">
+  <%= render "search_form" %>
+</div>
 
 <% if @fighter_search %>
   <%= turbo_frame_tag "fighter-search" do %>
