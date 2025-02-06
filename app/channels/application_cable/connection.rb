@@ -1,8 +1,9 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
     include SwitchTimezone
+    include SwitchLocale
 
-    around_command :switch_timezone
+    around_command :switch_timezone, :switch_locale
 
     identified_by :session_id
 
