@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include VersionHeaders
   include SwitchTimezone
   include SwitchLocale
 
