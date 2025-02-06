@@ -1,5 +1,9 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
+    include SwitchTimezone
+
+    around_command :switch_timezone
+
     identified_by :session_id
 
     def connect
