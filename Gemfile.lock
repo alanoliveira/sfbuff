@@ -375,7 +375,7 @@ GEM
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
-    solid_cache (1.0.6)
+    solid_cache (1.0.7)
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
