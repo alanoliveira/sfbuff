@@ -1,6 +1,6 @@
 module CharactersHelper
   def character_name(character)
-    Character[character].name.titlecase
+    t("buckler.characters.#{Character[character].name}")
   end
 
   def characters_options_for_select

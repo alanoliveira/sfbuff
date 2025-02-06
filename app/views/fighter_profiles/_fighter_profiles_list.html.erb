@@ -16,7 +16,7 @@
         <td><%= l fighter_profile.last_online_at, format: :short %></td>
         <td><%= character_name fighter_profile.main_character %></td>
         <td><%= league_info_span fighter_profile.league_info %></td>
-        <td><%= home_name fighter_profile.home_id %></td>
+        <td><%= home_name fighter_profile.home %></td>
         <td><%= link_to_fighter t("buttons.select"), fighter_profile.fighter_id, class: "btn btn-primary" %></td>
       </tr>
     <% end %>

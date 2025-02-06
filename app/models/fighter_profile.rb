@@ -17,4 +17,8 @@ class FighterProfile
   def league_info
     LeagueInfo.new(lp: league_point, mr: master_rating)
   end
+
+  def home
+    Home[home_id]
+  end
 end

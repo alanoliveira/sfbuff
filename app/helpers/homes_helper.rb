@@ -1,5 +1,5 @@
 module HomesHelper
   def home_name(home)
-    "home"
+    t("buckler.homes.#{home.name}")
   end
 end

@@ -4,7 +4,7 @@ module BattlesHelper
   end
 
   def battle_type_name(battle_type)
-    Battle.human_attribute_name "battle_types/#{battle_type}"
+    t("buckler.battle_types.#{battle_type}")
   end
 
   def battle_types_options_for_select
