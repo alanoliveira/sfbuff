@@ -1,4 +1,7 @@
 Result = Data.define(:result) do
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
+
   const_set :WIN, new(1)
   const_set :LOSE, new(-1)
   const_set :DRAW, new(0)

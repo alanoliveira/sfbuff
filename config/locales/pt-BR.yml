@@ -1,3 +1,87 @@
 pt-BR:
   buttons:
     search: Pesquisar
+    select: Selecionar
+    reset: Resetar
+  application:
+    theme_selector:
+      dark: Dark
+      light: Light
+      auto: Auto
+  homepage:
+    index:
+      welcome: Bem vindo ao SFBUFF
+      description: Um site de estatísticas para matches de SF6
+  fighters:
+    search_form:
+      placeholder: Nome ou ID
+    synchronizer:
+      response:
+        n_battles_imported:
+          one: "%{count} nova match importada"
+          other: "%{count} novas matches importadas"
+  common:
+    chart: Gráfico
+    any: Qualquer
+  activerecord:
+    models:
+      battle:
+        one: Match
+        other: Matches
+      fighter:
+        one: Jogador
+        other: Jogadores
+  activemodel:
+    models:
+      ranked_history: Histórico de Ranqueadas
+      matchup/matchup_chart: Matchup Chart
+      matchup/rivals: Rivais
+  attributes:
+    name: Nome
+    last_online_at: Última vez online
+    main_character: Main char
+    fighter_id: ID
+    league_info: Liga
+    home: País
+    result: Resultado
+    result/win: 
+      one: Vitória
+      other: Vitórias
+    result/lose: 
+      one: Derrota
+      other: Derrotas
+    result/draw: 
+      one: Empate
+      other: Empates
+    score/total: Total
+    score/win: Vitórias
+    score/lose: Derrotas
+    score/draw: Empates
+    score/diff: Saldo
+    score/win_ratio: Percentual
+    battle_type: Tipo de Match
+    replay_id: Replay
+    played_at: Data
+    pick: Pick
+    character: Personagem
+    input_type: Controle
+    home_fighter_id: Meu ID
+    home_character: Meu Personagem
+    home_input_type: Meu Controle
+    away_fighter_id: Vs ID
+    away_character: Vs Personagem
+    away_input_type: Vs Controle
+    played_from: De
+    played_to: Até
+    rivals/favorites: Favoritos
+    rivals/victims: Vítimas
+    rivals/tormentors: Carrascos
+    synchronized_at: Sincronizado
+  errors:
+    "ArgumentError": Parâmetro inválido
+    "BucklerGateway::ProfileNotFound": Jogador não encontrado
+    "BucklerApi::Errors::UnderMaintenance": Buckler está em manutenção
+    "BucklerApi::Errors::RateLimitExceeded": Estamos enviando muitas solicitações para o site oficial no momento. Tente novamente em alguns minutos
+    generic: Ocorreu um erro
+  alerts:
+    no_data: Nenhum resultado encontrado

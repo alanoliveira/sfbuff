@@ -14,4 +14,9 @@ module ApplicationHelper
   def icon(icon, **opts)
     tag.i nil, class: [ "bi", "bi-#{icon}", opts.delete(:class) ], **opts
   end
+
+  def error_message(error)
+    return error.message unless Rails.env.production?
+    t("errors.#{error.class.name}", default: t("errors.generic"))
+  end
 end

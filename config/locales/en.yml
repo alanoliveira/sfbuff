@@ -1,3 +1,87 @@
 en:
   buttons:
     search: Search
+    select: Select
+    reset: Reset
+  application:
+    theme_selector:
+      dark: Dark
+      light: Light
+      auto: Auto
+  homepage:
+    index:
+      welcome: Welcome to SFBUFF
+      description: A statistics website for SF6 matches
+  fighters:
+    search_form:
+      placeholder: Name or ID
+    synchronizer:
+      response:
+        n_battles_imported:
+          one: "%{count} new match imported"
+          other: "%{count} new matches imported"
+  common:
+    chart: Chart
+    any: Any
+  activerecord:
+    models:
+      battle:
+        one: Match
+        other: Matches
+      fighter:
+        one: Player
+        other: Players
+  activemodel:
+    models:
+      ranked_history: Ranked History
+      matchup/matchup_chart: Matchup Chart
+      matchup/rivals: Rivals
+  attributes:
+    name: Name
+    last_online_at: Last online
+    main_character: Main char
+    fighter_id: ID
+    league_info: League
+    home: Country
+    result: Result
+    result/win: 
+      one: Win
+      other: Wins
+    result/lose: 
+      one: Lose
+      other: Loses
+    result/draw: 
+      one: Draw
+      other: Draws
+    score/total: Total
+    score/win: Wins
+    score/lose: Loses
+    score/draw: Draws
+    score/diff: Balance
+    score/win_ratio: Ratio
+    battle_type: Match Type
+    home_fighter_id: My ID
+    home_character: My Character
+    home_input_type: My Control
+    away_fighter_id: Vs ID
+    away_character: Vs Character
+    away_input_type: Vs Control
+    replay_id: Replay
+    played_at: Date
+    pick: Pick
+    character: Character
+    input_type: Control
+    played_from: From
+    played_to: To
+    rivals/favorites: Favorites
+    rivals/victims: Victims
+    rivals/tormentors: Tormentors
+    synchronized_at: Synchronized
+  errors:
+    "ArgumentError": Invalid parameter
+    "BucklerGateway::ProfileNotFound": Player not found
+    "BucklerApi::Errors::UnderMaintenance": Buckler is under maintenance
+    "BucklerApi::Errors::RateLimitExceeded": We're sending too many requests to the the official website at the moment. Please try again in a few minutes
+    generic: An error occurred
+  alerts:
+    no_data: No data found

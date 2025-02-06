@@ -1,6 +1,6 @@
 module ResultsHelper
   def result_name(result)
-    result.to_s
+    Result.human_attribute_name("result/#{result}")
   end
 
   def result_badge(result)

@@ -3,6 +3,9 @@
     <%= link_to root_path, class: "navbar-brand" do %>
       <img src="/icon.svg" width="30" height="30">
     <% end %>
+    <div class="order-md-last col-md-3 col-8">
+      <%= yield :search_form %>
+    </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -15,10 +18,6 @@
           <%= link_to t("homepage.about.title"), about_path, class: [ "nav-link", ("active" if current_page?(about_path)) ] %>
         </li>
       </ul>
-    </div>
-
-    <div>
-      <%= content_for :search_form %>
     </div>
   </div>
 </nav>

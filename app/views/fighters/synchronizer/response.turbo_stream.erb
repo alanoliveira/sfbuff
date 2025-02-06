@@ -1,8 +1,8 @@
-<%= turbo_stream.toast simple_toast($!.message, "danger") if $! %>
+<%= turbo_stream.toast simple_toast(error_message($!), "danger") if $! %>
 
 <% if synchronizer.synchronized_battles_count.to_i.positive? %>
   <%= turbo_stream.toast do %>
-    <%= simple_toast "#{synchronizer.synchronized_battles_count} synchronized" %>
+    <%= simple_toast t(".n_battles_imported", count: synchronizer.synchronized_battles_count) %>
   <% end %>
 <% end %>
 
