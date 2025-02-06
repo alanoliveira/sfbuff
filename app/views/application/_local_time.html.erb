@@ -1,0 +1,8 @@
+<script>
+import("local-time").then(module => {
+  LocalTime = module.default
+  <%= %(LocalTime.config.i18n["#{I18n.locale}"] = #{t('local_time').to_json}).html_safe if I18n.locale != :en %>
+  LocalTime.config.locale = "<%= I18n.locale %>"
+  LocalTime.start()
+})
+</script>

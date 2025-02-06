@@ -23,7 +23,7 @@
         </td>
         <td><%= battle_type_name challenger.battle.battle_type %></td>
         <td><%= link_to_battle challenger.battle.replay_id %></td>
-        <td><%= l challenger.battle.played_at, format: :short %></td>
+        <td><%= local_time_ago challenger.battle.played_at, format: :short %></td>
       </tr>
     <% end %>
   </tbody>

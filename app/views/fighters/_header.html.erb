@@ -2,6 +2,6 @@
   <h1><%= fighter.profile.name %></h1>
   <small>
     <%= Fighter.human_attribute_name :synchronized_at %>:
-    <%= l fighter.synchronized_at, format: :short if fighter.synchronized_at? %>
+    <%= local_time_ago fighter.synchronized_at, format: :short if fighter.synchronized_at? %>
   </small>
 </div>

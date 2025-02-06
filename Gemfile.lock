@@ -187,6 +187,7 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    local_time (3.0.2)
     logger (1.6.5)
     loofah (2.24.0)
       crass (~> 1.0.2)
@@ -450,6 +451,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal (~> 2.3)
+  local_time (~> 3.0)
   pagy (~> 9.2)
   pg (~> 1.5)
   propshaft
