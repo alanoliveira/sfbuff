@@ -1,6 +1,9 @@
 class Matchups::MatchupChartsController < ApplicationController
+  include DefaultPlayedAtRange
+  include SetMatchup
+
   def show
-    @matchup_chart = Matchup.new(matchup_parameters).matchup_chart
+    @matchup_chart = @matchup.matchup_chart
   end
 
   private

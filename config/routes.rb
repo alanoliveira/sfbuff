@@ -2,39 +2,42 @@ Rails.application.routes.draw do
   resource :fighter_search, only: :create
   resources :battles, only: :show, param: :replay_id
 
-  resources :fighters, only: [ :index, :update ] do
+  resources :fighters, only: [ :index, :update ], constraints: { id: Fighter::FIGHTER_ID_REGEXP } do
     get "/" => redirect("/fighters/%{fighter_id}/matches")
     scope module: :fighters do
       get "matches" => "matches#show"
       get "matchup_chart" => "matchup_charts#show"
+      get "score_by_date_chart" => "score_by_date_charts#show"
+      get "rivals" => "rivals#show"
     end
     get "ranked" => "ranked_histories#show"
   end
 
-  scope "fighters/:home_fighter_id" do
-    namespace :matchups do
-      get "matches" => "matches#show", as: nil
-      get "score_by_date_chart" => "score_by_date_charts#show", as: nil
-      get "rivals" => "rivals#show", as: nil
-      get "matchup_chart" => "matchup_charts#show", as: nil
+  direct :matchups_score_by_date_chart do |matchup, **opts|
+    if matchup.home_fighter_id.present?
+      url_for(controller: "fighters/score_by_date_charts", action: "show", **matchup.attributes)
+    else
+      url_for(controller: "matchups/score_by_date_charts", action: "show", **matchup.attributes)
     end
   end
 
-  direct :matchups_matches do |matchup, **opts|
-    url_for(controller: "matchups/matches", action: "show", **matchup.attributes)
-  end
-
-  direct :matchups_score_by_date_chart do |matchup, **opts|
-    url_for(controller: "matchups/score_by_date_charts", action: "show", **matchup.attributes)
-  end
-
   direct :matchups_rivals do |matchup, **opts|
-    url_for(controller: "matchups/rivals", action: "show", **matchup.attributes)
+    if matchup.home_fighter_id.present?
+      url_for(controller: "fighters/rivals", action: "show", **matchup.attributes)
+    else
+      url_for(controller: "matchups/rivals", action: "show", **matchup.attributes)
+    end
   end
 
-  direct :matchups_matchup_chart do |matchup, **opts|
-    url_for(controller: "matchups/matchup_charts", action: "show", **matchup.attributes)
-  end
+  # for backward compatibility
+  match "/players(/:fighter_id)(*)", to: redirect { |params, _req|
+    fighter_id = params[:fighter_id]
+    if fighter_id
+      "/fighters/#{fighter_id}/matches"
+    else
+      "/fighters"
+    end
+  }, via: :get
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

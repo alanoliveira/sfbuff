@@ -1,6 +1,9 @@
 class Matchups::RivalsController < ApplicationController
+  include DefaultPlayedAtRange
+  include SetMatchup
+
   def show
-    @rivals = Matchup.new(matchup_parameters).rivals(8)
+    @rivals = @matchup.rivals(8)
   end
 
   private

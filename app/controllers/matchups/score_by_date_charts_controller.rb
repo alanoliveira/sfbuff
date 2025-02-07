@@ -1,6 +1,9 @@
 class Matchups::ScoreByDateChartsController < ApplicationController
+  include DefaultPlayedAtRange
+  include SetMatchup
+
   def show
-    @scoreboard_by_date = Matchup.new(matchup_parameters)
+    @scoreboard_by_date = @matchup
       .home_challengers
       .group_by_day("played_at")
       .then { it.select("#{it.group_values.last} date") }

@@ -1,5 +1,7 @@
 class BattlesController < ApplicationController
   def show
-    @battle = Battle.find_by(replay_id: params[:replay_id])
+    http_cache_forever do
+      @battle = Battle.find_by(replay_id: params[:replay_id])
+    end
   end
 end

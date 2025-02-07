@@ -1,12 +1,19 @@
 class Matchups::MatchesController < ApplicationController
+  include DefaultPlayedAtRange
+  include SetMatchup
   include Pagination
 
   def show
-    @pagy, @challengers = Matchup.new(matchup_parameters)
+    @pagy, @challengers = @matchup
       .home_challengers
       .order(played_at: "desc")
       .includes(:battle, :opponent)
       .then { pagy(it) }
+    @challengers.load
+  end
+
+  def pagy_get_count(collection, vars)
+    cache([ collection.cache_key, "pagy-count" ]) { collection.count }
   end
 
   private
