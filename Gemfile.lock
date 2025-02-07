@@ -170,7 +170,7 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.9.1)
-    kamal (2.5.0)
+    kamal (2.5.1)
       activesupport (>= 7.0)
       base64 (~> 0.2)
       bcrypt_pbkdf (~> 1.0)
@@ -449,7 +449,7 @@ DEPENDENCIES
   hotwire-spark (~> 0.1.2)
   importmap-rails
   jbuilder
-  kamal (~> 2.3)
+  kamal (~> 2.5)
   local_time (~> 3.0)
   pagy (~> 9.2)
   pg (~> 1.5)
