@@ -1,5 +1,4 @@
 class Matchups::MatchesController < ApplicationController
-  include DefaultPlayedAtRange
   include SetMatchup
   include Pagination
 

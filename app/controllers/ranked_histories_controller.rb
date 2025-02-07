@@ -1,6 +1,5 @@
 class RankedHistoriesController < ApplicationController
   include FighterScoped
-  include DefaultPlayedAtRange
 
   layout "fighters"
 

@@ -1,5 +1,4 @@
 class Matchups::MatchupChartsController < ApplicationController
-  include DefaultPlayedAtRange
   include SetMatchup
 
   def show

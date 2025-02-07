@@ -20,7 +20,7 @@ module MatchSimulatorHelper
   private
 
   def build_battle(**params)
-    params[:played_at] ||= rand(Time.new(2024)..Time.new(2024).end_of_year)
+    params[:played_at] ||= rand(1.week.ago..Time.now)
     build(:battle, **params)
   end
 

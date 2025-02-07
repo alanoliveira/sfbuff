@@ -3,13 +3,15 @@ class Matchup
   include ActiveModel::Attributes
 
   attribute :battle_type
-  attribute :played_from, :datetime
-  attribute :played_to, :datetime
+  attribute :played_from, :date, default: -> { 7.days.ago.to_date }
+  attribute :played_to, :date, default: -> { Time.zone.now.to_date }
   %w[home away].each do |kind|
     attribute "#{kind}_fighter_id"
     attribute "#{kind}_character"
     attribute "#{kind}_input_type"
   end
+
+  validates :played_from, :played_to, presence: true
 
   def home_challengers
     Challenger.with(challengers: battles.select("home.*", "played_at"))
@@ -34,10 +36,11 @@ class Matchup
   private
 
   def battles_rel
+    return Battle.none unless valid?
+
     Battle.all.tap do
       it.where!(battle_type:) if battle_type.present?
-      it.where!(played_at: (played_from..)) if played_from.present?
-      it.where!(played_at: (..played_to)) if played_to.present?
+      it.where!(played_at: played_from.beginning_of_day..played_to.end_of_day)
     end
   end
 

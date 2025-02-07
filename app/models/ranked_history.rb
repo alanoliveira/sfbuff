@@ -8,8 +8,10 @@ class RankedHistory
 
   attribute :fighter_id
   attribute :character
-  attribute :played_from, :datetime
-  attribute :played_to, :datetime
+  attribute :played_from, :date, default: -> { 7.days.ago.to_date }
+  attribute :played_to, :date, default: -> { Time.zone.now.to_date }
+
+  validates :fighter_id, :character, :played_from, :played_to, presence: true
 
   def each(&)
     data = fetch_data
@@ -31,7 +33,10 @@ class RankedHistory
   private
 
   def fetch_data
-    binds = [ fighter_id, character.to_i, Battle.battle_types["ranked"], played_from, played_to ]
+    return [] unless valid?
+
+    binds = [ fighter_id, character.to_i, Battle.battle_types["ranked"],
+      played_from.beginning_of_day, played_to.end_of_day ]
     ApplicationRecord.lease_connection.select_all(<<~SQL, "#{__FILE__}:#{__LINE__}", binds)
       SELECT replay_id, played_at, home.master_rating mr, home.league_point lp
       FROM challengers home

@@ -1,5 +1,4 @@
 class Matchups::RivalsController < ApplicationController
-  include DefaultPlayedAtRange
   include SetMatchup
 
   def show
