@@ -50,7 +50,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # Unit tests
-  gem "rspec-rails", "~> 7.0"
+  gem "rspec-rails", "~> 7.1"
 
   # rubocop rspec linter
   gem "rubocop-rspec_rails", "~> 2.30"
