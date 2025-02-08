@@ -45,8 +45,8 @@ class FighterSearch
   def fetch_results
     return [] unless valid?
 
-    id_result = BucklerGateway.find_fighter_profile(query) if Fighter::FIGHTER_ID_REGEXP.match? query.to_s
     Rails.cache.fetch search_cache_key, expires: 10.minutes do
+      id_result = BucklerGateway.find_fighter_profile(query) if Fighter::FIGHTER_ID_REGEXP.match? query.to_s
       Array(id_result) | BucklerGateway.search_fighter_profile(query)
     end
   end
