@@ -1,7 +1,7 @@
 class BattlesController < ApplicationController
+  before_action { fresh_when etag: params[:replay_id] }
+
   def show
-    http_cache_forever do
-      @battle = Battle.find_by(replay_id: params[:replay_id])
-    end
+    @battle = Battle.find_by(replay_id: params[:replay_id])
   end
 end
