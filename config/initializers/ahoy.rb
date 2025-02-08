@@ -1,8 +1,6 @@
 class Ahoy::Store < Ahoy::DatabaseStore
 end
 
-Ahoy.exclude_method = ->(_controller, _request) { Rails.env.local? }
-
 # set to true for JavaScript tracking
 Ahoy.api = false
 

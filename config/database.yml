@@ -96,7 +96,3 @@ production:
     <<: *primary_production
     database: sfbuff_production_cable
     migrations_paths: db/cable_migrate
-  ahoy:
-    <<: *primary_production
-    database: sfbuff_production_ahoy
-    migrations_paths: db/ahoy_migrate
