@@ -13,6 +13,7 @@ class FightersController < ApplicationController
   end
 
   def update
+    ahoy.track("FightersController#update", { fighter_id: @fighter.id })
     return render turbo_stream: turbo_stream.remove([ @fighter, "synchronization" ]) if @fighter.synchronized?
 
     @fighter.synchronize_later
