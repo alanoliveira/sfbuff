@@ -85,3 +85,4 @@ en:
     generic: An error occurred
   alerts:
     no_data: No data found
+    too_many_requests: Too many requests

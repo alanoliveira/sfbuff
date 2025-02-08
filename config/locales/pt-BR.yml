@@ -85,3 +85,4 @@ pt-BR:
     generic: Ocorreu um erro
   alerts:
     no_data: Nenhum resultado encontrado
+    too_many_requests: Muitas solicitações

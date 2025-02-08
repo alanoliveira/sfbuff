@@ -1,4 +1,6 @@
 class FightersController < ApplicationController
+  rate_limit to: 10, within: 1.minutes, only: :update, with: -> { too_many_requests }
+
   before_action :set_fighter, except: :index
 
   layout "application", only: :index

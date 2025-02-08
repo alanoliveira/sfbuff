@@ -85,3 +85,4 @@ ja:
     generic: エラーが発生しました
   alerts:
     no_data: データが見つかりません
+    too_many_requests: リクエストが多すぎます
