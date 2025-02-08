@@ -19,19 +19,10 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-default_sqlite: &default_sqlite
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
 
 development:
-  primary:
-    <<: *default
-    database: sfbuff_development
-  ahoy:
-    <<: *default_sqlite
-    database: storage/ahoy.sqlite3
-    migrations_paths: db/ahoy_migrate
+  <<: *default
+  database: sfbuff_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -64,13 +55,8 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  primary:
-    <<: *default
-    database: sfbuff_test
-  ahoy:
-    <<: *default_sqlite
-    database: storage/ahoy_test.sqlite3
-    migrations_paths: db/ahoy_migrate
+  <<: *default
+  database: sfbuff_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -93,24 +79,24 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary:
+  primary: &primary_production
     <<: *default
     database: sfbuff_production
     username: sfbuff
     password: <%= ENV["SFBUFF_DATABASE_PASSWORD"] %>
-  cable:
-    <<: *default_sqlite
-    database: storage/production_cable.sqlite3
-    migrations_paths: db/cable_migrate
   cache:
-    <<: *default_sqlite
-    database: storage/production_cache.sqlite3
+    <<: *primary_production
+    database: sfbuff_production_cache
     migrations_paths: db/cache_migrate
   queue:
-    <<: *default_sqlite
-    database: storage/production_queue.sqlite3
+    <<: *primary_production
+    database: sfbuff_production_queue
     migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: sfbuff_production_cable
+    migrations_paths: db/cable_migrate
   ahoy:
-    <<: *default_sqlite
-    database: storage/ahoy.sqlite3
+    <<: *primary_production
+    database: sfbuff_production_ahoy
     migrations_paths: db/ahoy_migrate
