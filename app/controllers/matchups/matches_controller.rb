@@ -11,10 +11,6 @@ class Matchups::MatchesController < ApplicationController
     @challengers.load
   end
 
-  def pagy_get_count(collection, vars)
-    cache([ collection.cache_key, "pagy-count" ]) { collection.count }
-  end
-
   private
 
   def matchup_parameters
