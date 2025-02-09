@@ -64,7 +64,7 @@
     }
   })
 
-  window.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('turbo:load', () => {
     showActiveTheme(getPreferredTheme())
 
     document.querySelectorAll('[data-bs-theme-value]')
