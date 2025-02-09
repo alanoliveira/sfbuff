@@ -5,12 +5,11 @@ master_rating_steps, league_point_steps = ranked_history.map do |item|
     [ "mr", item.master_rating, item.master_rating_variation ]
   end
 
-  total = point + variation.to_i
   variation_label = variation.nil? ? "?" : ("%+d" % variation)
   {
-    y: total,
+    y: point,
     x: l(item.played_at, format: :short),
-    label: "#{total} (#{variation_label})",
+    label: "#{point} (#{variation_label})",
     visit: { url: battle_path(item.replay_id), options: { frame: "modal" } },
     type:
   }
