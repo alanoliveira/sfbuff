@@ -21,4 +21,8 @@ class FighterProfile
   def home
     Home[home_id]
   end
+
+  def inspect
+    "#<#{self.class}: #{attributes}>"
+  end
 end

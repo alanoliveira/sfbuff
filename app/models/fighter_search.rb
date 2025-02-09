@@ -36,6 +36,10 @@ class FighterSearch
     end
   end
 
+  def inspect
+    "#<#{self.class}: #{attributes}>"
+  end
+
   private
 
   def search_cache_key
