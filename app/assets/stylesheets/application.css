@@ -1,0 +1,3 @@
+[busy].darken-busy, [busy] > .darken-busy {
+  opacity: 0.25;
+}
