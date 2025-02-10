@@ -1,6 +1,6 @@
 Rails.application.config.to_prepare do
   BucklerGateway.buckler_connection = BucklerApi::Connection.new do |config|
-    base_url = ENV.fetch("BUCKLER_BASE_URL", "https://www.streetfighter.com")
+    base_url = ENV["BUCKLER_BASE_URL"] || ("https://www.streetfighter.com" if Rails.env.production?)
     user_agent = ENV["BUCKLER_USER_AGENT"]
     email = ENV["BUCKLER_EMAIL"]
     password = ENV["BUCKLER_PASSWORD"]
