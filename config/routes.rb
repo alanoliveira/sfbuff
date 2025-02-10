@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   end
 
   # for backward compatibility
-  match "/players(/:fighter_id)(*)", to: redirect { |params, _req|
+  match "/players(/:fighter_id)(*)", constraints: { fighter_id: Fighter::FIGHTER_ID_REGEXP }, to: redirect { |params, _req|
     fighter_id = params[:fighter_id]
     if fighter_id
       "/fighters/#{fighter_id}/matches"
