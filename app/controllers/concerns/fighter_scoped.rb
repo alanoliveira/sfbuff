@@ -16,6 +16,6 @@ module FighterScoped
   private
 
   def set_fighter
-    @fighter = Fighter.find_or_create_by!(id: params["fighter_id"])
+    @fighter = Fighter.find_or_initialize_by(id: params["fighter_id"])
   end
 end

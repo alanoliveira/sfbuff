@@ -12,6 +12,7 @@ class FightersController < ApplicationController
 
   def update
     return render turbo_stream: turbo_stream.action("refresh", nil) if @fighter.synchronized?
+    @fighter.save! if @fighter.new_record?
     ahoy.track("FightersController#update", { fighter_id: @fighter.id })
 
     @fighter.synchronize_later unless @fighter.synchronized?
@@ -20,6 +21,6 @@ class FightersController < ApplicationController
   private
 
   def set_fighter
-    @fighter = Fighter.find(params[:id])
+    @fighter = Fighter.find_or_initialize_by(id: params[:id])
   end
 end
