@@ -1,11 +1,13 @@
-<div class="card card-body mb-3">
-  <%= render "form", matchup: @matchup %>
-</div>
+<%= render "fighters/fighter_content" do %>
+  <div class="card card-body mb-3">
+    <%= render "form", matchup: @matchup %>
+  </div>
 
-<%= empty_alert_or_block(@matchup_chart) do %>
-  <%= turbo_frame_tag "matchups-matchup-chart" do %>
-    <div class="card card-body table-responsive">
-      <%= render "matchups/matchup_charts/matchup_chart", matchup_chart: @matchup_chart %>
-    </div>
+  <%= empty_alert_or_block(@matchup_chart) do %>
+    <%= turbo_frame_tag "matchups-matchup-chart" do %>
+      <div class="card card-body table-responsive">
+        <%= render "matchups/matchup_charts/matchup_chart", matchup_chart: @matchup_chart %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

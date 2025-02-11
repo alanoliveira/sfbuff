@@ -1,8 +1,6 @@
 class RankedHistoriesController < ApplicationController
   include FighterScoped
 
-  layout "fighters"
-
   before_action { fresh_when @fighter }
   before_action { params.compact_blank!.with_defaults!(default_params) }
 

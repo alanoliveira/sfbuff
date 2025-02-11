@@ -1,9 +1,11 @@
-<div class="card card-body mb-3">
-  <%= render "form", ranked_history: @ranked_history %>
-</div>
-
-<%= empty_alert_or_block(@ranked_history) do %>
-  <div class="card card-body">
-    <%= render_chart(render partial: "chart_data", formats: :json, locals: { ranked_history: @ranked_history }) %>
+<%= render "fighters/fighter_content" do %>
+  <div class="card card-body mb-3">
+    <%= render "form", ranked_history: @ranked_history %>
   </div>
+
+  <%= empty_alert_or_block(@ranked_history) do %>
+    <div class="card card-body">
+      <%= render_chart(render partial: "chart_data", formats: :json, locals: { ranked_history: @ranked_history }) %>
+    </div>
+  <% end %>
 <% end %>
