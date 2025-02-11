@@ -1,8 +1,8 @@
 class RankedHistoriesController < ApplicationController
   include FighterScoped
 
-  before_action { fresh_when @fighter }
   before_action { params.compact_blank!.with_defaults!(default_params) }
+  fresh_when_unsynchronized
 
   def show
     @ranked_history = RankedHistory.new(ranked_history_params)
