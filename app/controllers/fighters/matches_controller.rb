@@ -3,7 +3,7 @@ class Fighters::MatchesController < Matchups::MatchesController
 
   layout "fighters"
 
-  before_action { fresh_when @fighter }
+  fresh_when_unsynchronized
 
   def pagy_get_count(collection, vars)
     cache([ collection.cache_key, @fighter.cache_version, "pagy-count" ]) { collection.count }

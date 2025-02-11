@@ -3,7 +3,7 @@ class Fighters::MatchupChartsController < Matchups::MatchupChartsController
 
   layout "fighters"
 
-  before_action { fresh_when @fighter }
+  fresh_when_unsynchronized
 
   private
 
