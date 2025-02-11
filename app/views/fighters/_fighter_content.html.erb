@@ -9,11 +9,12 @@
 <%= render "fighters/header", fighter: @fighter %>
 
 <% unless @fighter.synchronized? %>
-  <%= auto_submit_form_with url: fighter_path(@fighter), method: "patch", data: { turbo_stream: true } %>
-
-  <div class="position-relative" id="<%= dom_id(@fighter, "synchronization") %>">
-    <%= turbo_stream_from(@fighter, "synchronization") %>
-  </div>
+    <div id="<%= dom_id(@fighter, "synchronization") %>">
+      <%= turbo_stream_from(@fighter, "synchronization") %>
+      <%= turbo_frame_tag "synchronization" do %>
+        <%= auto_submit_form_with url: fighter_path(@fighter), method: "patch" %>
+      <% end %>
+    </div>
 <% end %>
 
 <nav class="py-3">

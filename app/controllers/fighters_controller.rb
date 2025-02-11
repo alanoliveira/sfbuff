@@ -3,8 +3,6 @@ class FightersController < ApplicationController
 
   before_action :set_fighter, except: :index
 
-  layout "application", only: :index
-
   def index
     @fighter_search = begin
       fighter_search = FighterSearch.new(query: params[:q])
@@ -13,10 +11,10 @@ class FightersController < ApplicationController
   end
 
   def update
+    return render turbo_stream: turbo_stream.action("refresh", nil) if @fighter.synchronized?
     ahoy.track("FightersController#update", { fighter_id: @fighter.id })
-    return render turbo_stream: turbo_stream.remove([ @fighter, "synchronization" ]) if @fighter.synchronized?
 
-    @fighter.synchronize_later
+    @fighter.synchronize_later unless @fighter.synchronized?
   end
 
   private
