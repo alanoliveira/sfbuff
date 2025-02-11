@@ -8,7 +8,7 @@ module FighterScoped
   class_methods do
     def fresh_when_unsynchronized(**)
       before_action(**) do
-        fresh_when etag: [ @fighter.last_synchronized_replay_id, @fighter.profile.name ] if @fighter.synchronized?
+        fresh_when @fighter if @fighter.synchronized?
       end
     end
   end
