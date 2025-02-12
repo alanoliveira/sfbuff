@@ -8,23 +8,23 @@
 
 <%= render "fighters/header", fighter: @fighter %>
 
-<% unless @fighter.synchronized? %>
-    <div id="<%= dom_id(@fighter, "synchronization") %>">
-      <%= turbo_stream_from(@fighter, "synchronization") %>
-      <%= turbo_frame_tag "synchronization" do %>
-        <%= auto_submit_form_with url: fighter_path(@fighter), method: "patch" %>
-      <% end %>
-    </div>
-<% end %>
+<%= turbo_frame_tag "fighter-content", data: { turbo_action: "advance" } do %>
+  <% unless @fighter.synchronized? %>
+      <div id="<%= dom_id(@fighter, "synchronization") %>">
+        <%= turbo_stream_from(@fighter, "synchronization") %>
+        <%= turbo_frame_tag "synchronization" do %>
+          <%= auto_submit_form_with url: fighter_path(@fighter), method: "patch" %>
+        <% end %>
+      </div>
+  <% end %>
 
-<nav class="py-3">
-  <ul class="nav nav-fill nav-underline">
-    <li class="nav-item"><%= fighters_header_nav_link Battle.model_name.human(count: 2), :fighter_matches_path, class: "nav-link" %></li>
-    <li class="nav-item"><%= fighters_header_nav_link Matchup::MatchupChart.model_name.human, :fighter_matchup_chart_path, class: "nav-link" %></li>
-    <li class="nav-item"><%= fighters_header_nav_link RankedHistory.model_name.human, :fighter_ranked_path, class: "nav-link" %></li>
-  </ul>
-</nav>
+  <nav class="py-3">
+    <ul class="nav nav-fill nav-underline">
+      <li class="nav-item"><%= fighters_header_nav_link Battle.model_name.human(count: 2), :fighter_matches_path, class: "nav-link" %></li>
+      <li class="nav-item"><%= fighters_header_nav_link Matchup::MatchupChart.model_name.human, :fighter_matchup_chart_path, class: "nav-link" %></li>
+      <li class="nav-item"><%= fighters_header_nav_link RankedHistory.model_name.human, :fighter_ranked_path, class: "nav-link" %></li>
+    </ul>
+  </nav>
 
-<%= turbo_frame_tag "fighter-content" do %>
   <%= yield %>
 <% end %>
