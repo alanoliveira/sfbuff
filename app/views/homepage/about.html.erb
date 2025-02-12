@@ -7,27 +7,27 @@
   <strong><%== t(".not_capcom") %></strong>
 </div>
 
-<h3 class="mb-3"><%= t(".faq.title") %></h3>
+<h2 class="mb-3"><%= t(".faq.title") %></h3>
 <div class="row">
   <div class="col-12 mb-3">
-    <h4><%== t(".faq.list.data_source.q") %></h4>
+    <h3><%== t(".faq.list.data_source.q") %></h3>
     <p>
       <%== t(".faq.list.data_source.a") %>
       <%= link_to("https://www.streetfighter.com/6/buckler/profile/<PLAYER ID>/battlelog", "https://www.streetfighter.com/6/buckler/fighterslist/search", target: "_blank") %>
     </p>
   </div>
   <div class="col-12 mb-3">
-    <h4><%== t(".faq.list.old_matches.q") %></h4>
+    <h3><%== t(".faq.list.old_matches.q") %></h3>
     <p><%== t(".faq.list.old_matches.a") %></p>
   </div>
   <div class="col-12 mb-3">
     <% email = "moc tod liamg ta 98arievilo.nala" %>
-    <h4><%== t(".faq.list.im_sure.q") %></h4>
+    <h3><%== t(".faq.list.im_sure.q") %></h3>
     <p><%== t(".faq.list.im_sure.a", email:) %></p>
   </div>
 </div>
 
-<h3 class="mb-3"><%= t(".acknowledgments.title") %></h3>
+<h2 class="mb-3"><%= t(".acknowledgments.title") %></h3>
 <ul>
   <% rustyneon_note_link = link_to "錆繼廻音", "https://note.com/rustyneon/", target: "_blank" %>
   <% rustyneon_twitter_link = link_to "@Sabitsuki_Neon", "https://x.com/Sabitsuki_Neon", target: "_blank" %>

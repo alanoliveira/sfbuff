@@ -3,6 +3,11 @@ en:
     search: Search
     select: Select
     reset: Reset
+    download: Download
+    locale_select: Locale Select
+    repository: Repository
+    chart: Chart
+    close: Close
   application:
     theme_selector:
       dark: Dark
@@ -20,6 +25,9 @@ en:
         n_battles_imported:
           one: "%{count} new match imported"
           other: "%{count} new matches imported"
+    matchups:
+      score_by_date_charts:
+        title: Score by date chart
   common:
     chart: Chart
     any: Any

@@ -21,4 +21,4 @@ en:
       acknowledgments:
         title: Acknowledgments
         list:
-          - Special thanks to %{rustyneon_note_link} 錆繼廻音</a>さん (%{rustyneon_twitter_link}) for kindly helping with the Japanese translation
+          - Special thanks to %{rustyneon_note_link}さん (%{rustyneon_twitter_link}) for kindly helping with the Japanese translation

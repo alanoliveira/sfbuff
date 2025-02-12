@@ -3,6 +3,11 @@ ja:
     search: 検索
     select: 選択
     reset: リセット
+    download: ダウンロード
+    locale_select: ロケール選択
+    repository: リポジトリ
+    chart: チャート
+    close: 閉じる
   application:
     theme_selector:
       dark: ダーク
@@ -20,6 +25,9 @@ ja:
         n_battles_imported:
           one: "%{count}戦が追加された"
           other: "%{count}戦が追加された"
+    matchups:
+      score_by_date_charts:
+        title: 日付別スコアチャート
   common:
     chart: 統計
     any: 全て

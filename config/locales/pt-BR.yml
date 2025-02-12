@@ -3,6 +3,11 @@ pt-BR:
     search: Pesquisar
     select: Selecionar
     reset: Resetar
+    download: Download
+    locale_select: Selecionar Localização
+    repository: Repositório
+    chart: Gráfico
+    close: Fechar
   application:
     theme_selector:
       dark: Dark
@@ -20,6 +25,9 @@ pt-BR:
         n_battles_imported:
           one: "%{count} nova match importada"
           other: "%{count} novas matches importadas"
+    matchups:
+      score_by_date_charts:
+        title: Gráfico de Resultados por Data
   common:
     chart: Gráfico
     any: Qualquer

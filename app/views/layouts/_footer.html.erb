@@ -7,7 +7,7 @@
       </div>
       <div>
         <% ENV["REPOSITORY_URL"].try do |url| %>
-          <%= link_to icon("github"), url, target: "_blank", class: "nav-link fs-5" %>
+          <%= link_to icon("github"), url, target: "_blank", class: "nav-link fs-5", aria: { label: t("buttons.repository") } %>
         <% end %>
       </div>
     </div>

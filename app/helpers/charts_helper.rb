@@ -11,7 +11,7 @@ module ChartsHelper
 
   def render_chart(chart_data)
     tag.div data: { controller: "chartjs", chartjs_data_value: chart_data } do
-      concat tag.button icon("download"), class: "btn", data: { chartjs_target: "downloadButton" }
+      concat tag.button icon("download"), class: "btn", data: { chartjs_target: "downloadButton" }, aria: { label: t("buttons.download") }
       concat tag.canvas data: { chartjs_target: "canvas" }
     end
   end
