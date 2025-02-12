@@ -17,17 +17,18 @@ class RankedHistory
     data = fetch_data
     return data if data.empty?
 
-    last_item = data.last.then { Item.new it["replay_id"], it["played_at"], it["mr"], it["lp"], nil, nil }
-    fetch_data.each_cons(2).map do |a, b|
-      # handle MR reset
-      if b["mr"].zero? ^ a["mr"].zero?
-        b["mr"] = a["mr"] = [ a["mr"], b["mr"] ].max
+    fetch_data.chain([ nil ]).each_cons(2).filter_map do |a, b|
+      unless b.nil?
+        # handle MR reset
+        if b["mr"].zero? ^ a["mr"].zero?
+          b["mr"] = a["mr"] = [ a["mr"], b["mr"] ].max
+        end
+        mr_variation = b["mr"] - a["mr"]
+        lp_variation = b["lp"] - a["lp"]
       end
-      mr_variation = b["mr"] - a["mr"]
-      lp_variation = b["lp"] - a["lp"]
       played_at = a["played_at"].in_time_zone(Time.zone)
       Item.new(a["replay_id"], played_at, a["mr"], a["lp"], mr_variation, lp_variation)
-    end.chain([ last_item ]).each(&)
+    end.each(&)
   end
 
   private
