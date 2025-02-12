@@ -3,25 +3,31 @@ image: alanoliveira89/sfbuff
 
 servers:
   web:
-    hosts: <%= ENV.fetch("SFBUFF_WEB_HOSTS").split %>
-    options:
-      memory: 512m
+    hosts:
+     - sfbuff.site
   job:
-    hosts: <%= ENV.fetch("SFBUFF_JOB_HOSTS").split %>
+    hosts:
+     - sfbuff.site
     cmd: bin/jobs
 
 proxy:
   app_port: 3000
   ssl: true
-  hosts: <%= ENV.fetch("SFBUFF_PROXY_HOSTS").split %>
+  hosts:
+    - sfbuff.site
+    - www.sfbuff.site
 
 registry:
-  username: <%= ENV.fetch("KAMAL_REGISTRY_USERNAME") %>
+  username: alanoliveira89
   password:
     - KAMAL_REGISTRY_PASSWORD
 
 builder:
   arch: amd64
+  local: false
+  remote: sfbuff.site
+  args:
+    GIT_REVISION: <%= `git rev-parse HEAD`.chomp %>
 
 env:
   clear:
@@ -53,14 +59,12 @@ volumes:
 accessories:
   db:
     image: postgres:16.2-alpine
-    host: <%= ENV.fetch("SFBUFF_DB_HOST") %>
+    host: sfbuff.site
     port: "127.0.0.1:5432:5432"
     env:
       clear:
         POSTGRES_USER: sfbuff
       secret:
         - POSTGRES_PASSWORD
-    options:
-      memory: 128m
     directories:
       - data:/var/lib/postgresql/data
