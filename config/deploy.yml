@@ -25,7 +25,8 @@ builder:
 
 env:
   clear:
-    DATABASE_URL: postgres://sfbuff@sfbuff-db
+    SFBUFF_DATABASE_HOST: sfbuff-db
+    SFBUFF_DATABASE_USERNAME: sfbuff
     RAILS_ENV: production
     REPOSITORY_URL: <%= ENV.fetch("REPOSITORY_URL", "") %>
   secret:
