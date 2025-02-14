@@ -17,6 +17,7 @@ en:
     index:
       welcome: Welcome to SFBUFF
       description: A statistics website for SF6 matches
+      share_please: "Tip: There's a rumor that if you share the sfbuff link on your social networks, the fighting game gods will bless you with a huge winning streak."
   fighters:
     search_form:
       placeholder: Name or ID
