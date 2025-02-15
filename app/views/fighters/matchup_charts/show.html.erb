@@ -3,7 +3,7 @@
     <%= render "form", matchup: @matchup %>
   </div>
 
-  <%= empty_alert_or_block(@matchup_chart) do %>
+  <%= empty_alert_unless(@matchup_chart.any?) do %>
     <%= turbo_frame_tag "matchups-matchup-chart" do %>
       <div class="card card-body table-responsive">
         <%= render "matchups/matchup_charts/matchup_chart", matchup_chart: @matchup_chart %>

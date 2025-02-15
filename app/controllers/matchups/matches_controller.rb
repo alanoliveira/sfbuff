@@ -8,7 +8,6 @@ class Matchups::MatchesController < ApplicationController
       .order(played_at: "desc")
       .includes(:battle, :opponent)
       .then { pagy(it) }
-    @challengers.load
   end
 
   private

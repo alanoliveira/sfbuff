@@ -1,4 +1,4 @@
-<%= empty_alert_or_block(fighter_search.result) do %>
+<%= empty_alert_unless(fighter_search.result.any?) do %>
   <div class="card card-body table-responsive">
     <%= render "fighter_profiles/fighter_profiles_list", fighter_profiles_list: fighter_search.result %>
   </div>

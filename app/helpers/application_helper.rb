@@ -15,8 +15,8 @@ module ApplicationHelper
     tag.i nil, class: [ "bi", "bi-#{icon}", opts.delete(:class) ], **opts
   end
 
-  def empty_alert_or_block(list, &)
-    return alert t("alerts.no_data"), "warning", dismissible: false unless list.any?
+  def empty_alert_unless(condition, &)
+    return alert t("alerts.no_data"), "warning", dismissible: false unless condition
     capture(&)
   end
 
