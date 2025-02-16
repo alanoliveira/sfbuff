@@ -1,3 +1,5 @@
+data = data.to_h { |score, date| [ date, score ] }
+
 json.type "bar"
 
 json.options do

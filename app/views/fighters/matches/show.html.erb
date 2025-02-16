@@ -21,11 +21,13 @@
       </div>
     </div>
 
-    <%= turbo_frame_tag "matchups-matches" do %>
-      <div class="card card-body mb-3 table-responsive darken-busy">
-        <%= render "matchups/matches/challengers_list", challengers_list: @challengers %>
-      </div>
-      <%= paginate @pagy %>
+    <% cache @challengers.cache_key do %>
+      <%= turbo_frame_tag "matchups-matches" do %>
+        <div class="card card-body mb-3 table-responsive darken-busy">
+          <%= render "matchups/matches/challengers_list", challengers_list: @challengers %>
+        </div>
+        <%= paginate @pagy %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

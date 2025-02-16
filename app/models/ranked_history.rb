@@ -31,6 +31,14 @@ class RankedHistory
     end.each(&)
   end
 
+  def cache_key
+    ActiveSupport::Cache.expand_cache_key([ model_name.cache_key, Digest::MD5.hexdigest(attributes.to_param) ])
+  end
+
+  def cache_version
+    nil
+  end
+
   private
 
   def fetch_data

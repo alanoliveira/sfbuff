@@ -3,9 +3,11 @@
     <%= render "form", ranked_history: @ranked_history %>
   </div>
 
-  <%= empty_alert_unless(@ranked_history.any?) do %>
-    <div class="card card-body">
-      <%= render_chart(render partial: "chart_data", formats: :json, locals: { ranked_history: @ranked_history }) %>
-    </div>
+  <% cache @ranked_history.cache_key do %>
+    <%= empty_alert_unless(@ranked_history.any?) do %>
+      <div class="card card-body">
+        <%= render_chart(render partial: "chart_data", formats: :json, locals: { ranked_history: @ranked_history }) %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

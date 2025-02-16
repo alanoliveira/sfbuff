@@ -7,7 +7,6 @@ class Matchups::ScoreByDateChartsController < ApplicationController
       .group_by_day("played_at")
       .then { it.select("#{it.group_values.last} date") }
       .scoreboard
-      .to_h { |score, date| [ date, score ] }
   end
 
   private

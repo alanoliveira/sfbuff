@@ -3,6 +3,7 @@ class Fighters::MatchesController < Matchups::MatchesController
 
   layout :fighter_layout
   fresh_when_unsynchronized
+  fragment_cache_key { @fighter.last_synchronized_replay_id }
 
   def pagy_get_count(collection, vars)
     cache([ collection.cache_key, @fighter.cache_version, "pagy-count" ]) { collection.count }

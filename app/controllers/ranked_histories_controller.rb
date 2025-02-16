@@ -4,6 +4,7 @@ class RankedHistoriesController < ApplicationController
   layout :fighter_layout
   before_action { params.compact_blank!.with_defaults!(default_params) }
   fresh_when_unsynchronized
+  fragment_cache_key { @fighter.last_synchronized_replay_id }
 
   def show
     @ranked_history = RankedHistory.new(ranked_history_params)

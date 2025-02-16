@@ -2,7 +2,9 @@
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-body">
-        <%= render_chart render(partial: "chart_data", formats: :json, locals: { data: @scoreboard_by_date }) %>
+        <% cache @matchup do %>
+          <%= render_chart render(partial: "chart_data", formats: :json, locals: { data: @scoreboard_by_date }) %>
+        <% end %>
       </div>
       <div class="modal-footer">
         <%= modal_dismiss_button class: "btn btn-secondary" %>

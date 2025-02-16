@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 
   etag { I18n.locale.name }
   etag { Rails.application.config.git_revision }
+  fragment_cache_key { I18n.locale.name }
+  fragment_cache_key { Time.zone.utc_offset }
 
   private
 
