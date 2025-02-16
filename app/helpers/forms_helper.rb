@@ -7,4 +7,18 @@ module FormsHelper
       yield f if block_given?
     end
   end
+
+  def filter_form_with(data: {}, **opts, &)
+    opts[:url] ||= false
+    opts[:scope] ||= ""
+    opts[:method] ||= "get"
+    data[:controller] = "form-helper #{data[:controller]}".strip
+    data[:form_helper_compact_blank_value] = true
+    form_with data:, **opts, &
+  end
+
+  def form_reset_button(data: {}, **opts)
+    data[:turbo_prefetch] = false
+    link_to t("buttons.reset"), false, data:, **opts
+  end
 end

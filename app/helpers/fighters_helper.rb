@@ -8,4 +8,11 @@ module FightersHelper
     opts[:class] = Array(opts[:class]) | [ "active" ] if current_page? send(url)
     link_to name, send(url, request.query_parameters), **opts
   end
+
+  def fighter_content_frame
+    turbo_frame_tag "fighter_content", data: { turbo_action: "advance" } do
+      safe_concat render("fighters/nav")
+      yield
+    end
+  end
 end

@@ -1,4 +1,4 @@
-<%= form_with model: matchup, url: false, scope: "", method: "get", data: { controller: "form-helper", form_helper_compact_blank_value: true } do |f| %>
+<%= filter_form_with model: matchup do |f| %>
   <div class="row">
     <div class="col-md-3 mb-3">
       <div class="form-floating">
@@ -36,7 +36,7 @@
   <div class="row">
     <div class="col">
       <%= f.submit t("buttons.search"), name: nil, class: "btn btn-primary" %>
-      <%= link_to t("buttons.reset"), false, class: "btn btn-secondary" %>
+      <%= form_reset_button class: "btn btn-secondary" %>
     </div>
   </div>
 <% end %>

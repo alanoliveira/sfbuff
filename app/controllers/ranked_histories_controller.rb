@@ -1,6 +1,7 @@
 class RankedHistoriesController < ApplicationController
   include FighterScoped
 
+  layout :fighter_layout
   before_action { params.compact_blank!.with_defaults!(default_params) }
   fresh_when_unsynchronized
 
