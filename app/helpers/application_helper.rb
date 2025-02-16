@@ -24,4 +24,10 @@ module ApplicationHelper
     return error.message unless Rails.env.production?
     t("errors.#{error.class.name}", default: t("errors.generic"))
   end
+
+  def share_please_toast
+    return if Time.at(session["share_me_displayed_at"].to_i) > 6.hours.ago
+    session["share_me_displayed_at"] = Time.now.to_i
+    simple_toast t("alerts.share_please"), data: { toast_wait_value: 15000 }
+  end
 end

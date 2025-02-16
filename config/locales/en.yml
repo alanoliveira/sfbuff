@@ -17,7 +17,6 @@ en:
     index:
       welcome: Welcome to SFBUFF
       description: A statistics website for SF6 matches
-      share_please: I've put a lot of effort into creating this site. I'd be grateful if you could share it.
   fighters:
     search_form:
       placeholder: Name or ID
@@ -95,3 +94,4 @@ en:
   alerts:
     no_data: No data found
     too_many_requests: Too many requests
+    share_please: I've put a lot of effort into creating this site. I'd be grateful if you could share it.

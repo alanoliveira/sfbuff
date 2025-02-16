@@ -17,7 +17,6 @@ ja:
     index:
       welcome: SFBUFFにようこそ
       description: スト6の対戦を分析するサイト
-      share_please: このサイトを作るのにすごく頑張った。シェアしてもらえると嬉しいです！
   fighters:
     search_form:
       placeholder: プレイヤーネームまたID
@@ -95,3 +94,4 @@ ja:
   alerts:
     no_data: データが見つかりません
     too_many_requests: リクエストが多すぎます
+    share_please: このサイトを作るのにすごく頑張った。シェアしてもらえると嬉しいです！
