@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Challenger, type: :model do
+  describe "before_save" do
+    it "set tmp_played_at" do
+      freeze_time
+      challenger = build(:p1, battle: create(:battle, played_at: Time.now))
+      expect(challenger.tmp_played_at).to be_nil
+      expect { challenger.save }.to change { challenger.tmp_played_at }.from(nil).to(Time.now)
+    end
+  end
+
   describe "#opponent" do
     let(:p1) { build(:p1) }
     let(:p2) { build(:p2) }
