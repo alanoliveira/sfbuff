@@ -6,6 +6,7 @@ class Matchups::ScoreByDateChartsController < ApplicationController
       .home_challengers
       .group_by_day("played_at")
       .then { it.select("#{it.group_values.last} date") }
+      .order("date")
       .scoreboard
   end
 
