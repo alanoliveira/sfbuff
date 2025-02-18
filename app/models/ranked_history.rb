@@ -47,12 +47,12 @@ class RankedHistory
     binds = [ fighter_id, character.to_i, Battle.battle_types["ranked"],
       played_from.beginning_of_day, played_to.end_of_day ]
     ApplicationRecord.lease_connection.select_all(<<~SQL, "#{__FILE__}:#{__LINE__}", binds)
-      SELECT replay_id, played_at, home.master_rating mr, home.league_point lp
+      SELECT replay_id, home.played_at, home.master_rating mr, home.league_point lp
       FROM challengers home
       INNER JOIN battles ON home.battle_id = battles.id
       WHERE home.fighter_id = $1 AND home.character_id = $2 AND home.league_point >= 0
-      AND   battles.battle_type = $3 AND battles.played_at BETWEEN $4 AND $5
-      ORDER BY played_at
+      AND   battles.battle_type = $3 AND home.played_at BETWEEN $4 AND $5
+      ORDER BY home.played_at
     SQL
   end
 end

@@ -14,11 +14,17 @@ class Matchup
   validates :played_from, :played_to, presence: true
 
   def home_challengers
-    Challenger.with(challengers: battles.select("home.*", "played_at"))
+    home_rel.with(away: away_rel.select(:battle_id, :side), battles: battles_rel.select(:id)).joins(<<~JOIN)
+      INNER JOIN battles ON challengers.battle_id = battles.id
+      INNER JOIN away ON away.battle_id = challengers.battle_id AND challengers.side != away.side
+    JOIN
   end
 
   def away_challengers
-    Challenger.with(challengers: battles.select("away.*", "played_at"))
+    away_rel.with(home: home_rel.select(:battle_id, :side), battles: battles_rel.select(:id)).joins(<<~JOIN)
+      INNER JOIN battles ON challengers.battle_id = battles.id
+      INNER JOIN home ON home.battle_id = challengers.battle_id AND challengers.side != home.side
+    JOIN
   end
 
   def battles
@@ -48,7 +54,6 @@ class Matchup
 
     Battle.all.tap do
       it.where!(battle_type:) if battle_type.present?
-      it.where!(played_at: played_from.beginning_of_day..played_to.end_of_day)
     end
   end
 
@@ -57,6 +62,7 @@ class Matchup
       it.where!(fighter_id: home_fighter_id) if home_fighter_id.present?
       it.where!(character: home_character) if home_character.present?
       it.where!(input_type: home_input_type) if home_input_type.present?
+      it.where!(played_at: played_from.beginning_of_day..played_to.end_of_day)
     end
   end
 
