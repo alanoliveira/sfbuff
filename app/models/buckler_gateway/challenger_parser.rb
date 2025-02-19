@@ -33,11 +33,15 @@ class BucklerGateway::ChallengerParser
   end
 
   def character_id
-    raw_data["character_id"]
+    Character.find_or_create_by!(id: raw_data["character_id"]) do |char|
+      char.name = raw_data["character_tool_name"]
+    end.id
   end
 
   def playing_character_id
-    raw_data["playing_character_id"]
+    Character.find_or_create_by!(id: raw_data["playing_character_id"]) do |char|
+      char.name = raw_data["playing_character_tool_name"]
+    end.id
   end
 
   def input_type_id

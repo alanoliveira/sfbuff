@@ -8,6 +8,7 @@ RSpec.describe Matchup::MatchupChart, type: :model do
   let(:me)  { { fighter_id: generate(:fighter_id) } }
 
   before do
+    4.times { Character.create!(id: it, name: "Character#{it}") }
     2.times { create_match(result: :p1_win, p1: me, p2: { character: 1, input_type: 0 }) }
     3.times { create_match(result: :p1_win, p1: me, p2: { character: 1, input_type: 1 }) }
   end
