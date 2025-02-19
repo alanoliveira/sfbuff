@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_18_171253) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_19_160351) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -75,6 +75,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_171253) do
     t.index ["fighter_id", "played_at"], name: "index_challengers_on_fighter_id_and_played_at", order: { played_at: :desc }
     t.index ["fighter_id"], name: "index_challengers_on_fighter_id"
     t.index ["input_type_id"], name: "index_challengers_on_input_type_id"
+  end
+
+  create_table "characters", id: :integer, default: nil, force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "fighters", id: :bigint, default: nil, force: :cascade do |t|
