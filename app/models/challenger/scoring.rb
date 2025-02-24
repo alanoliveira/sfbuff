@@ -2,10 +2,10 @@ module Challenger::Scoring
   extend ActiveSupport::Concern
 
   SCORING_SELECT = <<~SELECT
-    COUNT(cached_result = 1 OR NULL) AS win,
-    COUNT(cached_result = -1 OR NULL) AS lose,
-    COUNT(cached_result = 0 OR NULL) AS draw,
-    SUM(cached_result) AS diff,
+    COUNT(challengers.cached_result = 1 OR NULL) AS win,
+    COUNT(challengers.cached_result = -1 OR NULL) AS lose,
+    COUNT(challengers.cached_result = 0 OR NULL) AS draw,
+    SUM(challengers.cached_result) AS diff,
     COUNT(1) AS total
   SELECT
 

@@ -14,14 +14,14 @@ class Matchup
   validates :played_from, :played_to, presence: true
 
   def home_challengers
-    home_rel.with(away: away_rel.select(:battle_id, :side), battles: battles_rel.select(:id)).joins(<<~JOIN)
+    home_rel.with(away: away_rel, battles: battles_rel).joins(<<~JOIN)
       INNER JOIN battles ON challengers.battle_id = battles.id
       INNER JOIN away ON away.battle_id = challengers.battle_id AND challengers.side != away.side
     JOIN
   end
 
   def away_challengers
-    away_rel.with(home: home_rel.select(:battle_id, :side), battles: battles_rel.select(:id)).joins(<<~JOIN)
+    away_rel.with(home: home_rel, battles: battles_rel).joins(<<~JOIN)
       INNER JOIN battles ON challengers.battle_id = battles.id
       INNER JOIN home ON home.battle_id = challengers.battle_id AND challengers.side != home.side
     JOIN

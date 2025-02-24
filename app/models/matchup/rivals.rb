@@ -28,7 +28,7 @@ class Matchup::Rivals
   def build_scoreboard(order)
     matchup.away_challengers
       .group(:fighter_id, :character_id, :input_type_id)
-      .select("ANY_VALUE(name) name", :fighter_id, :character_id, :input_type_id)
+      .select("ANY_VALUE(challengers.name) name", :fighter_id, :character_id, :input_type_id)
       .limit(limit)
       .order(order)
       .scoreboard
