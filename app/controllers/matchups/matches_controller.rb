@@ -7,7 +7,13 @@ class Matchups::MatchesController < ApplicationController
       .home_challengers
       .order(played_at: "desc")
       .includes(:battle, :opponent)
-      .then { pagy(it) }
+      .then do
+        if (@matchup.played_to.to_time - @matchup.played_from.to_time) > 1.month
+          pagy_countless(it)
+        else
+          pagy(it)
+        end
+      end
   end
 
   private
