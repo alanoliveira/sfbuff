@@ -25,7 +25,16 @@ FactoryBot.define do
       round_ids { [ 1, 0, 4 ] }
     end
 
-    factory :p1, class: Challengers::P1
-    factory :p2, class: Challengers::P2
+    factory :p1, class: Challengers::P1 do
+      trait :with_battle do
+        battle { build(:battle, p2: build(:p2)) }
+      end
+    end
+
+    factory :p2, class: Challengers::P2 do
+      trait :with_battle do
+        battle { build(:battle, p1: build(:p1)) }
+      end
+    end
   end
 end

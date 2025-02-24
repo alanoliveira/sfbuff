@@ -7,6 +7,7 @@ class Challenger < ApplicationRecord
   lookup_enum :playing_character, class_name: "Character"
   lookup_enum :input_type
 
+  before_commit { MatchupIndex.index(self) }
   before_save { self.played_at = battle.played_at }
 
   delegate :result, to: :round_set
