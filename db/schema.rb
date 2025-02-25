@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_24_113408) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_25_145801) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_24_113408) do
     t.integer "cached_result"
     t.datetime "played_at", null: false, comment: "Unnormalized duplication of battles.played_at used to indexing"
     t.index ["battle_id"], name: "index_challengers_on_battle_id"
+    t.index ["fighter_id", "battle_id"], name: "index_challengers_on_fighter_id_and_battle_id"
     t.index ["fighter_id", "character_id", "played_at"], name: "index_challengers_on_fighter_id_and_character_id_and_played_at"
     t.index ["fighter_id", "played_at"], name: "index_challengers_on_fighter_id_and_played_at", order: { played_at: :desc }
   end
