@@ -3,7 +3,7 @@
     <%= render "form", matchup: @matchup %>
   </div>
 
-  <%= empty_alert_unless(@pagy.count.positive?) do %>
+  <%= empty_alert_unless(@challengers.to_a.any?) do %>
     <%= link_to_matchup_score_by_date_chart @matchup, class: "btn btn-outline-primary mb-3 w-100" %>
 
     <div class="mb-3">
@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <% cache @challengers.cache_key do %>
+    <% cache [ @matchup.cache_key, @pagy.page ] do %>
       <%= turbo_frame_tag "matchups-matches" do %>
         <div class="card card-body mb-3 table-responsive darken-busy">
           <%= render "matchups/matches/challengers_list", challengers_list: @challengers %>
