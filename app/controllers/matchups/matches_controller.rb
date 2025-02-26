@@ -5,7 +5,7 @@ class Matchups::MatchesController < ApplicationController
   def show
     @pagy, @challengers = @matchup
       .home_challengers
-      .order(matchup_index: { played_at: :desc })
+      .order(played_at: "desc")
       .includes(:battle, :opponent)
       .then { pagy(it) }
   end

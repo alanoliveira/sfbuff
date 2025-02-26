@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_25_161407) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_25_145801) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_catalog.plpgsql"
+  enable_extension "plpgsql"
 
   create_table "ahoy_events", force: :cascade do |t|
     t.bigint "visit_id"
@@ -86,21 +86,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_25_161407) do
     t.string "last_synchronized_replay_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "matchup_indexes", id: false, force: :cascade do |t|
-    t.bigint "battle_id", null: false
-    t.datetime "played_at", null: false
-    t.integer "battle_type", limit: 2, null: false
-    t.bigint "home_challenger_id", null: false
-    t.bigint "home_fighter_id", null: false
-    t.integer "home_character_id", limit: 2, null: false
-    t.integer "home_input_type_id", limit: 2, null: false
-    t.bigint "away_challenger_id", null: false
-    t.bigint "away_fighter_id", null: false
-    t.integer "away_character_id", limit: 2, null: false
-    t.integer "away_input_type_id", limit: 2, null: false
-    t.index ["battle_type", "home_fighter_id", "home_character_id"], name: "idx_on_battle_type_home_fighter_id_home_character_i_1404e5c114", where: "(battle_type = 1)"
-    t.index ["home_fighter_id", "played_at"], name: "index_matchup_indexes_on_home_fighter_id_and_played_at"
   end
 end

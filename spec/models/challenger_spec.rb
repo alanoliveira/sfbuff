@@ -4,7 +4,7 @@ RSpec.describe Challenger, type: :model do
   describe "before_save" do
     it "set played_at" do
       freeze_time
-      challenger = build(:p1, battle: build(:battle, played_at: Time.now, p2: build(:p2)))
+      challenger = build(:p1, battle: create(:battle, played_at: Time.now))
       expect(challenger.played_at).to be_nil
       expect { challenger.save }.to change { challenger.played_at }.from(nil).to(Time.now)
     end

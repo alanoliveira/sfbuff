@@ -13,24 +13,22 @@ class Matchup
 
   validates :played_from, :played_to, presence: true
 
-  def count
-    matchup_index.count
-  end
-
   def home_challengers
-    Challenger.with(matchup_index:).joins(<<~JOIN)
-      INNER JOIN matchup_index ON matchup_index.home_challenger_id = challengers.id
+    home_rel.with(away: away_rel, battles: battles_rel).joins(<<~JOIN)
+      INNER JOIN battles ON challengers.battle_id = battles.id
+      INNER JOIN away ON away.battle_id = challengers.battle_id AND challengers.side != away.side
     JOIN
   end
 
   def away_challengers
-    Challenger.with(matchup_index:).joins(<<~JOIN)
-      INNER JOIN matchup_index ON matchup_index.away_challenger_id = challengers.id
+    away_rel.with(home: home_rel, battles: battles_rel).joins(<<~JOIN)
+      INNER JOIN battles ON challengers.battle_id = battles.id
+      INNER JOIN home ON home.battle_id = challengers.battle_id AND challengers.side != home.side
     JOIN
   end
 
   def battles
-    Battle.with(matchup_index:).joins(:matchup_index)
+    battles_rel.by_matchup(home: home_rel, away: away_rel)
   end
 
   def rivals(limit)
@@ -51,18 +49,28 @@ class Matchup
 
   private
 
-  def matchup_index
-    return MatchupIndex.none unless valid?
+  def battles_rel
+    return Battle.none unless valid?
 
-    MatchupIndex.all.tap do
-      it.where!(played_at: played_from.beginning_of_day..played_to.end_of_day)
+    Battle.all.tap do
       it.where!(battle_type:) if battle_type.present?
-      it.where!(home_fighter_id:) if home_fighter_id.present?
-      it.where!(home_character_id:  home_character) if home_character.present?
-      it.where!(home_input_type_id:  home_input_type) if home_input_type.present?
-      it.where!(away_fighter_id:) if away_fighter_id.present?
-      it.where!(away_character_id:  away_character) if away_character.present?
-      it.where!(away_input_type_id:  away_input_type) if away_input_type.present?
+    end
+  end
+
+  def home_rel
+    Challenger.all.tap do
+      it.where!(fighter_id: home_fighter_id) if home_fighter_id.present?
+      it.where!(character: home_character) if home_character.present?
+      it.where!(input_type: home_input_type) if home_input_type.present?
+      it.where!(played_at: played_from.beginning_of_day..played_to.end_of_day)
+    end
+  end
+
+  def away_rel
+    Challenger.all.tap do
+      it.where!(fighter_id: away_fighter_id) if away_fighter_id.present?
+      it.where!(character: away_character) if away_character.present?
+      it.where!(input_type: away_input_type) if away_input_type.present?
     end
   end
 end

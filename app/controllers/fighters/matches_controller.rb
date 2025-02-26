@@ -6,7 +6,7 @@ class Fighters::MatchesController < Matchups::MatchesController
   fragment_cache_key { @fighter.last_synchronized_replay_id }
 
   def pagy_get_count(collection, vars)
-    cache([ collection.cache_key, @fighter.cache_version, "pagy-count" ]) { @matchup.count }
+    cache([ collection.cache_key, @fighter.cache_version, "pagy-count" ]) { @matchup.home_challengers.count }
   end
 
   private
