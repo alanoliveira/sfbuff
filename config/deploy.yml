@@ -68,3 +68,15 @@ accessories:
         - POSTGRES_PASSWORD
     directories:
       - data:/var/lib/postgresql/data
+    options:
+      memory: 384m
+      memory-swap: 384m
+    cmd: >
+      postgres \
+       -c shared_buffers=64MB \
+       -c work_mem=2MB \
+       -c maintenance_work_mem=16MB \
+       -c effective_cache_size=128MB \
+       -c checkpoint_timeout=10min \
+       -c wal_buffers=512kB \
+       -c track_counts=off
