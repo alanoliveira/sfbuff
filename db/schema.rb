@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_28_054858) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_28_060232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,4 +84,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_28_054858) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_view "matchup_caches", materialized: true, sql_definition: <<-SQL
+      SELECT battles.battle_type,
+      battles.played_at,
+      home.fighter_id AS home_fighter_id,
+      home.character_id AS home_character_id,
+      home.input_type_id AS home_input_type_id,
+      away.fighter_id AS away_fighter_id,
+      away.character_id AS away_character_id,
+      away.input_type_id AS away_input_type_id,
+      home.id AS home_challenger_id,
+      away.id AS away_challenger_id,
+      battles.id AS battle_id
+     FROM ((battles
+       JOIN challengers home ON ((home.battle_id = battles.id)))
+       JOIN challengers away ON (((away.battle_id = battles.id) AND (home.id <> away.id))));
+  SQL
+  add_index "matchup_caches", ["battle_id", "home_challenger_id", "away_challenger_id"], name: "idx_on_battle_id_home_challenger_id_away_challenger_1a281946be", unique: true
+  add_index "matchup_caches", ["home_fighter_id", "played_at"], name: "index_matchup_caches_on_home_fighter_id_and_played_at"
+
 end

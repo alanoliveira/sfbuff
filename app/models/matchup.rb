@@ -14,15 +14,21 @@ class Matchup
   validates :played_from, :played_to, presence: true
 
   def home_challengers
-    Challenger.where(id: battles.select("home.id"))
+    Challenger.with(matchup:).joins(<<~JOIN)
+      INNER JOIN matchup ON matchup.home_challenger_id = challengers.id
+    JOIN
   end
 
   def away_challengers
-    Challenger.where(id: battles.select("away.id"))
+    Challenger.with(matchup:).joins(<<~JOIN)
+      INNER JOIN matchup ON matchup.away_challenger_id = challengers.id
+    JOIN
   end
 
   def battles
-    battles_rel.by_matchup(home: home_rel, away: away_rel)
+    Battle.with(matchup:).joins(<<~JOIN)
+      INNER JOIN matchup ON matchup.battle_id = battles.id
+    JOIN
   end
 
   def rivals(limit)
@@ -42,6 +48,36 @@ class Matchup
   end
 
   private
+
+  def matchup
+    Arel.sql(<<~SQL)
+      SELECT * FROM (
+        (#{cached_matchups.to_sql})
+        UNION ALL
+        (#{uncached_matchups.to_sql})
+      )
+    SQL
+  end
+
+  def cached_matchups
+    MatchupCache.select("home_challenger_id, away_challenger_id, battle_id, played_at").tap do
+      it.where!(played_at: played_from.beginning_of_day..played_to.end_of_day)
+      it.where!(battle_type:) if battle_type.present?
+      it.where!(home_fighter_id:) if home_fighter_id.present?
+      it.where!(home_character_id: home_character) if home_character.present?
+      it.where!(home_input_type_id: home_input_type) if home_input_type.present?
+      it.where!(away_fighter_id:) if away_fighter_id.present?
+      it.where!(away_character_id: away_character) if away_character.present?
+      it.where!(away_input_type_id: away_input_type) if away_input_type.present?
+    end
+  end
+
+  def uncached_matchups
+     battles_rel
+      .by_matchup(home: home_rel, away: away_rel)
+      .where(id: MatchupCache.maximum(:battle_id)..)
+      .select("home.id home_challenger_id", "away.id away_challenger_id", "battles.id battle_id", "battles.played_at")
+  end
 
   def battles_rel
     return Battle.none unless valid?

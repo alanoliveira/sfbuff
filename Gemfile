@@ -92,3 +92,5 @@ gem "selenium-webdriver", "~> 4.24"
 gem "groupdate", "~> 6.5"
 
 gem "local_time", "~> 3.0"
+
+gem "scenic", "~> 1.8"

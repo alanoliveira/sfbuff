@@ -4,7 +4,6 @@ class Matchups::ScoreByDateChartsController < ApplicationController
   def show
     @scoreboard_by_date = @matchup
       .home_challengers
-      .joins(:battle)
       .group_by_day("played_at")
       .then { it.select("#{it.group_values.last} date") }
       .order("date")
