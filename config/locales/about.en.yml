@@ -11,6 +11,12 @@ en:
           data_source:
             q: What is the source of the data?
             a: "The data is scraped from the official website at the following URL:"
+          terms_of_use:
+            q: Does this tool violate Buckler/Capcom's terms of use?
+            a: Maybe yes, maybe no. It depends on how the terms are interpreted.<br>
+               What I can say is that the site has been online since May 2024, and my email isn't hard to find.<br>
+               In fact, I even sent an email to Capcom with the link to the tool, asking for a job (but unfortunately, I was rejected).<br>
+               So, they definitely know it exists, and I would take it down if they asked.
           old_matches:
             q: Why can’t I see my old matches?
             a: The page above only provides data for the most recent 100 matches.

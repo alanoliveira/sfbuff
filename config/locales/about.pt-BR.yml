@@ -10,6 +10,12 @@ pt-BR:
           data_source:
             q: Qual é a fonte dos dados?
             a: "Os dados são extraídos do site oficial no seguinte URL:"
+          terms_of_use:
+            q: Essa ferramenta viola os termos de uso da Buckler/Capcom?
+            a: Talvez sim, talvez não. Depende de como os termos são interpretados.<br>
+               O que posso dizer é que o site está no ar desde maio de 2024 e meu e-mail não é difícil de encontrar.<br>
+               Na verdade, eu mesmo já mandei um e-mail para a Capcom com o link da ferramenta, pedindo um emprego (mas fui rejeitado infelizmente).<br>
+               Então, eles certamente sabem que ela existe e eu tiraria do ar caso solicitassem.
           old_matches:
             q: Por que não consigo ver minhas partidas antigas?
             a: A página mencionada acima fornece dados apenas das 100 partidas mais recentes.
