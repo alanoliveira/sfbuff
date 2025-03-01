@@ -73,9 +73,10 @@ class Matchup
   end
 
   def uncached_matchups
+    last_cached_battle_id = MatchupCache.maximum(:battle_id)
      battles_rel
       .by_matchup(home: home_rel, away: away_rel)
-      .where(id: MatchupCache.maximum(:battle_id)..)
+      .tap { it.where!("battles.id > ?", last_cached_battle_id) if last_cached_battle_id }
       .select("home.id home_challenger_id", "away.id away_challenger_id", "battles.id battle_id", "battles.played_at")
   end
 
