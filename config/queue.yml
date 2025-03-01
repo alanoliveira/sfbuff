@@ -6,7 +6,7 @@ default: &default
     - queues: "*"
       threads: 2
       processes: <%= ENV.fetch("JOB_CONCURRENCY", 1) %>
-      polling_interval: 0.1
+      polling_interval: <%= ENV.fetch("SOLID_QUEUE_POLLING_INTERVAL", 0.1) %>
 
 development:
   <<: *default
