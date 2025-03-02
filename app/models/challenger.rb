@@ -8,6 +8,8 @@ class Challenger < ApplicationRecord
   lookup_enum :input_type
   belongs_to :battle
 
+  scope :calibrated, -> { where("league_point >= 0") }
+
   delegate :result, to: :round_set
 
   def round_set

@@ -28,7 +28,7 @@ class RankedHistory
       end
       played_at = a["played_at"].in_time_zone(Time.zone)
       Item.new(a["replay_id"], played_at, a["mr"], a["lp"], mr_variation, lp_variation)
-    end.each(&)
+    end.sort_by(&:played_at).each(&)
   end
 
   def cache_key
@@ -44,15 +44,11 @@ class RankedHistory
   def fetch_data
     return [] unless valid?
 
-    binds = [ fighter_id, character.to_i, Battle.battle_types["ranked"],
-      played_from.beginning_of_day, played_to.end_of_day ]
-    ApplicationRecord.lease_connection.select_all(<<~SQL, "#{__FILE__}:#{__LINE__}", binds)
-      SELECT replay_id, battles.played_at, home.master_rating mr, home.league_point lp
-      FROM challengers home
-      INNER JOIN battles ON home.battle_id = battles.id
-      WHERE home.fighter_id = $1 AND home.character_id = $2 AND home.league_point >= 0
-      AND   battles.battle_type = $3 AND battles.played_at BETWEEN $4 AND $5
-      ORDER BY battles.played_at
-    SQL
+    Challenger
+      .with(battles: Battle.ranked .where(played_at: played_from.beginning_of_day..played_to.end_of_day))
+      .calibrated
+      .where(fighter_id:, character:)
+      .joins("INNER JOIN battles ON battles.id = challengers.battle_id")
+      .select("battles.replay_id, battles.played_at, master_rating mr, league_point lp")
   end
 end
