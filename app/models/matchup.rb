@@ -50,6 +50,8 @@ class Matchup
   private
 
   def matchup
+    return MatchupCache.none unless valid?
+
     Arel.sql(<<~SQL)
       SELECT * FROM (
         (#{cached_matchups.to_sql})
