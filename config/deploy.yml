@@ -37,6 +37,7 @@ env:
     REPOSITORY_URL: <%= ENV.fetch("REPOSITORY_URL", "") %>
     REDIS_URL: redis://sfbuff-redis:6379
     SOLID_QUEUE_POLLING_INTERVAL: 0.5
+    PERFORM_FRAGMENT_CACHING: false
   secret:
     - SECRET_KEY_BASE
     - BUCKLER_EMAIL
