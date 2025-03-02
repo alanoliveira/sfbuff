@@ -6,7 +6,6 @@ class Fighter < ApplicationRecord
   composed_of :profile, class_name: "FighterProfile", mapping: { profile: :attributes }, allow_nil: true
 
   after_initialize { self.profile ||= FighterProfile.new(name: "##{id}") }
-  after_save_commit :broadcast_replace_header
 
   validates :id, format: Regexp.union(/\A/, FIGHTER_ID_REGEXP, /\z/)
 
