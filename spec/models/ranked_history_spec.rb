@@ -8,13 +8,13 @@ RSpec.describe RankedHistory, type: :model do
   let(:played_to) { Time.new(2025, 10, 10, 12, 0, 0) }
 
   before do
-    played_at_gen = (Time.new(2024, 10, 10, 12, 0, 0)..).step(10.minutes)
-    create_match(battle: { battle_type: "custom_room", played_at: played_at_gen.next }, p1: { fighter_id:, character:, master_rating: 1000, league_point: 5000 })
-    create_match(battle: { battle_type: "ranked", played_at: played_at_gen.next }, p1: { fighter_id:, character:, master_rating: 1000, league_point: 5000 })
-    create_match(battle: { battle_type: "ranked", played_at: played_at_gen.next }, p1: { fighter_id:, character:, master_rating: 1010, league_point: 5050 })
-    create_match(battle: { battle_type: "ranked", played_at: played_at_gen.next }, p1: { fighter_id:, character:, master_rating: 1008, league_point: 5010 })
-    create_match(battle: { battle_type: "ranked", played_at: played_at_gen.next }, p1: { fighter_id:, character:, master_rating: 0, league_point: 5040 })
-    create_match(battle: { battle_type: "ranked", played_at: played_at_gen.next }, p1: { fighter_id:, character:, master_rating: 1510, league_point: 5090 })
+    create_match(battle: { battle_type: "custom_room", played_at: Time.new(2024, 10, 10, 12, 0) }, p1: { fighter_id:, character:, master_rating: 1000, league_point: 5000 })
+    create_match(battle: { battle_type: "ranked", played_at: Time.new(2024, 10, 10, 12, 10) }, p1: { fighter_id:, character:, master_rating: 1000, league_point: 5000 })
+    create_match(battle: { battle_type: "ranked", played_at: Time.new(2024, 10, 10, 12, 20) }, p1: { fighter_id:, character:, master_rating: 1010, league_point: 5050 })
+    create_match(battle: { battle_type: "ranked", played_at: Time.new(2024, 10, 10, 12, 40) }, p1: { fighter_id:, character:, master_rating: 0, league_point: 5040 })
+    create_match(battle: { battle_type: "ranked", played_at: Time.new(2024, 10, 10, 12, 50) }, p1: { fighter_id:, character:, master_rating: 1510, league_point: 5090 })
+
+    create_match(battle: { battle_type: "ranked", played_at: Time.new(2024, 10, 10, 12, 30) }, p1: { fighter_id:, character:, master_rating: 1008, league_point: 5010 })
   end
 
   it do
