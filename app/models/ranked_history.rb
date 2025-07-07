@@ -17,7 +17,7 @@ class RankedHistory
     data = fetch_data
     return data if data.empty?
 
-    fetch_data.chain([ nil ]).each_cons(2).filter_map do |a, b|
+    fetch_data.sort_by(&:played_at).chain([ nil ]).each_cons(2).map do |a, b|
       unless b.nil?
         # handle MR reset
         if b["mr"].zero? ^ a["mr"].zero?
@@ -28,7 +28,7 @@ class RankedHistory
       end
       played_at = a["played_at"].in_time_zone(Time.zone)
       Item.new(a["replay_id"], played_at, a["mr"], a["lp"], mr_variation, lp_variation)
-    end.sort_by(&:played_at).each(&)
+    end.each(&)
   end
 
   def cache_key
