@@ -13,4 +13,8 @@ class Battle::Challenger
   def rounds
     round_ids.map { Round[it] }.freeze
   end
+
+  def league_info
+    LeagueInfo.new(mr:, lp:).freeze
+  end
 end

@@ -28,9 +28,13 @@ pt-BR:
       mai: Mai
       elena: Elena
       random: Random
-    control_types:
-      C: Classic
-      M: Modern
+    input_types:
+      short:
+        C: C
+        M: M
+      long:
+        C: Classic
+        M: Modern
     battle_types:
       ranked: Ranked
       casual_match: Casual Match

@@ -28,9 +28,13 @@ ja:
       mai: 舞
       elena: エレナ
       random: ランダム
-    control_types:
-      C: クラシック
-      M: モダン
+    input_types:
+      short:
+        C: C
+        M: M
+      long:
+        C: クラシック
+        M: モダン
     battle_types:
       ranked: ランクマッチ
       casual_match: カジュアルマッチ

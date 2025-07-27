@@ -1,3 +1,13 @@
 [busy].darken-busy, [busy] > .darken-busy {
   opacity: 0.25;
 }
+
+.battle .p1-side .round-list,
+.battle .p2-side .challenger-data {
+  order: 1;
+}
+
+.battle .p1-side .challenger-data,
+.battle .p2-side .round-list {
+  order: 0;
+}
