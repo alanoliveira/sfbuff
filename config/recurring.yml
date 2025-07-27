@@ -1,4 +1,0 @@
-production:
-  periodic_refresh_matchup_caches_view:
-    class: RefreshMatchupCacheJob
-    schedule: at 11pm every day
