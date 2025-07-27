@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_27_061644) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_27_074758) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -75,4 +75,78 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_27_061644) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_view "matchups", sql_definition: <<-SQL
+      SELECT unnamed_subquery.replay_id,
+      unnamed_subquery.played_at,
+      unnamed_subquery.battle_type_id,
+      unnamed_subquery.home_fighter_id,
+      unnamed_subquery.home_character_id,
+      unnamed_subquery.home_playing_character_id,
+      unnamed_subquery.home_input_type_id,
+      unnamed_subquery.home_mr,
+      unnamed_subquery.home_lp,
+      unnamed_subquery.home_round_ids,
+      unnamed_subquery.home_name,
+      unnamed_subquery.away_fighter_id,
+      unnamed_subquery.away_character_id,
+      unnamed_subquery.away_playing_character_id,
+      unnamed_subquery.away_input_type_id,
+      unnamed_subquery.away_mr,
+      unnamed_subquery.away_lp,
+      unnamed_subquery.away_round_ids,
+      unnamed_subquery.away_name,
+      unnamed_subquery.result
+     FROM ( SELECT battles.replay_id,
+              battles.played_at,
+              battles.battle_type_id,
+              battles.p1_fighter_id AS home_fighter_id,
+              battles.p1_character_id AS home_character_id,
+              battles.p1_playing_character_id AS home_playing_character_id,
+              battles.p1_input_type_id AS home_input_type_id,
+              battles.p1_mr AS home_mr,
+              battles.p1_lp AS home_lp,
+              battles.p1_round_ids AS home_round_ids,
+              battles.p1_name AS home_name,
+              battles.p2_fighter_id AS away_fighter_id,
+              battles.p2_character_id AS away_character_id,
+              battles.p2_playing_character_id AS away_playing_character_id,
+              battles.p2_input_type_id AS away_input_type_id,
+              battles.p2_mr AS away_mr,
+              battles.p2_lp AS away_lp,
+              battles.p2_round_ids AS away_round_ids,
+              battles.p2_name AS away_name,
+                  CASE battles.winner_side
+                      WHEN 1 THEN 1
+                      WHEN 2 THEN '-1'::integer
+                      ELSE 0
+                  END AS result
+             FROM battles) unnamed_subquery
+  UNION ALL
+   SELECT battles.replay_id,
+      battles.played_at,
+      battles.battle_type_id,
+      battles.p2_fighter_id AS home_fighter_id,
+      battles.p2_character_id AS home_character_id,
+      battles.p2_playing_character_id AS home_playing_character_id,
+      battles.p2_input_type_id AS home_input_type_id,
+      battles.p2_mr AS home_mr,
+      battles.p2_lp AS home_lp,
+      battles.p2_round_ids AS home_round_ids,
+      battles.p2_name AS home_name,
+      battles.p1_fighter_id AS away_fighter_id,
+      battles.p1_character_id AS away_character_id,
+      battles.p1_playing_character_id AS away_playing_character_id,
+      battles.p1_input_type_id AS away_input_type_id,
+      battles.p1_mr AS away_mr,
+      battles.p1_lp AS away_lp,
+      battles.p1_round_ids AS away_round_ids,
+      battles.p1_name AS away_name,
+          CASE battles.winner_side
+              WHEN 2 THEN 1
+              WHEN 1 THEN '-1'::integer
+              ELSE 0
+          END AS result
+     FROM battles;
+  SQL
 end

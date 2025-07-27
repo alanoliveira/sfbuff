@@ -34,6 +34,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   include FactoryBot::Syntax::Methods
+  include MatchupCreatorHelper
   include ActiveSupport::Testing::TimeHelpers
 
   # Next line is a workaround for github.com/thoughtbot/factory_bot/issues/1754
