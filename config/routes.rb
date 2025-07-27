@@ -6,8 +6,9 @@ Rails.application.routes.draw do
     get "matches" => "fighters/matchups#show"
   end
 
-  scope "fighters/:home_fighter_id", as: "fighter" do
+  scope "fighters/%{home_fighter_id}", as: "fighter" do
     get "rivals" => "matchups/rivals#show"
+    get "daily_performance_chart" => "matchups/daily_performance_charts#show"
   end
 
   resource :matchups, only: :show do

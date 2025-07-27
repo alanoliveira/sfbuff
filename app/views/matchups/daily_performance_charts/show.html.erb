@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-body">
         <% cache @matchup do %>
-          <%= render_chart render(partial: "chart_data", formats: :json, locals: { data: @scoreboard_by_date }) %>
+          <%= render "daily_performance_chart", data: @daily_performance_data %>
         <% end %>
       </div>
       <div class="modal-footer">
@@ -12,3 +12,4 @@
     </div>
   </div>
 <% end %>
+

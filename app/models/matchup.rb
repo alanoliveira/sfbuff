@@ -9,6 +9,14 @@ class Matchup < ApplicationRecord
     Rivals.new(all)
   end
 
+  def self.scoreboard_by_day
+    group_by_day(:played_at)
+      .then { it.select("#{it.group_values.last} date") }
+      .scoreboard
+      .each { |score, date:| [ date, score ] }
+      .to_h
+  end
+
   def readonly?
     true
   end

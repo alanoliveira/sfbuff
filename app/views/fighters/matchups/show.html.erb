@@ -18,6 +18,10 @@
     </div>
   </div>
 
+  <%= link_to_modal icon("bar-chart-fill"),
+      fighter_daily_performance_chart_path(@fighter.id, request.query_parameters),
+      class: "btn btn-outline-primary mb-3 w-100" %>
+
   <%= turbo_frame_tag "matchup-list" do %>
     <div class="my-3">
       <%= render "matchups_list", matchups_list: @matchups %>
