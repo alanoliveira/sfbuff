@@ -1,0 +1,12 @@
+<%= fighter_content_frame do %>
+  <div class="card card-body mb-3">
+    <%= render "search_form", matchups_search: @matchups_search %>
+  </div>
+
+  <%= turbo_frame_tag "matchup-list" do %>
+    <div class="my-3">
+      <%= render "matchups_list", matchups_list: @matchups %>
+    </div>
+    <%= paginate @matchups %>
+  <% end %>
+<% end %>

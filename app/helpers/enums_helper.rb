@@ -1,14 +1,14 @@
 module EnumsHelper
-  def options_for_character_select
-    Enums::CHARACTERS.keys.to_h { [ character_name(it), it ] }
+  def options_for_character_select(...)
+    options_for_enum_select(Enums::CHARACTERS.keys.to_h { [ character_name(it), it ] }, ...)
   end
 
-  def options_for_input_type_select
-    Enums::INPUT_TYPES.keys.to_h { [ input_type_name(it), it ] }
+  def options_for_input_type_select(...)
+    options_for_enum_select(Enums::INPUT_TYPES.keys.to_h { [ input_type_name(it), it ] }, ...)
   end
 
-  def options_for_battle_type_select
-    Enums::BATTLE_TYPES.keys.to_h { [ battle_type_name(it), it ] }
+  def options_for_battle_type_select(...)
+    options_for_enum_select(Enums::BATTLE_TYPES.keys.to_h { [ battle_type_name(it), it ] }, ...)
   end
 
   def character_name(id)
@@ -21,5 +21,10 @@ module EnumsHelper
 
   def battle_type_name(id)
     I18n.t(Enums::BATTLE_TYPES[id], scope: "enums.battle_types")
+  end
+
+  def options_for_enum_select(hash, selected = nil, include_any: true)
+    any_option = tag.option("Any", value: "") if include_any
+    safe_join [ any_option, options_for_select(hash, selected) ]
   end
 end

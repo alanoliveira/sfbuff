@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :battles, only: :show, param: :replay_id
 
   resources :fighters, only: [ :index, :update ], constraints: { id: Fighter::FIGHTER_ID_REGEXP } do
+    get "matches" => "fighters/matchups#show"
   end
 
   resource :matchups, only: :show do
