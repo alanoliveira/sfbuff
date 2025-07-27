@@ -1,6 +1,8 @@
 module ModalHelper
-  def link_to_modal(*, data: {}, **, &)
-    link_to(*, data: { turbo_frame: "modal", **data }, **, &)
+  def link_to_modal(name = nil, options = nil, html_options = {}, &block)
+    html_options[:data] ||= {}
+    html_options[:data][:turbo_frame] = "modal"
+    link_to(name, options, html_options, &block)
   end
 
   def modal_container(data: {}, **, &)

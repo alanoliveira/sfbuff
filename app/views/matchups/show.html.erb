@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "matchup-list" do %>
+  <%= render "matchups_list", matchups_list: @matchups %>
+  <%= paginate @matchups %>
+<% end %>
+
