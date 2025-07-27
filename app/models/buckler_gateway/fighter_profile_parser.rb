@@ -32,9 +32,7 @@ class BucklerGateway::FighterProfileParser
   end
 
   def main_character_id
-    Character.find_or_create_by!(id: raw_data["favorite_character_id"]) do |char|
-      char.name = raw_data["favorite_character_tool_name"]
-    end.id
+    raw_data["favorite_character_id"]
   end
 
   def master_rating

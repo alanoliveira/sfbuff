@@ -17,7 +17,7 @@ RSpec.describe Fighter::Synchronizer::BattlesSynchronizer, type: :model do
     end
 
     context "when there are new battles" do
-      let(:new_battles) { 3.times.map { build_match(p1: { fighter_id: fighter.id }) } }
+      let(:new_battles) { build_list(:battle, 3, p1: build(:challenger, fighter_id: fighter.id)) }
 
       before do
         allow(BucklerGateway).to receive(:fetch_fighter_battles).with(fighter.id, 1).and_return(new_battles)
@@ -34,14 +34,11 @@ RSpec.describe Fighter::Synchronizer::BattlesSynchronizer, type: :model do
     end
 
     context "when it finds a battle already imported by the opponent" do
-      let(:new_battles) { 3.times.map { build_match(p1: { fighter_id: fighter.id }) } }
+      let(:new_battles) { build_list(:battle, 3, p1: build(:challenger, fighter_id: fighter.id)) }
 
       before do
         allow(BucklerGateway).to receive(:fetch_fighter_battles).with(fighter.id, 1).and_return(new_battles)
-        new_battles[0].dup.tap do
-          it.p1 = new_battles[0].p1.dup
-          it.p2 = new_battles[0].p2.dup
-        end.save!
+        new_battles[0].clone.save!
       end
 
       it "ignores it and import the others" do
@@ -55,7 +52,7 @@ RSpec.describe Fighter::Synchronizer::BattlesSynchronizer, type: :model do
     end
 
     context "when it finds the battle with replay_id equals to last_synchronized_replay_id" do
-      let(:new_battles) { 3.times.map { build_match(p1: { fighter_id: fighter.id }) } }
+      let(:new_battles) { build_list(:battle, 3, p1: build(:challenger, fighter_id: fighter.id)) }
 
       before do
         allow(BucklerGateway).to receive(:fetch_fighter_battles).with(fighter.id, 1).and_return(new_battles)
