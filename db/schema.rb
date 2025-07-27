@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_28_060232) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_27_061644) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "ahoy_events", force: :cascade do |t|
     t.bigint "visit_id"
@@ -44,37 +44,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_28_060232) do
     t.index ["visitor_token", "started_at"], name: "index_ahoy_visits_on_visitor_token_and_started_at"
   end
 
-  create_table "battles", force: :cascade do |t|
-    t.string "replay_id", null: false
-    t.integer "battle_type", null: false
+  create_table "battles", primary_key: "replay_id", id: :string, force: :cascade do |t|
     t.datetime "played_at", null: false
+    t.integer "battle_type_id", null: false
+    t.integer "winner_side", null: false
+    t.bigint "p1_fighter_id", null: false
+    t.integer "p1_character_id", null: false
+    t.integer "p1_playing_character_id", null: false
+    t.integer "p1_input_type_id", null: false
+    t.integer "p1_mr"
+    t.integer "p1_lp"
+    t.json "p1_round_ids", null: false
+    t.string "p1_name", null: false
+    t.bigint "p2_fighter_id", null: false
+    t.integer "p2_character_id", null: false
+    t.integer "p2_playing_character_id", null: false
+    t.integer "p2_input_type_id", null: false
+    t.integer "p2_mr"
+    t.integer "p2_lp"
+    t.json "p2_round_ids", null: false
+    t.string "p2_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["battle_type"], name: "index_battles_on_battle_type"
-    t.index ["played_at"], name: "index_battles_on_played_at"
-    t.index ["replay_id"], name: "index_battles_on_replay_id", unique: true
-  end
-
-  create_table "challengers", force: :cascade do |t|
-    t.bigint "fighter_id", null: false
-    t.integer "character_id", null: false
-    t.integer "playing_character_id", null: false
-    t.integer "input_type_id", null: false
-    t.integer "master_rating"
-    t.integer "league_point"
-    t.string "name"
-    t.json "round_ids", null: false
-    t.integer "side", null: false
-    t.bigint "battle_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "cached_result"
-    t.index ["battle_id"], name: "index_challengers_on_battle_id"
-    t.index ["fighter_id", "battle_id"], name: "index_challengers_on_fighter_id_and_battle_id"
-  end
-
-  create_table "characters", id: :integer, default: nil, force: :cascade do |t|
-    t.string "name"
   end
 
   create_table "fighters", id: :bigint, default: nil, force: :cascade do |t|
@@ -84,24 +75,4 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_28_060232) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_view "matchup_caches", materialized: true, sql_definition: <<-SQL
-      SELECT battles.battle_type,
-      battles.played_at,
-      home.fighter_id AS home_fighter_id,
-      home.character_id AS home_character_id,
-      home.input_type_id AS home_input_type_id,
-      away.fighter_id AS away_fighter_id,
-      away.character_id AS away_character_id,
-      away.input_type_id AS away_input_type_id,
-      home.id AS home_challenger_id,
-      away.id AS away_challenger_id,
-      battles.id AS battle_id
-     FROM ((battles
-       JOIN challengers home ON ((home.battle_id = battles.id)))
-       JOIN challengers away ON (((away.battle_id = battles.id) AND (home.id <> away.id))));
-  SQL
-  add_index "matchup_caches", ["battle_id", "home_challenger_id", "away_challenger_id"], name: "idx_on_battle_id_home_challenger_id_away_challenger_1a281946be", unique: true
-  add_index "matchup_caches", ["home_fighter_id", "played_at"], name: "index_matchup_caches_on_home_fighter_id_and_played_at"
-
 end
