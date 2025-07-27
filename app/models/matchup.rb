@@ -5,6 +5,10 @@ class Matchup < ApplicationRecord
 
   scope :scoreboard, Scoreboard
 
+  def self.rivals
+    Rivals.new(all)
+  end
+
   def readonly?
     true
   end

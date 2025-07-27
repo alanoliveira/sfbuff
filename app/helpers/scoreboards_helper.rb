@@ -1,5 +1,5 @@
 module ScoreboardsHelper
-  def score_win_percent(win_percent)
+  def score_ratio(win_percent)
     bs_class = case win_percent
     when ..40 then "text-danger"
     when 60.. then "text-success"

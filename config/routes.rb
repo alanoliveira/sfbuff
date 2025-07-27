@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     get "matches" => "fighters/matchups#show"
   end
 
+  scope "fighters/:home_fighter_id", as: "fighter" do
+    get "rivals" => "matchups/rivals#show"
+  end
+
   resource :matchups, only: :show do
   end
 
