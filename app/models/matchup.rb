@@ -3,6 +3,8 @@ class Matchup < ApplicationRecord
 
   belongs_to :battle, foreign_key: :replay_id
 
+  scope :scoreboard, Scoreboard
+
   def readonly?
     true
   end
