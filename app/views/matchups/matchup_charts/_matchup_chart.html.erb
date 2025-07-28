@@ -1,7 +1,7 @@
 <table class="table table-striped text-center">
   <thead>
     <tr>
-      <th colspan="2">VS</th>
+      <th colspan="2"><%= Matchup.human_attribute_name :away_challenger %></th>
       <%= score_table_head %>
       <th><%= tag.span icon("bar-chart-fill"), title: t("common.chart") %></th>
     </tr>

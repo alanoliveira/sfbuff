@@ -33,58 +33,59 @@ en:
     any: Any
   activerecord:
     models:
+      ranked_step: Ranked History
+      matchup: Matches
       battle:
         one: Match
         other: Matches
       fighter:
         one: Player
         other: Players
+    attributes:
+      fighter:
+        synchronized_at: Synchronized
+      matchup:
+        home_fighter_id: My ID
+        home_name: My name
+        home_character: My Character
+        home_input_type: My Control
+        home_challenger: Me
+        away_fighter_id: Vs ID
+        away_name: VS name
+        away_character: Vs Character
+        away_input_type: Vs Control
+        away_challenger: VS
+        replay_id: Replay ID
+        played_at: Date
+        battle_type: Match Type
+      ranked_step:
+        character: My Character
   activemodel:
     models:
-      ranked_history: Ranked History
       matchup/matchup_chart: Matchup Chart
       matchup/rivals: Rivals
+    attributes:
+      matchup/score:
+        wins: Wins
+        losses: Losses
+        draws: Draws
+        total: Total
+        diff: Diff
+        ratio: Ratio
+      matchup/rivals:
+        favorites: Favorites
+        victims: Victims
+        tormentors: Tormentors
+      fighter_profile:
+        home: Country
+        league_info: League
+        main_character: Main char
+        last_online_at: Last online
+        name: Name
+        fighter_id: ID
   attributes:
-    name: Name
-    last_online_at: Last online
-    main_character: Main char
-    fighter_id: ID
-    league_info: League
-    home: Country
-    result: Result
-    result/win: 
-      one: Win
-      other: Wins
-    result/lose: 
-      one: Lose
-      other: Loses
-    result/draw: 
-      one: Draw
-      other: Draws
-    score/total: Total
-    score/win: Wins
-    score/lose: Loses
-    score/draw: Draws
-    score/diff: Balance
-    score/win_ratio: Ratio
-    battle_type: Match Type
-    home_fighter_id: My ID
-    home_character: My Character
-    home_input_type: My Control
-    away_fighter_id: Vs ID
-    away_character: Vs Character
-    away_input_type: Vs Control
-    replay_id: Replay
-    played_at: Date
-    pick: Pick
-    character: Character
-    input_type: Control
     played_from: From
     played_to: To
-    rivals/favorites: Favorites
-    rivals/victims: Victims
-    rivals/tormentors: Tormentors
-    synchronized_at: Synchronized
   errors:
     "ArgumentError": Invalid parameter
     "BucklerGateway::ProfileNotFound": Player not found

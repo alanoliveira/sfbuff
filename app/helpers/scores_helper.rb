@@ -1,12 +1,12 @@
 module ScoresHelper
   def score_table_head
     safe_join [
-      tag.th(t("attributes.score.total")),
-      tag.th(t("attributes.score.wins")),
-      tag.th(t("attributes.score.losses")),
-      tag.th(t("attributes.score.draws")),
-      tag.th(tag.span "Σ", title: t("attributes.score.diff")),
-      tag.th(tag.span "%", title: t("attributes.score.ratio"))
+      tag.th(Matchup::Score.human_attribute_name :total),
+      tag.th(Matchup::Score.human_attribute_name :wins),
+      tag.th(Matchup::Score.human_attribute_name :losses),
+      tag.th(Matchup::Score.human_attribute_name :draws),
+      tag.th(tag.span "Σ", title: Matchup::Score.human_attribute_name(:diff)),
+      tag.th(tag.span "%", title: Matchup::Score.human_attribute_name(:ratio))
     ]
   end
 

@@ -1,4 +1,6 @@
 Matchup::Score = Data.define(:wins, :losses, :draws) do
+  extend ActiveModel::Translation
+
   def total
     wins + losses + draws
   end

@@ -1,5 +1,5 @@
 pt-BR:
-  buckler:
+  enums:
     characters:
       ryu: Ryu
       luke: Luke
@@ -27,6 +27,10 @@ pt-BR:
       terry: Terry
       mai: Mai
       elena: Elena
+      sagat: Sagat
+      c_viper: C. Viper
+      alex: Alex
+      ingrid: Ingrid
       random: Random
     input_types:
       short:

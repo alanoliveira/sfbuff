@@ -24,7 +24,7 @@ module EnumsHelper
   end
 
   def options_for_enum_select(hash, selected = nil, include_any: true)
-    any_option = tag.option("Any", value: "") if include_any
+    any_option = tag.option(t("common.any"), value: "") if include_any
     safe_join [ any_option, options_for_select(hash, selected) ]
   end
 end

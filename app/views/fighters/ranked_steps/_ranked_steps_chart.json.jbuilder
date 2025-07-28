@@ -42,6 +42,10 @@ json.options do
       json.displayColors false
     end
 
+    json.title do
+      json.text "#{RankedStep.model_name.human}"
+    end
+
     json.marks do
       json.lp(
         1000 => { title: "IRON" },

@@ -2,20 +2,20 @@
   <div class="row">
     <div class="col-md-3 mb-3">
       <div class="form-floating">
-        <%= select_tag(:home_character_id, options_for_character_select(params[:home_character_id], include_any: false), class: "form-select") %>
-        <%= label_tag(:home_character_id) %>
+        <%= select_tag :home_character_id, options_for_character_select(params[:home_character_id], include_any: false), class: "form-select" %>
+        <%= label_tag :home_character_id, RankedStep.human_attribute_name(:character) %>
       </div>
     </div>
     <div class="col-md-3 mb-3">
       <div class="form-floating">
         <%= date_field_tag :played_from, params["played_from"], class: "form-control" %>
-        <%= label_tag(:played_from) %>
+        <%= label_tag :played_from, t("attributes.played_from") %>
       </div>
     </div>
     <div class="col-md-3 mb-3">
       <div class="form-floating">
         <%= date_field_tag :played_to, params["played_to"], class: "form-control" %>
-        <%= label_tag(:played_to) %>
+        <%= label_tag :played_to, t("attributes.played_to") %>
       </div>
     </div>
   </div>

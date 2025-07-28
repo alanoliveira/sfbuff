@@ -1,12 +1,12 @@
 <div class="card card-body table-responsive">
   <table class="table table-striped text-center">
     <thead>
-      <th colspan="3"><%= t("attributes.home_challenger") %></th>
-      <th><%= t("attributes.result") %></th>
-      <th colspan="3"><%= t("attributes.away_challenger") %></th>
-      <th><%= t("attributes.battle_type") %></th>
-      <th><%= t("attributes.replay_id") %></th>
-      <th><%= t("attributes.played_at") %></th>
+      <th colspan="3"><%= Matchup.human_attribute_name :home_challenger %></th>
+      <th><%= Matchup.human_attribute_name :result %></th>
+      <th colspan="3"><%= Matchup.human_attribute_name :away_challenger %></th>
+      <th><%= Matchup.human_attribute_name :battle_type %></th>
+      <th><%= Matchup.human_attribute_name :replay_id %></th>
+      <th><%= Matchup.human_attribute_name :played_at %></th>
     </thead>
     <tbody>
       <% matchups_list.each do |matchup| %>

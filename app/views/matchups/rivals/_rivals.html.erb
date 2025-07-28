@@ -1,5 +1,5 @@
 <% [:favorites, :victims, :tormentors].each do |kind| %>
   <div class="card card-body mb-3 table-responsive">
-    <%= render "rival_list", data: rivals.send(kind), title: I18n.t("attributes.rivals.#{kind}") %>
+    <%= render "rival_list", data: rivals.send(kind), title: Matchup::Rivals.human_attribute_name(kind) %>
   </div>
 <% end %>

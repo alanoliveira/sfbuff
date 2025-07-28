@@ -1,5 +1,5 @@
 ja:
-  buckler:
+  enums:
     characters:
       ryu: リュウ
       luke: ルーク
@@ -27,6 +27,10 @@ ja:
       terry: テリー
       mai: 舞
       elena: エレナ
+      sagat: サガット
+      c_viper: C.ヴァイパー
+      alex: アレックス
+      ingrid: イングリッド
       random: ランダム
     input_types:
       short:
