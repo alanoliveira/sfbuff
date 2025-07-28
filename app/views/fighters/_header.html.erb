@@ -1,5 +1,13 @@
 <div id="<%= dom_id(fighter, "header") %>">
-  <h1><%= fighter.profile.name %></h1>
+
+  <div class="d-flex align-items-center">
+    <h1><%= fighter.profile.name %></h1>
+    <a href="https://www.streetfighter.com/6/buckler/profile/<%= fighter.id %>" 
+      target="_blank" class="ms-2 text-decoration-none align-self-start">
+      <%= icon "box-arrow-up-right", class: "small" %>
+    </a>
+  </div>
+
   <small>
     <%= Fighter.human_attribute_name :synchronized_at %>:
     <%= local_time_ago fighter.synchronized_at, format: :short if fighter.synchronized_at? %>

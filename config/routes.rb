@@ -3,9 +3,12 @@ Rails.application.routes.draw do
   resources :battles, only: :show, param: :replay_id
 
   resources :fighters, only: [ :index, :update ], constraints: { id: Fighter::FIGHTER_ID_REGEXP } do
-    get "matches" => "fighters/matchups#show"
-    get "matchup_chart" => "fighters/matchup_charts#show"
-    get "ranked_step" => "fighters/ranked_steps#show"
+    get "/" => redirect("/fighters/%{fighter_id}/matchups")
+    scope module: :fighters do
+      resource :matchups, only: :show
+      resource :matchup_chart, only: :show
+      resource :ranked_step, only: :show
+    end
   end
 
   scope "fighters/:home_fighter_id", as: "fighter_matchups", module: :matchups do

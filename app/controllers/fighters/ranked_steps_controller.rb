@@ -4,6 +4,7 @@ class Fighters::RankedStepsController < ApplicationController
   before_action :set_default_character_id
 
   layout :fighter_layout
+  fresh_when_unsynchronized
 
   def show
     from_date = Date.parse(params[:played_from]) rescue Date.today

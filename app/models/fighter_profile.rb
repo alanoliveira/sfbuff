@@ -10,16 +10,8 @@ class FighterProfile
   attribute :home_id
   attribute :last_online_at
 
-  def main_character
-    Character[main_character_id]
-  end
-
   def league_info
     LeagueInfo.new(lp: league_point, mr: master_rating)
-  end
-
-  def home
-    Home[home_id]
   end
 
   def inspect

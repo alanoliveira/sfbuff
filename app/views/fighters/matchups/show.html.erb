@@ -3,29 +3,31 @@
     <%= render "search_form", matchups_search: @matchups_search %>
   </div>
 
-  <div class="mb-3">
-    <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#fighter-rivals">
-      <%= Matchup::Rivals.model_name.human %>
-    </button>
-    <div class="collapse mt-3" id="fighter-rivals">
-      <%= turbo_frame_tag "matchups-rivals", src: fighter_matchups_rivals_path(@fighter.id, request.query_parameters), loading: "lazy" do %>
-        <div class="d-flex justify-content-center">
-          <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+  <%= empty_alert_unless(@matchups.present?) do %>
+    <%= link_to_modal icon("bar-chart-fill"),
+        fighter_matchups_daily_performance_chart_path(@fighter.id, request.query_parameters),
+        class: "btn btn-outline-primary mb-3 w-100" %>
+
+    <div class="mb-3">
+      <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#fighter-rivals">
+        <%= Matchup::Rivals.model_name.human %>
+      </button>
+      <div class="collapse mt-3" id="fighter-rivals">
+        <%= turbo_frame_tag "matchups-rivals", src: fighter_matchups_rivals_path(@fighter.id, request.query_parameters), loading: "lazy" do %>
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
-  </div>
 
-  <%= link_to_modal icon("bar-chart-fill"),
-      fighter_matchups_daily_performance_chart_path(@fighter.id, request.query_parameters),
-      class: "btn btn-outline-primary mb-3 w-100" %>
-
-  <%= turbo_frame_tag "matchup-list" do %>
-    <div class="my-3">
-      <%= render "matchups_list", matchups_list: @matchups %>
-    </div>
-    <%= paginate @matchups %>
+    <%= turbo_frame_tag "matchup-list" do %>
+      <div class="my-3">
+        <%= render "matchups_list", matchups_list: @matchups %>
+      </div>
+      <%= paginate @matchups %>
+    <% end %>
   <% end %>
 <% end %>

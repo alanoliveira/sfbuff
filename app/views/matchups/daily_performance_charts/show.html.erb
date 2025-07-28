@@ -2,9 +2,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-body">
-        <% cache @matchup do %>
-          <%= render "daily_performance_chart", data: @daily_performance_data %>
-        <% end %>
+        <%= render "daily_performance_chart", data: @daily_performance_data %>
       </div>
       <div class="modal-footer">
         <%= modal_dismiss_button class: "btn btn-secondary" %>

@@ -2,6 +2,7 @@ class Fighters::MatchupChartsController < Matchups::MatchupChartsController
   include FighterScoped
 
   layout :fighter_layout
+  fresh_when_unsynchronized
 
   private
 

@@ -3,5 +3,9 @@
     <%= render "search_form" %>
   </div>
 
-  <%= render "ranked_steps_chart", ranked_steps: @ranked_steps.to_a %>
+  <%= empty_alert_unless(@ranked_steps.present?) do %>
+    <div class="card card-body">
+      <%= render "ranked_steps_chart", ranked_steps: @ranked_steps.to_a %>
+    </div>
+  <% end %>
 <% end %>
