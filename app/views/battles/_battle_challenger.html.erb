@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center">
   <div class="col-10 text-center challenger-data">
-    <small><%= league_info_span(challenger.league_info) %></small>
+    <small><%= league_info_span mr: challenger.mr, lp: challenger.lp %></small>
     <div class="text-truncate fs-2">
       <%= link_to_fighter challenger.name, challenger.fighter_id %>
     </div>

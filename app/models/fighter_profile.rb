@@ -5,14 +5,15 @@ class FighterProfile
   attribute :fighter_id
   attribute :name
   attribute :main_character_id
-  attribute :master_rating
-  attribute :league_point
+  attribute :mr
+  attribute :lp
   attribute :home_id
   attribute :last_online_at
 
-  def league_info
-    LeagueInfo.new(lp: league_point, mr: master_rating)
-  end
+  # Methods to ensure previous FighterProfiles
+  # still work after name change
+  alias master_rating= mr=
+  alias league_point= lp=
 
   def inspect
     "#<#{self.class}: #{attributes}>"
