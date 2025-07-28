@@ -1,19 +1,28 @@
-master_rating_steps, league_point_steps = ranked_history.map do |item|
-  type, point, variation = if item.master_rating.zero?
-    [ "lp", item.league_point, item.league_point_variation ]
-  else
-    [ "mr", item.master_rating, item.master_rating_variation ]
-  end
+mr_steps, lp_steps = ranked_steps
+  .sort_by(&:played_at)
+  .partition { it.mr.positive? }
 
-  variation_label = variation.nil? ? "?" : ("%+d" % variation)
+mr_steps = mr_steps.chain([ nil ]).each_cons(2).map do |step1, step2|
+  variation = step2.nil? ? "?" : ("%+d" % (step2.mr - step1.mr))
+
   {
-    y: point,
-    x: l(item.played_at, format: :short),
-    label: "#{point} (#{variation_label})",
-    visit: { url: battle_path(item.replay_id), options: { frame: "modal" } },
-    type:
+    y: step1.mr,
+    x: l(step1.played_at, format: :short),
+    label: "#{step1.mr} (#{variation})",
+    visit: { url: battle_path(step1.replay_id), options: { frame: "modal" } }
   }
-end.partition { it[:type] == "mr" }
+end
+
+lp_steps = lp_steps.chain([ nil ]).each_cons(2).map do |step1, step2|
+  variation = step2.nil? ? "?" : ("%+d" % (step2.lp - step1.lp))
+
+  {
+    y: step1.lp,
+    x: l(step1.played_at, format: :short),
+    label: "#{step1.lp} (#{variation})",
+    visit: { url: battle_path(step1.replay_id), options: { frame: "modal" } }
+  }
+end
 
 json.type "line"
 
@@ -27,12 +36,6 @@ json.options do
   json.plugins do
     json.legend do
       json.display false
-    end
-
-    json.title do
-      from_title = l ranked_history.played_from, format: :short if ranked_history.played_from
-      to_title = l ranked_history.played_to, format: :short if ranked_history.played_to
-      json.text "#{RankedHistory.model_name.human} - #{character_name ranked_history.character} - #{from_title}~#{to_title}"
     end
 
     json.tooltip do
@@ -60,14 +63,14 @@ json.options do
   end
 
   json.scales do
-    if league_point_steps.any?
+    if lp_steps.any?
       json.lp do
         json.stack "ranked"
         json.offset "true"
       end
     end
 
-    if master_rating_steps.any?
+    if mr_steps.any?
       json.mr do
         json.stack "ranked"
         json.offset "true"
@@ -79,21 +82,21 @@ end
 
 json.data do
   json.datasets do
-    if league_point_steps.any?
+    if lp_steps.any?
       json.child! do
         json.yAxisID "lp"
         json.tension 0.4
-        json.data league_point_steps
+        json.data lp_steps
         json.borderColor ChartsHelper::CHART_COLORS[:red]
         json.backgroundColor ChartsHelper::CHART_COLORS[:red]
       end
     end
 
-    if master_rating_steps.any?
+    if mr_steps.any?
       json.child! do
         json.yAxisID "mr"
         json.tension 0.4
-        json.data master_rating_steps
+        json.data mr_steps
         json.borderColor ChartsHelper::CHART_COLORS[:blue]
         json.backgroundColor ChartsHelper::CHART_COLORS[:blue]
       end

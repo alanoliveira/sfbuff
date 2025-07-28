@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :fighters, only: [ :index, :update ], constraints: { id: Fighter::FIGHTER_ID_REGEXP } do
     get "matches" => "fighters/matchups#show"
     get "matchup_chart" => "fighters/matchup_charts#show"
+    get "ranked_step" => "fighters/ranked_steps#show"
   end
 
   scope "fighters/:home_fighter_id", as: "fighter_matchups", module: :matchups do
