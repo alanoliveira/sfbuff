@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_28_085702) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_28_093749) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -66,6 +66,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_28_085702) do
     t.string "p2_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["p1_fighter_id", "played_at"], name: "index_battles_on_p1_fighter_id_and_played_at"
+    t.index ["p2_fighter_id", "played_at"], name: "index_battles_on_p2_fighter_id_and_played_at"
   end
 
   create_table "fighters", id: :bigint, default: nil, force: :cascade do |t|
