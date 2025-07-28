@@ -2,51 +2,20 @@
   <thead>
     <tr>
       <th colspan="2">VS</th>
-      <th><%= t("attributes.score/total") %></th>
-      <th><%= t("attributes.score/win") %></th>
-      <th><%= t("attributes.score/lose") %></th>
-      <th><%= t("attributes.score/draw") %></th>
-      <th><%= tag.span "Σ", title: t("attributes.score/diff") %></th>
-      <th><%= tag.span "%", title: t("attributes.score/win_ratio") %></th>
-      <th><%= tag.span icon("bar-chart-fill"), title: t("common.chart") %></th>
+      <%= score_table_head %>
     </tr>
   </thead>
   <tbody>
-    <% matchup_chart.each do |item| %>
+    <% Enums::CHARACTERS.keys.product(Enums::INPUT_TYPES.keys).each do |character_id, input_type_id| %>
       <tr>
-        <td><%= character_name item.character %></td>
-        <td><%= input_type_name item.input_type %></td>
-        <% if item.score %>
-          <td><%= item.score.total %></td>
-          <td><%= item.score.win %></td>
-          <td><%= item.score.lose %></td>
-          <td><%= item.score.draw %></td>
-          <td><%= score_diff item.score.diff %></td>
-          <td><%= score_win_percent item.score.win_ratio %></td>
-          <td><%= link_to_matchup_score_by_date_chart item.matchup, title: t("common.chart") %></td>
-        <% else %>
-          <% 7.times do %>
-            <td>-</td>
-          <% end %>
-        <% end %>
+        <td><%= character_name character_id %></td>
+        <td><%= input_type_name input_type_id %></td>
+        <%= score_table_data matchup_chart.score_for(character_id:, input_type_id:) %>
       </tr>
     <% end %>
     <tr>
       <td colspan="2"></td>
-      <% sum = matchup_chart.sum %>
-      <% if sum %>
-        <td><%= matchup_chart.sum.total %></td>
-        <td><%= matchup_chart.sum.win %></td>
-        <td><%= matchup_chart.sum.lose %></td>
-        <td><%= matchup_chart.sum.draw %></td>
-        <td><%= score_diff matchup_chart.sum.diff %></td>
-        <td><%= score_win_percent matchup_chart.sum.win_ratio %></td>
-        <td><%= link_to_matchup_score_by_date_chart(matchup_chart.matchup) %></td>
-      <% else %>
-        <% 7.times do %>
-          <td>-</td>
-        <% end %>
-      <% end %>
+      <%= score_table_data matchup_chart.total %>
     </tr>
   </tbody>
 </table>

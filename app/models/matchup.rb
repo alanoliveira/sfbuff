@@ -9,6 +9,10 @@ class Matchup < ApplicationRecord
     Rivals.new(all)
   end
 
+  def self.matchup_chart
+    MatchupChart.new(all)
+  end
+
   def self.scoreboard_by_day
     group_by_day(:played_at)
       .then { it.select("#{it.group_values.last} date") }
