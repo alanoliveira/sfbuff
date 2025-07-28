@@ -8,7 +8,7 @@
       <%= Matchup::Rivals.model_name.human %>
     </button>
     <div class="collapse mt-3" id="fighter-rivals">
-      <%= turbo_frame_tag "matchups-rivals", src: fighter_rivals_path(@fighter.id, request.query_parameters), loading: "lazy" do %>
+      <%= turbo_frame_tag "matchups-rivals", src: fighter_matchups_rivals_path(@fighter.id, request.query_parameters), loading: "lazy" do %>
         <div class="d-flex justify-content-center">
           <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
@@ -19,7 +19,7 @@
   </div>
 
   <%= link_to_modal icon("bar-chart-fill"),
-      fighter_daily_performance_chart_path(@fighter.id, request.query_parameters),
+      fighter_matchups_daily_performance_chart_path(@fighter.id, request.query_parameters),
       class: "btn btn-outline-primary mb-3 w-100" %>
 
   <%= turbo_frame_tag "matchup-list" do %>

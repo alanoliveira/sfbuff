@@ -7,12 +7,11 @@ Rails.application.routes.draw do
     get "matchup_chart" => "fighters/matchup_charts#show"
   end
 
-  scope "fighters/:home_fighter_id", as: "fighter" do
-    get "rivals" => "matchups/rivals#show"
-    get "daily_performance_chart" => "matchups/daily_performance_charts#show"
+  scope "fighters/:home_fighter_id", as: "fighter_matchups", module: :matchups do
+    resource :rivals, only: :show
+    resource :daily_performance_chart, only: :show
   end
 
-  resource :matchups, only: :show do
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
