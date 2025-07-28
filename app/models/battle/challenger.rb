@@ -11,7 +11,7 @@ Battle::Challenger = Struct.new(
 
 class Battle::Challenger
   def rounds
-    round_ids.map { Round[it] }.freeze
+    round_ids.map { Battle::Round[it] }.freeze
   end
 
   def league_info

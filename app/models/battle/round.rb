@@ -1,4 +1,4 @@
-Round = Data.define(:id) do
+Battle::Round = Data.define(:id) do
   delegate :to_i, to: :id
 
   def loss?
