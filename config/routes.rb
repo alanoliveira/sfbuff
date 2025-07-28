@@ -12,6 +12,11 @@ Rails.application.routes.draw do
     resource :daily_performance_chart, only: :show
   end
 
+  direct :daily_performance_chart do |query_params|
+    if request.path.start_with?("/fighters/")
+      fighter_id = params["fighter_id"] || params["home_fighter_id"]
+      fighter_matchups_daily_performance_chart_path(fighter_id, request.query_parameters.merge(query_params))
+    end
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

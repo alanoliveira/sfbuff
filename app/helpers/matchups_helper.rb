@@ -15,4 +15,8 @@ module MatchupsHelper
       tag.span title, class: "visually-hidden"
     end
   end
+
+  def link_to_daily_performance_chart_path(**)
+    link_to_modal icon("bar-chart-fill"), daily_performance_chart_path(**)
+  end
 end

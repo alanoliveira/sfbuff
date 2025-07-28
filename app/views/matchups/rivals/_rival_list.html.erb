@@ -6,6 +6,7 @@
     <tr>
       <th colspan="3">VS</th>
       <%= score_table_head %>
+      <th><%= tag.span icon("bar-chart-fill"), title: t("common.chart") %></th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +16,13 @@
         <td><%= character_name item.character_id %></td> 
         <td><%= input_type_name item.input_type_id %></td>
         <%= score_table_data item.score %>
+        <td>
+          <%= link_to_daily_performance_chart_path(
+            away_fighter_id: item.fighter_id, 
+            away_character_id: item.character_id,
+            away_input_type_id: item.input_type_id,
+          ) %>
+        </td>
       </tr>
     <% end %>
   </tbody>
