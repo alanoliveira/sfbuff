@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Battle::HasChallengers, type: :model do
+RSpec.describe Battle::HasChallengers do
   let(:battle) { build(:battle) }
 
   context "when p1 is the winner" do

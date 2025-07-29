@@ -13,12 +13,12 @@
     <% data.each do |item| %>
       <tr>
         <td><%= link_to_fighter item.name, item.fighter_id %></td>
-        <td><%= character_name item.character_id %></td> 
+        <td><%= character_name item.character_id %></td>
         <td><%= input_type_name item.input_type_id %></td>
         <%= score_table_data item.score %>
         <td>
           <%= link_to_daily_performance_chart_path(
-            away_fighter_id: item.fighter_id, 
+            away_fighter_id: item.fighter_id,
             away_character_id: item.character_id,
             away_input_type_id: item.input_type_id,
           ) %>

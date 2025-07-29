@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BucklerGateway::ChallengerParser, type: :model do
+RSpec.describe BucklerGateway::ChallengerParser do
   subject(:parsed_challenger) { described_class.parse(player_data) }
 
   let(:player_data) { JSON.parse <<~JSON }

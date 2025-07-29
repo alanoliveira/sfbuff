@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Matchup::Scoreboard, type: :model do
+RSpec.describe Matchup::Scoreboard do
   subject(:scoreboard) { matchups.scoreboard }
 
   let(:matchups) { Matchup.where(home_fighter_id: 111_111_111) }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Matchup::Score, type: :model do
+RSpec.describe Matchup::Score do
   describe "#total" do
     it "returns win + lose + draw" do
       expect(described_class.new(wins: 4, losses: 2, draws: 3).total).to eq 9

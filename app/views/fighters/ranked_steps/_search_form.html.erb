@@ -8,13 +8,13 @@
     </div>
     <div class="col-md-3 mb-3">
       <div class="form-floating">
-        <%= date_field_tag :played_from, params["played_from"], class: "form-control" %>
+        <%= date_field_tag :played_from, params["played_from"], autocomplete: "off", class: "form-control" %>
         <%= label_tag :played_from, t("attributes.played_from") %>
       </div>
     </div>
     <div class="col-md-3 mb-3">
       <div class="form-floating">
-        <%= date_field_tag :played_to, params["played_to"], class: "form-control" %>
+        <%= date_field_tag :played_to, params["played_to"], autocomplete: "off", class: "form-control" %>
         <%= label_tag :played_to, t("attributes.played_to") %>
       </div>
     </div>

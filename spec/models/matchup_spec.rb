@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Matchup, type: :model do
+RSpec.describe Matchup do
   describe ".scoreboard_by_day" do
     subject(:scoreboard_by_day) { described_class.where(home_fighter_id: 111_111_111).scoreboard_by_day }
 

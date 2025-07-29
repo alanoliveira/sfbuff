@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe BucklerGateway::FighterProfileParser, type: :model do
+RSpec.describe BucklerGateway::FighterProfileParser do
   subject(:fighter_profile) { described_class.parse(replay_data) }
 
   let(:replay_data) { JSON.parse <<~JSON }

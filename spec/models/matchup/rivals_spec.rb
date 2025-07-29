@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Matchup::Rivals, type: :model do
+RSpec.describe Matchup::Rivals do
   subject(:rivals) { matchups.rivals }
 
   let(:matchups) { Matchup.where(home_fighter_id: 111_111_111) }
@@ -19,26 +19,24 @@ RSpec.describe Matchup::Rivals, type: :model do
     create_matchups(wins: 5, losses: 5, home_fighter_id: 111_111_111, away_fighter_id: 444_444_444, away_character_id: 4, away_input_type_id: 1)
   end
 
+  def an_rival(fighter_id:, character_id:, input_type_id:, wins:, losses:, draws:)
+    an_object_having_attributes(
+      fighter_id:, character_id:, input_type_id:, score: an_object_having_attributes(wins:, losses:, draws:),
+    )
+  end
+
+
+  # rubocop: disable RSpec/ExampleLength
   describe "#favorites" do
     subject(:favorites) { rivals.favorites }
 
     it do
       expect(favorites).to start_with(
-        an_object_having_attributes(
-          fighter_id: 444_444_444, character_id: 4, input_type_id: 1, score: an_object_having_attributes(wins: 5, losses: 5, draws: 0),
-        ),
-        an_object_having_attributes(
-          fighter_id: 222_222_222, character_id: 1, input_type_id: 1, score: an_object_having_attributes(wins: 7, losses: 1, draws: 0)
-        ),
-        an_object_having_attributes(
-          fighter_id: 222_222_222, character_id: 2, input_type_id: 1, score: an_object_having_attributes(wins: 1, losses: 7, draws: 0)
-        ),
-        an_object_having_attributes(
-          fighter_id: 333_333_333, character_id: 1, input_type_id: 1, score: an_object_having_attributes(wins: 6, losses: 0, draws: 0)
-        ),
-        an_object_having_attributes(
-          fighter_id: 333_333_333, character_id: 1, input_type_id: 0, score: an_object_having_attributes(wins: 0, losses: 6, draws: 0)
-        ),
+        an_rival(fighter_id: 444_444_444, character_id: 4, input_type_id: 1, wins: 5, losses: 5, draws: 0,),
+        an_rival(fighter_id: 222_222_222, character_id: 1, input_type_id: 1, wins: 7, losses: 1, draws: 0),
+        an_rival(fighter_id: 222_222_222, character_id: 2, input_type_id: 1, wins: 1, losses: 7, draws: 0),
+        an_rival(fighter_id: 333_333_333, character_id: 1, input_type_id: 1, wins: 6, losses: 0, draws: 0),
+        an_rival(fighter_id: 333_333_333, character_id: 1, input_type_id: 0, wins: 0, losses: 6, draws: 0),
       )
     end
   end
@@ -48,21 +46,11 @@ RSpec.describe Matchup::Rivals, type: :model do
 
     it do
       expect(tormentors).to start_with(
-        an_object_having_attributes(
-          fighter_id: 333_333_333, character_id: 1, input_type_id: 0, score: an_object_having_attributes(wins: 0, losses: 6, draws: 0)
-        ),
-        an_object_having_attributes(
-          fighter_id: 222_222_222, character_id: 2, input_type_id: 1, score: an_object_having_attributes(wins: 1, losses: 7, draws: 0)
-        ),
-        an_object_having_attributes(
-          fighter_id: 444_444_444, character_id: 4, input_type_id: 1, score: an_object_having_attributes(wins: 5, losses: 5, draws: 0),
-        ),
-        an_object_having_attributes(
-          fighter_id: 333_333_333, character_id: 1, input_type_id: 1, score: an_object_having_attributes(wins: 6, losses: 0, draws: 0)
-        ),
-        an_object_having_attributes(
-          fighter_id: 222_222_222, character_id: 1, input_type_id: 1, score: an_object_having_attributes(wins: 7, losses: 1, draws: 0)
-        ),
+        an_rival(fighter_id: 333_333_333, character_id: 1, input_type_id: 0, wins: 0, losses: 6, draws: 0),
+        an_rival(fighter_id: 222_222_222, character_id: 2, input_type_id: 1, wins: 1, losses: 7, draws: 0),
+        an_rival(fighter_id: 444_444_444, character_id: 4, input_type_id: 1, wins: 5, losses: 5, draws: 0,),
+        an_rival(fighter_id: 333_333_333, character_id: 1, input_type_id: 1, wins: 6, losses: 0, draws: 0),
+        an_rival(fighter_id: 222_222_222, character_id: 1, input_type_id: 1, wins: 7, losses: 1, draws: 0),
       )
     end
   end
@@ -72,21 +60,11 @@ RSpec.describe Matchup::Rivals, type: :model do
 
     it do
       expect(victims).to start_with(
-        an_object_having_attributes(
-          fighter_id: 333_333_333, character_id: 1, input_type_id: 1, score: an_object_having_attributes(wins: 6, losses: 0, draws: 0)
-        ),
-        an_object_having_attributes(
-          fighter_id: 222_222_222, character_id: 1, input_type_id: 1, score: an_object_having_attributes(wins: 7, losses: 1, draws: 0)
-        ),
-        an_object_having_attributes(
-          fighter_id: 444_444_444, character_id: 4, input_type_id: 1, score: an_object_having_attributes(wins: 5, losses: 5, draws: 0),
-        ),
-        an_object_having_attributes(
-          fighter_id: 333_333_333, character_id: 1, input_type_id: 0, score: an_object_having_attributes(wins: 0, losses: 6, draws: 0)
-        ),
-        an_object_having_attributes(
-          fighter_id: 222_222_222, character_id: 2, input_type_id: 1, score: an_object_having_attributes(wins: 1, losses: 7, draws: 0)
-        ),
+        an_rival(fighter_id: 333_333_333, character_id: 1, input_type_id: 1, wins: 6, losses: 0, draws: 0),
+        an_rival(fighter_id: 222_222_222, character_id: 1, input_type_id: 1, wins: 7, losses: 1, draws: 0),
+        an_rival(fighter_id: 444_444_444, character_id: 4, input_type_id: 1, wins: 5, losses: 5, draws: 0,),
+        an_rival(fighter_id: 333_333_333, character_id: 1, input_type_id: 0, wins: 0, losses: 6, draws: 0),
+        an_rival(fighter_id: 222_222_222, character_id: 2, input_type_id: 1, wins: 1, losses: 7, draws: 0),
       )
     end
   end

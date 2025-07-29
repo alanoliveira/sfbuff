@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Fighter::Synchronizer::ProfileSynchronizer, type: :model do
+RSpec.describe Fighter::Synchronizer::ProfileSynchronizer do
   subject(:synchronizer) { described_class.new(fighter) }
 
   let(:fighter) { create(:fighter) }

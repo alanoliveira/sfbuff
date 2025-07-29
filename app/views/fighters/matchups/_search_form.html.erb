@@ -3,7 +3,7 @@
     <div class="col-md-3 mb-3">
       <div class="form-floating">
         <%= select_tag :home_character_id, options_for_character_select(params[:home_character_id]), class: "form-select" %>
-        <%= label_tag :home_character_id, Matchup.human_attribute_name(:home_character)  %>
+        <%= label_tag :home_character_id, Matchup.human_attribute_name(:home_character) %>
       </div>
     </div>
     <div class="col-md-3 mb-3">
@@ -15,7 +15,7 @@
     <div class="col-md-3 mb-3">
       <div class="form-floating">
         <%= select_tag :away_character_id, options_for_character_select(params[:away_character_id]), class: "form-select" %>
-        <%= label_tag :away_character_id, Matchup.human_attribute_name(:away_character)  %>
+        <%= label_tag :away_character_id, Matchup.human_attribute_name(:away_character) %>
       </div>
     </div>
     <div class="col-md-3 mb-3">
@@ -29,18 +29,18 @@
     <div class="col-md-3 mb-3">
       <div class="form-floating">
         <%= select_tag :battle_type_id, options_for_battle_type_select(params[:battle_type_id]), class: "form-select" %>
-        <%= label_tag :battle_type_id, Matchup.human_attribute_name(:battle_type)  %>
+        <%= label_tag :battle_type_id, Matchup.human_attribute_name(:battle_type) %>
       </div>
     </div>
     <div class="col-md-3 mb-3">
       <div class="form-floating">
-        <%= date_field_tag :played_from, params["played_from"], class: "form-control" %>
-        <%= label_tag :played_from, t("attributes.played_from")  %>
+        <%= date_field_tag :played_from, params["played_from"], autocomplete: "off", class: "form-control" %>
+        <%= label_tag :played_from, t("attributes.played_from") %>
       </div>
     </div>
     <div class="col-md-3 mb-3">
       <div class="form-floating">
-        <%= date_field_tag :played_to, params["played_to"], class: "form-control" %>
+        <%= date_field_tag :played_to, params["played_to"], autocomplete: "off", class: "form-control" %>
         <%= label_tag :played_to, t("attributes.played_to") %>
       </div>
     </div>

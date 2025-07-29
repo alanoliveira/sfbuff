@@ -1,4 +1,4 @@
-RSpec.describe Matchup::MatchupChart, type: :model do
+RSpec.describe Matchup::MatchupChart do
   subject(:matchup_chart) { matchups.matchup_chart }
 
   let(:matchups) { Matchup.where(home_fighter_id: 111_111_111) }
@@ -10,6 +10,7 @@ RSpec.describe Matchup::MatchupChart, type: :model do
     create_matchups(wins: 4, losses: 8, home_fighter_id: 111_111_111, away_character_id: 2, away_input_type_id: 1)
   end
 
+  # rubocop: disable RSpec/ExampleLength
   it do
     expect(matchup_chart).to include(
       an_object_having_attributes(character_id: 1, input_type_id: 0, score: an_object_having_attributes(wins: 1, losses: 2, draws: 0)),
