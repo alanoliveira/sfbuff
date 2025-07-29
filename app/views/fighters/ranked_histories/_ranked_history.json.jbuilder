@@ -1,26 +1,24 @@
-mr_steps, lp_steps = ranked_steps
-  .sort_by(&:played_at)
-  .partition { it.mr.positive? }
+mr_steps, lp_steps = ranked_history.partition { it.mr.positive? }
 
-mr_steps = mr_steps.chain([ nil ]).each_cons(2).map do |step1, step2|
-  variation = step2.nil? ? "?" : ("%+d" % (step2.mr - step1.mr))
+mr_steps = mr_steps.map do |step|
+  variation = step.mr_variation ? ("%+d" % step.mr_variation) : "?"
 
   {
-    y: step1.mr,
-    x: l(step1.played_at, format: :short),
-    label: "#{step1.mr} (#{variation})",
-    visit: { url: battle_path(step1.replay_id), options: { frame: "modal" } }
+    y: step.mr,
+    x: step.played_at.as_json,
+    label: "#{step.mr} (#{variation})",
+    visit: { path: step.replay_id, options: { frame: "modal" } }
   }
 end
 
-lp_steps = lp_steps.chain([ nil ]).each_cons(2).map do |step1, step2|
-  variation = step2.nil? ? "?" : ("%+d" % (step2.lp - step1.lp))
+lp_steps = lp_steps.map do |step|
+  variation = step.lp_variation ? ("%+d" % step.lp_variation) : "?"
 
   {
-    y: step1.lp,
-    x: l(step1.played_at, format: :short),
-    label: "#{step1.lp} (#{variation})",
-    visit: { url: battle_path(step1.replay_id), options: { frame: "modal" } }
+    y: step.lp,
+    x: step.played_at.as_json,
+    label: "#{step.lp} (#{variation})",
+    visit: { path: step.replay_id, options: { frame: "modal" } }
   }
 end
 
@@ -42,8 +40,20 @@ json.options do
       json.displayColors false
     end
 
+    json.visit do
+      json.baseUrl battle_path(replay_id: "")
+    end
+
+    json.localize do
+      json.locale I18n.locale.to_s
+    end
+
     json.title do
-      json.text "#{RankedStep.model_name.human}"
+      json.text [
+        RankedHistory.model_name.human,
+        character_name(ranked_history.character_id.to_i),
+        "#{ranked_history.from_date} ~ #{ranked_history.to_date}"
+      ].join(" - ")
     end
 
     json.marks do
@@ -79,6 +89,23 @@ json.options do
         json.stack "ranked"
         json.offset "true"
         json.stackWeight 4
+      end
+    end
+
+    json.x do
+      json.type "timeseries"
+
+      json.time do
+        json.unit "day"
+        json.displayFormats do
+          json.day "P HH:mm"
+        end
+      end
+
+      json.adapters do
+        json.date do
+          json.locale nil
+        end
       end
     end
   end

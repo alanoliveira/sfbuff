@@ -33,7 +33,6 @@ en:
     any: Any
   activerecord:
     models:
-      ranked_step: Ranked History
       matchup: Matches
       battle:
         one: Match
@@ -58,12 +57,11 @@ en:
         replay_id: Replay ID
         played_at: Date
         battle_type: Match Type
-      ranked_step:
-        character: My Character
   activemodel:
     models:
       matchup/matchup_chart: Matchup Chart
       matchup/rivals: Rivals
+      ranked_history: Ranked History
     attributes:
       matchup/score:
         wins: Wins
@@ -83,6 +81,8 @@ en:
         last_online_at: Last online
         name: Name
         fighter_id: ID
+      ranked_history:
+        character: My Character
   attributes:
     played_from: From
     played_to: To

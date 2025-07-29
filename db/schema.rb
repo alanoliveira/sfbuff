@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_28_093749) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_30_055125) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -150,30 +150,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_28_093749) do
               ELSE 0
           END AS result
      FROM battles;
-  SQL
-  create_view "ranked_steps", sql_definition: <<-SQL
-      SELECT unnamed_subquery.replay_id,
-      unnamed_subquery.played_at,
-      unnamed_subquery.fighter_id,
-      unnamed_subquery.character_id,
-      unnamed_subquery.mr,
-      unnamed_subquery.lp
-     FROM ( SELECT battles.replay_id,
-              battles.played_at,
-              battles.p1_fighter_id AS fighter_id,
-              battles.p1_character_id AS character_id,
-              battles.p1_mr AS mr,
-              battles.p1_lp AS lp
-             FROM battles
-            WHERE (battles.battle_type_id = 1)) unnamed_subquery
-  UNION ALL
-   SELECT battles.replay_id,
-      battles.played_at,
-      battles.p2_fighter_id AS fighter_id,
-      battles.p2_character_id AS character_id,
-      battles.p2_mr AS mr,
-      battles.p2_lp AS lp
-     FROM battles
-    WHERE (battles.battle_type_id = 1);
   SQL
 end

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     scope module: :fighters do
       resource :matchups, only: :show
       resource :matchup_chart, only: :show
-      resource :ranked_step, only: :show
+      resource :ranked_history, only: :show
     end
   end
 

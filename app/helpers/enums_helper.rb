@@ -12,19 +12,19 @@ module EnumsHelper
   end
 
   def character_name(id)
-    I18n.t(Enums::CHARACTERS[id], scope: "enums.characters", default: "Character##{id}")
+    I18n.t(Enums::CHARACTERS[id.to_i], scope: "enums.characters", default: "Character##{id}")
   end
 
   def input_type_name(id, scope = "short")
-    I18n.t(Enums::INPUT_TYPES[id], scope: "enums.input_types.#{scope}")
+    I18n.t(Enums::INPUT_TYPES[id.to_i], scope: "enums.input_types.#{scope}")
   end
 
   def battle_type_name(id)
-    I18n.t(Enums::BATTLE_TYPES[id], scope: "enums.battle_types")
+    I18n.t(Enums::BATTLE_TYPES[id.to_i], scope: "enums.battle_types")
   end
 
   def country_name(id)
-    I18n.t(Enums::COUNTRIES[id], scope: "enums.countries")
+    I18n.t(Enums::COUNTRIES[id.to_i], scope: "enums.countries")
   end
 
   def options_for_enum_select(hash, selected = nil, include_any: true)

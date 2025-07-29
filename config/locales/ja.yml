@@ -33,7 +33,6 @@ ja:
     any: 全て
   activerecord:
     models:
-      ranked_step: ランク統計
       matchup: 対戦
       battle:
         one: 対戦
@@ -58,12 +57,11 @@ ja:
         replay_id: リプレイID
         played_at: 試合日
         battle_type: ゲームモード
-      ranked_step:
-        character: 私のキャラクター
   activemodel:
     models:
       matchup/matchup_chart: キャラ別統計
       matchup/rivals: ライバル
+      ranked_history: ランク統計
     attributes:
       matchup/score:
         wins: 勝利
@@ -83,6 +81,8 @@ ja:
         last_online_at: 最終オンライン
         name: 名前
         fighter_id: ID
+      ranked_history:
+        character: 私のキャラクター
   attributes:
     played_from: 始日
     played_to: 了日

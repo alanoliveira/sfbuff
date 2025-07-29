@@ -33,7 +33,6 @@ pt-BR:
     any: Qualquer
   activerecord:
     models:
-      ranked_step: Histórico de Ranqueadas
       matchup: Matches
       battle:
         one: Match
@@ -58,12 +57,11 @@ pt-BR:
         replay_id: Replay ID
         played_at: Data
         battle_type: Tipo de Match
-      ranked_step:
-        character: Meu Personagem
   activemodel:
     models:
       matchup/matchup_chart: Matchup Chart
       matchup/rivals: Rivais
+      ranked_history: Histórico de Ranqueadas
     attributes:
       matchup/score:
         wins: Vitórias
@@ -83,6 +81,8 @@ pt-BR:
         last_online_at: Última vez online
         name: Nome
         fighter_id: ID
+      ranked_history:
+        character: Meu Personagem
   attributes:
     played_from: De
     played_to: Até

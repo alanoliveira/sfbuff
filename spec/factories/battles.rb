@@ -5,5 +5,7 @@ FactoryBot.define do
     played_at { "2024-10-10 12:00:00" }
     p1 { build(:challenger) }
     p2 { build(:challenger) }
+
+    traits_for_enum :battle_type_id, Enums::BATTLE_TYPES.invert
   end
 end

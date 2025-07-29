@@ -1,13 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 import "chartjs"
+import "chartjs-adapter-date-fns"
 import marks from "chartjs-plugins/marks"
 import visit from "chartjs-plugins/visit"
+import localize from "chartjs-plugins/localize"
 import bgColor from "chartjs-plugins/bg_color"
 
 const merge = Chart.helpers.merge
 
 const defaultOptions = {
-  plugins: [visit, marks],
+  plugins: [visit, marks, localize],
   options: {
     plugins: {
       tooltip: {

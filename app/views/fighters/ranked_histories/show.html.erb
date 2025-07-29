@@ -3,9 +3,9 @@
     <%= render "search_form" %>
   </div>
 
-  <%= empty_alert_unless(@ranked_steps.present?) do %>
+  <%= empty_alert_unless(@ranked_history.any?) do %>
     <div class="card card-body">
-      <%= render "ranked_steps_chart", ranked_steps: @ranked_steps.to_a %>
+      <%= render "ranked_history", ranked_history: @ranked_history %>
     </div>
   <% end %>
 <% end %>
