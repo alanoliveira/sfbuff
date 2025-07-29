@@ -3,10 +3,10 @@ require "rails_helper"
 RSpec.describe BucklerGateway do
   subject(:gateway) { described_class.instance }
 
-  let(:mock_client) { instance_double("BucklerClient") }
+  let(:mock_client) { instance_double(BucklerApi::Client) }
 
   before do
-    gateway.buckler_connection = instance_double("BucklerConnection", client: mock_client)
+    gateway.buckler_connection = instance_double(BucklerApi::Connection, client: mock_client)
   end
 
   describe "#find_fighter_profile" do

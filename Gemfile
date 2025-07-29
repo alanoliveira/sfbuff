@@ -35,6 +35,9 @@ gem "solid_queue"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# Pagination
+gem "kaminari", "~> 1.2"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
@@ -49,7 +52,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # Unit tests
-  gem "rspec-rails", "~> 7.0"
+  gem "rspec-rails", "~> 8.0"
 
   # rubocop rspec linter
   gem "rubocop-rspec_rails", "~> 2.30"
@@ -83,8 +86,6 @@ gem "stackprof", "~> 0.2.26"
 gem "ahoy_matey", "~> 5.2"
 gem "geoip", "~> 1.6"
 gem "geocoder", "~> 1.8"
-
-gem "pagy", "~> 9.2"
 
 gem "selenium-webdriver", "~> 4.24"
 

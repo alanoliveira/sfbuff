@@ -1,49 +1,41 @@
 class Matchup::Rivals
-  extend ActiveModel::Naming
   extend ActiveModel::Translation
 
-  Item = Data.define(:score, :name, :fighter_id, :character, :input_type, :matchup)
+  Item = Data.define(:fighter_id, :character_id, :input_type_id, :name, :score)
 
-  attr_reader :matchup, :limit
-
-  def initialize(matchup, limit)
-    @matchup = matchup
-    @limit = limit
+  def initialize(matchups)
+    @matchups = matchups
   end
 
   def favorites
-    build_scoreboard("total" => "desc")
+    @favorites ||= fetch("total" => "desc", "wins" => "desc", "losses" => "desc")
   end
 
   def victims
-    build_scoreboard("diff" => "asc", "lose" => "desc", "win" => "asc")
+    @victims ||= fetch("diff" => "desc", "losses" => "asc", "wins" => "desc")
   end
 
   def tormentors
-    build_scoreboard("diff" => "desc", "win" => "desc", "lose" => "asc")
+    @tormentors ||= fetch("diff" => "asc", "wins" => "asc", "losses" => "desc")
   end
 
   private
 
-  def build_scoreboard(order)
-    matchup.away_challengers
-      .group(:fighter_id, :character_id, :input_type_id)
-      .select("ANY_VALUE(challengers.name) name", :fighter_id, :character_id, :input_type_id)
-      .limit(limit)
-      .order(order)
-      .scoreboard
-      .map { |score, *group| build_item(score, *group) }
-  end
-
-  def build_item(score, name, fighter_id, character_id, input_type_id)
-    character, input_type = Character[character_id], InputType[input_type_id]
-    item_matchup = matchup_for_item(fighter_id, character, input_type)
-    Item.new(~score, name, fighter_id, character, input_type, item_matchup)
-  end
-
-  def matchup_for_item(away_fighter_id, away_character, away_input_type)
-    matchup.dup.tap do
-      it.assign_attributes(away_fighter_id:, away_character:, away_input_type:,)
+  def fetch(order)
+    base_query.order(order).scoreboard.map do |score, attrs|
+      Item.new(
+        fighter_id: attrs[:away_fighter_id],
+        character_id: attrs[:away_character_id],
+        input_type_id: attrs[:away_input_type_id],
+        name: attrs[:away_name],
+        score:
+      )
     end
+  end
+
+  def base_query
+    @matchups
+      .group(:away_fighter_id, :away_character_id, :away_input_type_id)
+      .select(:away_fighter_id, :away_character_id, :away_input_type_id, "ANY_VALUE(away_name) away_name")
   end
 end

@@ -1,36 +1,23 @@
 require 'rails_helper'
 
-RSpec.describe Matchup, type: :model do
-  let(:matchup)  { Matchup.new(home_fighter_id: generate(:fighter_id)) }
+RSpec.describe Matchup do
+  describe ".scoreboard_by_day" do
+    subject(:scoreboard_by_day) { described_class.where(home_fighter_id: 111_111_111).scoreboard_by_day }
 
-  before do
-    create_match(p1: { fighter_id: matchup.home_fighter_id })
-    create_match(p2: { fighter_id: matchup.home_fighter_id })
-    create_match
-  end
-
-  describe "#home_challengers" do
-    it "have the list of 'home' challengers of the matchup" do
-      expect(matchup.home_challengers).to have_attributes(size: 2)
-        .and all have_attributes(fighter_id: matchup.home_fighter_id)
+    before do
+      create_matchup(:win,  home_fighter_id: 111_111_111, played_at: "2020-01-01 12:00:00")
+      create_matchup(:win,  home_fighter_id: 111_111_111, played_at: "2020-01-01 12:10:00")
+      create_matchup(:draw, home_fighter_id: 111_111_111, played_at: "2020-01-01 12:20:00")
+      create_matchup(:loss, home_fighter_id: 111_111_111, played_at: "2020-01-02 12:00:00")
+      create_matchup(:loss, home_fighter_id: 111_111_111, played_at: "2020-01-02 12:10:00")
+      create_matchup(:win,  home_fighter_id: 111_111_111, played_at: "2020-01-02 12:20:00")
     end
-  end
 
-  describe "#away_challengers" do
-    it "have the list of 'away' challengers of the matchup" do
-      expect(matchup.away_challengers).to have_attributes(size: 2)
-        .and all have_attributes(
-          opponent: an_object_having_attributes(fighter_id: matchup.home_fighter_id)
-        )
-    end
-  end
-
-  describe "#battles" do
-    it "have the list of battles of the matchup" do
-      expect(matchup.battles).to have_attributes(size: 2)
-        .and all have_attributes(
-          challengers: a_collection_including(an_object_having_attributes(fighter_id: matchup.home_fighter_id))
-        )
+    it do
+      expect(scoreboard_by_day).to match(
+        Date.parse('2020-01-01') => an_object_having_attributes(wins: 2, losses: 0, draws: 1),
+        Date.parse('2020-01-02') => an_object_having_attributes(wins: 1, losses: 2, draws: 0),
+      )
     end
   end
 end

@@ -1,9 +1,9 @@
 module LeagueInfosHelper
-  def league_info_span(league_info, **)
-    content = if league_info.mr?
-      "#{league_info.mr} MR"
-    elsif league_info.lp?
-      "#{league_info.lp} LP"
+  def league_info_span(mr:, lp:, **)
+    content = if mr.positive?
+      "#{mr} MR"
+    elsif lp.positive?
+      "#{lp} LP"
     else
       ""
     end

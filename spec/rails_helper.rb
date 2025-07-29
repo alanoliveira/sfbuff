@@ -34,8 +34,12 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   include FactoryBot::Syntax::Methods
-  include MatchSimulatorHelper
+  include MatchupCreatorHelper
   include ActiveSupport::Testing::TimeHelpers
+
+  # Next line is a workaround for github.com/thoughtbot/factory_bot/issues/1754
+  # TODO: remove it after the fix is merged
+  def generate(...) FactoryBot.generate(...) end
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BucklerGateway::ChallengerParser, type: :model do
+RSpec.describe BucklerGateway::ChallengerParser do
   subject(:parsed_challenger) { described_class.parse(player_data) }
 
   let(:player_data) { JSON.parse <<~JSON }
@@ -25,7 +25,7 @@ RSpec.describe BucklerGateway::ChallengerParser, type: :model do
   it { expect(parsed_challenger.character_id).to eq 254 }
   it { expect(parsed_challenger.playing_character_id).to eq 3 }
   it { expect(parsed_challenger.input_type_id).to eq 0 }
-  it { expect(parsed_challenger.master_rating).to eq 2000 }
-  it { expect(parsed_challenger.league_point).to eq 30_000 }
+  it { expect(parsed_challenger.mr).to eq 2000 }
+  it { expect(parsed_challenger.lp).to eq 30_000 }
   it { expect(parsed_challenger.round_ids).to eq [ 1, 1 ] }
 end

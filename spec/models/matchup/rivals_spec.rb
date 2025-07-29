@@ -1,74 +1,71 @@
 require 'rails_helper'
 
-RSpec.describe Matchup::Rivals, type: :model do
-  let(:rivals) { described_class.new(matchup, limit) }
+RSpec.describe Matchup::Rivals do
+  subject(:rivals) { matchups.rivals }
 
-  let(:matchup) { Matchup.new(home_fighter_id: me[:fighter_id]) }
-  let(:limit) { 10 }
+  let(:matchups) { Matchup.where(home_fighter_id: 111_111_111) }
 
-  let(:me)  { { fighter_id: generate(:fighter_id) } }
-  let(:riv_a_1_1) { { character: Character[1], input_type: InputType[1], name: "riv_a_1_1", fighter_id: generate(:fighter_id) } }
-  let(:riv_b_1_1) { { character: Character[1], input_type: InputType[1], name: "riv_b_1_1", fighter_id: generate(:fighter_id) } }
-  let(:riv_b_1_0) { riv_b_1_1.dup.merge(input_type: InputType[0]) }
-
-  def rival_item(win:, lose:, draw:, character:, input_type:, name:, fighter_id:)
-    matchup_matching = an_object_having_attributes(away_character: character, away_input_type: input_type)
-    an_object_having_attributes(score: Score.new(win:, lose:, draw:), matchup: matchup_matching, character:, input_type:, name:, fighter_id:)
+  before do
+    # | id          | char | ipt | w | l | d | t  | +/- |
+    # | 222_222_222 | 1    | 1   | 7 | 1 | 0 | 8  | +6  |
+    # | 222_222_222 | 2    | 1   | 1 | 7 | 0 | 8  | -6  |
+    # | 333_333_333 | 1    | 1   | 6 | 0 | 0 | 6  | +6  |
+    # | 333_333_333 | 1    | 0   | 0 | 6 | 0 | 6  | -6  |
+    # | 444_444_444 | 4    | 1   | 5 | 5 | 0 | 10 |  0  |
+    create_matchups(wins: 7, losses: 1, home_fighter_id: 111_111_111, away_fighter_id: 222_222_222, away_character_id: 1, away_input_type_id: 1)
+    create_matchups(wins: 1, losses: 7, home_fighter_id: 111_111_111, away_fighter_id: 222_222_222, away_character_id: 2, away_input_type_id: 1)
+    create_matchups(wins: 6, losses: 0, home_fighter_id: 111_111_111, away_fighter_id: 333_333_333, away_character_id: 1, away_input_type_id: 1)
+    create_matchups(wins: 0, losses: 6, home_fighter_id: 111_111_111, away_fighter_id: 333_333_333, away_character_id: 1, away_input_type_id: 0)
+    create_matchups(wins: 5, losses: 5, home_fighter_id: 111_111_111, away_fighter_id: 444_444_444, away_character_id: 4, away_input_type_id: 1)
   end
 
+  def an_rival(fighter_id:, character_id:, input_type_id:, wins:, losses:, draws:)
+    an_object_having_attributes(
+      fighter_id:, character_id:, input_type_id:, score: an_object_having_attributes(wins:, losses:, draws:),
+    )
+  end
+
+
+  # rubocop: disable RSpec/ExampleLength
   describe "#favorites" do
-    before do
-      1.times { create_match(result: :draw, p1: me, p2: riv_a_1_1) }
-      3.times { create_match(result: :p1_win, p1: me, p2: riv_a_1_1) }
-      3.times { create_match(result: :p2_win, p1: me, p2: riv_a_1_1) }
-      5.times { create_match(result: :p2_win, p1: riv_b_1_1, p2: me) }
-      4.times { create_match(result: :p1_win, p1: riv_b_1_0, p2: me) }
-    end
+    subject(:favorites) { rivals.favorites }
 
     it do
-      expect(rivals.favorites).to match([
-        rival_item(win: 3, lose: 3, draw: 1, **riv_a_1_1),
-        rival_item(win: 5, lose: 0, draw: 0, **riv_b_1_1),
-        rival_item(win: 0, lose: 4, draw: 0, **riv_b_1_0)
-      ])
-    end
-  end
-
-  describe "#victims" do
-    before do
-      5.times { create_match(result: :p1_win, p1: me, p2: riv_a_1_1) }
-      5.times { create_match(result: :p2_win, p1: me, p2: riv_a_1_1) }
-      2.times { create_match(result: :p1_win, p1: riv_b_1_1, p2: me) }
-      4.times { create_match(result: :p2_win, p1: riv_b_1_1, p2: me) }
-      1.times { create_match(result: :p1_win, p1: riv_b_1_0, p2: me) }
-      3.times { create_match(result: :p2_win, p1: riv_b_1_0, p2: me) }
-    end
-
-    it do
-      expect(rivals.victims).to match([
-        rival_item(win: 4, lose: 2, draw: 0, **riv_b_1_1),
-        rival_item(win: 3, lose: 1, draw: 0, **riv_b_1_0),
-        rival_item(win: 5, lose: 5, draw: 0, **riv_a_1_1)
-      ])
+      expect(favorites).to start_with(
+        an_rival(fighter_id: 444_444_444, character_id: 4, input_type_id: 1, wins: 5, losses: 5, draws: 0,),
+        an_rival(fighter_id: 222_222_222, character_id: 1, input_type_id: 1, wins: 7, losses: 1, draws: 0),
+        an_rival(fighter_id: 222_222_222, character_id: 2, input_type_id: 1, wins: 1, losses: 7, draws: 0),
+        an_rival(fighter_id: 333_333_333, character_id: 1, input_type_id: 1, wins: 6, losses: 0, draws: 0),
+        an_rival(fighter_id: 333_333_333, character_id: 1, input_type_id: 0, wins: 0, losses: 6, draws: 0),
+      )
     end
   end
 
   describe "#tormentors" do
-    before do
-      5.times { create_match(result: :p1_win, p1: me, p2: riv_a_1_1) }
-      5.times { create_match(result: :p2_win, p1: me, p2: riv_a_1_1) }
-      4.times { create_match(result: :p1_win, p1: riv_b_1_1, p2: me) }
-      2.times { create_match(result: :p2_win, p1: riv_b_1_1, p2: me) }
-      3.times { create_match(result: :p1_win, p1: riv_b_1_0, p2: me) }
-      1.times { create_match(result: :p2_win, p1: riv_b_1_0, p2: me) }
-    end
+    subject(:tormentors) { rivals.tormentors }
 
     it do
-      expect(rivals.tormentors).to match([
-        rival_item(win: 2, lose: 4, draw: 0, **riv_b_1_1),
-        rival_item(win: 1, lose: 3, draw: 0, **riv_b_1_0),
-        rival_item(win: 5, lose: 5, draw: 0, **riv_a_1_1)
-      ])
+      expect(tormentors).to start_with(
+        an_rival(fighter_id: 333_333_333, character_id: 1, input_type_id: 0, wins: 0, losses: 6, draws: 0),
+        an_rival(fighter_id: 222_222_222, character_id: 2, input_type_id: 1, wins: 1, losses: 7, draws: 0),
+        an_rival(fighter_id: 444_444_444, character_id: 4, input_type_id: 1, wins: 5, losses: 5, draws: 0,),
+        an_rival(fighter_id: 333_333_333, character_id: 1, input_type_id: 1, wins: 6, losses: 0, draws: 0),
+        an_rival(fighter_id: 222_222_222, character_id: 1, input_type_id: 1, wins: 7, losses: 1, draws: 0),
+      )
+    end
+  end
+
+  describe "#victims" do
+    subject(:victims) { rivals.victims }
+
+    it do
+      expect(victims).to start_with(
+        an_rival(fighter_id: 333_333_333, character_id: 1, input_type_id: 1, wins: 6, losses: 0, draws: 0),
+        an_rival(fighter_id: 222_222_222, character_id: 1, input_type_id: 1, wins: 7, losses: 1, draws: 0),
+        an_rival(fighter_id: 444_444_444, character_id: 4, input_type_id: 1, wins: 5, losses: 5, draws: 0,),
+        an_rival(fighter_id: 333_333_333, character_id: 1, input_type_id: 0, wins: 0, losses: 6, draws: 0),
+        an_rival(fighter_id: 222_222_222, character_id: 2, input_type_id: 1, wins: 1, losses: 7, draws: 0),
+      )
     end
   end
 end

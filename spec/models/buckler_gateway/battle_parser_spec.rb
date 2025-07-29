@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BucklerGateway::BattleParser, type: :model do
+RSpec.describe BucklerGateway::BattleParser do
   subject(:parsed_battle) { described_class.parse(replay_data) }
 
   let(:replay_data) { JSON.parse <<~JSON }
@@ -19,7 +19,7 @@ RSpec.describe BucklerGateway::BattleParser, type: :model do
   end
 
   it { expect(parsed_battle.replay_id).to eq "TESTAAABBB" }
-  it { expect(parsed_battle.battle_type).to eq Battle.battle_types.key(4) }
+  it { expect(parsed_battle.battle_type_id).to eq 4 }
   it { expect(parsed_battle.p1).to have_attributes(name: "parsed_p1", round_ids: [ 1 ]) }
   it { expect(parsed_battle.p2).to have_attributes(name: "parsed_p2", round_ids: [ 0 ]) }
 end

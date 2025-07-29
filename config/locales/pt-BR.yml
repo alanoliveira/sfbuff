@@ -33,58 +33,59 @@ pt-BR:
     any: Qualquer
   activerecord:
     models:
+      ranked_step: Histórico de Ranqueadas
+      matchup: Matches
       battle:
         one: Match
         other: Matches
       fighter:
         one: Jogador
         other: Jogadores
+    attributes:
+      fighter:
+        synchronized_at: Sincronizado
+      matchup:
+        home_fighter_id: Meu ID
+        home_name: Meu Nome
+        home_character: Meu Personagem
+        home_input_type: Meu Controle
+        home_challenger: Eu
+        away_fighter_id: Vs ID
+        away_name: VS name
+        away_character: Vs Personagem
+        away_input_type: Vs Controle
+        away_challenger: VS
+        replay_id: Replay ID
+        played_at: Data
+        battle_type: Tipo de Match
+      ranked_step:
+        character: Meu Personagem
   activemodel:
     models:
-      ranked_history: Histórico de Ranqueadas
       matchup/matchup_chart: Matchup Chart
       matchup/rivals: Rivais
+    attributes:
+      matchup/score:
+        wins: Vitórias
+        losses: Derrota
+        draws: Empates
+        total: Total
+        diff: Saldo
+        ratio: Percentual
+      matchup/rivals:
+        favorites: Favoritos
+        victims: Vítimas
+        tormentors: Carrascos
+      fighter_profile:
+        home: País
+        league_info: Liga
+        main_character: Main char
+        last_online_at: Última vez online
+        name: Nome
+        fighter_id: ID
   attributes:
-    name: Nome
-    last_online_at: Última vez online
-    main_character: Main char
-    fighter_id: ID
-    league_info: Liga
-    home: País
-    result: Resultado
-    result/win: 
-      one: Vitória
-      other: Vitórias
-    result/lose: 
-      one: Derrota
-      other: Derrotas
-    result/draw: 
-      one: Empate
-      other: Empates
-    score/total: Total
-    score/win: Vitórias
-    score/lose: Derrotas
-    score/draw: Empates
-    score/diff: Saldo
-    score/win_ratio: Percentual
-    battle_type: Tipo de Match
-    replay_id: Replay
-    played_at: Data
-    pick: Pick
-    character: Personagem
-    input_type: Controle
-    home_fighter_id: Meu ID
-    home_character: Meu Personagem
-    home_input_type: Meu Controle
-    away_fighter_id: Vs ID
-    away_character: Vs Personagem
-    away_input_type: Vs Controle
     played_from: De
     played_to: Até
-    rivals/favorites: Favoritos
-    rivals/victims: Vítimas
-    rivals/tormentors: Carrascos
-    synchronized_at: Sincronizado
   errors:
     "ArgumentError": Parâmetro inválido
     "BucklerGateway::ProfileNotFound": Jogador não encontrado

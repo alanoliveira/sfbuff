@@ -1,18 +1,17 @@
-<% rounds_order, info_order = challenger.side == 1 ? [ 2, 1 ] : [ 1, 2 ] %>
-<div class="d-flex">
-  <div class="col-10 text-center order-<%= info_order %>">
-    <small><%= league_info_span(challenger.league_info) %></small>
-    <div class="text-truncate fs-1">
+<div class="d-flex justify-content-between align-items-center">
+  <div class="col-10 text-center challenger-data">
+    <small><%= league_info_span mr: challenger.mr, lp: challenger.lp %></small>
+    <div class="text-truncate fs-2">
       <%= link_to_fighter challenger.name, challenger.fighter_id %>
     </div>
     <small>
-      <%= character_name challenger.character %>
-      <%= input_type_name challenger.input_type %>
+      <%= character_name challenger.character_id %>
+      <%= input_type_name challenger.input_type_id %>
     </small>
   </div>
-  <div class="col-2 px-2 text-center align-self-center order-<%= rounds_order %>">
+  <div class="col-2 text-center align-self-center round-list">
     <ul class="list-unstyled mb-1">
-      <% challenger.round_set.each do |round| %>
+      <% challenger.rounds.each do |round| %>
         <li><%= round_badge(round) %></li>
       <% end %>
     </ul>

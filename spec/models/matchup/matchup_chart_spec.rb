@@ -1,29 +1,30 @@
-require 'rails_helper'
+RSpec.describe Matchup::MatchupChart do
+  subject(:matchup_chart) { matchups.matchup_chart }
 
-RSpec.describe Matchup::MatchupChart, type: :model do
-  let(:matchup_chart) { described_class.new(matchup) }
-
-  let(:matchup) { Matchup.new(home_fighter_id: me[:fighter_id]) }
-
-  let(:me)  { { fighter_id: generate(:fighter_id) } }
+  let(:matchups) { Matchup.where(home_fighter_id: 111_111_111) }
 
   before do
-    4.times { Character.create!(id: it, name: "Character#{it}") }
-    2.times { create_match(result: :p1_win, p1: me, p2: { character: 1, input_type: 0 }) }
-    3.times { create_match(result: :p1_win, p1: me, p2: { character: 1, input_type: 1 }) }
+    create_matchups(wins: 1, losses: 2, home_fighter_id: 111_111_111, away_character_id: 1, away_input_type_id: 0)
+    create_matchups(wins: 2, losses: 4, home_fighter_id: 111_111_111, away_character_id: 1, away_input_type_id: 1)
+    create_matchups(wins: 3, losses: 6, home_fighter_id: 111_111_111, away_character_id: 2, away_input_type_id: 0)
+    create_matchups(wins: 4, losses: 8, home_fighter_id: 111_111_111, away_character_id: 2, away_input_type_id: 1)
   end
 
-  def matchup_chart_item(score:, character:, input_type:)
-    score = Score.new(**score) if score
-    matchup_matching = an_object_having_attributes(away_character: character, away_input_type: input_type)
-    an_object_having_attributes(score:, matchup: matchup_matching, character:, input_type:)
-  end
-
+  # rubocop: disable RSpec/ExampleLength
   it do
     expect(matchup_chart).to include(
-      matchup_chart_item(score: { win: 2, lose: 0, draw: 0 }, character: Character[1], input_type: InputType[0]),
-      matchup_chart_item(score: { win: 3, lose: 0, draw: 0 }, character: Character[1], input_type: InputType[1]),
-      matchup_chart_item(score: nil, character: Character[2], input_type: InputType[0]),
+      an_object_having_attributes(character_id: 1, input_type_id: 0, score: an_object_having_attributes(wins: 1, losses: 2, draws: 0)),
+      an_object_having_attributes(character_id: 1, input_type_id: 1, score: an_object_having_attributes(wins: 2, losses: 4, draws: 0)),
+      an_object_having_attributes(character_id: 2, input_type_id: 0, score: an_object_having_attributes(wins: 3, losses: 6, draws: 0)),
+      an_object_having_attributes(character_id: 2, input_type_id: 1, score: an_object_having_attributes(wins: 4, losses: 8, draws: 0)),
     )
+  end
+
+  describe "#total" do
+    subject(:total) { matchup_chart.total }
+
+    it do
+      expect(total).to have_attributes(wins: 10, losses: 20, draws: 0,)
+    end
   end
 end

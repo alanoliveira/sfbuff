@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Fighter::Synchronizable, type: :model do
+RSpec.describe Fighter::Synchronizable do
   describe "#synchronize_later" do
     let(:fighter) { create(:fighter) }
 
@@ -27,7 +27,7 @@ RSpec.describe Fighter::Synchronizable, type: :model do
       end
     end
 
-    context "when the fighter is not synchronized" do
+    context "when the fighter is synchronized" do
       let(:fighter) { create(:fighter, synchronized_at: Time.now) }
 
       it "updates player synchronized_at" do

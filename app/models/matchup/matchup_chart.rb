@@ -1,45 +1,41 @@
 class Matchup::MatchupChart
-  extend ActiveModel::Naming
   extend ActiveModel::Translation
   include Enumerable
 
-  Item = Data.define(:score, :character, :input_type, :matchup)
+  Item = Data.define(:character_id, :input_type_id, :score)
 
-  attr_accessor :matchup
-
-  def initialize(matchup)
-    @matchup = matchup
+  def initialize(matchups)
+    @matchups = matchups
   end
 
   def each(&)
-    scoreboard = fetch_scoreboard
-    return [].each(&) if scoreboard.empty?
-
-    Character.to_a.product(InputType.to_a).map do |character, input_type|
-      score = scoreboard[[ character.id, input_type.id ]].try(:~)
-      item_matchup = matchup_for_item(character, input_type)
-      Item.new(score, character, input_type, item_matchup)
-    end.each(&)
+    data.each(&)
   end
 
-  def sum
+  def score_for(character_id:, input_type_id:)
+    find { it.character_id == character_id && it.input_type_id == input_type_id }
+      &.score
+  end
+
+  def total
     filter_map(&:score).reduce(&:+)
   end
 
   private
 
-  def fetch_scoreboard
-    matchup
-      .away_challengers
-      .group(:character_id, :input_type_id)
-      .select(:character_id, :input_type_id)
-      .scoreboard
-      .to_h { |score, *group| [ group, score ] }
+  def data
+    @data ||= base_query.scoreboard.map do |score, attrs|
+      Item.new(
+        character_id: attrs[:away_character_id],
+        input_type_id: attrs[:away_input_type_id],
+        score:
+      )
+    end
   end
 
-  def matchup_for_item(away_character, away_input_type)
-    matchup.dup.tap do
-      it.assign_attributes(away_character:, away_input_type:)
-    end
+  def base_query
+    @matchups
+      .group(:away_character_id, :away_input_type_id)
+      .select(:away_character_id, :away_input_type_id)
   end
 end

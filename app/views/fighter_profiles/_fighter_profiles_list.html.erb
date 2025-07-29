@@ -1,4 +1,4 @@
-<table class="table table-striped text-center">
+<table class="table table-striped text-center text-nowrap">
   <thead>
     <th><%= FighterProfile.human_attribute_name :name %></th>
     <th><%= FighterProfile.human_attribute_name :fighter_id %></th>
@@ -14,9 +14,9 @@
         <td><%= fighter_profile.name %></td>
         <td><%= fighter_profile.fighter_id %></td>
         <td><%= local_time_ago fighter_profile.last_online_at, format: :short %></td>
-        <td><%= character_name fighter_profile.main_character %></td>
-        <td><%= league_info_span fighter_profile.league_info %></td>
-        <td><%= home_name fighter_profile.home %></td>
+        <td><%= character_name fighter_profile.main_character_id %></td>
+        <td><%= league_info_span mr: fighter_profile.mr, lp: fighter_profile.lp %></td>
+        <td><%= country_name fighter_profile.home_id %></td>
         <td><%= link_to_fighter t("buttons.select"), fighter_profile.fighter_id, class: "btn btn-primary" %></td>
       </tr>
     <% end %>

@@ -1,39 +1,5 @@
-<% %i[favorites victims tormentors].index_with { rivals.public_send(it) }.each do |name, rival| %>
+<% [ :favorites, :victims, :tormentors ].each do |kind| %>
   <div class="card card-body mb-3 table-responsive">
-    <table class="table table-striped caption-top text-center">
-      <caption class="fs-4 text-center">
-        <%= Matchup::Rivals.human_attribute_name("rivals/#{name}") %>
-      </caption>
-      <thead>
-        <tr>
-          <th colspan="2">VS</th>
-          <th><%= t("attributes.score/total") %></th>
-          <th><%= t("attributes.score/win") %></th>
-          <th><%= t("attributes.score/lose") %></th>
-          <th><%= t("attributes.score/draw") %></th>
-          <th><%= tag.span "Σ", title: t("attributes.score/diff") %></th>
-          <th><%= tag.span "%", title: t("attributes.score/win_ratio") %></th>
-          <th><%= tag.span icon("bar-chart-fill"), title: t("common.chart") %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% rival.each do |item| %>
-          <tr>
-            <td><%= link_to_fighter item.name, item.fighter_id %></td>
-            <td>
-              <%= character_name item.character %>
-              <%= input_type_name item.input_type %>
-            </td>
-            <td><%= item.score.total %></td>
-            <td><%= item.score.win %></td>
-            <td><%= item.score.lose %></td>
-            <td><%= item.score.draw %></td>
-            <td><%= score_diff item.score.diff %></td>
-            <td><%= score_win_percent item.score.win_ratio %></td>
-            <td><%= link_to_matchup_score_by_date_chart item.matchup, title: t("common.chart") %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= render "rival_list", data: rivals.send(kind), title: Matchup::Rivals.human_attribute_name(kind) %>
   </div>
 <% end %>

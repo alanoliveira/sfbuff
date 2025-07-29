@@ -33,58 +33,59 @@ ja:
     any: 全て
   activerecord:
     models:
+      ranked_step: ランク統計
+      matchup: 対戦
       battle:
         one: 対戦
         other: 対戦
       fighter:
         one: プレイヤー
         other: プレイヤー
+    attributes:
+      fighter:
+        synchronized_at: 同期済み
+      matchup:
+        home_fighter_id: 私のID
+        home_name: 私の名前
+        home_character: 私のキャラクター
+        home_input_type: 私の操作タイプ
+        home_challenger: 私
+        away_fighter_id: 対戦相手のID
+        away_name: 対戦相手の名前
+        away_character: 対戦相手のキャラクター
+        away_input_type: 対戦相手の操作タイプ
+        away_challenger: 相手
+        replay_id: リプレイID
+        played_at: 試合日
+        battle_type: ゲームモード
+      ranked_step:
+        character: 私のキャラクター
   activemodel:
     models:
-      ranked_history: ランク統計
       matchup/matchup_chart: キャラ別統計
       matchup/rivals: ライバル
+    attributes:
+      matchup/score:
+        wins: 勝利
+        losses: 敗北
+        draws: 引き分け
+        total: 合計
+        diff: 勝利数
+        ratio: 勝率
+      matchup/rivals:
+        favorites: 多く戦った対戦相手
+        victims: 勝率が高い対戦相手
+        tormentors: 勝率が低い対戦相手
+      fighter_profile:
+        home: 国
+        league_info: リーグ
+        main_character: メインキャラクター
+        last_online_at: 最終オンライン
+        name: 名前
+        fighter_id: ID
   attributes:
-    name: 名前
-    last_online_at: 最終オンライン
-    main_character: メインキャラクター
-    fighter_id: ID
-    league_info: リーグ
-    home: 国
-    result: 試合結果
-    result/win: 
-      one: 勝利
-      other: 勝利
-    result/lose: 
-      one: 敗北
-      other: 敗北
-    result/draw: 
-      one: 引き分け
-      other: 引き分け
-    score/total: 合計
-    score/win: 勝利
-    score/lose: 敗北
-    score/draw: 引き分け
-    score/diff: 勝利数
-    score/win_ratio: 勝率
-    battle_type: ゲームモード
-    home_fighter_id: 私のID
-    home_character: 私のキャラクター
-    home_input_type: 私の操作タイプ
-    away_fighter_id: 対戦相手のID
-    away_character: 対戦相手のキャラクター
-    away_input_type: 対戦相手の操作タイプ
-    replay_id: リプレイID
-    played_at: 試合日
-    pick: ピック
-    character: キャラクター
-    input_type: 操作タイプ
     played_from: 始日
     played_to: 了日
-    rivals/favorites: 多く戦った対戦相手
-    rivals/victims: 勝率が高い対戦相手
-    rivals/tormentors: 勝率が低い対戦相手
-    synchronized_at: 同期済み
   errors:
     "ArgumentError": 無効な引数
     "BucklerGateway::ProfileNotFound": プレイヤーが見つかりません

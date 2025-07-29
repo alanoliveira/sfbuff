@@ -1,0 +1,11 @@
+<%= fighter_content_frame do %>
+  <div class="card card-body mb-3">
+    <%= render "search_form" %>
+  </div>
+
+  <%= empty_alert_unless(@ranked_steps.present?) do %>
+    <div class="card card-body">
+      <%= render "ranked_steps_chart", ranked_steps: @ranked_steps.to_a %>
+    </div>
+  <% end %>
+<% end %>
