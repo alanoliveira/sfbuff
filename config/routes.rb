@@ -23,6 +23,10 @@ Rails.application.routes.draw do
     end
   end
 
+  match "/fighters(/:fighter_id)(*)", constraints: { fighter_id: Fighter::FIGHTER_ID_REGEXP }, to: redirect { |params, _req|
+    "/fighters/#{params[:fighter_id]}"
+  }, via: :get
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
