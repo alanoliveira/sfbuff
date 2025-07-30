@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import "chartjs"
 import "chartjs-adapter-date-fns"
+import "chartjs-plugin-zoom"
 import marks from "chartjs-plugins/marks"
 import visit from "chartjs-plugins/visit"
 import localize from "chartjs-plugins/localize"

@@ -48,6 +48,14 @@ json.options do
       json.locale I18n.locale.to_s
     end
 
+    json.zoom do
+      json.zoom do
+        json.wheel({ enabled: true })
+        json.pinch({ enabled: true })
+        json.mode "x"
+      end
+    end
+
     json.title do
       json.text [
         RankedHistory.model_name.human,
