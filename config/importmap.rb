@@ -12,6 +12,7 @@ pin "chartjs-adapter-date-fns", to: "https://cdn.jsdelivr.net/npm/chartjs-adapte
 pin "date-fns/locale/ja", to: "https://cdn.jsdelivr.net/npm/date-fns@4.1.0/locale/ja/+esm"
 pin "date-fns/locale/pt-BR", to: "https://cdn.jsdelivr.net/npm/date-fns@4.1.0/locale/pt-BR/+esm"
 pin "chartjs-plugin-zoom", to: "https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.2.0/dist/chartjs-plugin-zoom.min.js"
+pin "hammerjs", to: "https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"
 pin "local-time", to: "https://cdn.jsdelivr.net/npm/local-time@3.0.2/+esm"
 
 pin_all_from "app/javascript/helpers", under: "helpers"
