@@ -11,6 +11,7 @@ class FightersController < ApplicationController
   end
 
   def update
+    return head :accepted if ENV["SKIP_BUCKLER_SYNCHRONIZATION"]
     return render turbo_stream: turbo_stream.action("refresh", nil) if @fighter.synchronized?
     @fighter.save! if @fighter.new_record?
     ahoy.track("FightersController#update", { fighter_id: @fighter.id })
