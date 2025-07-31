@@ -1,5 +1,9 @@
 class RankedHistory
-  Step = Data.define(:played_at, :replay_id, :mr, :lp, :mr_variation, :lp_variation)
+  Step = Data.define(:played_at, :replay_id, :mr, :lp, :mr_variation, :lp_variation) do
+    def calibrating?
+      mr == 0 && lp == -1
+    end
+  end
 
   include Enumerable
   include ActiveModel::Model

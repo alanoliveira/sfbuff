@@ -12,7 +12,8 @@ mr_items = mr_steps.map do |step|
   }
 end
 
-lp_items = lp_steps.map do |step|
+lp_items = lp_steps.filter_map do |step|
+  next if step.calibrating?
   variation = step.lp_variation ? ("%+d" % step.lp_variation) : "?"
 
   {
