@@ -1,0 +1,18 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dangerous Eval",
+      "fingerprint": "e223b460bce82b78349e376b3afb9c21189beb1ad0abbf1f778875d694671b0d",
+      "check_name": "Evaluation",
+      "message": "Dynamic string evaluated as code",
+      "file": "app/models/buckler_credential/expirable_attribute.rb",
+      "line": 6,
+      "location": {
+        "type": "method",
+        "class": "BucklerCredential",
+        "method": "expirable_attribute"
+      }
+    }
+  ],
+  "brakeman_version": "7.1.0"
+}
