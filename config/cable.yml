@@ -9,4 +9,9 @@ test:
   adapter: test
 
 production:
-  adapter: redis
+  adapter: solid_cable
+  connects_to:
+    database:
+      writing: cable
+  polling_interval: 0.2.seconds
+  message_retention: 12.hours

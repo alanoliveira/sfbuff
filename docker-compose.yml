@@ -50,9 +50,3 @@ services:
       timeout: 10s
       retries: 5
       start_period: 10s
-  redis:
-    image: valkey/valkey:7
-    environment:
-      ALLOW_EMPTY_PASSWORD: 1
-    ports:
-      - "6379:6379"
