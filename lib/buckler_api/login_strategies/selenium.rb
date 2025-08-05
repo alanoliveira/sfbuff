@@ -1,14 +1,18 @@
-class BucklerApi::AuthCookiesStrategies::Selenium
+class BucklerApi::LoginStrategies::Selenium
   attr_accessor :base_url, :user_agent, :email, :password
 
-  def initialize(base_url:, user_agent:, email:, password:)
-    @base_url = base_url
-    @user_agent = user_agent
-    @email = email
-    @password = password
+  def self.login(**args)
+    new(**args).login
   end
 
-  def call
+  def initialize(base_url: nil, user_agent: nil, email: nil, password: nil)
+    @base_url = base_url ||= BucklerApi::Configuration.base_url
+    @user_agent = user_agent ||= BucklerApi::Configuration.user_agent
+    @email ||= BucklerApi::Configuration.email
+    @password ||= BucklerApi::Configuration.password
+  end
+
+  def login
     visit_login
 
     if current_uri.host[/^cid.*/]
@@ -29,7 +33,6 @@ class BucklerApi::AuthCookiesStrategies::Selenium
     driver.manage.all_cookies.map do |c|
       c.values_at(:name, :value).join("=")
     end.join(";")
-  rescue
   ensure
     driver.quit
   end

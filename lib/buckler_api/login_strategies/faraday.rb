@@ -1,15 +1,19 @@
-class BucklerApi::AuthCookiesStrategies::Faraday
+class BucklerApi::LoginStrategies::Faraday
   attr_accessor :base_url, :user_agent, :email, :password
 
-  def initialize(base_url:, user_agent:, email:, password:)
-    @base_url = base_url
-    @user_agent = user_agent
-    @email = email
-    @password = password
+  def self.login(**args)
+    new(**args).login
+  end
+
+  def initialize(base_url: nil, user_agent: nil, email: nil, password: nil)
+    @base_url = base_url ||= BucklerApi::Configuration.base_url
+    @user_agent = user_agent ||= BucklerApi::Configuration.user_agent
+    @email ||= BucklerApi::Configuration.email
+    @password ||= BucklerApi::Configuration.password
     @cookie_jar = HTTP::CookieJar.new
   end
 
-  def call
+  def login
     connection = build_connection
     auth_config = FetchAuthConfig.new(connection).call
     callback_config = ExecuteLogin.new(connection, auth_config["clientConfigurationBaseUrl"], {
@@ -33,7 +37,6 @@ class BucklerApi::AuthCookiesStrategies::Faraday
     ExecuteCallback.new(connection, callback_config.delete(:action), callback_config).call
 
     @cookie_jar.cookies(connection.url_prefix.to_s).map(&:to_s).join(";")
-  rescue
   end
 
   private

@@ -1,4 +1,4 @@
-class BucklerApi::AuthCookiesStrategies::Faraday::FetchAuthConfig
+class BucklerApi::LoginStrategies::Faraday::FetchAuthConfig
   def initialize(connection)
     @connection = connection
   end

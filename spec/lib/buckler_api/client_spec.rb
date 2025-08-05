@@ -1,42 +1,42 @@
 require 'rails_helper'
 
 RSpec.describe BucklerApi::Client do
-  let(:client) { described_class.new(connection) }
+  let(:client) { described_class.new(connection:, auth_cookie:, build_id:) }
   let(:connection) { instance_double(BucklerApi::Connection) }
+  let(:auth_cookie) { "ok=1" }
+  let(:build_id) { "ABC123" }
 
-  def mock_response(data)
-    instance_double(BucklerApi::Response, page_props: data)
-  end
+  describe "#get" do
+    let(:response) { spy }
 
-  describe "#search_fighters" do
-    context "when searching by short_id" do
-      it "returns the fighter_banner_list" do
-        allow(connection).to receive(:get)
-          .with("fighterslist/search/result.json", { short_id: 123456789 })
-          .and_return(mock_response("fighter_banner_list" => "OK"))
+    before { allow(connection).to receive(:get).and_return(response) }
 
-        expect(client.search_fighters(short_id: 123456789)).to eq "OK"
+    it "sends the request with the expected parameters" do
+      client.get("foo", { bar: 10 })
+
+      expect(connection).to have_received(:get)
+        .with("/6/buckler/_next/data/#{build_id}/en/foo",
+          params: { bar: 10 },
+          headers: { "Cookie" => auth_cookie })
+    end
+
+    context "when response is OK" do
+      before { allow(response).to receive_messages(success?: true, body: { "pageProps" => "OK" }) }
+
+      it "returns the pageProps" do
+        expect(client.get("foo")).to eq "OK"
       end
     end
 
-    context "when searching by fighter_id" do
-      it "returns the fighter_banner_list" do
-        allow(connection).to receive(:get)
-          .with("fighterslist/search/result.json", { fighter_id: "fighter" })
-          .and_return(mock_response("fighter_banner_list" => "OK"))
-
-        expect(client.search_fighters(fighter_id: "fighter")).to eq "OK"
+    context "when response is NG" do
+      before do
+        allow(response).to receive_messages(success?: false)
+        allow(BucklerApi::Client::ResponseErrorHandler).to receive(:handle!).and_raise("boom")
       end
-    end
-  end
 
-  describe "#battlelog" do
-    it "returns the replay_list of the specified page" do
-      allow(connection).to receive(:get)
-        .with("profile/123456789/battlelog.json", { page: 5 })
-        .and_return(mock_response("replay_list" => "OK"))
-
-      expect(client.fighter_battlelog(123456789, 5)).to eq "OK"
+      it "returns the pageProps" do
+        expect { client.get("foo") }.to raise_error("boom")
+      end
     end
   end
 end

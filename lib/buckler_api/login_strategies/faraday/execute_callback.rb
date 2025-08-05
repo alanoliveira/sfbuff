@@ -1,4 +1,4 @@
-class BucklerApi::AuthCookiesStrategies::Faraday::ExecuteCallback
+class BucklerApi::LoginStrategies::Faraday::ExecuteCallback
   def initialize(connection, url, params)
     @connection = connection
     @url = url

@@ -1,68 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe BucklerApi::Connection do
-  subject(:connection) do
-    described_class.new do |config|
-      config.adapter = adapter
-      config.base_url = "http://www.example.com"
-      config.user_agent = "test"
-      config.build_id_manager.strategies << -> { "build_id" }
-      config.auth_cookies_manager.strategies << -> { "foo=bar" }
-    end
-  end
-
-  let(:adapter) { spy }
+  let(:connection) { described_class.new(base_url:, user_agent:) { |cfg| cfg.adapter :test, stubs } }
+  let(:base_url) { "http://www.example.com" }
+  let(:user_agent) { "test" }
+  let(:stubs) { Faraday::Adapter::Test::Stubs.new(strict_mode: true) }
 
   describe "#get" do
-    let(:response) { BucklerApi::Response.new(status: 200, headers: {}, body: "") }
+    context "without parameters or headers" do
+      before { stubs.get("/foo", { "User-Agent" => "test" }) { |env| [ 200, {}, "" ] } }
 
-    before do
-      allow(adapter).to receive(:get).and_return(response)
+      it { expect(connection.get("foo")).to be_success }
     end
 
-    it "sends the request with the expected params" do
-      connection.get("foo", bar: 1)
-      expect(adapter).to have_received("get")
-        .with(URI("http://www.example.com/6/buckler/_next/data/build_id/en/foo"), params: { bar: 1 }, headers: { "cookie" => "foo=bar", "user-agent" => "test" })
+    context "with parameters" do
+      before { stubs.get("/foo?id=1", { "User-Agent" => "test" }) { |env| [ 200, {}, "" ] } }
+
+      it { expect(connection.get("foo", params: { id: 1 })).to be_success }
     end
 
-    context "when response is successful" do
-      before { allow(response).to receive(:success?).and_return(true) }
+    context "with headers" do
+      before { stubs.get("/foo", { "User-Agent" => "test", "Cookie" => "ok" }) { |env| [ 200, {}, "" ] } }
 
-      it "returns the response" do
-        expect(connection.get("foo", bar: 1)).to eq response
-      end
+      it { expect(connection.get("foo", headers: { "Cookie": "ok" })).to be_success }
     end
 
-    context "when response is unsuccessful and forbidden is true" do
-      before { allow(response).to receive_messages(success?: false, forbidden?: true) }
+    context "when the response is a json" do
+      before { stubs.get("/", { "User-Agent" => "test" }) { |env| [ 200, { "Content-Type" => "application/json" }, '{"foo": 1}' ] } }
 
-      it "raises an HttpError" do
-        expect { connection.get("foo") }.to raise_error(BucklerApi::Errors::HttpError)
-      end
-    end
+      it { expect(connection.get("/")).to be_success }
 
-    context "when response is unsuccessful and path_not_found? is true" do
-      before { allow(response).to receive_messages(success?: false, path_not_found?: true) }
-
-      it "raises an HttpError" do
-        expect { connection.get("foo") }.to raise_error(BucklerApi::Errors::HttpError)
-      end
-    end
-
-    context "when response is unsuccessful and under_maintenance? is true" do
-      before { allow(response).to receive_messages(success?: false, under_maintenance?: true) }
-
-      it "raises an UnderMaintenance" do
-        expect { connection.get("foo") }.to raise_error(BucklerApi::Errors::UnderMaintenance)
-      end
-    end
-
-    context "when response is unsuccessful and rate_limit_exceeded? is true" do
-      before { allow(response).to receive_messages(success?: false, rate_limit_exceeded?: true) }
-
-      it "raises an RateLimitExceeded" do
-        expect { connection.get("foo") }.to raise_error(BucklerApi::Errors::RateLimitExceeded)
+      it "transform the body into a Hash" do
+        expect(connection.get("/").body).to eq({ "foo" => 1 })
       end
     end
   end

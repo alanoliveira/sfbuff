@@ -1,24 +1,32 @@
 module BucklerApi
   class Client
-    attr_accessor :connection
+    attr_reader :connection, :build_id, :auth_cookie
 
-    def initialize(connection)
-      @connection = connection
+    def initialize(connection: nil, build_id: nil, auth_cookie: nil)
+      @connection = connection || Connection.new
+      @build_id = build_id || Configuration.build_id
+      @auth_cookie = auth_cookie || Configuration.auth_cookie
     end
 
-    def search_fighters(short_id: nil, fighter_id: nil)
-      params = { short_id:, fighter_id: }.compact
-      get("fighterslist/search/result.json", params).fetch("fighter_banner_list")
+    def fighter
+      Fighter.new(self)
     end
 
-    def fighter_battlelog(short_id, page)
-      get("profile/#{short_id}/battlelog.json", { page: }).fetch("replay_list")
+    def get(path, params = {})
+      response = connection.get(path_prefix + path, params:, headers:)
+      ResponseErrorHandler.handle!(response) unless response.success?
+
+      response.body.fetch("pageProps")
     end
 
     private
 
-    def get(path, params)
-      connection.get(path, **params).page_props
+    def headers
+      { "Cookie" => auth_cookie }
+    end
+
+    def path_prefix
+      "/6/buckler/_next/data/#{build_id}/en/"
     end
   end
 end
