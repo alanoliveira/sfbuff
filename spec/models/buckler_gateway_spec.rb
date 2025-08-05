@@ -1,12 +1,19 @@
 require "rails_helper"
 
 RSpec.describe BucklerGateway do
-  subject(:gateway) { described_class.instance }
+  subject(:gateway) { described_class.new }
 
-  let(:mock_client) { instance_double(BucklerApi::Client) }
+  let(:mock_client) do
+    instance_double(
+      BucklerApi::Client,
+      fighter: instance_double(BucklerApi::Client::Fighter)
+    )
+  end
 
   before do
-    gateway.buckler_connection = instance_double(BucklerApi::Connection, client: mock_client)
+    buckler_credential = instance_double(BucklerCredential)
+    allow(buckler_credential).to receive(:with_client).and_yield(mock_client)
+    allow(BucklerCredential).to receive(:take).and_return(buckler_credential)
   end
 
   describe "#find_fighter_profile" do
@@ -14,7 +21,7 @@ RSpec.describe BucklerGateway do
 
     context "when api returns results" do
       before do
-        allow(mock_client).to receive(:search_fighters).with(short_id: "fighter_id").and_return([ "fighter1" ])
+        allow(mock_client.fighter).to receive(:search).with(short_id: "fighter_id").and_return([ "fighter1" ])
         allow(BucklerGateway::FighterProfileParser).to receive(:parse) { "parsed #{it}" }
       end
 
@@ -25,7 +32,7 @@ RSpec.describe BucklerGateway do
 
     context "when api returns an empty list" do
       before do
-        allow(mock_client).to receive(:search_fighters).with(short_id: "fighter_id").and_return([])
+        allow(mock_client.fighter).to receive(:search).with(short_id: "fighter_id").and_return([])
       end
 
       it "returns nil" do
@@ -39,7 +46,7 @@ RSpec.describe BucklerGateway do
 
     context "when api returns results" do
       before do
-        allow(mock_client).to receive(:search_fighters).with(fighter_id: "query").and_return([ "fighter1", "fighter2" ])
+        allow(mock_client.fighter).to receive(:search).with(fighter_id: "query").and_return([ "fighter1", "fighter2" ])
         allow(BucklerGateway::FighterProfileParser).to receive(:parse) { "parsed #{it}" }
       end
 
@@ -50,7 +57,7 @@ RSpec.describe BucklerGateway do
 
     context "when api return an empty list" do
       before do
-        allow(mock_client).to receive(:search_fighters).with(fighter_id: "query").and_return([])
+        allow(mock_client.fighter).to receive(:search).with(fighter_id: "query").and_return([])
       end
 
       it "returns an empty list" do
@@ -67,7 +74,7 @@ RSpec.describe BucklerGateway do
     context "when api returns results" do
       before do
         allow(BucklerGateway::BattleParser).to receive(:parse) { "parsed #{it}" }
-        allow(mock_client).to receive(:fighter_battlelog).with("fighter_id", page).and_return([ "battle1", "battle2" ])
+        allow(mock_client.fighter).to receive(:battlelog).with("fighter_id", page).and_return([ "battle1", "battle2" ])
       end
 
       it "parses all the results and return it" do
@@ -77,7 +84,7 @@ RSpec.describe BucklerGateway do
 
     context "when api returns an empty array" do
       before do
-        allow(mock_client).to receive(:fighter_battlelog).with("fighter_id", page).and_return([])
+        allow(mock_client.fighter).to receive(:battlelog).with("fighter_id", page).and_return([])
       end
 
       it "returns an empty array" do

@@ -32,6 +32,6 @@ class Fighter::Synchronizer
   end
 
   def buckler_gateway
-    @buckler_gateway ||= BucklerGateway
+    @buckler_gateway ||= BucklerGateway.new
   end
 end
