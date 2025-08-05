@@ -1,6 +1,4 @@
 class BucklerGateway
-  class ProfileNotFound < StandardError; end
-
   include Singleton
 
   class << self
@@ -8,10 +6,6 @@ class BucklerGateway
   end
 
   attr_accessor :buckler_connection
-
-  def find_fighter_profile!(fighter_id)
-    find_fighter_profile(fighter_id) || raise(ProfileNotFound)
-  end
 
   def find_fighter_profile(fighter_id)
     buckler_client.search_fighters(short_id: fighter_id).first.try { FighterProfileParser.parse(it) }

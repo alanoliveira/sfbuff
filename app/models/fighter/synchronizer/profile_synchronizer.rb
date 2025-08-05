@@ -1,8 +1,9 @@
 class Fighter::Synchronizer::ProfileSynchronizer
-  attr_reader :fighter
+  attr_reader :fighter, :buckler_gateway
 
-  def initialize(fighter)
+  def initialize(fighter, buckler_gateway)
     @fighter = fighter
+    @buckler_gateway = buckler_gateway
   end
 
   def synchronize
@@ -12,6 +13,7 @@ class Fighter::Synchronizer::ProfileSynchronizer
   private
 
   def fetch_profile
-    BucklerGateway.find_fighter_profile!(fighter.id)
+    buckler_gateway.find_fighter_profile(fighter.id) ||
+      raise(Fighter::Synchronizer::ProfileNotFound)
   end
 end

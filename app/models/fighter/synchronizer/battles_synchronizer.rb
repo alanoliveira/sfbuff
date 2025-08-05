@@ -1,8 +1,9 @@
 class Fighter::Synchronizer::BattlesSynchronizer
-  attr_reader :fighter
+  attr_reader :fighter, :buckler_gateway
 
-  def initialize(fighter)
+  def initialize(fighter, buckler_gateway)
     @fighter = fighter
+    @buckler_gateway = buckler_gateway
   end
 
   def synchronize
@@ -25,7 +26,7 @@ class Fighter::Synchronizer::BattlesSynchronizer
 
   def fetch_new_battles
     (1..10).lazy
-      .map { BucklerGateway.fetch_fighter_battles(fighter.id, it) }
+      .map { buckler_gateway.fetch_fighter_battles(fighter.id, it) }
       .take_while(&:present?)
       .flat_map(&:itself)
       .take_while { it.replay_id != fighter.last_synchronized_replay_id }

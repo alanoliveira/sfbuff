@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Fighter::Synchronizer::BattlesSynchronizer do
-  subject(:synchronizer) { described_class.new(fighter) }
+  subject(:synchronizer) { described_class.new(fighter, buckler_gateway) }
 
   let(:fighter) { create(:fighter) }
+  let(:buckler_gateway) { instance_double(BucklerGateway) }
 
   before do
-    allow(BucklerGateway).to receive(:fetch_fighter_battles).with(fighter.id, anything).and_return([])
+    allow(buckler_gateway).to receive(:fetch_fighter_battles).with(fighter.id, anything).and_return([])
   end
 
   describe "#synchronize" do
@@ -20,7 +21,7 @@ RSpec.describe Fighter::Synchronizer::BattlesSynchronizer do
       let(:new_battles) { build_list(:battle, 3, p1: build(:challenger, fighter_id: fighter.id)) }
 
       before do
-        allow(BucklerGateway).to receive(:fetch_fighter_battles).with(fighter.id, 1).and_return(new_battles)
+        allow(buckler_gateway).to receive(:fetch_fighter_battles).with(fighter.id, 1).and_return(new_battles)
       end
 
       it "saves the new battles" do
@@ -37,7 +38,7 @@ RSpec.describe Fighter::Synchronizer::BattlesSynchronizer do
       let(:new_battles) { build_list(:battle, 3, p1: build(:challenger, fighter_id: fighter.id)) }
 
       before do
-        allow(BucklerGateway).to receive(:fetch_fighter_battles).with(fighter.id, 1).and_return(new_battles)
+        allow(buckler_gateway).to receive(:fetch_fighter_battles).with(fighter.id, 1).and_return(new_battles)
         new_battles[0].clone.save!
       end
 
@@ -55,7 +56,7 @@ RSpec.describe Fighter::Synchronizer::BattlesSynchronizer do
       let(:new_battles) { build_list(:battle, 3, p1: build(:challenger, fighter_id: fighter.id)) }
 
       before do
-        allow(BucklerGateway).to receive(:fetch_fighter_battles).with(fighter.id, 1).and_return(new_battles)
+        allow(buckler_gateway).to receive(:fetch_fighter_battles).with(fighter.id, 1).and_return(new_battles)
         fighter.update(last_synchronized_replay_id: new_battles[1].replay_id)
       end
 

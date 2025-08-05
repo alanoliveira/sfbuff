@@ -88,7 +88,7 @@ ja:
     played_to: 了日
   errors:
     "ArgumentError": 無効な引数
-    "BucklerGateway::ProfileNotFound": プレイヤーが見つかりません
+    "Fighter::Synchronizer::ProfileNotFound": プレイヤーが見つかりません
     "BucklerApi::Errors::UnderMaintenance": Bucklerはメンテナンス中です
     "BucklerApi::Errors::RateLimitExceeded": 現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください
     generic: エラーが発生しました

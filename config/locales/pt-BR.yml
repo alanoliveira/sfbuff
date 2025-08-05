@@ -88,7 +88,7 @@ pt-BR:
     played_to: Até
   errors:
     "ArgumentError": Parâmetro inválido
-    "BucklerGateway::ProfileNotFound": Jogador não encontrado
+    "Fighter::Synchronizer::ProfileNotFound": Jogador não encontrado
     "BucklerApi::Errors::UnderMaintenance": Buckler está em manutenção
     "BucklerApi::Errors::RateLimitExceeded": Estamos enviando muitas solicitações para o site oficial no momento. Tente novamente em alguns minutos
     generic: Ocorreu um erro

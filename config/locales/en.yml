@@ -88,7 +88,7 @@ en:
     played_to: To
   errors:
     "ArgumentError": Invalid parameter
-    "BucklerGateway::ProfileNotFound": Player not found
+    "Fighter::Synchronizer::ProfileNotFound": Player not found
     "BucklerApi::Errors::UnderMaintenance": Buckler is under maintenance
     "BucklerApi::Errors::RateLimitExceeded": We're sending too many requests to the the official website at the moment. Please try again in a few minutes
     generic: An error occurred

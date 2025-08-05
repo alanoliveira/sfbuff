@@ -1,4 +1,6 @@
 class Fighter::Synchronizer
+  class ProfileNotFound < StandardError; end
+
   attr_reader :fighter, :synchronized_battles_count
 
   def initialize(fighter)
@@ -20,12 +22,16 @@ class Fighter::Synchronizer
   end
 
   def synchronize_profile
-    sync = ProfileSynchronizer.new(fighter)
+    sync = ProfileSynchronizer.new(fighter, buckler_gateway)
     sync.synchronize
   end
 
   def synchronize_battles
-    sync = BattlesSynchronizer.new(fighter)
+    sync = BattlesSynchronizer.new(fighter, buckler_gateway)
     @synchronized_battles_count = sync.synchronize
+  end
+
+  def buckler_gateway
+    @buckler_gateway ||= BucklerGateway
   end
 end
