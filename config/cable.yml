@@ -14,4 +14,5 @@ production:
     database:
       writing: cable
   polling_interval: 0.2.seconds
-  message_retention: 12.hours
+  message_retention: 1.hour
+  autotrim: false
