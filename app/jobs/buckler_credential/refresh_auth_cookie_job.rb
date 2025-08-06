@@ -13,14 +13,14 @@ class BucklerCredential::RefreshAuthCookieJob < ApplicationJob
 
   def try_login_with_faraday
     BucklerApi::LoginStrategies::Faraday.login
-  rescue e
+  rescue => e
     Rails.logger.error("failed to login with faraday: #{e}")
     nil
   end
 
   def try_login_with_selenium
     BucklerApi::LoginStrategies::Selenium.login
-  rescue e
+  rescue => e
     Rails.logger.error("failed to login with selenium: #{e}")
     nil
   end
