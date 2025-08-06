@@ -10,7 +10,7 @@ module BucklerApi
       when unauthorized? then Errors::Unauthorized
       when under_maintenance? then Errors::UnderMaintenance
       when rate_limit_exceeded? then Errors::RateLimitExceeded
-      else HttpError
+      else Errors::HttpError
       end.then { raise it, response }
     end
 

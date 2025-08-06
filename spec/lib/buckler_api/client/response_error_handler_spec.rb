@@ -32,5 +32,11 @@ RSpec.describe BucklerApi::Client::ResponseErrorHandler do
 
       it { expect { handler.handle! }.to raise_error(BucklerApi::Errors::RateLimitExceeded) }
     end
+
+    context "when response does not have a specific handling rule" do
+      before { stub_response(status: 999) }
+
+      it { expect { handler.handle! }.to raise_error(BucklerApi::Errors::HttpError) }
+    end
   end
 end
