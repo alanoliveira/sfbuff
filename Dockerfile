@@ -9,25 +9,7 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=3.4.1
-
-# build updated openssl (necessary for buckler login)
-FROM docker.io/library/debian:bookworm-slim AS openssl
-RUN apt-get update -qq && apt-get install -y curl build-essential zlib1g-dev ca-certificates && \
-    curl -sL https://www.openssl.org/source/openssl-3.4.0.tar.gz | tar xz -C /tmp/ && \
-    cd /tmp/openssl-3.4.0 && \
-    ./config --prefix=/usr/local/openssl-3.4.0 --openssldir=/usr/local/openssl-3.4.0 shared zlib && \
-    make && make install && \
-    cd && rm -rf /tmp/openssl-3.4.0
-
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
-
-# Copy compiled openssl
-COPY --from=openssl /usr/local/openssl-3.4.0 /usr/local/openssl-3.4.0
-RUN apt-get remove -y openssl && \
-    ln -s /etc/ssl/certs/ca-certificates.crt /usr/local/openssl-3.4.0/cert.pem && \
-    echo "/usr/local/openssl-3.4.0/lib64" > /etc/ld.so.conf.d/openssl-3.4.0.conf && \
-    ldconfig
-ENV PATH=/usr/local/openssl-3.4.0/bin:$PATH
 
 # Rails app lives here
 WORKDIR /rails
@@ -48,7 +30,7 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config && \
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
