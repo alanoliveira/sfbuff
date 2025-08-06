@@ -61,6 +61,7 @@ of information for players to track their own performance.
 
       SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
       ./bin/rails db:prepare
+      ./bin/rails buckler_credential:create
 
 ### Running
 
