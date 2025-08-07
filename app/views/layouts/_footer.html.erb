@@ -6,9 +6,18 @@
         <%= render "locale_selector" %>
       </div>
       <div>
-        <% ENV["REPOSITORY_URL"].try do |url| %>
-          <%= link_to icon("github"), url, target: "_blank", class: "nav-link fs-5", aria: { label: t("buttons.repository") } %>
-        <% end %>
+        <ul class="navbar-nav flex-row flex-wrap">
+          <% ENV["TWITTER_URL"].try do |url| %>
+            <li class="nav-item col-6 col-lg-auto">
+              <%= link_to icon("twitter"), url, target: "_blank", class: "nav-link px-2 fs-5" %>
+            </li>
+          <% end %>
+          <% ENV["REPOSITORY_URL"].try do |url| %>
+            <li class="nav-item col-6 col-lg-auto">
+              <%= link_to icon("github"), url, target: "_blank", class: "nav-link px-2 fs-5", aria: { label: t("buttons.repository") } %>
+            </li>
+          <% end %>
+        </ul>
       </div>
     </div>
   </div>

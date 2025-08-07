@@ -35,6 +35,7 @@ env:
     SFBUFF_DATABASE_USERNAME: sfbuff
     RAILS_ENV: production
     REPOSITORY_URL: <%= ENV.fetch("REPOSITORY_URL", "") %>
+    TWITTER_URL: <%= ENV.fetch("TWITTER_URL", "") %>
     SOLID_QUEUE_POLLING_INTERVAL: 0.5
     PERFORM_FRAGMENT_CACHING: false
   secret:
