@@ -23,17 +23,21 @@ class RankedHistory
     data.each(&)
   end
 
+  def extra_step
+    @extra_step ||= ExtraStep.new(fighter_id:, character_id:, date: to_date)
+  end
+
   private
 
   def data
-    @data ||= execute.chain([ nil ]).each_cons(2).map do |data1, data2|
+    @data ||= execute.chain([ extra_step ]).each_cons(2).map do |data1, data2|
       Step.new(
         played_at: data1["played_at"],
         replay_id: data1["replay_id"],
         mr: data1["mr"],
         lp: data1["lp"],
-        mr_variation: data2 && data2["mr"] - data1["mr"],
-        lp_variation: data2 && data2["lp"] - data1["lp"],
+        mr_variation: data2.present? && data2["mr"] - data1["mr"],
+        lp_variation: data2.present? && data2["lp"] - data1["lp"],
       )
     end
   end
@@ -46,6 +50,6 @@ class RankedHistory
   end
 
   def ranked_steps
-    RankedStep.where(fighter_id:, character_id:).order(:played_at)
+    RankedStep.where(fighter_id:, character_id:).sorted
   end
 end
