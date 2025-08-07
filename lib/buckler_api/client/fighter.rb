@@ -14,5 +14,9 @@ module BucklerApi
     def battlelog(short_id, page)
       client.get("profile/#{short_id}/battlelog.json", { page: }).fetch("replay_list")
     end
+
+    def play_data(short_id)
+      client.get("profile/#{short_id}/play.json")
+    end
   end
 end

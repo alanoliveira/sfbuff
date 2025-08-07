@@ -7,7 +7,7 @@ class Fighters::RankedHistoriesController < ApplicationController
   fresh_when_unsynchronized
 
   def show
-    @ranked_history = RankedHistory.new(ranked_history_params)
+    @ranked_history = RankedHistory.new(**ranked_history_params)
   end
 
   private

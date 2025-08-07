@@ -7,7 +7,7 @@ class Fighter::Synchronizer::BattlesSynchronizer
   end
 
   def synchronize
-    new_battles = fetch_new_battles
+    new_battles = fetch_new_battles.map { Battle.new(it) }
     return if new_battles.empty?
 
     synchronized_battles_count = 0
@@ -29,7 +29,7 @@ class Fighter::Synchronizer::BattlesSynchronizer
       .map { buckler_gateway.fetch_fighter_battles(fighter.id, it) }
       .take_while(&:present?)
       .flat_map(&:itself)
-      .take_while { it.replay_id != fighter.last_synchronized_replay_id }
+      .take_while { it[:replay_id] != fighter.last_synchronized_replay_id }
       .to_a
   end
 end

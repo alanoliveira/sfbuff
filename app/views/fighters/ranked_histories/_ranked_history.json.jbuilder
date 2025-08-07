@@ -1,27 +1,54 @@
 steps = ranked_history.to_a
 mr_steps, lp_steps = steps.partition { it.mr.positive? }
 
-mr_items = mr_steps.map do |step|
-  variation = step.mr_variation ? ("%+d" % step.mr_variation) : "?"
+def create_entry(value:, date:, label:, replay_id:)
+  visit = { path: replay_id, options: { frame: "modal" } } if replay_id
 
   {
-    y: step.mr,
-    x: step.played_at.to_i * 1000,
-    label: "#{step.mr} (#{variation})",
-    visit: { path: step.replay_id, options: { frame: "modal" } }
+    y: value,
+    x: date.to_i * 1000,
+    label:,
+    visit:
   }
+end
+
+mr_items = mr_steps.map do |step|
+  variation = step.mr_variation ? ("%+d" % step.mr_variation) : "?"
+  create_entry(
+    value: step.mr,
+    date: step.played_at,
+    label: "#{step.mr} (#{variation})",
+    replay_id: step.replay_id
+  )
 end
 
 lp_items = lp_steps.filter_map do |step|
   next if step.calibrating?
   variation = step.lp_variation ? ("%+d" % step.lp_variation) : "?"
 
-  {
-    y: step.lp,
-    x: step.played_at.to_i * 1000,
+  create_entry(
+    value: step.lp,
+    date: step.played_at,
     label: "#{step.lp} (#{variation})",
-    visit: { path: step.replay_id, options: { frame: "modal" } }
-  }
+    replay_id: step.replay_id
+  )
+end
+
+extra_step = ranked_history.extra_step
+if extra_step.present?
+  extra_mr_item = create_entry(
+    value: extra_step["mr"],
+    date: ranked_history.to_date.end_of_day,
+    label: t(".current", value: extra_step["mr"]),
+    replay_id: nil
+  )
+
+  extra_lp_item = create_entry(
+    value: extra_step["lp"],
+    date: ranked_history.to_date.end_of_day,
+    label: t(".current", value: extra_step["lp"]),
+    replay_id: nil
+  )
 end
 
 json.type "line"
@@ -164,6 +191,19 @@ json.data do
         json.borderColor ChartsHelper::CHART_COLORS[:red]
         json.backgroundColor ChartsHelper::CHART_COLORS[:red]
       end
+
+      json.child! do
+        json.yAxisID "lp"
+        json.tension 0.4
+        json.data [ lp_items.last, extra_lp_item ]
+        json.borderColor ChartsHelper::CHART_COLORS[:red]
+        json.backgroundColor ChartsHelper::CHART_COLORS[:red]
+        json.borderDash [ 5, 5 ]
+        json.fill false
+        json.pointRadius 0
+        json.pointHoverRadius 0
+        json.pointHitRadius 0
+      end if extra_lp_item
     end
 
     if mr_items.any?
@@ -174,6 +214,19 @@ json.data do
         json.borderColor ChartsHelper::CHART_COLORS[:blue]
         json.backgroundColor ChartsHelper::CHART_COLORS[:blue]
       end
+
+      json.child! do
+        json.yAxisID "mr"
+        json.tension 0.4
+        json.data [ mr_items.last, extra_mr_item ]
+        json.borderColor ChartsHelper::CHART_COLORS[:blue]
+        json.backgroundColor ChartsHelper::CHART_COLORS[:blue]
+        json.borderDash [ 5, 5 ]
+        json.fill false
+        json.pointRadius 0
+        json.pointHoverRadius 0
+        json.pointHitRadius 0
+      end if extra_mr_item
     end
   end
 end

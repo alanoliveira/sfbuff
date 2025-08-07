@@ -20,11 +20,11 @@ RSpec.describe BucklerGateway::FighterProfileParser do
   }
   JSON
 
-  it { expect(fighter_profile.fighter_id).to eq 123_456_789 }
-  it { expect(fighter_profile.name).to eq "Player ABC" }
-  it { expect(fighter_profile.main_character_id).to eq 1 }
-  it { expect(fighter_profile.mr).to eq 123 }
-  it { expect(fighter_profile.lp).to eq 1234 }
-  it { expect(fighter_profile.last_online_at).to eq Time.at(1737967902) }
-  it { expect(fighter_profile.home_id).to eq 24 }
+  it { expect(fighter_profile[:fighter_id]).to eq 123_456_789 }
+  it { expect(fighter_profile[:name]).to eq "Player ABC" }
+  it { expect(fighter_profile[:main_character_id]).to eq 1 }
+  it { expect(fighter_profile[:mr]).to eq 123 }
+  it { expect(fighter_profile[:lp]).to eq 1234 }
+  it { expect(fighter_profile[:last_online_at]).to eq Time.at(1737967902) }
+  it { expect(fighter_profile[:home_id]).to eq 24 }
 end

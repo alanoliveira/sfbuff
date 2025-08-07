@@ -10,7 +10,8 @@ module Battle::HasChallengers
 
     SIDES.each do |p_side|
       composed_of p_side, class_name: "Battle::Challenger",
-        mapping: MAPPED_ATTRIBUTES.to_h { [ "#{p_side}_#{it}", it ] }
+        mapping: MAPPED_ATTRIBUTES.to_h { [ "#{p_side}_#{it}", it ] },
+        converter: Proc.new { |data| Battle::Challenger.new(**data.to_h) }
     end
   end
 

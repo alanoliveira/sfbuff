@@ -7,13 +7,9 @@ class Fighter::Synchronizer::ProfileSynchronizer
   end
 
   def synchronize
-    fighter.profile = fetch_profile
-  end
+    buckler_gateway.fetch_fighter_play_data(fighter.id) => { play_data:, fighter_profile: }
 
-  private
-
-  def fetch_profile
-    buckler_gateway.find_fighter_profile(fighter.id) ||
-      raise(Fighter::Synchronizer::ProfileNotFound)
+    fighter.profile = FighterProfile.new(fighter_profile)
+    fighter.character_league_infos.upsert_all(play_data[:character_league_infos])
   end
 end

@@ -8,7 +8,7 @@ class BucklerGateway::ChallengerParser
   end
 
   def parse
-    Battle::Challenger.new(
+    {
       fighter_id:,
       name:,
       character_id:,
@@ -17,7 +17,7 @@ class BucklerGateway::ChallengerParser
       mr:,
       lp:,
       round_ids:
-    )
+    }
   end
 
   private

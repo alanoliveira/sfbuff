@@ -8,15 +8,15 @@ class BucklerGateway::FighterProfileParser
   end
 
   def parse
-    FighterProfile.new(
+    {
       fighter_id:,
       name:,
       main_character_id:,
       mr:,
       lp:,
       home_id:,
-      last_online_at:,
-    )
+      last_online_at:
+    }
   end
 
   private

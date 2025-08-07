@@ -1,6 +1,4 @@
 class Fighter::Synchronizer
-  class ProfileNotFound < StandardError; end
-
   attr_reader :fighter, :synchronized_battles_count
 
   def initialize(fighter)
