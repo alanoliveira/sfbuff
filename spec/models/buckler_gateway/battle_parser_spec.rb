@@ -14,12 +14,12 @@ RSpec.describe BucklerGateway::BattleParser do
   JSON
 
   before do
-    allow(BucklerGateway::ChallengerParser).to receive(:parse).with("p1_info").and_return(build(:challenger, name: "parsed_p1", round_ids: [ 1 ]))
-    allow(BucklerGateway::ChallengerParser).to receive(:parse).with("p2_info").and_return(build(:challenger, name: "parsed_p2", round_ids: [ 0 ]))
+    allow(BucklerGateway::ChallengerParser).to receive(:parse).with("p1_info").and_return({ name: "parsed_p1", round_ids: [ 1 ] })
+    allow(BucklerGateway::ChallengerParser).to receive(:parse).with("p2_info").and_return({ name: "parsed_p2", round_ids: [ 0 ] })
   end
 
-  it { expect(parsed_battle.replay_id).to eq "TESTAAABBB" }
-  it { expect(parsed_battle.battle_type_id).to eq 4 }
-  it { expect(parsed_battle.p1).to have_attributes(name: "parsed_p1", round_ids: [ 1 ]) }
-  it { expect(parsed_battle.p2).to have_attributes(name: "parsed_p2", round_ids: [ 0 ]) }
+  it { expect(parsed_battle[:replay_id]).to eq "TESTAAABBB" }
+  it { expect(parsed_battle[:battle_type_id]).to eq 4 }
+  it { expect(parsed_battle[:p1]).to match(name: "parsed_p1", round_ids: [ 1 ]) }
+  it { expect(parsed_battle[:p2]).to match(name: "parsed_p2", round_ids: [ 0 ]) }
 end

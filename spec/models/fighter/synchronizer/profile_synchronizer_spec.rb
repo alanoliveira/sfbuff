@@ -10,7 +10,7 @@ RSpec.describe Fighter::Synchronizer::ProfileSynchronizer do
     before { allow(buckler_gateway).to receive(:find_fighter_profile).with(fighter.id).and_return(profile) }
 
     context "when the profile is found" do
-      let(:profile) { build(:fighter_profile, name: "Sync") }
+      let(:profile) { attributes_for(:fighter_profile, name: "Sync") }
 
       it "updates buckler_data" do
         expect { synchronizer.synchronize }.to change(fighter, :profile).to an_object_having_attributes(name: "Sync")

@@ -13,7 +13,8 @@ class Fighter::Synchronizer::ProfileSynchronizer
   private
 
   def fetch_profile
-    buckler_gateway.find_fighter_profile(fighter.id) ||
-      raise(Fighter::Synchronizer::ProfileNotFound)
+    profile_data = buckler_gateway.find_fighter_profile(fighter.id)
+    raise(Fighter::Synchronizer::ProfileNotFound) if profile_data.nil?
+    FighterProfile.new(profile_data)
   end
 end

@@ -8,13 +8,13 @@ class BucklerGateway::BattleParser
   end
 
   def parse
-    Battle.new(
+    {
       replay_id:,
       battle_type_id:,
       played_at:,
       p1:,
-      p2:,
-    )
+      p2:
+    }
   end
 
   private

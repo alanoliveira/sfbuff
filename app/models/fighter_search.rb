@@ -52,7 +52,8 @@ class FighterSearch
     Rails.cache.fetch search_cache_key, expires_in: 20.minutes do
       buckler_gateway = BucklerGateway.new
       id_result = buckler_gateway.find_fighter_profile(query) if Fighter::FIGHTER_ID_REGEXP.match? query.to_s
-      Array(id_result) | buckler_gateway.search_fighter_profile(query)
+      result = Array(id_result) | buckler_gateway.search_fighter_profile(query)
+      result.map { FighterProfile.new(it) }
     end
   end
 end
