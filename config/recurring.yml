@@ -8,5 +8,5 @@ production:
     schedule: every hour at minute 12
 
   trim_solid_cable_messages:
-    command: "SolidCable::TrimJob.perform_now"
-    schedule: every hour at minute 21
+    class: "SolidCable::TrimJob"
+    schedule: every 3 minutes
