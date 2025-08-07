@@ -7,7 +7,7 @@ RSpec.describe RankedHistory::ExtraStep do
   let(:character_id) { 2 }
 
   context "when date >= today and CharacterLeagueInfo exists" do
-    let(:date) { Date.today }
+    let(:date) { Time.zone.today }
 
     before do
       create(:character_league_info, fighter_id: fighter.id, character_id:, mr: 20, lp: 150)
@@ -19,7 +19,7 @@ RSpec.describe RankedHistory::ExtraStep do
   end
 
   context "when date >= today and CharacterLeagueInfo does not exist" do
-    let(:date) { Date.today }
+    let(:date) { Time.zone.today }
 
     it "sets the mr and lp to nil" do
       expect(extra_step).to have_attributes(mr: nil, lp: nil)
@@ -27,7 +27,7 @@ RSpec.describe RankedHistory::ExtraStep do
   end
 
   context "when to_date < today and a following RankedStep exists" do
-    let(:date) { Date.yesterday }
+    let(:date) { Time.zone.yesterday }
 
     before do
       create(:battle, :ranked, p1_fighter_id: fighter.id, p1_character_id: character_id, played_at: (date + 25.hours).to_time, p1_mr: 10, p1_lp: 100)
@@ -40,7 +40,7 @@ RSpec.describe RankedHistory::ExtraStep do
   end
 
   context "when to_date < today, a following RankedStep does not exist and CharacterLeagueInfo exists" do
-    let(:date) { Date.yesterday }
+    let(:date) { Time.zone.yesterday }
 
     before do
       create(:character_league_info, fighter_id: fighter.id, character_id:, mr: 20, lp: 150)

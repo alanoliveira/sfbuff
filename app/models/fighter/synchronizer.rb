@@ -8,7 +8,7 @@ class Fighter::Synchronizer
   def synchronize
     synchronize_profile
     synchronize_battles
-    fighter.update!(synchronized_at: Time.now)
+    fighter.update!(synchronized_at: Time.zone.now)
   ensure broadcast_response
   end
 

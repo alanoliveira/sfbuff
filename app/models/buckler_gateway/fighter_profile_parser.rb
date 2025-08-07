@@ -48,7 +48,7 @@ class BucklerGateway::FighterProfileParser
   end
 
   def last_online_at
-    raw_data["last_play_at"].try { Time.at(it) }
+    raw_data["last_play_at"].try { Time.zone.at(it) }
   end
 
   def favorite_character_league_info

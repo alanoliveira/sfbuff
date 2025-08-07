@@ -13,8 +13,8 @@ class Fighters::RankedHistoriesController < ApplicationController
   private
 
   def ranked_history_params
-    from_date = Date.parse(params[:played_from]) rescue Date.today
-    to_date = Date.parse(params[:played_to]) rescue Date.today
+    from_date = Date.parse(params[:played_from]) rescue Time.zone.today
+    to_date = Date.parse(params[:played_to]) rescue Time.zone.today
     character_id = params[:home_character_id].to_i
 
     {

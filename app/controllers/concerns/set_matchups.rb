@@ -9,8 +9,8 @@ module SetMatchups
   private
 
   def set_matchups
-    from_date = Date.parse(params[:played_from]) rescue Date.today
-    to_date = Date.parse(params[:played_to]) rescue Date.today
+    from_date = Date.parse(params[:played_from]) rescue Time.zone.today
+    to_date = Date.parse(params[:played_to]) rescue Time.zone.today
 
     @matchups = Matchup
       .where(matchups_search_params.compact_blank)

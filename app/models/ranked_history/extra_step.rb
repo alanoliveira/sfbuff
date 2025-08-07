@@ -21,7 +21,7 @@ class RankedHistory::ExtraStep
 
   def extra_step_data
     @extra_step_data ||= begin
-      if date == Date.today
+      if date == Time.zone.today
         extra_step_from_league_info
       else
         extra_step_from_ranked_steps || extra_step_from_league_info

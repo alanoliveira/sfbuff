@@ -38,6 +38,6 @@ class BucklerGateway::BattleParser
   end
 
   def played_at
-    raw_data["uploaded_at"].presence.try { Time.at(it) }
+    raw_data["uploaded_at"].presence.try { Time.zone.at(it) }
   end
 end

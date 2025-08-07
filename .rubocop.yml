@@ -19,3 +19,9 @@ Style/SymbolProc:
 
 RSpec/Focus:
   Enabled: true
+
+Rails/TimeZone:
+  Enabled: true
+
+Rails/Date:
+  Enabled: true

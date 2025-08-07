@@ -15,8 +15,8 @@ class RankedHistory
   def initialize(fighter_id:, character_id:, from_date: nil, to_date: nil)
     @fighter_id = fighter_id
     @character_id = character_id
-    @from_date = from_date || Date.today
-    @to_date = to_date || Date.today
+    @from_date = from_date || Time.zone.today
+    @to_date = to_date || Time.zone.today
   end
 
   def each(&)

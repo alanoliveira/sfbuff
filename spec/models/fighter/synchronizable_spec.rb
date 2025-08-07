@@ -28,7 +28,7 @@ RSpec.describe Fighter::Synchronizable do
     end
 
     context "when the fighter is synchronized" do
-      let(:fighter) { create(:fighter, synchronized_at: Time.now) }
+      let(:fighter) { create(:fighter, synchronized_at: Time.zone.now) }
 
       it "updates player synchronized_at" do
         fighter.synchronize_now

@@ -19,9 +19,9 @@ class ApplicationController < ActionController::Base
   end
 
   def track_slow_requests
-    start_time = Time.now
+    start_time = Time.zone.now
     yield
-    end_time = Time.now
+    end_time = Time.zone.now
     diff = end_time - start_time
     if diff > 1.second
       ahoy.track("slow_request", params: params.to_unsafe_h, time: diff)

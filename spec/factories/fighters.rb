@@ -7,7 +7,7 @@ FactoryBot.define do
     end
 
     trait :synchronized do
-      synchronized_at { Time.now }
+      synchronized_at { Time.zone.now }
     end
   end
 end
