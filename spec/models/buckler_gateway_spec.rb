@@ -41,8 +41,8 @@ RSpec.describe BucklerGateway do
     end
   end
 
-  describe "#search_fighter_profile" do
-    subject(:result) { gateway.search_fighter_profile("query") }
+  describe "#search_fighter_profile_by_name" do
+    subject(:result) { gateway.search_fighter_profile_by_name("query") }
 
     context "when api returns results" do
       before do
