@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_05_093503) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_07_061129) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -74,6 +74,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_093503) do
   create_table "buckler_credentials", force: :cascade do |t|
     t.string "auth_cookie"
     t.string "build_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "character_league_infos", primary_key: ["fighter_id", "character_id"], force: :cascade do |t|
+    t.bigint "fighter_id", null: false
+    t.integer "character_id", null: false
+    t.integer "mr"
+    t.integer "lp"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
