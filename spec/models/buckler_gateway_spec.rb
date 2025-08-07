@@ -92,4 +92,18 @@ RSpec.describe BucklerGateway do
       end
     end
   end
+
+  describe "#fetch_fighter_play_data" do
+    subject(:result) { gateway.fetch_fighter_play_data("fighter_id") }
+
+    before do
+      allow(BucklerGateway::PlayDataParser).to receive(:parse).with("A") { "parsed #{it}" }
+      allow(BucklerGateway::FighterProfileParser).to receive(:parse).with("B") { "parsed #{it}" }
+
+      allow(mock_client.fighter).to receive(:play_data).with("fighter_id")
+        .and_return({ "play" => "A", "fighter_banner_info" => "B" })
+    end
+
+    it { expect(result).to eq ( { play_data: "parsed A", fighter_profile: "parsed B" }) }
+  end
 end

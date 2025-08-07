@@ -14,6 +14,14 @@ class BucklerGateway
     data.map { BattleParser.parse(it) }
   end
 
+  def fetch_fighter_play_data(fighter_id)
+    data = buckler_credential.with_client { |cli| cli.fighter.play_data(fighter_id) }
+
+    play_data = PlayDataParser.parse(data["play"])
+    fighter_profile = FighterProfileParser.parse(data["fighter_banner_info"])
+    { play_data:, fighter_profile: }
+  end
+
   private
 
   def buckler_credential
