@@ -22,9 +22,9 @@ class ApplicationController < ActionController::Base
     start_time = Time.zone.now
     yield
     end_time = Time.zone.now
-    diff = end_time - start_time
-    if diff > 1.second
-      ahoy.track("slow_request", params: params.to_unsafe_h, time: diff)
+    latency = end_time - start_time
+    if latency > 1.second
+      ahoy.track("slow_request", { params: params.to_unsafe_h, latency: }.to_json)
     end
   end
 end
