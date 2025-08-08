@@ -1,5 +1,6 @@
 service: sfbuff
 image: alanoliveira89/sfbuff
+retain_containers: 3
 
 servers:
   web:
@@ -31,20 +32,20 @@ builder:
 
 env:
   clear:
+    RAILS_ENV: production
+    PERFORM_FRAGMENT_CACHING: false
     SFBUFF_DATABASE_HOST: sfbuff-db
     SFBUFF_DATABASE_USERNAME: sfbuff
-    RAILS_ENV: production
-    REPOSITORY_URL: <%= ENV.fetch("REPOSITORY_URL", "") %>
-    TWITTER_URL: <%= ENV.fetch("TWITTER_URL", "") %>
     REDIS_URL: redis://sfbuff-redis:6379
-    SOLID_QUEUE_POLLING_INTERVAL: 0.5
-    PERFORM_FRAGMENT_CACHING: false
+    BUCKLER_EMAIL: <%= ENV.fetch("BUCKLER_EMAIL") %>
+    BUCKLER_USER_AGENT: <%= ENV.fetch("BUCKLER_USER_AGENT") %>
+    REPOSITORY_URL: '<%= ENV["REPOSITORY_URL"] %>'
+    TWITTER_URL: '<%= ENV["TWITTER_URL"] %>'
+    SOLID_QUEUE_POLLING_INTERVAL: '<%= ENV["SOLID_QUEUE_POLLING_INTERVAL"] %>'
   secret:
     - SECRET_KEY_BASE
-    - BUCKLER_EMAIL
     - BUCKLER_PASSWORD
-    - BUCKLER_USER_AGENT
-    - SFBUFF_DATABASE_PASSWORD
+    - SFBUFF_DATABASE_PASSWORD:POSTGRES_PASSWORD
     - SENTRY_DSN
 
 ssh:
