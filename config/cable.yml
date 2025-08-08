@@ -15,4 +15,3 @@ production:
       writing: cable
   polling_interval: 0.2.seconds
   message_retention: 1.hour
-  autotrim: false
