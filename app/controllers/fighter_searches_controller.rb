@@ -4,7 +4,7 @@ class FighterSearchesController < ApplicationController
   def create
     ahoy.track("FighterSearchesController#create", fighter_search_params.to_h)
     @fighter_search = FighterSearch.new(fighter_search_params)
-    return head :unprocessable_entity unless @fighter_search.valid?
+    return head :unprocessable_content unless @fighter_search.valid?
 
     @fighter_search.search_later
   end
