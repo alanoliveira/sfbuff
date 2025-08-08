@@ -10,6 +10,7 @@ module ApplicationCable
     def connect
       reject_unauthorized_connection if request.session.id.blank?
       self.session_id = request.session.id
+      logger.add_tags session_id
     end
   end
 end
