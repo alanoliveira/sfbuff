@@ -40,6 +40,10 @@ class FighterSearch
     "#<#{self.class}: #{attributes}>"
   end
 
+  def ==(other)
+    other.is_a?(FighterSearch) && other.id == id
+  end
+
   private
 
   def search_cache_key

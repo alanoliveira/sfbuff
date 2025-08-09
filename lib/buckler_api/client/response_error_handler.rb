@@ -6,10 +6,11 @@ module BucklerApi
 
     def handle!
       case
-      when build_id_changed? then Errors::PageNotFound
+      when page_not_found? then Errors::PageNotFound
       when unauthorized? then Errors::Unauthorized
       when under_maintenance? then Errors::UnderMaintenance
       when rate_limit_exceeded? then Errors::RateLimitExceeded
+      when bad_gateway? then Errors::BadGateway
       else Errors::HttpError
       end.then { raise it, response }
     end
@@ -24,7 +25,9 @@ module BucklerApi
 
     private
 
-    def build_id_changed?
+    # Checks when it tried to access a non existent page (not a non existent resource).
+    # This is used to handle when the build_id of the buckler changed.
+    def page_not_found?
       response.status == 404 and response.headers["Content-Type"] == "text/html"
     end
 
@@ -38,6 +41,10 @@ module BucklerApi
 
     def rate_limit_exceeded?
       response.status == 405 && response.headers["x-amzn-waf-action"]
+    end
+
+    def bad_gateway?
+      response.status == 502
     end
   end
 end

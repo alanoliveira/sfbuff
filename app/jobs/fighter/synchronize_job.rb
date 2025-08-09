@@ -1,4 +1,6 @@
 class Fighter::SynchronizeJob < ApplicationJob
+  include BadGatewayHandleable
+
   queue_as :default
   limits_concurrency to: 1, key: ->(fighter) { fighter }, duration: 1.minute
 

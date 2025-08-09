@@ -38,5 +38,11 @@ RSpec.describe BucklerApi::Client::ResponseErrorHandler do
 
       it { expect { handler.handle! }.to raise_error(BucklerApi::Errors::HttpError) }
     end
+
+    context "when response status is 502" do
+      before { stub_response(status: 502) }
+
+      it { expect { handler.handle! }.to raise_error(BucklerApi::Errors::BadGateway) }
+    end
   end
 end
