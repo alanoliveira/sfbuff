@@ -1,7 +1,8 @@
 class BucklerGateway
-  def find_fighter_profile(fighter_id)
-    data = buckler_credential.with_client { |cli| cli.fighter.search(short_id: fighter_id) }
-    data.first.try { FighterProfileParser.parse(it) }
+  attr_reader :buckler_credential
+
+  def initialize(buckler_credential: nil)
+    @buckler_credential = buckler_credential || BucklerCredential.take
   end
 
   def search_fighter_profile_by_name(name)
@@ -31,9 +32,5 @@ class BucklerGateway
   def search_fighter_profile(**)
     data = buckler_credential.with_client { |cli| cli.fighter.search(**) }
     data.map { FighterProfileParser.parse(it) }
-  end
-
-  def buckler_credential
-    @buckler_credential ||= BucklerCredential.take
   end
 end

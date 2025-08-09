@@ -1,44 +1,18 @@
 require "rails_helper"
 
 RSpec.describe BucklerGateway do
-  subject(:gateway) { described_class.new }
+  subject(:gateway) { described_class.new(buckler_credential:) }
+
+  let(:buckler_credential) do
+    instance_double(BucklerCredential).tap do
+      allow(it).to receive(:with_client).and_yield(mock_client)
+    end
+  end
 
   let(:mock_client) do
-    instance_double(
-      BucklerApi::Client,
+    instance_double(BucklerApi::Client,
       fighter: instance_double(BucklerApi::Client::Fighter)
     )
-  end
-
-  before do
-    buckler_credential = instance_double(BucklerCredential)
-    allow(buckler_credential).to receive(:with_client).and_yield(mock_client)
-    allow(BucklerCredential).to receive(:take).and_return(buckler_credential)
-  end
-
-  describe "#find_fighter_profile" do
-    subject(:result) { gateway.find_fighter_profile("fighter_id") }
-
-    context "when api returns results" do
-      before do
-        allow(mock_client.fighter).to receive(:search).with(short_id: "fighter_id").and_return([ "fighter1" ])
-        allow(BucklerGateway::FighterProfileParser).to receive(:parse) { "parsed #{it}" }
-      end
-
-      it "parses the first (and only) result and return it" do
-        expect(result).to eq "parsed fighter1"
-      end
-    end
-
-    context "when api returns an empty list" do
-      before do
-        allow(mock_client.fighter).to receive(:search).with(short_id: "fighter_id").and_return([])
-      end
-
-      it "returns nil" do
-        expect(result).to be_nil
-      end
-    end
   end
 
   describe "#search_fighter_profile_by_name" do
