@@ -4,6 +4,7 @@ x-common-env: &common-env
   SFBUFF_DATABASE_HOST: db
   SFBUFF_DATABASE_USERNAME: sfbuff
   SFBUFF_DATABASE_PASSWORD: sfbuff
+  REDIS_URL: redis://redis
 
 services:
   web:
