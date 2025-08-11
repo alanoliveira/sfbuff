@@ -5,15 +5,6 @@ class BucklerGateway
     @buckler_credential = buckler_credential || BucklerCredential.take
   end
 
-  def search_fighter_profile_by_name(name)
-    search_fighter_profile(name:)
-  end
-
-  def search_fighter_profile_by_id(fighter_id)
-    return [] unless Fighter::FIGHTER_ID_REGEXP.match? fighter_id.to_s
-    search_fighter_profile(fighter_id:)
-  end
-
   def fetch_fighter_battles(fighter_id, page)
     data = buckler_credential.with_client { |cli| cli.fighter.battlelog(fighter_id, page) }
     data.map { BattleParser.parse(it) }

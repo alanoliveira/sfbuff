@@ -15,31 +15,6 @@ RSpec.describe BucklerGateway do
     )
   end
 
-  describe "#search_fighter_profile_by_name" do
-    subject(:result) { gateway.search_fighter_profile_by_name("query") }
-
-    context "when api returns results" do
-      before do
-        allow(mock_client.fighter).to receive(:search).with(short_id: nil, fighter_id: "query").and_return([ "fighter1", "fighter2" ])
-        allow(BucklerGateway::FighterProfileParser).to receive(:parse) { "parsed #{it}" }
-      end
-
-      it "parses all the results and return it" do
-        expect(result).to eq([ "parsed fighter1", "parsed fighter2" ])
-      end
-    end
-
-    context "when api return an empty list" do
-      before do
-        allow(mock_client.fighter).to receive(:search).with(short_id: nil, fighter_id: "query").and_return([])
-      end
-
-      it "returns an empty list" do
-        expect(result).to eq([])
-      end
-    end
-  end
-
   describe "#search_fighter_profile" do
     let(:query) { "query" }
 
