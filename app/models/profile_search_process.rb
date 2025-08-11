@@ -5,7 +5,7 @@ class ProfileSearchProcess < ApplicationRecord
   attribute :result, default: []
 
   validates :query, length: { minimum: 4 }
-  normalizes :query, with: ->(query) { query.strip.titlecase }
+  normalizes :query, with: ->(query) { query.strip.downcase }
 
   def subscribe!
     transaction do
