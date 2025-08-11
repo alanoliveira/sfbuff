@@ -15,30 +15,32 @@ RSpec.describe BucklerGateway do
     )
   end
 
-  describe "#search_fighter_profile_by_name" do
-    subject(:result) { gateway.search_fighter_profile_by_name("query") }
+  describe "#search_fighter_profile" do
+    let(:query) { "query" }
 
-    context "when api returns results" do
-      before do
-        allow(mock_client.fighter).to receive(:search).with(fighter_id: "query").and_return([ "fighter1", "fighter2" ])
-        allow(BucklerGateway::FighterProfileParser).to receive(:parse) { "parsed #{it}" }
-      end
-
-      it "parses all the results and return it" do
-        expect(result).to eq([ "parsed fighter1", "parsed fighter2" ])
-      end
+    before do
+      allow(mock_client.fighter).to receive(:search).with(short_id: query, fighter_id: nil).and_return([ "id_result" ])
+      allow(mock_client.fighter).to receive(:search).with(short_id: nil, fighter_id: query).and_return([ "name_result" ])
+      allow(BucklerGateway::FighterProfileParser).to receive(:parse) { "parsed #{it}" }
     end
 
-    context "when api return an empty list" do
-      before do
-        allow(mock_client.fighter).to receive(:search).with(fighter_id: "query").and_return([])
-      end
+    it "can search using short_id" do
+      result = gateway.search_fighter_profile(fighter_id: query)
+      expect(result).to eq([ "parsed id_result" ])
+    end
 
-      it "returns an empty list" do
-        expect(result).to eq([])
-      end
+    it "can search using fighter_id" do
+      result = gateway.search_fighter_profile(name: query)
+      expect(result).to eq([ "parsed name_result" ])
+    end
+
+    it "can not search using both short_id and fighter_id" do
+      expect do
+        gateway.search_fighter_profile(short_id: query, fighter_id: query)
+      end.to raise_error(ArgumentError)
     end
   end
+
 
   describe "#fetch_fighter_battles" do
     subject(:result) { gateway.fetch_fighter_battles("fighter_id", page) }
