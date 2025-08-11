@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe FighterSearcher do
+RSpec.describe FighterProfile::Searcher do
   let(:fighter_searcher) { described_class.new(query, buckler_gateway:) }
   let(:query) { "query" }
   let(:buckler_gateway) { instance_double(BucklerGateway) }

@@ -20,11 +20,9 @@ RSpec.describe ProfileSearchProcess do
   end
 
   context "when status is subscribed" do
-    let(:buckler_gateway) { instance_double(FighterSearcher, search: []) }
-
     before do
       fighter_search.update(status: "subscribed")
-      allow(FighterSearcher).to receive(:new).and_return(buckler_gateway)
+      allow(FighterProfile).to receive(:search).and_return([])
     end
 
     describe "#subscribe!" do

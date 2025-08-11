@@ -1,4 +1,4 @@
-class FighterSearcher
+class FighterProfile::Searcher
   cattr_reader :cache, default: Rails.cache
 
   attr_reader :query, :buckler_gateway

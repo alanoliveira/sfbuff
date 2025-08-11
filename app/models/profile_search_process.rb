@@ -17,15 +17,9 @@ class ProfileSearchProcess < ApplicationRecord
 
   def search_now!
     return false unless subscribed?
-    self.result = search
+    self.result = FighterProfile.search(query)
   ensure
     finished!
     broadcast_render
-  end
-
-  private
-
-  def search
-    FighterSearcher.new(query).search
   end
 end

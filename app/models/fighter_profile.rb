@@ -2,6 +2,10 @@ class FighterProfile
   include ActiveModel::Model
   include ActiveModel::Attributes
 
+  def self.search(query)
+    Searcher.new(query).search
+  end
+
   attribute :fighter_id
   attribute :name
   attribute :main_character_id
