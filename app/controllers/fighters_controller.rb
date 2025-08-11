@@ -4,10 +4,7 @@ class FightersController < ApplicationController
   before_action :set_fighter, except: :index
 
   def index
-    @fighter_search = begin
-      fighter_search = FighterSearch.new(query: params[:q])
-      fighter_search if fighter_search.valid?
-    end if params[:q]
+    @query = params[:q]
   end
 
   def update

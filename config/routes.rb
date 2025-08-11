@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resource :fighter_search, only: :create
+  resources :fighter_search_processes, only: :create
   resources :battles, only: :show, param: :replay_id
 
   resources :fighters, only: [ :index, :update ], constraints: { id: Fighter::FIGHTER_ID_REGEXP } do

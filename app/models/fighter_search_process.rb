@@ -6,4 +6,26 @@ class FighterSearchProcess < ApplicationRecord
 
   validates :query, length: { minimum: 4 }
   normalizes :query, with: ->(query) { query.strip.titlecase }
+
+  def subscribe!
+    transaction do
+      next false unless lock!.created?
+      subscribed!
+      SearchJob.perform_later(self)
+    end
+  end
+
+  def search_now!
+    return false unless subscribed?
+    self.result = search
+  ensure
+    finished!
+    broadcast_render
+  end
+
+  private
+
+  def search
+    FighterSearcher.new(query).search
+  end
 end
