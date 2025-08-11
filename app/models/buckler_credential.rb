@@ -5,7 +5,7 @@ class BucklerCredential < ApplicationRecord
 
   expirable_attribute :build_id
   expirable_attribute :auth_cookie
-  after_create_commit :refresh_build_id, :refresh_auth_cookie
+  after_create_commit :refresh_build_id_later, :refresh_auth_cookie_later
 
   def ready?
     [ build_id, auth_cookie ].all?(&:present?)

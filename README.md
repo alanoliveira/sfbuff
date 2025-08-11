@@ -64,6 +64,13 @@ of information for players to track their own performance.
       ./bin/rails db:prepare
       ./bin/rails buckler_credential:create
 
+#### Note for using RAILS_ENV=development
+
+Development environment is using `async` as ActiveJob queue adapter, so
+`buckler_credential:create` returns before the credentials creation jobs be 
+processed.
+To enforce the credentials creation run `./bin/rails buckler_credential:refresh`.
+
 ### Running
 
 - Start the server
