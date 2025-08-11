@@ -12,5 +12,5 @@ module BucklerApi::Errors
   class RateLimitExceeded < HttpError; end
   class Unauthorized < HttpError; end
   class PageNotFound < HttpError; end
-  class BadGateway < HttpError; end
+  class BucklerServerError < HttpError; end
 end

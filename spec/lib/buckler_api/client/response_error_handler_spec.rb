@@ -33,16 +33,16 @@ RSpec.describe BucklerApi::Client::ResponseErrorHandler do
       it { expect { handler.handle! }.to raise_error(BucklerApi::Errors::RateLimitExceeded) }
     end
 
+    context "when response status is other 5xx" do
+      before { stub_response(status: 502) }
+
+      it { expect { handler.handle! }.to raise_error(BucklerApi::Errors::BucklerServerError) }
+    end
+
     context "when response does not have a specific handling rule" do
       before { stub_response(status: 999) }
 
       it { expect { handler.handle! }.to raise_error(BucklerApi::Errors::HttpError) }
-    end
-
-    context "when response status is 502" do
-      before { stub_response(status: 502) }
-
-      it { expect { handler.handle! }.to raise_error(BucklerApi::Errors::BadGateway) }
     end
   end
 end

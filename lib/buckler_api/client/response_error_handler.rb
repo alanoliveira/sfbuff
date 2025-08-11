@@ -10,7 +10,7 @@ module BucklerApi
       when unauthorized? then Errors::Unauthorized
       when under_maintenance? then Errors::UnderMaintenance
       when rate_limit_exceeded? then Errors::RateLimitExceeded
-      when bad_gateway? then Errors::BadGateway
+      when buckler_server_error? then Errors::BucklerServerError
       else Errors::HttpError
       end.then { raise it, response }
     end
@@ -43,8 +43,8 @@ module BucklerApi
       response.status == 405 && response.headers["x-amzn-waf-action"]
     end
 
-    def bad_gateway?
-      response.status == 502
+    def buckler_server_error?
+      (500..599).cover? response.status
     end
   end
 end
