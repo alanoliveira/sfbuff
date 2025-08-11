@@ -8,5 +8,5 @@ production:
     schedule: every hour at minute 12
 
   clear_finished_fighter_searches:
-    command: "FighterSearchProcess.clear_in_batches(sleep_between_batches: 0.3)"
+    command: "ProfileSearchProcess.clear_in_batches(sleep_between_batches: 0.3)"
     schedule: every hour at minute 29

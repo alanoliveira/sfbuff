@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe FighterSearchProcess::SearchJob do
+RSpec.describe ProfileSearchProcess::SearchJob do
   let(:search_job) { described_class.new(fighter_search) }
-  let(:fighter_search) { FighterSearchProcess.create(query: "SuperPlayer") }
+  let(:fighter_search) { ProfileSearchProcess.create(query: "SuperPlayer") }
 
   it_behaves_like "a BadGatewayHandleable job" do
     let(:bad_gateway_job) { search_job }

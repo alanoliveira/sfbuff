@@ -1,0 +1,4 @@
+<%= turbo_frame_tag "fighter-search" do %>
+  <%= render "profile_search_process", profile_search_process: @profile_search_process %>
+  <%= turbo_stream_from @profile_search_process, id: dom_id(@profile_search_process, "channel"), channel: "WorkerChannel" %>
+<% end %>

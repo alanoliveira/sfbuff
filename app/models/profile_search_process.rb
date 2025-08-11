@@ -1,4 +1,4 @@
-class FighterSearchProcess < ApplicationRecord
+class ProfileSearchProcess < ApplicationRecord
   include Clearable
 
   enum :status, { "created" => 0, "subscribed" => 1, "finished" => 2 }

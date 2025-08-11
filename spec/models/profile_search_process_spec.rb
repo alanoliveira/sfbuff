@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FighterSearchProcess do
+RSpec.describe ProfileSearchProcess do
   include ActionCable::TestHelper
 
   let(:fighter_search) { described_class.create(query: "Player") }
@@ -11,7 +11,7 @@ RSpec.describe FighterSearchProcess do
     describe "#subscribe!" do
       it { expect(fighter_search.subscribe!).to be_truthy }
       it { expect { fighter_search.subscribe! }.to change(fighter_search, :status).to("subscribed") }
-      it { expect { fighter_search.subscribe! }.to have_enqueued_job(FighterSearchProcess::SearchJob) }
+      it { expect { fighter_search.subscribe! }.to have_enqueued_job(ProfileSearchProcess::SearchJob) }
     end
 
     describe "#search_now!" do

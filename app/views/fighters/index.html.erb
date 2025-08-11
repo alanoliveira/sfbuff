@@ -4,7 +4,7 @@
 
 <% if @query %>
   <%= turbo_frame_tag "fighter-search" do %>
-    <%= auto_submit_form_with model: FighterSearchProcess.new(query: @query) do |f| %>
+    <%= auto_submit_form_with model: ProfileSearchProcess.new(query: @query) do |f| %>
       <%= f.hidden_field :query %>
     <% end %>
   <% end %>

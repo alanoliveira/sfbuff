@@ -1,6 +1,6 @@
-class CreateFighterSearchProcesses < ActiveRecord::Migration[8.0]
+class CreateProfileSearchProcesses < ActiveRecord::Migration[8.0]
   def change
-    create_table :fighter_search_processes do |t|
+    create_table :profile_search_processes do |t|
       t.string :query, null: false
       t.integer :status, null: false, default: 0
 

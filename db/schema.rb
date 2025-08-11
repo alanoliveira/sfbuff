@@ -87,17 +87,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_111906) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "fighter_search_processes", force: :cascade do |t|
-    t.string "query", null: false
-    t.integer "status", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "fighters", id: :bigint, default: nil, force: :cascade do |t|
     t.json "profile"
     t.datetime "synchronized_at"
     t.string "last_synchronized_replay_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "profile_search_processes", force: :cascade do |t|
+    t.string "query", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

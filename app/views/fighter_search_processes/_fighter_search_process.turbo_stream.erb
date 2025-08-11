@@ -1,7 +1,0 @@
-<% if $! %>
-  <%= turbo_stream.toast simple_toast(error_message($!), "danger")  %>
-  <%= turbo_stream.remove(fighter_search_process) %>
-<% else %>
-  <%= turbo_stream.replace(fighter_search_process) %>
-<% end %>
-<%= turbo_stream.remove([fighter_search_process, "channel"]) %>

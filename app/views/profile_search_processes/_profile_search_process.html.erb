@@ -1,8 +1,8 @@
-<div id="<%= dom_id(fighter_search_process) %>">
-  <% if fighter_search_process.finished? %>
-    <%= empty_alert_unless(fighter_search_process.result.any?) do %>
+<div id="<%= dom_id(profile_search_process) %>">
+  <% if profile_search_process.finished? %>
+    <%= empty_alert_unless(profile_search_process.result.any?) do %>
       <div class="card card-body table-responsive">
-        <%= render "fighter_profiles/fighter_profiles_list", fighter_profiles_list: fighter_search_process.result %>
+        <%= render "fighter_profiles/fighter_profiles_list", fighter_profiles_list: profile_search_process.result %>
       </div>
     <% end %>
   <% else %>

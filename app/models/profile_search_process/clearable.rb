@@ -1,4 +1,4 @@
-module FighterSearchProcess::Clearable
+module ProfileSearchProcess::Clearable
   extend ActiveSupport::Concern
 
   included do
