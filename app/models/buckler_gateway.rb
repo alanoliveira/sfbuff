@@ -6,12 +6,12 @@ class BucklerGateway
   end
 
   def search_fighter_profile_by_name(name)
-    search_fighter_profile(fighter_id: name)
+    search_fighter_profile(name:)
   end
 
   def search_fighter_profile_by_id(fighter_id)
     return [] unless Fighter::FIGHTER_ID_REGEXP.match? fighter_id.to_s
-    search_fighter_profile(short_id: fighter_id)
+    search_fighter_profile(fighter_id:)
   end
 
   def fetch_fighter_battles(fighter_id, page)
@@ -27,10 +27,15 @@ class BucklerGateway
     { play_data:, fighter_profile: }
   end
 
-  private
+  def search_fighter_profile(name: nil, fighter_id: nil)
+    unless name.nil? ^ fighter_id.nil?
+      raise ArgumentError, "name XOR fighter_id is required"
+    end
 
-  def search_fighter_profile(**)
-    data = buckler_credential.with_client { |cli| cli.fighter.search(**) }
-    data.map { FighterProfileParser.parse(it) }
+    buckler_credential.with_client do |cli|
+      # yep, in the API the name is the fighter_id and
+      # the numeric id is short_id
+      cli.fighter.search(fighter_id: name, short_id: fighter_id)
+    end.map { FighterProfileParser.parse(it) }
   end
 end
