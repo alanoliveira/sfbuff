@@ -14,7 +14,7 @@ class FighterSearch
   end
 
   def search_now
-    assign_attributes(result: fetch_results)
+    assign_attributes(result: search)
     ensure broadcast_render
   end
 
@@ -30,12 +30,6 @@ class FighterSearch
     id
   end
 
-  def cached?
-    Rails.cache.read(search_cache_key).try do |cached|
-      assign_attributes(result: cached)
-    end
-  end
-
   def inspect
     "#<#{self.class}: #{attributes}>"
   end
@@ -46,17 +40,7 @@ class FighterSearch
 
   private
 
-  def search_cache_key
-    [ model_name.cache_key, query ]
-  end
-
-  def fetch_results
-    return [] unless valid?
-
-    Rails.cache.fetch search_cache_key, expires_in: 20.minutes do
-      buckler_gateway = BucklerGateway.new
-      result = buckler_gateway.search_fighter_profile_by_id(query) | buckler_gateway.search_fighter_profile_by_name(query)
-      result.map { FighterProfile.new(it) }
-    end
+  def search
+    FighterSearcher.new(query).search
   end
 end
