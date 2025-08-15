@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_11_111906) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_15_065847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -67,7 +67,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_111906) do
     t.string "p2_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["p1_fighter_id", "p1_character_id", "played_at"], name: "idx_on_p1_fighter_id_p1_character_id_played_at_e033a5d039", where: "(battle_type_id = 1)", include: ["replay_id", "p1_mr", "p1_lp"]
     t.index ["p1_fighter_id", "played_at"], name: "index_battles_on_p1_fighter_id_and_played_at"
+    t.index ["p2_fighter_id", "p2_character_id", "played_at"], name: "idx_on_p2_fighter_id_p2_character_id_played_at_fedf543a9e", where: "(battle_type_id = 1)", include: ["replay_id", "p2_mr", "p2_lp"]
     t.index ["p2_fighter_id", "played_at"], name: "index_battles_on_p2_fighter_id_and_played_at"
   end
 
