@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resource :buckler_credential, only: :show
   resources :profile_search_processes, only: :create
   resources :battles, only: :show, param: :replay_id
 
