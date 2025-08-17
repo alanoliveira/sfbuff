@@ -41,7 +41,6 @@ of information for players to track their own performance.
 - Bundler 2.7.1
 - Postgresql 16.2
 - Chrome (used as a fallback for login if the attempt using http fails)
-- redis 7
 
 ### Building
 
