@@ -36,7 +36,6 @@ env:
     PERFORM_FRAGMENT_CACHING: false
     SFBUFF_DATABASE_HOST: sfbuff-db
     SFBUFF_DATABASE_USERNAME: sfbuff
-    REDIS_URL: redis://sfbuff-redis:6379
     BUCKLER_EMAIL: <%= ENV.fetch("BUCKLER_EMAIL") %>
     BUCKLER_USER_AGENT: <%= ENV.fetch("BUCKLER_USER_AGENT") %>
     REPOSITORY_URL: '<%= ENV["REPOSITORY_URL"] %>'
