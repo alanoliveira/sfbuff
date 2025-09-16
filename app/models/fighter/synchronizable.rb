@@ -3,10 +3,6 @@ module Fighter::Synchronizable
 
   SYNCHRONIZATION_THRESHOLD = 10.minutes
 
-  included do
-    after_save_commit :broadcast_replace_header, if: :synchronized_at_previously_changed?
-  end
-
   def synchronization
     [ self, "synchronization" ]
   end

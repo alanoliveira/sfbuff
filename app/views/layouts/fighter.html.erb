@@ -5,8 +5,6 @@
     <%= render "fighters/search_form" %>
   <% end %>
 
-  <%= turbo_stream_from @fighter %>
-
   <%= render "fighters/header", fighter: @fighter %>
 
   <% unless @fighter.synchronized? %>

@@ -6,8 +6,4 @@
   <% end %>
 <% end %>
 
-<% if synchronizer.fighter.last_synchronized_replay_id_previously_changed? %>
-  <%= turbo_stream.refresh %>
-<% end %>
-
-<%= turbo_stream.remove [ synchronizer.fighter, "synchronization" ] %>
+<%= turbo_stream.refresh %>
