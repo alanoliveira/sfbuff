@@ -317,6 +317,10 @@ GEM
     rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
+    redis (5.4.1)
+      redis-client (>= 0.22.0)
+    redis-client (0.25.2)
+      connection_pool
     regexp_parser (2.11.2)
     reline (0.6.2)
       io-console (~> 0.5)
@@ -393,11 +397,6 @@ GEM
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     smart_properties (1.17.0)
-    solid_cable (3.0.12)
-      actioncable (>= 7.2)
-      activejob (>= 7.2)
-      activerecord (>= 7.2)
-      railties (>= 7.2)
     solid_cache (1.0.7)
       activejob (>= 7.2)
       activerecord (>= 7.2)
@@ -479,13 +478,13 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 8.0.0)
   rails-i18n (~> 8.0)
+  redis (~> 5.3)
   rspec-rails (~> 8.0)
   rubocop-rails-omakase
   rubocop-rspec_rails (~> 2.30)
   scenic (~> 1.8)
   selenium-webdriver (~> 4.24)
   sentry-rails (~> 5.19)
-  solid_cable
   solid_cache
   solid_queue
   stackprof (~> 0.2.26)
