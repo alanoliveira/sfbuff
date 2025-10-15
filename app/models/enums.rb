@@ -27,7 +27,7 @@ module Enums
     27 => "terry",
     28 => "mai",
     29 => "elena",
-    # ? => "c_viper",
+    30 => "c_viper",
     # ? => "alex",
     # ? => "ingrid",
     254 => "random"
