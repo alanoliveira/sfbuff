@@ -3,6 +3,8 @@ class FighterSynchronization < ApplicationRecord
   has_and_belongs_to_many :synchronized_battles, class_name: "Battle"
   belongs_to :fighter
 
+  def finished? = success? || failure?
+
   def process!
     return unless created? && with_lock { processing! if created? }
     synchronize_battles!
