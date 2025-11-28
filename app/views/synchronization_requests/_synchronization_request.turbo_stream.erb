@@ -1,0 +1,7 @@
+<% if synchronization_request.success? %>
+<% end %>
+
+<% if synchronization_request.error? %>
+<% end %>
+
+<%= turbo_stream.refresh %>
