@@ -40,6 +40,9 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+# HTTP client
+gem "faraday", "~> 2.14"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -64,6 +67,9 @@ group :development, :test do
 
   # Rspec rubocop styling
   gem "rubocop-rspec_rails", "~> 2.32"
+
+  # Mock http requests
+  gem "webmock", "~> 3.26"
 end
 
 group :development do
