@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_28_101358) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_28_120811) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -46,6 +46,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_28_101358) do
     t.bigint "fighter_synchronization_id", null: false
     t.index ["battle_id", "fighter_synchronization_id"], name: "idx_on_battle_id_fighter_synchronization_id_36a977d833"
     t.index ["fighter_synchronization_id", "battle_id"], name: "idx_on_fighter_synchronization_id_battle_id_e05ed78f24"
+  end
+
+  create_table "fighter_searches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "performed_at"
+    t.string "query", null: false
+    t.json "result"
+    t.datetime "updated_at", null: false
+    t.index ["query"], name: "index_fighter_searches_on_query", unique: true
   end
 
   create_table "fighter_synchronizations", force: :cascade do |t|
