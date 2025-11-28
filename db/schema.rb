@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_28_031959) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_28_035942) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -36,6 +36,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_28_031959) do
     t.datetime "played_at", null: false
     t.string "replay_id"
     t.datetime "updated_at", null: false
+    t.integer "winner_side", null: false
     t.index ["played_at"], name: "index_battles_on_played_at"
     t.index ["replay_id"], name: "index_battles_on_replay_id", unique: true
   end
