@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   resources :fighters do
     post :synchronize, on: :member
+
+    collection do
+      resource :search, only: :show do
+        post "/:query", action: :create, as: "query"
+      end
+    end
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

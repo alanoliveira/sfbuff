@@ -1,0 +1,6 @@
+<% if search_request.success? %>
+  <%= turbo_stream.replace search_request %>
+<% end %>
+
+<% if search_request.error? %>
+<% end %>
