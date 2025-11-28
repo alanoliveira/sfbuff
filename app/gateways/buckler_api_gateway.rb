@@ -1,6 +1,14 @@
 class BucklerApiGateway
   attr_accessor :buckler_api_client
 
+  class << self
+    delegate_missing_to :default_instance
+
+    def default_instance
+      @default_instance ||= new(BucklerApiClient.new(build_id: nil, auth_cookie: nil))
+    end
+  end
+
   def initialize(buckler_api_client)
     @buckler_api_client = buckler_api_client
   end
