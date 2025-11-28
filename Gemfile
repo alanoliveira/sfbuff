@@ -52,6 +52,18 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Linter for erb files
+  gem "erb_lint", "~> 0.9.0"
+
+  # Test framework
+  gem "rspec-rails", "~> 8.0"
+
+  # Test data generation
+  gem "factory_bot_rails", "~> 6.5"
+
+  # Rspec rubocop styling
+  gem "rubocop-rspec_rails", "~> 2.32"
 end
 
 group :development do
