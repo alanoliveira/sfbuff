@@ -21,5 +21,20 @@ FactoryBot.define do
     p2_mr { 1 }
     p2_lp { 1 }
     p2_rounds { [] }
+
+    trait :p1_win do
+      p1_rounds { [ Round::V ] }
+      p2_rounds { [ Round::L ] }
+    end
+
+    trait :p2_win do
+      p1_rounds { [ Round::L ] }
+      p2_rounds { [ Round::V ] }
+    end
+
+    trait :draw do
+      p1_rounds { [ Round::D ] }
+      p2_rounds { [ Round::D ] }
+    end
   end
 end

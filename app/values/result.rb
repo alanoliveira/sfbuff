@@ -29,5 +29,5 @@ Result = Data.define(:id, :name) do
     self == Result::DRAW
   end
 
-  delegate :to_i, to: :id
+  delegate :to_i, :to_s, to: :id
 end
