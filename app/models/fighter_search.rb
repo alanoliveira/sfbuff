@@ -1,6 +1,9 @@
 class FighterSearch < ApplicationRecord
   class_attribute :refresh_interval, instance_writer: false, default: 10.minutes
 
+  attribute :result, :fighter_banner, json_array: true
+  alias_attribute :fighter_banners, :result
+
   validates :query, length: { minimum: 4 }
   normalizes :query, with: ->(query) { query.strip.downcase }
 
