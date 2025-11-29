@@ -1,5 +1,9 @@
 <%= turbo_frame_tag "fighter_search" do %>
   <div id="<%= dom_id @search_request %>">
-    <span>loading...</span>
+    <div class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
   </div>
 <% end %>

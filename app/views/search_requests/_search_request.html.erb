@@ -1,8 +1,23 @@
-<table>
+<table class="table table-striped table-hover text-center text-nowrap">
+  <thead>
+    <th><%= BucklerApiGateway::Mappers::FighterBanner.human_attribute_name :short_id %></th>
+    <th><%= BucklerApiGateway::Mappers::FighterBanner.human_attribute_name :fighter_id %></th>
+    <th><%= BucklerApiGateway::Mappers::FighterBanner.human_attribute_name :home_id %></th>
+    <th><%= BucklerApiGateway::Mappers::FighterBanner.human_attribute_name :last_play_at %></th>
+    <th><%= BucklerApiGateway::Mappers::FighterBanner.human_attribute_name :favorite_character %></th>
+    <th><%= BucklerApiGateway::Mappers::FighterBanner.human_attribute_name :master_rating %></th>
+    <th><%= BucklerApiGateway::Mappers::FighterBanner.human_attribute_name :league_point %></th>
+  </thead>
   <tbody>
     <% search_request.fighter_banners.each do |fighter_banner| %>
-      <tr>
+      <tr role="button" onclick="window.location='<%= fighter_path(fighter_banner.short_id) %>'">
         <td><%= fighter_banner.fighter_id %></td>
+        <td><%= fighter_banner.short_id %></td>
+        <td><%= fighter_banner.home_id %></td>
+        <td><%= local_time_ago fighter_banner.last_play_at %></td>
+        <td><%= fighter_banner.favorite_character_id %></td>
+        <td><%= fighter_banner.master_rating if fighter_banner.master_rating.positive? %></td>
+        <td><%= fighter_banner.league_point if fighter_banner.league_point.positive? %></td>
       </tr>
     <% end %>
   </tbody>
