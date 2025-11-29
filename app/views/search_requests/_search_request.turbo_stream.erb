@@ -3,4 +3,6 @@
 <% end %>
 
 <% if search_request.error? %>
+  <%= turbo_stream_toast search_request.error, kind: "danger" %>
+  <%= turbo_stream.remove search_request %>
 <% end %>

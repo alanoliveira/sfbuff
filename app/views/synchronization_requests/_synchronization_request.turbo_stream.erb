@@ -2,6 +2,7 @@
 <% end %>
 
 <% if synchronization_request.error? %>
+  <%= turbo_stream_toast synchronization_request.error, kind: "danger" %>
 <% end %>
 
 <%= turbo_stream.refresh %>
