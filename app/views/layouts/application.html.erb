@@ -32,6 +32,8 @@
       <%= content_for?(:main) ? yield(:main) : yield %>
     </main>
 
+    <%= modal_turbo_frame_tag %>
+
     <%= render "layouts/application/footer" %>
   </body>
 </html>

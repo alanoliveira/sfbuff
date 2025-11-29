@@ -1,5 +1,6 @@
 class BattlesController < ApplicationController
   before_action :set_battle
+  determine_modal_variant only: "show"
 
   def show
   end
