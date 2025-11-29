@@ -49,6 +49,9 @@ gem "local_time", "~> 3.0"
 # Versionated views
 gem "scenic", "~> 1.9"
 
+# AcitveRecord helpers to group by date
+gem "groupdate", "~> 6.7"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
