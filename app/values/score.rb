@@ -1,4 +1,7 @@
 Score = Struct.new(:wins, :losses, :draws) do
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
+
   def self.empty
     allocate
   end

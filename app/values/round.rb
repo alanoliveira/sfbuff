@@ -23,6 +23,6 @@ Round = Data.define(:id, :name, :result) do
     end
   end
 
-  delegate :to_i, to: :id
+  delegate :to_i, :to_s, :as_json, to: :id
   delegate :win?, :loss?, :draw?, to: :result
 end

@@ -1,10 +1,11 @@
-Result = Data.define(:id, :name) do
+BattleType = Data.define(:id, :name) do
   extend ActiveModel::Naming
 
   const_set :ALL, [
-    [ 1, "win" ],
-    [ 0, "draw" ],
-    [ -1, "loss" ]
+    [ 1, "ranked" ],
+    [ 2, "casual_match" ],
+    [ 3, "battle_hub" ],
+    [ 4, "custom_room" ]
   ].map { |id, name| const_set(name.upcase, new(id, name)) }
 
   class << self
@@ -15,18 +16,6 @@ Result = Data.define(:id, :name) do
     def all
       const_get(:ALL)
     end
-  end
-
-  def win?
-    self == Result::WIN
-  end
-
-  def loss?
-    self == Result::LOSS
-  end
-
-  def draw?
-    self == Result::DRAW
   end
 
   delegate :to_i, :to_s, :as_json, to: :id
