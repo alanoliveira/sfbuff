@@ -6,6 +6,10 @@ class Battle < ApplicationRecord
 
   before_save :set_winner_side
 
+  def to_param
+    replay_id
+  end
+
   private
 
   def set_winner_side

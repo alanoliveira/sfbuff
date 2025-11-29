@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :battles, param: :replay_id, only: :show
   resources :fighters do
     post :synchronize, on: :member
 
