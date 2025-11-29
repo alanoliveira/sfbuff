@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Sfbuff" %></title>
+    <title><%= content_for(:title) || "SFBUFF" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Sfbuff">
@@ -20,10 +20,18 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "/assets/bootstrap/dist/css/bootstrap", skip_pipeline: true %>
+    <%= stylesheet_link_tag "/assets/bootstrap-icons/font/bootstrap-icons", skip_pipeline: true %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body data-bs-theme="dark" class="vh-100 d-flex flex-column">
+    <%= render "layouts/application/nav" %>
+
+    <main id="main" class="container my-3 flex-fill">
+      <%= content_for?(:main) ? yield(:main) : yield %>
+    </main>
+
+    <%= render "layouts/application/footer" %>
   </body>
 </html>

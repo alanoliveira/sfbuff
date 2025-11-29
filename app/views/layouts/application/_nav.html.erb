@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-md bg-body-tertiary">
+  <div class="container">
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <img src="/icon.svg" width="30" height="30" alt="sfbuff logo">
+    <% end %>
+    <div class="order-md-last col-md-3 col-8">
+      <%= yield :nav_search %>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to Fighter.model_name.human, search_path, class: [ "nav-link", ("active" if request.path.starts_with? "/fighters") ] %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
