@@ -1,12 +1,9 @@
 class FightersController < ApplicationController
   before_action :set_fighter
 
-  def show
-  end
-
   def synchronize
     if @fighter.synchronized?
-      return redirect_back fallback_location: fighters_path(@fighter), status: :see_other
+      return redirect_back fallback_location: fighter_path(@fighter), status: :see_other
     end
 
     @synchronization = SynchronizationRequest.create(fighter_id: @fighter.id)

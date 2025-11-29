@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
   resources :battles, param: :replay_id, only: :show
-  resources :fighters do
+  resources :fighters, only: :show do
     post :synchronize, on: :member
 
     collection do
       resource :search, only: :show do
         post "/:query", action: :create, as: "query"
       end
+    end
+
+    scope module: :fighters do
+      resource :matches, only: :show
+      resource :matchup_chart, only: :show
+      resource :ranked_history, only: :show
     end
   end
 
