@@ -352,6 +352,9 @@ GEM
     ruby-vips (2.2.5)
       ffi (~> 1.12)
       logger
+    scenic (1.9.0)
+      activerecord (>= 4.0.0)
+      railties (>= 4.0.0)
     securerandom (0.4.1)
     smart_properties (1.17.0)
     solid_cable (3.0.12)
@@ -441,6 +444,7 @@ DEPENDENCIES
   rspec-rails (~> 8.0)
   rubocop-rails-omakase
   rubocop-rspec_rails (~> 2.32)
+  scenic (~> 1.9)
   solid_cable
   solid_cache
   solid_queue

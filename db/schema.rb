@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_28_122207) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_29_052914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -91,4 +91,78 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_28_122207) do
   end
 
   add_foreign_key "fighter_synchronizations", "fighters"
+
+  create_view "matches", sql_definition: <<-SQL
+      SELECT replay_id,
+      played_at,
+      battle_type_id,
+      home_fighter_id,
+      home_character_id,
+      home_playing_character_id,
+      home_input_type_id,
+      home_mr,
+      home_lp,
+      home_rounds,
+      home_name,
+      away_fighter_id,
+      away_character_id,
+      away_playing_character_id,
+      away_input_type_id,
+      away_mr,
+      away_lp,
+      away_rounds,
+      away_name,
+      result
+     FROM ( SELECT p1_home_p2_away.replay_id,
+              p1_home_p2_away.played_at,
+              p1_home_p2_away.battle_type_id,
+              p1_home_p2_away.p1_fighter_id AS home_fighter_id,
+              p1_home_p2_away.p1_character_id AS home_character_id,
+              p1_home_p2_away.p1_playing_character_id AS home_playing_character_id,
+              p1_home_p2_away.p1_input_type_id AS home_input_type_id,
+              p1_home_p2_away.p1_mr AS home_mr,
+              p1_home_p2_away.p1_lp AS home_lp,
+              p1_home_p2_away.p1_rounds AS home_rounds,
+              p1_home_p2_away.p1_name AS home_name,
+              p1_home_p2_away.p2_fighter_id AS away_fighter_id,
+              p1_home_p2_away.p2_character_id AS away_character_id,
+              p1_home_p2_away.p2_playing_character_id AS away_playing_character_id,
+              p1_home_p2_away.p2_input_type_id AS away_input_type_id,
+              p1_home_p2_away.p2_mr AS away_mr,
+              p1_home_p2_away.p2_lp AS away_lp,
+              p1_home_p2_away.p2_rounds AS away_rounds,
+              p1_home_p2_away.p2_name AS away_name,
+                  CASE p1_home_p2_away.winner_side
+                      WHEN 1 THEN 1
+                      WHEN 2 THEN '-1'::integer
+                      ELSE 0
+                  END AS result
+             FROM battles p1_home_p2_away
+          UNION ALL
+           SELECT p2_home_p1_away.replay_id,
+              p2_home_p1_away.played_at,
+              p2_home_p1_away.battle_type_id,
+              p2_home_p1_away.p2_fighter_id AS home_fighter_id,
+              p2_home_p1_away.p2_character_id AS home_character_id,
+              p2_home_p1_away.p2_playing_character_id AS home_playing_character_id,
+              p2_home_p1_away.p2_input_type_id AS home_input_type_id,
+              p2_home_p1_away.p2_mr AS home_mr,
+              p2_home_p1_away.p2_lp AS home_lp,
+              p2_home_p1_away.p2_rounds AS home_rounds,
+              p2_home_p1_away.p2_name AS home_name,
+              p2_home_p1_away.p1_fighter_id AS away_fighter_id,
+              p2_home_p1_away.p1_character_id AS away_character_id,
+              p2_home_p1_away.p1_playing_character_id AS away_playing_character_id,
+              p2_home_p1_away.p1_input_type_id AS away_input_type_id,
+              p2_home_p1_away.p1_mr AS away_mr,
+              p2_home_p1_away.p1_lp AS away_lp,
+              p2_home_p1_away.p1_rounds AS away_rounds,
+              p2_home_p1_away.p1_name AS away_name,
+                  CASE p2_home_p1_away.winner_side
+                      WHEN 2 THEN 1
+                      WHEN 1 THEN '-1'::integer
+                      ELSE 0
+                  END AS result
+             FROM battles p2_home_p1_away) matches;
+  SQL
 end
