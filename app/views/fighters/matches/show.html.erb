@@ -24,6 +24,9 @@
   </div>
 
   <div class="card card-body">
-    <%= render "matches/matches_table", matches: @matches %>
+    <%= turbo_frame_tag "matches-table" do %>
+      <%= render "matches/matches_table", matches: @matches %>
+      <%== @pagy.series_nav(:bootstrap) %>
+    <% end %>
   </div>
 <% end %>
