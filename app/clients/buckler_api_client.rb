@@ -6,7 +6,7 @@ class BucklerApiClient < ApplicationClient
   class RateLimitExceeded < BucklerApiHttpError; end
   class Unauthorized < BucklerApiHttpError; end
   class PageNotFound < BucklerApiHttpError; end
-  class BucklerServerError < BucklerApiHttpError; end
+  class ServerError < BucklerApiHttpError; end
 
   attr_reader :build_id, :auth_cookie
 
