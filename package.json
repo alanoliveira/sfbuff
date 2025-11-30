@@ -2,6 +2,7 @@
   "dependencies": {
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
-    "local-time": "^3.0.3"
+    "local-time": "^3.0.3",
+    "chart.js": "^4.5.1"
   }
 }

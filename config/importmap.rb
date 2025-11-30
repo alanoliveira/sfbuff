@@ -8,3 +8,4 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 
 pin "bootstrap", to: "/assets/bootstrap/dist/js/bootstrap.bundle.min.js"
 pin "local-time", to: "/assets/local-time/app/assets/javascripts/local-time.es2017-esm.js"
+pin "chartjs", to: "/assets/chart.js/dist/chart.umd.js"
