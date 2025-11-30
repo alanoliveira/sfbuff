@@ -1,15 +1,19 @@
 class BucklerApiGateway
-  attr_accessor :buckler_api_client
+  THREAD_INSTANCE_ID = name.underscore
 
   class << self
-    delegate_missing_to :default_instance
+    delegate_missing_to :thread_instance
 
-    def default_instance
-      build_id = ENV["BUCKLER_BUILD_ID"]
-      auth_cookie = ENV["BUCKLER_AUTH_COOKIE"]
-      @default_instance ||= new(BucklerApiClient.new(build_id:, auth_cookie:))
+    def thread_instance
+      ActiveSupport::IsolatedExecutionState[THREAD_INSTANCE_ID] ||= new(BucklerApiClient.new)
+    end
+
+    def reset_thread_instance
+      ActiveSupport::IsolatedExecutionState[THREAD_INSTANCE_ID] = nil
     end
   end
+
+  attr_accessor :buckler_api_client
 
   def initialize(buckler_api_client)
     @buckler_api_client = buckler_api_client

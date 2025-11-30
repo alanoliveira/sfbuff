@@ -8,4 +8,7 @@ class AppSetting < ApplicationRecord
       find_or_initialize_by(key:) { it.encrypted = encrypted }.update(value:)
     end
   end
+
+  setting :buckler_build_id
+  setting :buckler_auth_cookie, encrypted: true
 end

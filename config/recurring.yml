@@ -16,3 +16,6 @@ production:
   periodic_cleanup_sessions_table:
     class: SessionsCleanupJob
     schedule: every hour
+  periodic_update_buckler_credentials:
+    class: UpdateBucklerCredentialsJob
+    schedule: every 5 minutes

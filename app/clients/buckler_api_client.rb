@@ -10,7 +10,7 @@ class BucklerApiClient < ApplicationClient
 
   attr_reader :build_id, :auth_cookie
 
-  def initialize(build_id: nil, auth_cookie: nil)
+  def initialize(build_id: AppSetting.buckler_build_id, auth_cookie: AppSetting.buckler_auth_cookie)
     @build_id = build_id
     @auth_cookie = auth_cookie
   end
@@ -31,7 +31,7 @@ class BucklerApiClient < ApplicationClient
   end
 
   def friends
-    get "friendlist/friends.json"
+    get "fighterslist/friend.json"
   end
 
   private
