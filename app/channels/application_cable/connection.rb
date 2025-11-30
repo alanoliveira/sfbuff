@@ -1,6 +1,7 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
     include SwitchLocale
+    include SwitchTimezone
 
     identified_by :current_session
 
