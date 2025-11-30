@@ -19,9 +19,9 @@ RSpec.describe MatchesFilter do
 
   context "when played_from is present" do
     before do
-      matches_filter.played_from = Time.zone.parse("2024-01-10 12:30:00")
+      matches_filter.played_from = "2024-01-10"
       create(:battle, played_at: Time.zone.parse("2024-01-09 12:30:00"))
-      create(:battle, played_at: Time.zone.parse("2024-01-10 12:29:59"))
+      create(:battle, played_at: Time.zone.parse("2024-01-09 23:59:59"))
       create(:battle, played_at: Time.zone.parse("2024-01-10 12:30:00"))
       create(:battle, played_at: Time.zone.parse("2024-01-10 12:30:01"))
       create(:battle, played_at: Time.zone.parse("2024-01-11 12:30:00"))
@@ -29,23 +29,23 @@ RSpec.describe MatchesFilter do
 
     it "filter by played_at >= played_from" do
       expect(filtered_matches).to have_attributes(count: 6)
-        .and all(have_attributes(played_at: a_value >= Time.zone.parse("2024-01-10 12:30:00")))
+        .and all(have_attributes(played_at: a_value >= Time.zone.parse("2024-01-10")))
     end
   end
 
   context "when played_to is present" do
     before do
-      matches_filter.played_to = Time.zone.parse("2024-01-10 12:30:00")
+      matches_filter.played_to = "2024-01-09"
       create(:battle, played_at: Time.zone.parse("2024-01-09 12:30:00"))
-      create(:battle, played_at: Time.zone.parse("2024-01-10 12:29:59"))
+      create(:battle, played_at: Time.zone.parse("2024-01-09 23:59:59"))
       create(:battle, played_at: Time.zone.parse("2024-01-10 12:30:00"))
       create(:battle, played_at: Time.zone.parse("2024-01-10 12:30:01"))
       create(:battle, played_at: Time.zone.parse("2024-01-11 12:30:00"))
     end
 
     it "filter by played_at <= played_to" do
-      expect(filtered_matches).to have_attributes(count: 6)
-        .and all(have_attributes(played_at: a_value <= Time.zone.parse("2024-01-10 12:30:00")))
+      expect(filtered_matches).to have_attributes(count: 4)
+        .and all(have_attributes(played_at: a_value < Time.zone.parse("2024-01-10")))
     end
   end
 

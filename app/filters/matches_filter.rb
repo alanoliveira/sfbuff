@@ -2,8 +2,8 @@ class MatchesFilter
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  attribute :played_from
-  attribute :played_to
+  attribute :played_from, :date
+  attribute :played_to, :date
   attribute :battle_type_id
   attribute :home_fighter_id
   attribute :home_character_id
@@ -23,5 +23,13 @@ class MatchesFilter
       battle_type_id: battle_type_id,
       played_at: played_from..played_to
     }.compact_blank)
+  end
+
+  def played_from
+    super&.beginning_of_day
+  end
+
+  def played_to
+    super&.end_of_day
   end
 end
