@@ -6,6 +6,7 @@ pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/javascript/chartjs/plugins", under: "chartjs-plugins", to: "chartjs/plugins"
+pin_all_from "app/javascript/helpers", under: "helpers"
 
 pin "bootstrap", to: "/assets/bootstrap/dist/js/bootstrap.bundle.min.js"
 pin "local-time", to: "/assets/local-time/app/assets/javascripts/local-time.es2017-esm.js"

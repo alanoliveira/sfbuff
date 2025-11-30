@@ -1,0 +1,16 @@
+<div class="dropdown" data-controller="locale-selector">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+    <%= bs_icon "globe" %>
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <button data-locale-selector-locale-param="en" data-action="locale-selector#switchLocale" type="button" class="dropdown-item <%= "active" if I18n.locale == :en %>">English</button>
+    </li>
+    <li>
+      <button data-locale-selector-locale-param="pt-BR" data-action="locale-selector#switchLocale" type="button" class="dropdown-item <%= "active" if I18n.locale == :"pt-BR" %>">Português</button>
+    </li>
+    <li>
+      <button data-locale-selector-locale-param="ja" data-action="locale-selector#switchLocale" type="button" class="dropdown-item <%= "active" if I18n.locale == :ja %>">日本語</button>
+    </li>
+  </ul>
+</div>
