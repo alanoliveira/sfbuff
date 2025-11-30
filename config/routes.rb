@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
     scope module: :fighters do
       resource :matches, only: :show
+      resource :daily_results_chart, only: :show
       resource :matchup_chart, only: :show
       resource :ranked_history, only: :show
     end

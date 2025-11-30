@@ -1,4 +1,7 @@
 <%= empty_alert_if @matches.empty? do %>
+  <%= link_to_daily_results_chart @matches_filter.attributes,
+      class: "btn btn-outline-primary mb-3 w-100" %>
+
   <div class="card card-body">
     <%= render "matches/matches_table", matches: @matches %>
   </div>
