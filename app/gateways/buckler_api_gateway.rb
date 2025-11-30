@@ -5,7 +5,9 @@ class BucklerApiGateway
     delegate_missing_to :default_instance
 
     def default_instance
-      @default_instance ||= new(BucklerApiClient.new(build_id: nil, auth_cookie: nil))
+      build_id = ENV["BUCKLER_BUILD_ID"]
+      auth_cookie = ENV["BUCKLER_AUTH_COOKIE"]
+      @default_instance ||= new(BucklerApiClient.new(build_id:, auth_cookie:))
     end
   end
 
