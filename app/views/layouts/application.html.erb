@@ -18,6 +18,11 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <% if Rails.env.production? %>
+      <!-- workaround to use import maps in old browsers -->
+      <script async src="https://ga.jspm.io/npm:es-module-shims@2.6.2/dist/es-module-shims.js"></script>
+    <% end %>
+
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "/assets/bootstrap/dist/css/bootstrap", skip_pipeline: true %>
