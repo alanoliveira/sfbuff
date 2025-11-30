@@ -2,10 +2,14 @@ module Sessionizer
   extend ActiveSupport::Concern
 
   included do
-    before_action :resume_or_start_new_session
+    before_action :resume_or_start_new_session, unless: :user_is_a_bot?
   end
 
   private
+
+  def user_is_a_bot?
+    DeviceDetector.new(request.user_agent).bot?
+  end
 
   def resume_or_start_new_session
     resume_session || start_new_session

@@ -116,6 +116,7 @@ GEM
     debug (1.11.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    device_detector (1.1.3)
     diff-lcs (1.6.2)
     dotenv (3.1.8)
     drb (2.2.3)
@@ -448,6 +449,7 @@ DEPENDENCIES
   bundler-audit
   capybara
   debug
+  device_detector (~> 1.1)
   erb_lint (~> 0.9.0)
   factory_bot_rails (~> 6.5)
   faraday (~> 2.14)
