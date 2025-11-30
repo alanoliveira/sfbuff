@@ -13,10 +13,10 @@ RSpec.describe MatchupChart do
   end
 
   describe "#get" do
-    it { expect(matchup_chart.get(character_id: 1, input_type_id: 0)).to eq Score.new(wins: 0, losses: 0, draws: 2) }
-    it { expect(matchup_chart.get(character_id: 1, input_type_id: 1)).to eq Score.new(wins: 6, losses: 3, draws: 0) }
-    it { expect(matchup_chart.get(character_id: 2, input_type_id: 0)).to eq Score.new(wins: 0, losses: 3, draws: 0) }
-    it { expect(matchup_chart.get(character_id: 2, input_type_id: 1)).to eq Score.new(wins: nil, losses: nil, draws: nil) }
+    it { expect(matchup_chart.get(character: 1, input_type: 0)).to eq Score.new(wins: 0, losses: 0, draws: 2) }
+    it { expect(matchup_chart.get(character: 1, input_type: 1)).to eq Score.new(wins: 6, losses: 3, draws: 0) }
+    it { expect(matchup_chart.get(character: 2, input_type: 0)).to eq Score.new(wins: 0, losses: 3, draws: 0) }
+    it { expect(matchup_chart.get(character: 2, input_type: 1)).to eq Score.new(wins: nil, losses: nil, draws: nil) }
   end
 
   describe "#sum" do

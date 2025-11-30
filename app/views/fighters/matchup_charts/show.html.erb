@@ -1,1 +1,5 @@
-<h1><%= controller_name %></h1>
+<%= empty_alert_if @matchup_chart.empty? do %>
+  <div class="card card-body">
+    <%= render "matchup_charts/matchup_chart", matchup_chart: @matchup_chart, matches_filter_attributes: @matches_filter.attributes %>
+  </div>
+<% end %>

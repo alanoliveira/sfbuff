@@ -3,8 +3,8 @@ class MatchupChart
     @matches = matches
   end
 
-  def get(character_id:, input_type_id:)
-    data[{ "away_character_id" => character_id, "away_input_type_id" => input_type_id }] || Score.empty
+  def get(character:, input_type:)
+    data[{ "away_character_id" => character.to_i, "away_input_type_id" => input_type.to_i }] || Score.empty
   end
 
   def sum

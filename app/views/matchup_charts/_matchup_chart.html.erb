@@ -1,0 +1,44 @@
+<table class="table table-striped text-center text-nowrap">
+  <thead>
+    <td><%= Character.model_name.singular %></td>
+    <td><%= InputType.model_name.singular %></td>
+    <td><%= Score.human_attribute_name("total") %></td>
+    <td><%= Score.human_attribute_name("wins") %></td>
+    <td><%= Score.human_attribute_name("losses") %></td>
+    <td><%= Score.human_attribute_name("draws") %></td>
+    <td><%= Score.human_attribute_name("diff") %></td>
+    <td><%= Score.human_attribute_name("ratio") %></td>
+    <td><%= daily_results_chart_icon %></td>
+  </thead>
+  <tbody>
+    <% foreach_character_and_input_type(matchup_chart) do |character:, input_type:, score:| %>
+      <tr>
+        <td><%= character.name %></td>
+        <td><%= input_type.name %></td>
+        <td><%= score.total %></td>
+        <td><%= score.wins %></td>
+        <td><%= score.losses %></td>
+        <td><%= score.draws %></td>
+        <td><%= score_diff_tag score.diff %></td>
+        <td><%= score_ratio_tag score.ratio %></td>
+        <td>
+          <% unless score.empty? %>
+            <%= link_to_daily_results_chart matches_filter_attributes.merge(away_character_id: character.id, away_input_type_id: input_type.id) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="2"><%= t(".sum") %></td>
+      <td><%= matchup_chart.sum.total %></td>
+      <td><%= matchup_chart.sum.wins %></td>
+      <td><%= matchup_chart.sum.losses %></td>
+      <td><%= matchup_chart.sum.draws %></td>
+      <td><%= score_diff_tag matchup_chart.sum.diff %></td>
+      <td><%= score_ratio_tag matchup_chart.sum.ratio %></td>
+      <td><%= link_to_daily_results_chart matches_filter_attributes unless matchup_chart.empty? %></td>
+    </tr>
+  </tfoot>
+</table>
