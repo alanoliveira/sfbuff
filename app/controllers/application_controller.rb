@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pagy::Method
+  include Sessionizer
   include ModalVariant
   include SwitchLocale
 
