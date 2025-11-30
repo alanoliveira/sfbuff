@@ -1,1 +1,5 @@
-<h1><%= controller_name %></h1>
+<%= empty_alert_if @ranked_history.empty? do %>
+  <div class="card card-body">
+    <%= render RankedHistoryChart.new(@ranked_history) %>
+  </div>
+<% end %>

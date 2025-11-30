@@ -10,6 +10,8 @@ class Match < ApplicationRecord
   composed_of_enum :battle_type, :battle_type_id
   composed_of_enum :result, :result
 
+  scope :ranked, -> { where(battle_type: BattleType::RANKED) }
+
   def self.aggregate_results
     ResultAggregation.new(all)
   end

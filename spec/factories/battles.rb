@@ -22,6 +22,8 @@ FactoryBot.define do
     p2_lp { 1 }
     p2_rounds { [] }
 
+    traits_for_enum :battle_type_id, BattleType.all.to_h { [ it.name, it.id ] }
+
     trait :p1_win do
       p1_rounds { [ Round::V ] }
       p2_rounds { [ Round::L ] }
