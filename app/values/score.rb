@@ -7,7 +7,7 @@ Score = Struct.new(:wins, :losses, :draws) do
   end
 
   def total
-    wins.to_i + losses.to_i + draws.to_i
+    wins.to_i + losses.to_i + draws.to_i unless empty?
   end
 
   def diff
