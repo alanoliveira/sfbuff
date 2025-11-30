@@ -3,8 +3,8 @@ InputType = Data.define(:id, :name) do
   extend ActiveModel::Translation
 
   const_set :ALL, [
-    [ 0, "modern" ],
-    [ 1, "classic" ]
+    [ 0, "classic" ],
+    [ 1, "modern" ]
   ].map { |id, name| const_set(name.upcase, new(id, name)) }
 
   class << self
