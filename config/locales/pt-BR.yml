@@ -51,6 +51,14 @@ pt-BR:
         battle_type_id: Tipo de Match
         played_from: De
         played_to: Até
+      buckler_api_gateway/mappers/fighter_banner:
+        short_id: ID
+        fighter_id: Nome
+        home_id: País
+        last_play_at: Última vez online
+        favorite_character_id: Main Char
+        master_rating: MR
+        league_point: LP
   activerecord:
     models:
       fighter:

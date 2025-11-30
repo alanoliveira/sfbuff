@@ -51,6 +51,14 @@ ja:
         battle_type_id: ゲームモード
         played_from: 始日
         played_to: 了日
+      buckler_api_gateway/mappers/fighter_banner:
+        short_id: ID
+        fighter_id: 名前
+        home_id: 国
+        last_play_at: 最終オンライン
+        favorite_character_id: メインキャラクター
+        master_rating: MR
+        league_point: LP
   activerecord:
     models:
       fighter:
