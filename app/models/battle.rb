@@ -1,8 +1,15 @@
 class Battle < ApplicationRecord
   include FromReplay
 
-  attribute :p1_rounds, :round, json_array: true
-  attribute :p2_rounds, :round, json_array: true
+  composed_of_enum :p1_rounds, :p1_rounds, class_name: "Round", array: true
+  composed_of_enum :p1_character, :p1_character_id, class_name: "Character"
+  composed_of_enum :p1_playing_character, :p1_playing_character_id, class_name: "Character"
+  composed_of_enum :p1_input_type, :p1_input_type_id, class_name: "InputType"
+  composed_of_enum :p2_rounds, :p2_rounds, class_name: "Round", array: true
+  composed_of_enum :p2_character, :p2_character_id, class_name: "Character"
+  composed_of_enum :p2_playing_character, :p2_playing_character_id, class_name: "Character"
+  composed_of_enum :p2_input_type, :p2_input_type_id, class_name: "InputType"
+  composed_of_enum :battle_type, :battle_type_id
 
   before_save :set_winner_side
 

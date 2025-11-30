@@ -2,7 +2,7 @@
   <div class="row border-bottom py-2 px-1">
     <div class="col text-start"><%= battle.replay_id %></div>
     <div class="col text-center"><%= local_time battle.played_at, format: :long %></div>
-    <div class="col text-end"><%= battle.battle_type_id %></div>
+    <div class="col text-end"><%= human_enum_name battle.battle_type %></div>
   </div>
   <div class="d-flex justify-content-center align-items-center">
     <div class="col-6 p1-side">

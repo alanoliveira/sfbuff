@@ -12,13 +12,13 @@
       <%= link_to battle["p#{side}_name"], fighter_path(battle["p#{side}_fighter_id"]) %>
     </div>
     <small>
-      <%= battle["p#{side}_character_id"] %>
-      <%= battle["p#{side}_input_type_id"] %>
+      <%= human_enum_name battle.public_send("p#{side}_character") %>
+      <%= human_enum_name battle.public_send("p#{side}_input_type") %>
     </small>
   </div>
   <div class="col-2 text-center align-self-center round-list">
     <ul class="list-unstyled mb-1">
-      <% battle["p#{side}_rounds"].each do |round| %>
+      <% battle.public_send("p#{side}_rounds").each do |round| %>
         <li><%= round_badge(round) %></li>
       <% end %>
     </ul>
