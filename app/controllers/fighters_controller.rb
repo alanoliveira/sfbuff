@@ -6,8 +6,8 @@ class FightersController < ApplicationController
       return redirect_back fallback_location: fighter_path(@fighter), status: :see_other
     end
 
-    @synchronization = SynchronizationRequest.create(fighter_id: @fighter.id)
-    @synchronization.process_later!
+    @synchronization_request = SynchronizationRequest.create(fighter_id: @fighter.id)
+    @synchronization_request.process_later!
   end
 
   private

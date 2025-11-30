@@ -4,7 +4,7 @@ RSpec.describe "/fighters" do
   describe "POST /synchronize" do
     context "when the fighter is not synchronized" do
       it "returns http success" do
-        post "/fighters/111222333/synchronize", headers: { accept: "text/vnd.turbo-stream.html" }
+        post "/fighters/111222333/synchronize"
         expect(response).to have_http_status(:ok)
       end
     end

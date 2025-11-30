@@ -7,11 +7,12 @@
 <% content_for :main do %>
   <% unless @fighter.synchronized? %>
     <%= turbo_stream_from @fighter.id, :synchronization %>
-    <%= synchronization_request_form @fighter %>
+    <%= synchronization_request_form @fighter, data: { turbo_frame: "fighter_synchronization" } %>
   <% end %>
 
   <%= turbo_frame_tag "fighter-content", data: { turbo_action: "advance" } do %>
     <div id="fighter-header">
+      <%= turbo_frame_tag "fighter_synchronization" %>
       <h1><%= @fighter.name %></h1>
 
       <% @fighter.synchronized_at.try do |synchronized_at| %>
