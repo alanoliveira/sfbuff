@@ -1,4 +1,6 @@
 class RankedHistory
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
   include Enumerable
 
   Result = Struct.new(:mr, :lp, :mr_variation, :lp_variation, :played_at, :replay_id)

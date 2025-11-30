@@ -1,4 +1,7 @@
 class MatchupChart
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
+
   def initialize(matches)
     @matches = matches
   end

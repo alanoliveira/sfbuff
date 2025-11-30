@@ -1,0 +1,61 @@
+pt-BR:
+  buttons:
+    search: Pesquisar
+    reset: Resetar
+    download: Download
+    close: Fechar
+  alerts:
+    no_data: Nenhum resultado encontrado
+    synchronization_success:
+      zero: "Nenhuma nova match"
+      one: "%{count} nova match"
+      other: "%{count} novas matches"
+    errors:
+      buckler_api_client/under_maintenance: Buckler está em manutenção
+      buckler_api_client/rate_limit_exceeded: Estamos enviando muitas solicitações para o site oficial no momento. Tente novamente em alguns minutos
+      generic: Ocorreu um erro
+  layouts:
+    fighter:
+      synchronized_at_html: "Sincronizado %{local_time_ago}"
+  searches:
+    search_form:
+      placeholder: Nome ou ID
+  activemodel:
+    models:
+      ranked_history: Histórico de Ranqueadas
+      matchup_chart: Matchup Chart
+      rivals: Rivais
+      character: Personagem
+      input_type: Controle
+      country: País
+      battle_type: Tipo de Match
+      result: Resultado
+      round: Round
+    attributes:
+      score:
+        wins: Vitórias
+        losses: Derrotas
+        draws: Empates
+        diff: Saldo
+        ratio: Percentual
+        total: Total
+      rivals:
+        favorites: Favoritos
+        victims: Vítimas
+        tormentors: Carrascos
+  activerecord:
+    models:
+      fighter:
+        one: Player
+        other: Players
+      match: 
+        one: Match
+        other: Matches
+    attributes:
+      match:
+        home_challenger: Eu
+        away_challenger: Vs
+        result: Resultado
+        battle_type: Match Type
+        replay_id: Replay ID
+        played_at: Jogado

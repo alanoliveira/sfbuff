@@ -1,5 +1,6 @@
 Round = Data.define(:id, :name, :result) do
   extend ActiveModel::Naming
+  extend ActiveModel::Translation
 
   const_set :ALL, [
     [ 0, "L",  Result::LOSS ],

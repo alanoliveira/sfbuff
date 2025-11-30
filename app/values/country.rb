@@ -1,5 +1,6 @@
 Country = Data.define(:id, :name) do
   extend ActiveModel::Naming
+  extend ActiveModel::Translation
 
   class << self
     def [](id)

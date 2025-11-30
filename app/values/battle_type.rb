@@ -1,5 +1,6 @@
 BattleType = Data.define(:id, :name) do
   extend ActiveModel::Naming
+  extend ActiveModel::Translation
 
   const_set :ALL, [
     [ 1, "ranked" ],

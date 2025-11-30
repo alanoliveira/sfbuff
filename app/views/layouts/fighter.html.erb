@@ -15,15 +15,17 @@
       <h1><%= @fighter.name %></h1>
 
       <% @fighter.synchronized_at.try do |synchronized_at| %>
-        <small><%= local_time_ago synchronized_at %></small>
+        <small>
+          <%= t(".synchronized_at_html", local_time_ago: local_time_ago(synchronized_at)) %>
+        </small>
       <% end %>
     </div>
 
     <nav class="py-3">
       <ul class="nav nav-fill nav-underline">
-        <%= fighter_header_nav_item "matches", :fighter_matches %>
-        <%= fighter_header_nav_item "matchup_chart", :fighter_matchup_chart %>
-        <%= fighter_header_nav_item "ranked_history", :fighter_ranked_history %>
+        <%= fighter_header_nav_item Match.model_name.human, :fighter_matches %>
+        <%= fighter_header_nav_item MatchupChart.model_name.human, :fighter_matchup_chart %>
+        <%= fighter_header_nav_item RankedHistory.model_name.human, :fighter_ranked_history %>
       </ul>
     </nav>
 

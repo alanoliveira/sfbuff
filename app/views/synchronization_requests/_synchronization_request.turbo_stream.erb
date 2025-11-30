@@ -1,8 +1,9 @@
 <% if synchronization_request.success? %>
+  <%= turbo_stream_toast t("alerts.synchronization_success", count: synchronization_request.new_battles_count.to_i), kind: "primary" %>
 <% end %>
 
 <% if synchronization_request.error? %>
-  <%= turbo_stream_toast synchronization_request.error, kind: "danger" %>
+  <%= turbo_stream_toast human_error_message(synchronization_request.error), kind: "danger" %>
 <% end %>
 
 <%= turbo_stream.refresh %>

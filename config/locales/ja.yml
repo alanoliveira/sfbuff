@@ -1,0 +1,61 @@
+ja:
+  buttons:
+    search: 検索
+    reset: リセット
+    download: ダウンロード
+    close: 閉じる
+  alerts:
+    no_data: データが見つかりません
+    synchronization_success:
+      zero: "新しい戦がありません"
+      one: "%{count}戦が追加された"
+      other: "%{count}戦が追加された"
+    errors:
+      buckler_api_client/under_maintenance: Bucklerはメンテナンス中です
+      buckler_api_client/rate_limit_exceeded: 現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください
+      generic: エラーが発生しました
+  layouts:
+    fighter:
+      synchronized_at_html: "同期済み %{local_time_ago}"
+  searches:
+    search_form:
+      placeholder: プレイヤーネームまたID
+  activemodel:
+    models:
+      ranked_history: ランク統計
+      matchup_chart: キャラ別統計
+      rivals: ライバル
+      character: キャラクター
+      input_type: 操作タイプ
+      country: 国
+      battle_type: ゲームモード
+      result: 勝負
+      round: ラウンド
+    attributes:
+      score:
+        wins: 勝利
+        losses: 敗北
+        draws: 引き分け
+        diff: 勝利数
+        ratio: 勝率
+        total: 合計
+      rivals:
+        favorites: 多く戦った対戦相手
+        victims: 勝率が高い対戦相手
+        tormentors: 勝率が低い対戦相手
+  activerecord:
+    models:
+      fighter:
+        one: プレイヤー
+        other: プレイヤー
+      match: 
+        one: 対戦
+        other: 対戦
+    attributes:
+      match:
+        home_challenger: 私
+        away_challenger: 相手
+        result: 勝負
+        battle_type: ゲームモード
+        replay_id: リプレイID
+        played_at: 試合日

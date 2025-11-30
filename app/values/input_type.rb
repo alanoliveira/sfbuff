@@ -1,5 +1,6 @@
 InputType = Data.define(:id, :name) do
   extend ActiveModel::Naming
+  extend ActiveModel::Translation
 
   const_set :ALL, [
     [ 0, "modern" ],
