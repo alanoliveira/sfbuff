@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_30_104812) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_30_130355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "app_settings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "encrypted", null: false
+    t.string "key", null: false
+    t.datetime "updated_at", null: false
+    t.json "value"
+  end
 
   create_table "battles", force: :cascade do |t|
     t.integer "battle_type_id", null: false
