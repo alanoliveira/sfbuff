@@ -1,3 +1,7 @@
+<div class="card card-body mb-3">
+  <%= render "filter_form", matches_filter: @matches_filter %>
+</div>
+
 <%= empty_alert_if @ranked_history.empty? do %>
   <div class="card card-body">
     <%= render RankedHistoryChart.new(@ranked_history) %>

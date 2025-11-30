@@ -43,6 +43,14 @@ pt-BR:
         favorites: Favoritos
         victims: Vítimas
         tormentors: Carrascos
+      matches_filter:
+        home_character_id: Meu Personagem
+        home_input_type_id: Meu Controle
+        away_character_id: Vs Personagem
+        away_input_type_id: Vs Controle
+        battle_type_id: Tipo de Match
+        played_from: De
+        played_to: Até
   activerecord:
     models:
       fighter:

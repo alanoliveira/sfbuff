@@ -1,3 +1,7 @@
+<div class="card card-body mb-3">
+  <%= render "filter_form", matches_filter: @matches_filter %>
+</div>
+
 <%= empty_alert_if @matchup_chart.empty? do %>
   <div class="card card-body">
     <%= render "matchup_charts/matchup_chart", matchup_chart: @matchup_chart, matches_filter_attributes: @matches_filter.attributes %>

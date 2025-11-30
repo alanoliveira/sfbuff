@@ -43,6 +43,14 @@ en:
         favorites: Favorites
         victims: Victims
         tormentors: Tormentors
+      matches_filter:
+        home_character_id: My Character
+        home_input_type_id: My Controle
+        away_character_id: Vs Character
+        away_input_type_id: Vs Control
+        battle_type_id: Match Type
+        played_from: From
+        played_to: To
   activerecord:
     models:
       fighter:

@@ -1,3 +1,7 @@
+<div class="card card-body mb-3">
+  <%= render "filter_form", matches_filter: @matches_filter %>
+</div>
+
 <%= empty_alert_if @matches.empty? do %>
   <%= link_to_daily_results_chart @matches_filter.attributes,
       class: "btn btn-outline-primary mb-3 w-100" %>

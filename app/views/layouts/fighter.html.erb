@@ -24,9 +24,9 @@
 
     <nav class="py-3">
       <ul class="nav nav-fill nav-underline">
-        <%= fighter_header_nav_item Match.model_name.human, :fighter_matches %>
-        <%= fighter_header_nav_item MatchupChart.model_name.human, :fighter_matchup_chart %>
-        <%= fighter_header_nav_item RankedHistory.model_name.human, :fighter_ranked_history %>
+        <%= fighter_header_nav_item Match.model_name.human, :fighter_matches, params: request.query_parameters %>
+        <%= fighter_header_nav_item MatchupChart.model_name.human, :fighter_matchup_chart, params: request.query_parameters %>
+        <%= fighter_header_nav_item RankedHistory.model_name.human, :fighter_ranked_history, params: request.query_parameters %>
       </ul>
     </nav>
 

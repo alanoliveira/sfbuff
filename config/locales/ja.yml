@@ -43,6 +43,14 @@ ja:
         favorites: 多く戦った対戦相手
         victims: 勝率が高い対戦相手
         tormentors: 勝率が低い対戦相手
+      matches_filter:
+        home_character_id: 私のキャラクター
+        home_input_type_id: 私の操作タイプ
+        away_character_id: 対戦相手のキャラクター
+        away_input_type_id: 対戦相手の操作タイプ
+        battle_type_id: ゲームモード
+        played_from: 始日
+        played_to: 了日
   activerecord:
     models:
       fighter:

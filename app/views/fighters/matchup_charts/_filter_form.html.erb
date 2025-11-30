@@ -1,0 +1,42 @@
+<%= form_with model: matches_filter, url: "", scope: "", method: "get" do |f| %>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <div class="form-floating">
+        <%= f.select :home_character_id, character_options_for_select, { include_blank: any_option_label }, class: "form-select" %>
+        <%= f.label :home_character_id %>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="form-floating">
+        <%= f.select :home_input_type_id, input_type_options_for_select, { include_blank: any_option_label }, class: "form-select" %>
+        <%= f.label :home_input_type_id %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <div class="form-floating">
+        <%= f.select :battle_type_id, battle_type_options_for_select, { include_blank: any_option_label }, class: "form-select" %>
+        <%= f.label :battle_type_id %>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="form-floating">
+        <%= f.date_field :played_from, class: "form-control" %>
+        <%= f.label :played_from %>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="form-floating">
+        <%= f.date_field :played_to, class: "form-control" %>
+        <%= f.label :played_to %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= f.submit t("buttons.search"), name: "", class: "btn btn-primary" %>
+      <%= form_reset_button %>
+    </div>
+  </div>
+<% end %>
