@@ -1,1 +1,5 @@
-<h1><%= controller_name %></h1>
+<%= empty_alert_if @matches.empty? do %>
+  <div class="card card-body">
+    <%= render "matches/matches_table", matches: @matches %>
+  </div>
+<% end %>

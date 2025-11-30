@@ -3,5 +3,6 @@ class Fighters::MatchesController < ApplicationController
   layout "fighter"
 
   def show
+    @matches = Match.all
   end
 end

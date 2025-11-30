@@ -35,7 +35,8 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 RSpec.configure do |config|
-  include FactoryBot::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
+  config.include Capybara::RSpecMatchers, type: :request
 
   # Uncomment this line if you're using ActiveRecord and ActiveRecord fixtures
   # config.fixture_paths = [

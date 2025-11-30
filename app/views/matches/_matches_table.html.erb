@@ -1,0 +1,26 @@
+<table class="table table-striped text-center text-nowrap">
+  <thead>
+    <th colspan="3"><%= Match.human_attribute_name :home_challenger %></th>
+    <th><%= Match.human_attribute_name :result %></th>
+    <th colspan="3"><%= Match.human_attribute_name :away_challenger %></th>
+    <th><%= Match.human_attribute_name :battle_type %></th>
+    <th><%= Match.human_attribute_name :replay_id %></th>
+    <th><%= Match.human_attribute_name :played_at %></th>
+  </thead>
+  <tbody>
+    <% matches.each do |match| %>
+      <tr>
+        <td><%= link_to match.home_name, fighter_path(match.home_fighter_id) %></td>
+        <td><%= human_enum_name match.home_character %></td>
+        <td><%= human_enum_name match.home_input_type %></td>
+        <td><%= result_badge match.result %></td>
+        <td><%= link_to match.away_name, fighter_path(match.away_fighter_id) %></td>
+        <td><%= human_enum_name match.away_character %></td>
+        <td><%= human_enum_name match.away_input_type %></td>
+        <td><%= human_enum_name match.battle_type %></td>
+        <td><%= link_to_modal match.replay_id, battle_path(match.replay_id) %></td>
+        <td><%= local_time_ago match.played_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
