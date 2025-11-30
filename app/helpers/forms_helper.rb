@@ -10,10 +10,6 @@ module FormsHelper
     link_to t("buttons.reset"), false, data: { turbo_prefetch: false }, class: "btn btn-secondary"
   end
 
-  def any_option_label
-    t("forms.any")
-  end
-
   def character_options_for_select
     Character.all.map { [ human_enum_name(it), it.id ] }
   end

@@ -4,6 +4,8 @@ en:
     reset: Reset
     download: Download
     close: Close
+  forms:
+    any: Any
   alerts:
     no_data: No data found
     synchronization_success:

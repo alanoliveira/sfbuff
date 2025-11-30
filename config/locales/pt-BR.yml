@@ -4,6 +4,8 @@ pt-BR:
     reset: Resetar
     download: Download
     close: Fechar
+  forms:
+    any: Qualquer
   alerts:
     no_data: Nenhum resultado encontrado
     synchronization_success:

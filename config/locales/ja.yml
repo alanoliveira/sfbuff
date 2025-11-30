@@ -4,6 +4,8 @@ ja:
     reset: リセット
     download: ダウンロード
     close: 閉じる
+  forms:
+    any: 全て
   alerts:
     no_data: データが見つかりません
     synchronization_success:
