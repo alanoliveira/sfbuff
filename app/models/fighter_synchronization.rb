@@ -28,6 +28,10 @@ class FighterSynchronization < ApplicationRecord
   def synchronize_fighter!
     play_profile = BucklerApiGateway.fetch_fighter_play_profile(fighter.id)
     fighter.from_fighter_banner(play_profile.fighter_banner).save
+    play_profile.character_league_infos.each do |character_league_info|
+      fighter.current_league_infos.find_or_initialize_by(character_id: character_league_info.character_id)
+        .from_character_league_info(character_league_info).save
+    end
   end
 
   def fighter_last_synchronized_replay_id
