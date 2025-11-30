@@ -2,6 +2,23 @@
   <%= link_to_daily_results_chart @matches_filter.attributes,
       class: "btn btn-outline-primary mb-3 w-100" %>
 
+  <div class="mb-3 card card-body p-0">
+    <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#fighter-rivals">
+      <%= Rivals.model_name.human %>
+    </button>
+    <div class="collapse" id="fighter-rivals">
+      <div class="p-3">
+        <%= rivals_turbo_frame_tag src: fighter_rivals_path(@matches_filter.attributes), loading: "lazy" do %>
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
   <div class="card card-body">
     <%= render "matches/matches_table", matches: @matches %>
   </div>

@@ -1,4 +1,7 @@
 class Rivals
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
+
   Result = Struct.new(:name, :fighter_id, :character_id, :input_type_id, :score) do
     def character = Character[character_id]
     def input_type = InputType[input_type_id]
