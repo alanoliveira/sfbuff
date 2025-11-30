@@ -6,7 +6,7 @@
 
 <% content_for :main do %>
   <% unless @fighter.synchronized? %>
-    <%= turbo_stream_from @fighter.id, :synchronization %>
+    <%= turbo_stream_from Current.session, @fighter.id, :synchronization %>
     <%= synchronization_request_form @fighter, data: { turbo_frame: "fighter_synchronization" } %>
   <% end %>
 

@@ -1,9 +1,10 @@
 class SearchRequest < ApplicationRecord
+  belongs_to :session, default: -> { Current.session }
   enum :status, %w[ created processing success failure ], default: "created"
   attribute :result, :fighter_banner, json_array: true
   alias_attribute :fighter_banners, :result
 
-  after_save_commit -> { broadcast_render_later_to :fighter_search, query }, if: :finished?
+  after_save_commit -> { broadcast_render_later_to session, :fighter_search, query }, if: :finished?
 
   def finished? = success? || failure?
 

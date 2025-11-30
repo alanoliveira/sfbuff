@@ -4,7 +4,7 @@
 
 <% if @query %>
   <div class="card card-body">
-    <%= turbo_stream_from :fighter_search, @query %>
+    <%= turbo_stream_from Current.session, :fighter_search, @query %>
     <%= turbo_frame_tag "fighter_search" do %>
       <%= search_request_form(@query) %>
     <% end %>
