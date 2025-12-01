@@ -1,0 +1,51 @@
+x-common-env: &common-env
+  RAILS_ENV: docker
+  SECRET_KEY_BASE: 123456
+  SFBUFF_DATABASE_HOST: db
+  SFBUFF_DATABASE_USERNAME: sfbuff
+  SFBUFF_DATABASE_PASSWORD: sfbuff
+
+services:
+  web:
+    # image: docker.io/alanoliveira89/sfbuff:latest
+    build: .
+    environment:
+      <<: *common-env
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/up"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+
+  worker:
+    # image: docker.io/alanoliveira89/sfbuff:latest
+    build: .
+    environment:
+      <<: *common-env
+      SFBUFF_BUCKLER_EMAIL:
+      SFBUFF_BUCKLER_PASSWORD:
+      SFBUFF_DEFAULT_USER_AGENT:
+    command: bin/jobs
+    depends_on:
+      web:
+        condition: service_healthy
+
+  db:
+    image: postgres:16.2-alpine
+    environment:
+      POSTGRES_PASSWORD: sfbuff
+      POSTGRES_USER: sfbuff
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
