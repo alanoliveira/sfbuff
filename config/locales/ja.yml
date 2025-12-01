@@ -17,6 +17,9 @@ ja:
       buckler_api_client/rate_limit_exceeded: 現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください
       generic: エラーが発生しました
   layouts:
+    application:
+      nav:
+        about: 概要
     fighter:
       synchronized_at_html: "同期済み %{local_time_ago}"
   pages:

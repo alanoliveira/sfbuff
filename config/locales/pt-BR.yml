@@ -17,6 +17,9 @@ pt-BR:
       buckler_api_client/rate_limit_exceeded: Estamos enviando muitas solicitações para o site oficial no momento. Tente novamente em alguns minutos
       generic: Ocorreu um erro
   layouts:
+    application:
+      nav:
+        about: Sobre
     fighter:
       synchronized_at_html: "Sincronizado %{local_time_ago}"
   pages:
