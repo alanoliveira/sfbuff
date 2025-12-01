@@ -5,8 +5,9 @@ class UpdateBucklerCredentialsJob < ApplicationJob
     BucklerApiClient.new(build_id: AppSetting.buckler_build_id, auth_cookie: AppSetting.buckler_auth_cookie).friends
   rescue BucklerApiClient::PageNotFound
     renew_buckler_build_id
+    retry_job if executions == 1
   rescue BucklerApiClient::Unauthorized
-    # TODO
+    renew_buckler_auth_cookie
     raise
   end
 
@@ -15,6 +16,9 @@ class UpdateBucklerCredentialsJob < ApplicationJob
   def renew_buckler_build_id
     next_data = BucklerSiteClient.new.next_data
     AppSetting.buckler_build_id = next_data["buildId"]
-    retry_job if executions == 1
+  end
+
+  def renew_buckler_auth_cookie
+    AppSetting.buckler_auth_cookie = BucklerAuthenticator.new.login
   end
 end
