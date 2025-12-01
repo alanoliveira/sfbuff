@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
   resources :battles, param: :replay_id, only: :show
-  resources :fighters, only: :show do
-    post :synchronize, on: :member
-
+  resources :fighters, only: [] do
     collection do
       resource :search, only: :show do
         post "/:query", action: :create, as: "query"
       end
     end
+
+    get "/" => redirect("/fighters/%{fighter_id}/matches"), on: :member
+    post :synchronize, on: :member
 
     scope module: :fighters do
       resource :matches, only: :show
@@ -16,6 +17,8 @@ Rails.application.routes.draw do
       resource :matchup_chart, only: :show
       resource :ranked_history, only: :show
     end
+
+    match "/*", to: redirect { |params, _req| "/fighters/#{params[:fighter_id]}" }, via: :get
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
