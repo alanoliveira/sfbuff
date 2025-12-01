@@ -5,6 +5,14 @@ module FighterScoped
     before_action :set_fighter
   end
 
+  class_methods do
+    def fresh_when_synchronized_at_changed(**)
+      before_action(**) do
+        fresh_when @fighter, last_modified: @fighter.synchronized_at
+      end
+    end
+  end
+
   private
 
   def set_fighter

@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
+  etag { Rails.application.config.git_revision }
+  etag { I18n.locale.name }
+  after_action -> { no_store } if Rails.env.development?
+
   private
 
   def too_many_requests

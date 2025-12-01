@@ -1,4 +1,5 @@
 class BattlesController < ApplicationController
+  before_action -> { fresh_when etag: params[:replay_id] }, only: :show
   before_action :set_battle
   determine_modal_variant only: "show"
 

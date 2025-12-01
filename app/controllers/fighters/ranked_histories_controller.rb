@@ -1,6 +1,7 @@
 class Fighters::RankedHistoriesController < ApplicationController
   include FighterScoped
   include SetMatchesFilter
+  fresh_when_synchronized_at_changed
   layout "fighter"
 
   def show
