@@ -9,6 +9,9 @@ json.options do
       json.stacked true
     end
   end
+  json.interaction do
+    json.mode "index"
+  end
 end
 
 json.data do
