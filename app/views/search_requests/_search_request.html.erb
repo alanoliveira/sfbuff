@@ -3,5 +3,5 @@
 <% end %>
 
 <% if search_request.error? %>
-  <%= turbo_stream_toast search_request.error, kind: "danger" %>
+  <%= turbo_stream_toast human_error_message(search_request.error), kind: "danger" %>
 <% end %>
