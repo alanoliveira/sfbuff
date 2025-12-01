@@ -1,8 +1,0 @@
-#!/usr/bin/env ruby
-require "rubygems"
-require "bundler/setup"
-
-ARGV.unshift("--ensure-latest")
-ARGV.push("--no-prism") # temporary workaround for https://github.com/presidentbeef/brakeman/issues/1909
-
-load Gem.bin_path("brakeman", "brakeman")
