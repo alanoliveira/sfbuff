@@ -19,3 +19,7 @@ production:
   periodic_update_buckler_credentials:
     class: UpdateBucklerCredentialsJob
     schedule: every 5 minutes
+  periodic_cleanup_async_requests:
+    class: AsyncRequestsCleanupJob
+    schedule: every hour at minute 21
+
