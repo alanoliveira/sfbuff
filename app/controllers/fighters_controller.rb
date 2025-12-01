@@ -1,5 +1,6 @@
 class FightersController < ApplicationController
   before_action :set_fighter
+  rate_limit to: 10, within: 1.minutes, only: :synchronize
 
   def synchronize
     if @fighter.synchronized?
