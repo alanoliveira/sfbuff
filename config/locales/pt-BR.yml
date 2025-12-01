@@ -19,6 +19,10 @@ pt-BR:
   layouts:
     fighter:
       synchronized_at_html: "Sincronizado %{local_time_ago}"
+  pages:
+    index:
+      welcome: Bem vindo ao SFBUFF
+      description: Um site de estatísticas para matches de SF6
   searches:
     search_form:
       placeholder: Nome ou ID
