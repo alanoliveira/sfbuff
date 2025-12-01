@@ -1,6 +1,10 @@
-<form action="<%= search_path %>">
+<%# locals: (form_options: {}) %>
+<%= form_with url: search_path, method: :get, **form_options do |f| %>
   <div class="input-group">
-    <input type="search" autocomplete="buckler-fighter" name="q" value="<%= params[:q] %>" placeholder="<%= t(".placeholder") %>" minlength="4" required class="form-control">
-    <button type="submit" class="btn btn-primary" title="<%= t("buttons.search") %>"><%= bs_icon "search" %></button>
+    <%= f.search_field :q, autocomplete: "sfbuff-fighter", value: params["q"], placeholder: t(".placeholder"),
+      minlength: 4, required: 1, class: "form-control" %>
+    <%= button_tag type: "submit", name: "", class: "btn btn-primary", title: t("buttons.search") do %>
+      <%= bs_icon "search" %>
+    <% end %>
   </div>
-</form>
+<% end %>
