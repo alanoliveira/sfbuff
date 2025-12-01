@@ -1,8 +1,7 @@
 <% if search_request.success? %>
-  <%= turbo_stream.replace search_request, inline: search_request.result %>
+  <%== search_request.result %>
 <% end %>
 
 <% if search_request.error? %>
   <%= turbo_stream_toast search_request.error, kind: "danger" %>
-  <%= turbo_stream.remove search_request %>
 <% end %>

@@ -5,5 +5,4 @@
 
 <% if synchronization_request.error? %>
   <%= turbo_stream_toast human_error_message(synchronization_request.error), kind: "danger" %>
-  <%= turbo_stream.remove synchronization_request %>
 <% end %>

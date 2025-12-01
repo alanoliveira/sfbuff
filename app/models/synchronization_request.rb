@@ -3,7 +3,7 @@ class SynchronizationRequest < ApplicationRecord
   enum :status, %w[ created processing success failure ], default: "created"
   store_accessor :result, :new_battles_count
 
-  after_save_commit -> { broadcast_render_to session, fighter_id, :synchronization }, if: :finished?
+  after_save_commit -> { broadcast_replace_later_to session, fighter_id, :synchronization }, if: :finished?
 
   def finished? = success? || failure?
 
