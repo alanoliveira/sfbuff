@@ -4,7 +4,7 @@
 
 <%= turbo_stream_from Current.session, :fighter_search %>
 <% if @query %>
-  <div class="card card-body">
+  <div class="card card-body table-responsive">
     <%= turbo_frame_tag "fighter_search" do %>
       <%= search_request_form(@query) %>
     <% end %>
