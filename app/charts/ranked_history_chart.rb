@@ -23,7 +23,7 @@ class RankedHistoryChart < ApplicationChart
     last_mr_match = mr_matches.last
     @future_mr_data ||= [
       dataset_item(played_at: last_mr_match[:played_at], value: last_mr_match[:mr]),
-      dataset_item(played_at: last_mr_match[:played_at], value: last_mr_match[:mr] + last_mr_match[:mr_variation])
+      dataset_item(played_at: last_mr_match[:played_at], value: last_mr_match[:mr] + last_mr_match[:mr_variation].to_i)
     ]
   end
 
@@ -35,7 +35,7 @@ class RankedHistoryChart < ApplicationChart
     last_lp_match = lp_matches.last
     @future_lp_data ||= [
       dataset_item(played_at: last_lp_match[:played_at], value: last_lp_match[:lp]),
-      dataset_item(played_at: last_lp_match[:played_at], value: last_lp_match[:lp] + last_lp_match[:lp_variation])
+      dataset_item(played_at: last_lp_match[:played_at], value: last_lp_match[:lp] + last_lp_match[:lp_variation].to_i)
     ]
   end
 
