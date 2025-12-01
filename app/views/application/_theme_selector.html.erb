@@ -1,0 +1,25 @@
+<div class="dropdown" data-controller="theme-selector">
+  <button id="bd-theme" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+    <%= bs_icon "palette" %>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="bd-theme-text">
+    <li>
+      <%= theme_selector_option_button "light" do %>
+        <%= bs_icon "sun-fill" %>
+        <span class="ps-1"><%= t(".light") %></span>
+      <% end %>
+    </li>
+    <li>
+      <%= theme_selector_option_button "dark" do %>
+        <%= bs_icon "moon-stars-fill" %>
+        <span class="ps-1"><%= t(".dark") %></span>
+      <% end %>
+    </li>
+    <li>
+      <%= theme_selector_option_button "auto" do %>
+        <%= bs_icon "circle-half" %>
+        <span class="ps-1"><%= t(".auto") %></span>
+      <% end %>
+    </li>
+  </ul>
+</div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale.name %>">
+<html lang="<%= I18n.locale.name %>" data-bs-theme="dark">
   <head>
     <title><%= content_for(:title) || "SFBUFF" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -30,7 +30,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body data-bs-theme="dark" class="vh-100 d-flex flex-column">
+  <body class="vh-100 d-flex flex-column">
     <%= render "layouts/application/nav" %>
 
     <main id="main" class="container my-3 flex-fill">
