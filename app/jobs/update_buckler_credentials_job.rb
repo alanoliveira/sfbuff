@@ -2,7 +2,7 @@ class UpdateBucklerCredentialsJob < ApplicationJob
   queue_as :default
 
   def perform
-    BucklerApiClient.new(build_id: AppSetting.buckler_build_id, auth_cookie: AppSetting.buckler_auth_cookie).friends
+    BucklerApiClient.new(build_id: (AppSetting.buckler_build_id || "undefined"), auth_cookie: AppSetting.buckler_auth_cookie).friends
   rescue BucklerApiClient::PageNotFound
     renew_buckler_build_id
     retry_job if executions == 1
