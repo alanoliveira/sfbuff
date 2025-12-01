@@ -62,5 +62,6 @@ class RankedHistory
       .ranked
       .where(home_character_id: character_id)
       .order("played_at")
+      .select("home_mr", "home_lp", "replay_id", "played_at")
   end
 end

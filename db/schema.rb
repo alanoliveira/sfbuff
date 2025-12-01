@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_01_082240) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_01_131659) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -45,6 +45,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_01_082240) do
     t.string "replay_id"
     t.datetime "updated_at", null: false
     t.integer "winner_side", null: false
+    t.index ["p1_fighter_id", "p1_character_id", "played_at"], name: "idx_on_p1_fighter_id_p1_character_id_played_at_e033a5d039", where: "(battle_type_id = 1)", include: ["replay_id", "p1_mr", "p1_lp"]
+    t.index ["p2_fighter_id", "p2_character_id", "played_at"], name: "idx_on_p2_fighter_id_p2_character_id_played_at_fedf543a9e", where: "(battle_type_id = 1)", include: ["replay_id", "p2_mr", "p2_lp"]
     t.index ["played_at"], name: "index_battles_on_played_at"
     t.index ["replay_id"], name: "index_battles_on_replay_id", unique: true
   end
