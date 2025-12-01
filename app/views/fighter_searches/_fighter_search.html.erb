@@ -9,7 +9,7 @@
     <th><%= BucklerApiGateway::Mappers::FighterBanner.human_attribute_name :league_point %></th>
   </thead>
   <tbody>
-    <% search_request.fighter_banners.each do |fighter_banner| %>
+    <% fighter_search.fighter_banners.each do |fighter_banner| %>
       <tr role="button" onclick="window.location='<%= fighter_path(fighter_banner.short_id) %>'">
         <td><%= fighter_banner.fighter_id %></td>
         <td><%= fighter_banner.short_id %></td>
