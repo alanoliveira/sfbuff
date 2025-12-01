@@ -4,6 +4,6 @@ class Fighters::MatchesController < ApplicationController
   layout "fighter"
 
   def show
-    @pagy, @matches = pagy(:offset, @matches_filter.filter(@fighter.matches))
+    @pagy, @matches = pagy(:offset, @matches_filter.filter(@fighter.matches).order(played_at: :desc))
   end
 end
