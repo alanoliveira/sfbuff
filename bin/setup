@@ -20,6 +20,10 @@ FileUtils.chdir APP_ROOT do
   #   FileUtils.cp "config/database.yml.sample", "config/database.yml"
   # end
 
+  if ENV["SFBUFF_USE_LOCAL_ASSETS"]
+    system! "yarn install --modules-folder 'public/assets/'"
+  end
+
   puts "\n== Preparing database =="
   system! "bin/rails db:prepare"
   system! "bin/rails db:reset" if ARGV.include?("--reset")
