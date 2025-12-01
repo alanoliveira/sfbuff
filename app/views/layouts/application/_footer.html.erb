@@ -1,8 +1,17 @@
 <div class="footer py-3 bg-body-tertiary">
   <div class="container-fluid">
-    <div class="d-flex gap-2">
-      <%= render "locale_selector" %>
-      <%= render "theme_selector" %>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex gap-2">
+        <%= render "locale_selector" %>
+        <%= render "theme_selector" %>
+      </div>
+      <div>
+        <ul class="navbar-nav flex-row flex-wrap">
+          <% AppSetting.footer_sns_accounts.to_a.each do |sns_item| %>
+            <%= footer_sns_account_item sns_item %>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

@@ -34,6 +34,10 @@
     <%= render "layouts/application/nav" %>
 
     <main id="main" class="container my-3 flex-fill">
+      <% AppSetting.general_alerts.to_a.each do |alert_item| %>
+        <%= general_alert_item alert_item %>
+      <% end %>
+
       <%= content_for?(:main) ? yield(:main) : yield %>
     </main>
 
