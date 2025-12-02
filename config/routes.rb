@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :battles, param: :replay_id, only: :show
-  resources :fighters, only: [] do
+  resources :fighters, only: [], constraints: { id: Patterns::SHORT_ID_REGEXP } do
     collection do
       resource :search, only: :show do
         post "/:query", action: :create, as: "query"

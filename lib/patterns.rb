@@ -1,3 +1,3 @@
 module Patterns
-  SHORT_ID_REGEXP = /\A\d{9,}\z/.freeze
+  SHORT_ID_REGEXP = /\d{9,}/.freeze
 end
