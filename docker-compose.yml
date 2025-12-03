@@ -1,5 +1,5 @@
 x-common-env: &common-env
-  RAILS_ENV: docker
+  RAILS_ENV: production
   SECRET_KEY_BASE: 123456
   SFBUFF_DATABASE_HOST: db
   SFBUFF_DATABASE_USERNAME: sfbuff
