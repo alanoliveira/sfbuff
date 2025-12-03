@@ -63,7 +63,7 @@ gem "commonmarker", "~> 2.5"
 
 # Used to login on buckler
 gem "faraday-cookie_jar", "~> 0.0.7"
-gem "faraday-follow_redirects", "~> 0.3.0"
+gem "faraday-follow_redirects", "~> 0.4.0"
 gem "selenium-webdriver", "~> 4.38"
 
 # Sentry
