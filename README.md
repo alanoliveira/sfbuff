@@ -24,8 +24,8 @@ of information for players to track their own performance.
 | `SFBUFF_USE_LOCAL_ASSETS`                      | Set it if you want to and use local js/css lib dependencies²         |
 | `DATABASE_URL`                                 | Postgres database url                                                |
 
-¹ The official site is quite restrictive about it. Be sure to use something valid.
-² Otherwise it will use jsdlivr cdn
+¹ The official site is quite restrictive about it. Be sure to use something valid.  
+² Otherwise it will use jsdlivr cdn  
 
 ### Setting up
 
@@ -35,7 +35,7 @@ Run the setup script:
 bin/setup --skip-server
 ```
 
-Initialize buckler credentials ([more details](#Regarding official site API login)):
+Initialize buckler credentials (more details [here](#regarding-official-site-api-login)):
 
 ```sh
 bin/thor buckler_api:reload_credentials --now
