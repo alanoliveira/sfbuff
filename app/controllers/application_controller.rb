@@ -10,6 +10,9 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
+  fragment_cache_key { I18n.locale.name }
+  fragment_cache_key { Time.zone.utc_offset }
+  fragment_cache_key { Rails.application.config.git_revision }
   etag { Rails.application.config.git_revision }
   etag { I18n.locale.name }
   after_action -> { no_store } if Rails.env.development?
