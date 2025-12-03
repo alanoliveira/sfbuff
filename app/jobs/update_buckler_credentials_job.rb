@@ -1,4 +1,5 @@
 class UpdateBucklerCredentialsJob < ApplicationJob
+  limits_concurrency key: name, to: 1
   queue_as :default
 
   def perform
