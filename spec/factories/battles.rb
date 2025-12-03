@@ -4,7 +4,7 @@ FactoryBot.define do
     battle_type_id { 1 }
     played_at { "2024-10-10 12:00:00" }
 
-    p1_fighter_id { 1 }
+    p1_fighter_id { generate(:short_id) }
     p1_name { "Challenger1##{p1_fighter_id}" }
     p1_character_id { 1 }
     p1_playing_character_id { 1 }
@@ -13,7 +13,7 @@ FactoryBot.define do
     p1_lp { 1 }
     p1_rounds { [] }
 
-    p2_fighter_id { 1 }
+    p2_fighter_id { generate(:short_id) }
     p2_name { "Challenger2##{p2_fighter_id}" }
     p2_character_id { 1 }
     p2_playing_character_id { 1 }
