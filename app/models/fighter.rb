@@ -9,5 +9,5 @@ class Fighter < ApplicationRecord
     end
   end
 
-  validates :id, format: Patterns::SHORT_ID_REGEXP
+  validates :id, format: /\A#{Patterns::SHORT_ID_REGEXP.source}\z/
 end
