@@ -1,4 +1,4 @@
-class AsyncRequestsCleanupJob < ApplicationJob
+class DatabaseCleanupJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
