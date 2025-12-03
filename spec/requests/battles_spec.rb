@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "/battles" do
+  include_context "with timezone cookie set"
+
   describe "GET /battles/:replay_id" do
     it "returns http success" do
       battle = create(:battle)

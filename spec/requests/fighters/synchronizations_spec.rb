@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "/fighters/synchronizations" do
+  include_context "with timezone cookie set"
+
   describe "POST /create" do
     context "when the fighter is not synchronized" do
       it "returns http success" do

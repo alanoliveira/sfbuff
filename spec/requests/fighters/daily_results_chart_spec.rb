@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe "fighters/:fighter_id/daily_results_chart" do
   let(:fighter) { create(:fighter) }
 
+  include_context "with timezone cookie set"
+
   describe "GET /show" do
     before do
       create(:battle, p1_fighter_id: fighter.id)

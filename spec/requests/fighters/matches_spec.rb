@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe "fighters/:fighter_id/matches" do
   let(:fighter) { create(:fighter) }
 
+  include_context "with timezone cookie set"
+
   describe "GET /show" do
     context "when matches list is not empty" do
       before do
