@@ -1,16 +1,20 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
-    include SwitchTimezone
     include SwitchLocale
+    include SwitchTimezone
 
-    around_command :switch_timezone, :switch_locale
-
-    identified_by :session_id
+    identified_by :current_session
 
     def connect
-      reject_unauthorized_connection if request.session.id.blank?
-      self.session_id = request.session.id
-      logger.add_tags session_id
+      set_current_session || reject_unauthorized_connection
+    end
+
+    private
+
+    def set_current_session
+      if session = Session.find_by(id: cookies.signed[:session_id])
+        self.current_session = session
+      end
     end
   end
 end

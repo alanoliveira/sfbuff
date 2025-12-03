@@ -1,0 +1,23 @@
+class ApplicationChart
+  CHART_COLORS = {
+    red: "rgb(255, 99, 132)",
+    orange: "rgb(255, 159, 64)",
+    yellow: "rgb(255, 205, 86)",
+    green: "rgb(75, 192, 192)",
+    blue: "rgb(54, 162, 235)",
+    purple: "rgb(153, 102, 255)",
+    grey: "rgb(201, 203, 207)"
+  }
+
+  def render_in(view_context)
+    chartjs_data_value = view_context.render partial: partial_path, formats: :json, locals: { this: self }
+    view_context.tag.div data: { controller: "chartjs", chartjs_data_value: } do
+      view_context.concat view_context.tag.button view_context.bs_icon("download"), class: "btn", data: { chartjs_target: "downloadButton" }
+      view_context.concat view_context.tag.canvas data: { chartjs_target: "canvas" }
+    end
+  end
+
+  def partial_path
+    "charts/#{self.class.name.underscore}"
+  end
+end

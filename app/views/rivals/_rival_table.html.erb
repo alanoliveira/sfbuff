@@ -1,0 +1,36 @@
+<table class="table table-striped text-center text-nowrap caption-top">
+  <caption class="fs-4 text-center">
+    <%= title %>
+  </caption>
+  <thead>
+    <tr>
+      <td colspan="3"></td>
+      <td><%= Score.human_attribute_name("total") %></td>
+      <td><%= Score.human_attribute_name("wins") %></td>
+      <td><%= Score.human_attribute_name("losses") %></td>
+      <td><%= Score.human_attribute_name("draws") %></td>
+      <td><%= Score.human_attribute_name("diff") %></td>
+      <td><%= Score.human_attribute_name("ratio") %></td>
+      <td><%= daily_results_chart_icon %></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= human_enum_name item.character %></td>
+        <td><%= human_enum_name item.input_type %></td>
+        <td><%= item.score.total %></td>
+        <td><%= item.score.wins %></td>
+        <td><%= item.score.losses %></td>
+        <td><%= item.score.draws %></td>
+        <td><%= score_diff_tag item.score.diff %></td>
+        <td><%= score_ratio_tag item.score.ratio %></td>
+        <td>
+          <%= link_to_daily_results_chart matches_filter_attributes.merge(
+            away_fighter_id: item.fighter_id, away_character_id: item.character_id, away_input_type_id: item.input_type_id) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

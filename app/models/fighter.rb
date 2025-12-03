@@ -1,12 +1,16 @@
 class Fighter < ApplicationRecord
   include Synchronizable
+  include FromFighterBanner
 
-  FIGHTER_ID_REGEXP = /\d{9,}/.freeze
+  has_many :current_league_infos, dependent: :delete_all do
+    def [](character)
+      to_a.find { it.character_id == character.to_i }
+    end
+  end
 
-  composed_of :profile, class_name: "FighterProfile", mapping: { profile: :attributes }, allow_nil: true
-  has_many :character_league_infos
+  validates :id, format: /\A#{Patterns::SHORT_ID_REGEXP.source}\z/
 
-  after_initialize { self.profile ||= FighterProfile.new(name: "##{id}") }
-
-  validates :id, format: Regexp.union(/\A/, FIGHTER_ID_REGEXP, /\z/)
+  def matches
+    Match.where(home_fighter_id: id)
+  end
 end

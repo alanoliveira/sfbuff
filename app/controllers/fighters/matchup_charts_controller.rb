@@ -1,12 +1,10 @@
-class Fighters::MatchupChartsController < Matchups::MatchupChartsController
+class Fighters::MatchupChartsController < ApplicationController
   include FighterScoped
+  include SetMatchesFilter
+  fresh_when_synchronized_at_changed
+  layout "fighter"
 
-  layout :fighter_layout
-  fresh_when_unsynchronized
-
-  private
-
-  def matchups_search_params
-    super.merge(home_fighter_id: params[:fighter_id])
+  def show
+    @matchup_chart = MatchupChart.new(@matches_filter.filter(@fighter.matches))
   end
 end

@@ -1,24 +1,24 @@
 module FormsHelper
-  def auto_submit_form_with(data: {}, delay: nil, **opts, &)
-    data[:controller] = [ "auto-submit", data[:controller] ].compact.join
-    data[:auto_submit_delay_value] = delay if delay
-
-    form_with data:, **opts do |f|
-      yield f if block_given?
+  def auto_submit_form_with(data: {}, **attributes)
+    data[:controller] = "auto-submit #{data[:controller]}".strip
+    form_with data: data, **attributes do |form|
+      yield form if block_given?
     end
   end
 
-  def filter_form_with(data: {}, **opts, &)
-    opts[:url] ||= false
-    opts[:scope] ||= ""
-    opts[:method] ||= "get"
-    data[:controller] = "form-helper #{data[:controller]}".strip
-    data[:form_helper_compact_blank_value] = true
-    form_with data:, **opts, &
+  def form_reset_button
+    link_to t("buttons.reset"), false, data: { turbo_prefetch: false }, class: "btn btn-secondary"
   end
 
-  def form_reset_button(data: {}, **opts)
-    data[:turbo_prefetch] = false
-    link_to t("buttons.reset"), false, data:, **opts
+  def character_options_for_select
+    Character.all.map { [ human_enum_name(it), it.id ] }
+  end
+
+  def input_type_options_for_select
+    InputType.all.map { [ human_enum_name(it), it.id ] }
+  end
+
+  def battle_type_options_for_select
+    BattleType.all.map { [ human_enum_name(it), it.id ] }
   end
 end

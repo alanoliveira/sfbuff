@@ -1,28 +1,25 @@
-<div class="dropdown">
-  <button id="bd-theme" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="theme-icon-active">
-      <%= icon "circle-half" %>
-    </span>
-    <span class="d-none ms-2" id="bd-theme-text"><%= t(".toggle-theme") %></span>
+<div class="dropdown" data-controller="theme-selector">
+  <button id="bd-theme" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+    <%= bs_icon "palette" %>
   </button>
   <ul class="dropdown-menu" aria-labelledby="bd-theme-text">
     <li>
-      <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-        <%= icon "sun-fill" %>
+      <%= theme_selector_option_button "light" do %>
+        <%= bs_icon "sun-fill" %>
         <span class="ps-1"><%= t(".light") %></span>
-      </button>
+      <% end %>
     </li>
     <li>
-      <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-        <%= icon "moon-stars-fill" %>
+      <%= theme_selector_option_button "dark" do %>
+        <%= bs_icon "moon-stars-fill" %>
         <span class="ps-1"><%= t(".dark") %></span>
-      </button>
+      <% end %>
     </li>
     <li>
-      <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-        <%= icon "circle-half" %>
+      <%= theme_selector_option_button "auto" do %>
+        <%= bs_icon "circle-half" %>
         <span class="ps-1"><%= t(".auto") %></span>
-      </button>
+      <% end %>
     </li>
   </ul>
 </div>

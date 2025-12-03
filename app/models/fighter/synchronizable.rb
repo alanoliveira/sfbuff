@@ -1,21 +1,29 @@
 module Fighter::Synchronizable
   extend ActiveSupport::Concern
 
-  SYNCHRONIZATION_THRESHOLD = 10.minutes
+  included do
+    class_attribute :synchronization_interval, instance_writer: false, default: 10.minutes
+    has_many :synchronizations, class_name: "FighterSynchronization"
+  end
 
-  def synchronization
-    [ self, "synchronization" ]
+  def synchronizing?
+    synchronizations.last.try { !it.finished? }
   end
 
   def synchronized?
-    synchronized_at.present? && synchronized_at > SYNCHRONIZATION_THRESHOLD.ago
+    synchronized_at.try { it.after?(synchronization_interval.ago) }
   end
 
-  def synchronize_now
-    Fighter::Synchronizer.new(self).synchronize unless synchronized?
+  def synchronizable?
+    !synchronized? && !synchronizing?
   end
 
-  def synchronize_later(...)
-    Fighter::SynchronizeJob.set(...).perform_later(self)
+  def synchronized_at
+    synchronizations.success.last.try(&:created_at)
+  end
+
+  def synchronize!(force: false)
+    return unless synchronizable? || force
+    synchronizations.create.tap(&:process!)
   end
 end

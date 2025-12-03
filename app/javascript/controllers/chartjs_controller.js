@@ -1,42 +1,24 @@
 import { Controller } from "@hotwired/stimulus"
 import "chartjs"
 import "chartjs-adapter-date-fns"
-import "hammerjs"
-import "chartjs-plugin-zoom"
-import marks from "chartjs-plugins/marks"
-import visit from "chartjs-plugins/visit"
-import localize from "chartjs-plugins/localize"
-import bgColor from "chartjs-plugins/bg_color"
+import { Visit, Localizer, Tiptool, Marks, BgColor } from "chartjs-plugins"
 
-const merge = Chart.helpers.merge
+Chart.register(Visit, Localizer, Tiptool, Marks);
 
-const defaultOptions = {
-  plugins: [visit, marks, localize],
-  options: {
-    plugins: {
-      tooltip: {
-        callbacks: {
-          title: ctxs => ctxs[0].raw.title,
-          label: ctx => ctx.raw.label
-        }
-      }
-    }
-  }
-}
-
-const downloadOptions = {
+const DOWNLOAD_OPTIONS = {
+  plugins: [ BgColor ],
   options: {
     animation: false,
     responsive: false,
     pointStyle: false,
     plugins: {
-      title: { display: true }
+      title: { display: true },
+      bgColor: { color: "#FFFFFF" }
     }
-  },
-  plugins: [bgColor, marks]
+  }
 }
 
-// Connects to data-controller="ranked-history-chart"
+// Connects to data-controller="chartjs"
 export default class extends Controller {
   static targets = ["canvas", "downloadButton"]
   static values = {
@@ -44,12 +26,8 @@ export default class extends Controller {
   }
 
   connect() {
+    this.chart = new Chart(this.canvasTarget, this.dataValue)
     this.downloadButtonTarget.addEventListener("click", this.downloadImage.bind(this))
-    this.chart = new Chart(this.canvasTarget, this.chartOptions())
-  }
-
-  chartOptions() {
-    return merge(this.dataValue, defaultOptions);
   }
 
   disconnect() {
@@ -57,12 +35,13 @@ export default class extends Controller {
   }
 
   downloadImage() {
-    const downloadChart = new Chart(document.createElement("canvas"),
-      merge(this.chartOptions(), downloadOptions))
-    downloadChart.resize(800, 600)
+    const canvas = document.createElement("canvas")
+    canvas.width = "1200"
+    canvas.height = "600"
+    const downloadChart = new Chart(canvas, Chart.helpers.merge(this.dataValue, DOWNLOAD_OPTIONS))
     const anchor = document.createElement("a")
+    anchor.target = "_blank"
     anchor.href = downloadChart.toBase64Image()
-    anchor.download = (new Date()).toISOString()
     anchor.click()
   }
 }

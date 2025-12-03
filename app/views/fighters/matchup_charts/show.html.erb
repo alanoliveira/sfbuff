@@ -1,13 +1,9 @@
-<%= fighter_content_frame do %>
-  <div class="card card-body mb-3">
-    <%= render "search_form", matchups_search: @matchups_search %>
-  </div>
+<div class="card card-body mb-3">
+  <%= render "filter_form", matches_filter: @matches_filter %>
+</div>
 
-  <%= empty_alert_unless(@matchup_chart.any?) do %>
-    <%= turbo_frame_tag "matchups-matchup-chart" do %>
-      <div class="card card-body table-responsive">
-        <%= render "matchup_chart", matchup_chart: @matchup_chart %>
-      </div>
-    <% end %>
-  <% end %>
+<%= empty_alert_if @matchup_chart.empty? do %>
+  <div class="card card-body table-responsive">
+    <%= render "matchup_charts/matchup_chart", matchup_chart: @matchup_chart, matches_filter_attributes: @matches_filter.attributes %>
+  </div>
 <% end %>

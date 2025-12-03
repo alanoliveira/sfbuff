@@ -1,0 +1,3 @@
+<% [ :favorites, :victims, :tormentors ].each do |kind| %>
+    <%= render "rivals/rival_table", items: rivals.public_send(kind, 5), title: Rivals.human_attribute_name(kind), matches_filter_attributes: %>
+<% end %>

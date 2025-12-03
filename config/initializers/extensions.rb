@@ -1,1 +1,1 @@
-Dir["#{Rails.root}/lib/extensions/*"].each { |path| require "extensions/#{File.basename(path)}" }
+Rails.root.join("lib/rails_ext/").each_child { require it }

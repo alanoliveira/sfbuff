@@ -3,25 +3,12 @@ module ApplicationHelper
     content_for :title, [ title, "SFBUFF" ].join(" - ")
   end
 
-  def alert(content = nil, type = "success", dismissible: true, **opts, &)
-    content ||= capture(&)
-    tag.div role: "alert", class: [ "alert", "alert-#{type}", ("alert-dismissible" if dismissible) ] do
-      concat content
-      concat button_tag("", type: "button", class: "btn-close", data: { bs_dismiss: "alert" }) if dismissible
-    end
+  def too_many_requests_toast_alert
+    turbo_stream_toast t("alerts.too_many_requests"), kind: "danger"
   end
 
-  def icon(icon, **opts)
-    tag.i nil, class: [ "bi", "bi-#{icon}", opts.delete(:class) ], **opts
-  end
-
-  def empty_alert_unless(condition, &)
-    return alert t("alerts.no_data"), "warning", dismissible: false unless condition
-    capture(&)
-  end
-
-  def error_message(error)
-    return error.message unless Rails.env.production?
-    t("errors.#{error.class.name}", default: t("errors.generic"))
+  def render_markdown(**)
+    content = capture { render(**, formats: :md) }
+    Commonmarker.to_html(content, options: { render: { unsafe: true, hardbreaks: false } }).html_safe
   end
 end

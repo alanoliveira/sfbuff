@@ -1,12 +1,25 @@
-production:
-  periodic_cleanup_ahoy_tables:
-    class: CleanupAhoyTablesJob
-    schedule: at 11pm every day
+# examples:
+#   periodic_cleanup:
+#     class: CleanSoftDeletedRecordsJob
+#     queue: background
+#     args: [ 1000, { batch_size: 500 } ]
+#     schedule: every hour
+#   periodic_cleanup_with_command:
+#     command: "SoftDeletedRecord.due.delete_all"
+#     priority: 2
+#     schedule: at 5am every day
 
+production:
   clear_solid_queue_finished_jobs:
     command: "SolidQueue::Job.clear_finished_in_batches(sleep_between_batches: 0.3)"
     schedule: every hour at minute 12
+  periodic_cleanup_sessions_table:
+    class: SessionsCleanupJob
+    schedule: every hour
+  periodic_update_buckler_credentials:
+    class: UpdateBucklerCredentialsJob
+    schedule: every 5 minutes
+  periodic_cleanup_async_requests:
+    class: DatabaseCleanupJob
+    schedule: every hour at minute 21
 
-  clear_finished_fighter_searches:
-    command: "ProfileSearchProcess.clear_in_batches(sleep_between_batches: 0.3)"
-    schedule: every hour at minute 29

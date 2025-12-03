@@ -1,8 +1,18 @@
 module SwitchLocale
+  extend ActiveSupport::Concern
+
+  included do
+    if self < ActionController::Base
+      around_action :switch_locale
+    elsif self < ActionCable::Connection::Base
+      around_command :switch_locale
+    end
+  end
+
   def switch_locale(&)
     locale = extract_locale_from_cookies ||
-             extract_locale_from_accept_language_header ||
-             I18n.default_locale
+      extract_locale_from_accept_language_header ||
+      I18n.default_locale
     I18n.with_locale(locale, &)
   end
 

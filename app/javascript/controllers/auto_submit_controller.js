@@ -2,13 +2,15 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="auto-submit"
 export default class extends Controller {
-  static values = { delay: { type: Number, default: 200 } }
-
-  connect() {
-    this.timeout = setTimeout(() => this.element.requestSubmit(), this.delayValue)
+  static values = {
+    wait: { type: Number, default: 0 }
   }
 
-  disconnect() {
-    clearTimeout(this.timeout)
+  initialize() {
+    setTimeout(this.submit.bind(this), this.waitValue)
+  }
+
+  submit() {
+    this.element.requestSubmit()
   }
 }

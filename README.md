@@ -1,82 +1,101 @@
 # SFBUFF
 
-SFBuff is a statistics website for SF6.  
+SFBUFF is a statistics website for SF6.  
 It gathers match information from the official website, then provides a variety  
 of information for players to track their own performance.
 
-## Environment variables
-
-| variable                                       | description                                                          |
-| ---------------------------------------------- | -------------------------------------------------------------------- |
-| `SECRET_KEY_BASE`                              | Base secret for all MessageVerifiers in Rails                        |
-| `BUCKLER_USER_AGENT`                           | HTTP header `User-Agent` used to make requests to the official site¹ |
-| `BUCKLER_EMAIL`                                | Email used to access the official site                               |
-| `BUCKLER_PASSWORD`                             | Password used to access the official site                            |
-| `DATABASE_URL`                                 | Postgres database url                                                |
-
-¹ The official site is quite restrictive about it. Be sure to use something valid.
-
-## Running with Docker
-
-- Set the environment variables
-
-      export SECRET_KEY_BASE=$(openssl rand -hex 64)
-      export BUCKLER_USER_AGENT=Mozilla/5.0...
-      export BUCKLER_EMAIL=player@domain...
-      export BUCKLER_PASSWORD=623P
-    
-- Run
-
-      docker-compose up
-
-- Application should be accessible at:
-
-      http://localhost:3000
-
-## Build and running locally
+## Development
 
 ### Prerequisites
 
-- Ruby 3.4.5
+- Ruby 3.4.7
 - Bundler 2.7.1
 - Postgresql 16.2
-- Chrome (used as a fallback for login if the attempt using http fails)
-- redis 7
+- Chromium (used as a fallback for login if the attempt using http fails)
+- Yarn 1.22.22 (if you want to use js/css assets locally)
 
-### Building
+### Environment variables
 
-- Install the dependencies
+| variable                                       | description                                                          |
+| ---------------------------------------------- | -------------------------------------------------------------------- |
+| `SFBUFF_DEFAULT_USER_AGENT`                    | HTTP header `User-Agent` used to make requests to the official site¹ |
+| `SFBUFF_BUCKLER_EMAIL`                         | Email used to access the official site                               |
+| `SFBUFF_BUCKLER_PASSWORD`                      | Password used to access the official site                            |
+| `SFBUFF_USE_LOCAL_ASSETS`                      | Set it if you want to and use local js/css lib dependencies²         |
+| `DATABASE_URL`                                 | Postgres database url                                                |
 
-      bundle install
-  
-- Set the environment variables
+¹ The official site is quite restrictive about it. Be sure to use something valid.  
+² Otherwise it will use jsdlivr cdn  
 
-      export RAILS_ENV=production
-      export SECRET_KEY_BASE=$(openssl rand -hex 64)
-      export BUCKLER_USER_AGENT=Mozilla/5.0...
-      export BUCKLER_EMAIL=player@domain...
-      export BUCKLER_PASSWORD=623P
-      export DATABASE_URL=postgres://...
+### Setting up
 
-- Prepare the application
+Run the setup script:
 
-      SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-      ./bin/rails db:prepare
-      ./bin/rails buckler_credential:create
+```sh
+bin/setup --skip-server
+```
 
-#### Note for using RAILS_ENV=development
+Initialize buckler credentials (more details [here](#regarding-official-site-api-login)):
 
-Development environment is using `async` as ActiveJob queue adapter, so
-`buckler_credential:create` returns before the credentials creation jobs be 
-processed.
-To enforce the credentials creation run `./bin/rails buckler_credential:refresh`.
+```sh
+bin/thor buckler_api:reload_credentials --now
+```
 
-### Running
+Start the server with:
 
-- Start the server
+```sh
+bin/dev
+```
 
-      bin/rails server -p 3000
-  
-- Application should be accessible at:
-  
-      http://localhost:3000
+The application should be accessible at http://localhost:3000
+
+### Running Tests
+
+To run only unit tests:
+
+```
+bin/rspec
+```
+
+To run all test suite:
+
+```
+bin/ci
+```
+
+## Running with Docker
+
+Set the environment variables:
+
+```
+export SECRET_KEY_BASE=$(openssl rand -hex 64)
+export SFBUFF_DEFAULT_USER_AGENT=Mozilla/5.0...
+export SFBUFF_BUCKLER_EMAIL=player@domain...
+export SFBUFF_BUCKLER_PASSWORD=623P
+```
+
+Run:
+
+```sh
+docker-compose up
+```
+
+Application should be accessible at http://localhost:3000
+
+## Regarding official site API login
+
+The official site has no actual public API (SFBUFF is getting data from the nextjs endpoints).  
+Therefore, authentication is not straightforward.  
+Currently there is two workarounds implementations for it (tried in the respective order):
+
+1. Using an HTTP client
+  - It depends on the good will of the reverse proxy (sometimes it identifies SFBUFF as a bot)
+  - The process involves some posts/redirections so the implementation is messy
+2. Using Selenium with Chromium driver
+  - Chromium consumes A LOT of ram (which can be impracticable depending on the server)
+
+As an last alternative you must set the authentication cookies manually using:
+
+```
+bin/thor buckler_api:set_auth_cookie AUTH_COOKIE
+```

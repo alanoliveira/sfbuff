@@ -21,12 +21,12 @@ Bundler.require(*Rails.groups)
 module Sfbuff
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 8.0
+    config.load_defaults 8.1
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w[assets tasks extensions])
+    config.autoload_lib(ignore: %w[rails_ext assets tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -35,6 +35,8 @@ module Sfbuff
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.autoload_once_paths << "#{root}/app/types"
+    config.autoload_once_paths << "#{root}/app/values"
 
     # Don't generate system test files.
     config.generators.system_tests = nil

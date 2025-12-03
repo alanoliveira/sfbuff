@@ -1,96 +1,86 @@
 en:
   buttons:
     search: Search
-    select: Select
     reset: Reset
     download: Download
-    locale_select: Locale Select
-    repository: Repository
-    chart: Chart
     close: Close
-  application:
-    theme_selector:
-      dark: Dark
-      light: Light
-      auto: Auto
-  homepage:
+  forms:
+    any: Any
+  alerts:
+    no_data: No data found
+    synchronization_success:
+      zero: "No new matches"
+      one: "%{count} new match"
+      other: "%{count} new matches"
+    errors:
+      buckler_api_client/under_maintenance: Buckler is under maintenance
+      buckler_api_client/rate_limit_exceeded: We're sending too many requests to the the official website at the moment. Please try again in a few minutes
+      generic: An error occurred
+  layouts:
+    application:
+      nav:
+        about: About
+    fighter:
+      synchronized_at_html: "Synchronized %{local_time_ago}"
+  pages:
     index:
       welcome: Welcome to SFBUFF
       description: A statistics website for SF6 matches
-  fighters:
+  searches:
     search_form:
       placeholder: Name or ID
-    synchronizer:
-      response:
-        n_battles_imported:
-          one: "%{count} new match imported"
-          other: "%{count} new matches imported"
-    matchups:
-      score_by_date_charts:
-        title: Score by date chart
-  common:
-    chart: Chart
-    any: Any
-  activerecord:
-    models:
-      matchup: Matches
-      battle:
-        one: Match
-        other: Matches
-      fighter:
-        one: Player
-        other: Players
-    attributes:
-      fighter:
-        synchronized_at: Synchronized
-      matchup:
-        home_fighter_id: My ID
-        home_name: My name
-        home_character: My Character
-        home_input_type: My Control
-        home_challenger: Me
-        away_fighter_id: Vs ID
-        away_name: VS name
-        away_character: Vs Character
-        away_input_type: Vs Control
-        away_challenger: VS
-        replay_id: Replay ID
-        played_at: Date
-        battle_type: Match Type
   activemodel:
     models:
-      matchup/matchup_chart: Matchup Chart
-      matchup/rivals: Rivals
       ranked_history: Ranked History
+      matchup_chart: Matchup Chart
+      rivals: Rivals
+      character: Character
+      input_type: Input Type
+      country: Country
+      battle_type: Match Type
+      result: Result
+      round: Round
     attributes:
-      matchup/score:
+      score:
         wins: Wins
         losses: Losses
         draws: Draws
-        total: Total
         diff: Diff
         ratio: Ratio
-      matchup/rivals:
+        total: Total
+      rivals:
         favorites: Favorites
         victims: Victims
         tormentors: Tormentors
-      fighter_profile:
-        home: Country
-        league_info: League
-        main_character: Main char
-        last_online_at: Last online
-        name: Name
-        fighter_id: ID
-      ranked_history:
-        character: My Character
-  attributes:
-    played_from: From
-    played_to: To
-  errors:
-    "ArgumentError": Invalid parameter
-    "BucklerApi::Errors::UnderMaintenance": Buckler is under maintenance
-    "BucklerApi::Errors::RateLimitExceeded": We're sending too many requests to the the official website at the moment. Please try again in a few minutes
-    generic: An error occurred
-  alerts:
-    no_data: No data found
-    too_many_requests: Too many requests
+      matches_filter:
+        home_character_id: My Character
+        home_input_type_id: My Controle
+        away_character_id: Vs Character
+        away_input_type_id: Vs Control
+        battle_type_id: Match Type
+        played_from: From
+        played_to: To
+      buckler_api_gateway/mappers/fighter_banner:
+        short_id: ID
+        fighter_id: Name
+        home_id: Country
+        last_play_at: Last Play
+        favorite_character_id: Main Char
+        master_rating: MR
+        league_point: LP
+  activerecord:
+    models:
+      fighter:
+        one: Player
+        other: Players
+      match: 
+        one: Match
+        other: Matches
+    attributes:
+      match:
+        home_challenger: Me
+        away_challenger: Vs
+        result: Result
+        battle_type: Match Type
+        replay_id: Replay ID
+        played_at: Played

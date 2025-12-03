@@ -1,0 +1,12 @@
+<%= modal_container do %>
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-body">
+        <%= render "matches/daily_results_chart", matches: @matches %>
+      </div>
+      <div class="modal-footer">
+        <%= modal_close_button %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,96 +1,86 @@
 ja:
   buttons:
     search: 検索
-    select: 選択
     reset: リセット
     download: ダウンロード
-    locale_select: ロケール選択
-    repository: リポジトリ
-    chart: チャート
     close: 閉じる
-  application:
-    theme_selector:
-      dark: ダーク
-      light: ライト
-      auto: オート
-  homepage:
+  forms:
+    any: 全て
+  alerts:
+    no_data: データが見つかりません
+    synchronization_success:
+      zero: "新しい戦がありません"
+      one: "%{count}戦が追加された"
+      other: "%{count}戦が追加された"
+    errors:
+      buckler_api_client/under_maintenance: Bucklerはメンテナンス中です
+      buckler_api_client/rate_limit_exceeded: 現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください
+      generic: エラーが発生しました
+  layouts:
+    application:
+      nav:
+        about: 概要
+    fighter:
+      synchronized_at_html: "同期済み %{local_time_ago}"
+  pages:
     index:
       welcome: SFBUFFにようこそ
       description: スト6の対戦を分析するサイト
-  fighters:
+  searches:
     search_form:
       placeholder: プレイヤーネームまたID
-    synchronizer:
-      response:
-        n_battles_imported:
-          one: "%{count}戦が追加された"
-          other: "%{count}戦が追加された"
-    matchups:
-      score_by_date_charts:
-        title: 日付別スコアチャート
-  common:
-    chart: 統計
-    any: 全て
-  activerecord:
-    models:
-      matchup: 対戦
-      battle:
-        one: 対戦
-        other: 対戦
-      fighter:
-        one: プレイヤー
-        other: プレイヤー
-    attributes:
-      fighter:
-        synchronized_at: 同期済み
-      matchup:
-        home_fighter_id: 私のID
-        home_name: 私の名前
-        home_character: 私のキャラクター
-        home_input_type: 私の操作タイプ
-        home_challenger: 私
-        away_fighter_id: 対戦相手のID
-        away_name: 対戦相手の名前
-        away_character: 対戦相手のキャラクター
-        away_input_type: 対戦相手の操作タイプ
-        away_challenger: 相手
-        replay_id: リプレイID
-        played_at: 試合日
-        battle_type: ゲームモード
   activemodel:
     models:
-      matchup/matchup_chart: キャラ別統計
-      matchup/rivals: ライバル
       ranked_history: ランク統計
+      matchup_chart: キャラ別統計
+      rivals: ライバル
+      character: キャラクター
+      input_type: 操作タイプ
+      country: 国
+      battle_type: ゲームモード
+      result: 勝負
+      round: ラウンド
     attributes:
-      matchup/score:
+      score:
         wins: 勝利
         losses: 敗北
         draws: 引き分け
-        total: 合計
         diff: 勝利数
         ratio: 勝率
-      matchup/rivals:
+        total: 合計
+      rivals:
         favorites: 多く戦った対戦相手
         victims: 勝率が高い対戦相手
         tormentors: 勝率が低い対戦相手
-      fighter_profile:
-        home: 国
-        league_info: リーグ
-        main_character: メインキャラクター
-        last_online_at: 最終オンライン
-        name: 名前
-        fighter_id: ID
-      ranked_history:
-        character: 私のキャラクター
-  attributes:
-    played_from: 始日
-    played_to: 了日
-  errors:
-    "ArgumentError": 無効な引数
-    "BucklerApi::Errors::UnderMaintenance": Bucklerはメンテナンス中です
-    "BucklerApi::Errors::RateLimitExceeded": 現在、公式サイトへのリクエストが多すぎます。数分後に再度お試しください
-    generic: エラーが発生しました
-  alerts:
-    no_data: データが見つかりません
-    too_many_requests: リクエストが多すぎます
+      matches_filter:
+        home_character_id: 私のキャラクター
+        home_input_type_id: 私の操作タイプ
+        away_character_id: 対戦相手のキャラクター
+        away_input_type_id: 対戦相手の操作タイプ
+        battle_type_id: ゲームモード
+        played_from: 始日
+        played_to: 了日
+      buckler_api_gateway/mappers/fighter_banner:
+        short_id: ID
+        fighter_id: 名前
+        home_id: 国
+        last_play_at: 最終オンライン
+        favorite_character_id: メインキャラクター
+        master_rating: MR
+        league_point: LP
+  activerecord:
+    models:
+      fighter:
+        one: プレイヤー
+        other: プレイヤー
+      match: 
+        one: 対戦
+        other: 対戦
+    attributes:
+      match:
+        home_challenger: 私
+        away_challenger: 相手
+        result: 勝負
+        battle_type: ゲームモード
+        replay_id: リプレイID
+        played_at: 試合日

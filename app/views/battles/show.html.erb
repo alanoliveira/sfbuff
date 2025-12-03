@@ -1,12 +1,1 @@
-<%= modal_container aria: { label: Battle.model_name.human } do %>
-  <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content">
-      <div class="modal-body">
-        <%= render @battle %>
-      </div>
-      <div class="modal-footer">
-        <%= modal_dismiss_button class: "btn btn-secondary" %>
-      </div>
-    </div>
-  </div>
-<% end %>
+<%= render @battle %>

@@ -1,9 +1,0 @@
-{
-  "ignored_warnings": [
-    {
-      "warning_type": "Dangerous Eval",
-      "fingerprint": "b1a558f95ea9649b6bc8822aba5a6636dc71b3221994afd7851c55b084156c49"
-    }
-  ],
-  "brakeman_version": "7.1.0"
-}

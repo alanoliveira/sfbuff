@@ -1,0 +1,31 @@
+class MatchupChart
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
+
+  def initialize(matches)
+    @matches = matches
+  end
+
+  def get(character:, input_type:)
+    data[{ "away_character_id" => character.to_i, "away_input_type_id" => input_type.to_i }] || Score.empty
+  end
+
+  def sum
+    @sum ||= data.values.reduce(&:+) || Score.empty
+  end
+
+  delegate :empty?, to: :data
+
+  private
+
+  def data
+    @data ||= fetch_data.to_h
+  end
+
+  def fetch_data
+    @matches
+      .select(:away_character_id, :away_input_type_id)
+      .group(:away_character_id, :away_input_type_id)
+      .aggregate_results
+  end
+end

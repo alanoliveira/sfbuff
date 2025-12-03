@@ -10,196 +10,194 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_15_065847) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_03_063004) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-  enable_extension "pg_stat_statements"
 
-  create_table "ahoy_events", force: :cascade do |t|
-    t.bigint "visit_id"
-    t.bigint "user_id"
-    t.string "name"
-    t.text "properties"
-    t.datetime "time"
-    t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
-    t.index ["user_id"], name: "index_ahoy_events_on_user_id"
-    t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
-  end
-
-  create_table "ahoy_visits", force: :cascade do |t|
-    t.string "visit_token"
-    t.string "visitor_token"
-    t.bigint "user_id"
-    t.string "ip"
-    t.text "user_agent"
-    t.text "referrer"
-    t.string "referring_domain"
-    t.text "landing_page"
-    t.string "browser"
-    t.string "os"
-    t.string "device_type"
-    t.string "country"
-    t.datetime "started_at"
-    t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
-    t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
-    t.index ["visitor_token", "started_at"], name: "index_ahoy_visits_on_visitor_token_and_started_at"
-  end
-
-  create_table "battles", primary_key: "replay_id", id: :string, force: :cascade do |t|
-    t.datetime "played_at", null: false
-    t.integer "battle_type_id", null: false
-    t.integer "winner_side", null: false
-    t.bigint "p1_fighter_id", null: false
-    t.integer "p1_character_id", null: false
-    t.integer "p1_playing_character_id", null: false
-    t.integer "p1_input_type_id", null: false
-    t.integer "p1_mr"
-    t.integer "p1_lp"
-    t.json "p1_round_ids", null: false
-    t.string "p1_name", null: false
-    t.bigint "p2_fighter_id", null: false
-    t.integer "p2_character_id", null: false
-    t.integer "p2_playing_character_id", null: false
-    t.integer "p2_input_type_id", null: false
-    t.integer "p2_mr"
-    t.integer "p2_lp"
-    t.json "p2_round_ids", null: false
-    t.string "p2_name", null: false
+  create_table "app_settings", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.boolean "encrypted", null: false
+    t.string "key", null: false
     t.datetime "updated_at", null: false
+    t.json "value"
+  end
+
+  create_table "battles", force: :cascade do |t|
+    t.integer "battle_type_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "p1_character_id", null: false
+    t.bigint "p1_fighter_id", null: false
+    t.integer "p1_input_type_id", null: false
+    t.integer "p1_lp"
+    t.integer "p1_mr"
+    t.string "p1_name", null: false
+    t.integer "p1_playing_character_id", null: false
+    t.json "p1_rounds", null: false
+    t.integer "p2_character_id", null: false
+    t.bigint "p2_fighter_id", null: false
+    t.integer "p2_input_type_id", null: false
+    t.integer "p2_lp"
+    t.integer "p2_mr"
+    t.string "p2_name", null: false
+    t.integer "p2_playing_character_id", null: false
+    t.json "p2_rounds", null: false
+    t.datetime "played_at", null: false
+    t.string "replay_id"
+    t.datetime "updated_at", null: false
+    t.integer "winner_side", null: false
     t.index ["p1_fighter_id", "p1_character_id", "played_at"], name: "idx_on_p1_fighter_id_p1_character_id_played_at_e033a5d039", where: "(battle_type_id = 1)", include: ["replay_id", "p1_mr", "p1_lp"]
     t.index ["p1_fighter_id", "played_at"], name: "index_battles_on_p1_fighter_id_and_played_at"
     t.index ["p2_fighter_id", "p2_character_id", "played_at"], name: "idx_on_p2_fighter_id_p2_character_id_played_at_fedf543a9e", where: "(battle_type_id = 1)", include: ["replay_id", "p2_mr", "p2_lp"]
     t.index ["p2_fighter_id", "played_at"], name: "index_battles_on_p2_fighter_id_and_played_at"
+    t.index ["played_at"], name: "index_battles_on_played_at"
+    t.index ["replay_id"], name: "index_battles_on_replay_id", unique: true
   end
 
-  create_table "buckler_credentials", force: :cascade do |t|
-    t.string "auth_cookie"
-    t.string "build_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "battles_fighter_synchronizations", id: false, force: :cascade do |t|
+    t.bigint "battle_id", null: false
+    t.bigint "fighter_synchronization_id", null: false
+    t.index ["fighter_synchronization_id", "battle_id"], name: "idx_on_fighter_synchronization_id_battle_id_e05ed78f24"
   end
 
-  create_table "character_league_infos", primary_key: ["fighter_id", "character_id"], force: :cascade do |t|
-    t.bigint "fighter_id", null: false
+  create_table "current_league_infos", force: :cascade do |t|
     t.integer "character_id", null: false
-    t.integer "mr"
-    t.integer "lp"
     t.datetime "created_at", null: false
+    t.bigint "fighter_id", null: false
+    t.integer "lp"
+    t.integer "mr"
     t.datetime "updated_at", null: false
+    t.index ["fighter_id", "character_id"], name: "index_current_league_infos_on_fighter_id_and_character_id", unique: true
+    t.index ["fighter_id"], name: "index_current_league_infos_on_fighter_id"
+  end
+
+  create_table "fighter_searches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "performed_at"
+    t.string "query", null: false
+    t.json "result"
+    t.datetime "updated_at", null: false
+    t.index ["query"], name: "index_fighter_searches_on_query", unique: true
+  end
+
+  create_table "fighter_synchronizations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "fighter_id", null: false
+    t.integer "status", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fighter_id"], name: "index_fighter_synchronizations_on_fighter_id"
   end
 
   create_table "fighters", id: :bigint, default: nil, force: :cascade do |t|
-    t.json "profile"
-    t.datetime "synchronized_at"
-    t.string "last_synchronized_replay_id"
     t.datetime "created_at", null: false
+    t.integer "main_character_id"
+    t.string "name"
     t.datetime "updated_at", null: false
   end
 
-  create_table "profile_search_processes", force: :cascade do |t|
+  create_table "search_requests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "error"
     t.string "query", null: false
-    t.integer "status", default: 0, null: false
-    t.datetime "created_at", null: false
+    t.text "result"
+    t.bigint "session_id", null: false
+    t.integer "status", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_view "matchups", sql_definition: <<-SQL
-      SELECT unnamed_subquery.replay_id,
-      unnamed_subquery.played_at,
-      unnamed_subquery.battle_type_id,
-      unnamed_subquery.home_fighter_id,
-      unnamed_subquery.home_character_id,
-      unnamed_subquery.home_playing_character_id,
-      unnamed_subquery.home_input_type_id,
-      unnamed_subquery.home_mr,
-      unnamed_subquery.home_lp,
-      unnamed_subquery.home_round_ids,
-      unnamed_subquery.home_name,
-      unnamed_subquery.away_fighter_id,
-      unnamed_subquery.away_character_id,
-      unnamed_subquery.away_playing_character_id,
-      unnamed_subquery.away_input_type_id,
-      unnamed_subquery.away_mr,
-      unnamed_subquery.away_lp,
-      unnamed_subquery.away_round_ids,
-      unnamed_subquery.away_name,
-      unnamed_subquery.result
-     FROM ( SELECT battles.replay_id,
-              battles.played_at,
-              battles.battle_type_id,
-              battles.p1_fighter_id AS home_fighter_id,
-              battles.p1_character_id AS home_character_id,
-              battles.p1_playing_character_id AS home_playing_character_id,
-              battles.p1_input_type_id AS home_input_type_id,
-              battles.p1_mr AS home_mr,
-              battles.p1_lp AS home_lp,
-              battles.p1_round_ids AS home_round_ids,
-              battles.p1_name AS home_name,
-              battles.p2_fighter_id AS away_fighter_id,
-              battles.p2_character_id AS away_character_id,
-              battles.p2_playing_character_id AS away_playing_character_id,
-              battles.p2_input_type_id AS away_input_type_id,
-              battles.p2_mr AS away_mr,
-              battles.p2_lp AS away_lp,
-              battles.p2_round_ids AS away_round_ids,
-              battles.p2_name AS away_name,
-                  CASE battles.winner_side
+  create_table "sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "ip_address"
+    t.datetime "last_active_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+  end
+
+  create_table "synchronization_requests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "error"
+    t.bigint "fighter_id", null: false
+    t.json "result"
+    t.bigint "session_id", null: false
+    t.integer "status", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "current_league_infos", "fighters"
+  add_foreign_key "fighter_synchronizations", "fighters"
+  add_foreign_key "search_requests", "sessions"
+  add_foreign_key "synchronization_requests", "sessions"
+
+  create_view "matches", sql_definition: <<-SQL
+      SELECT replay_id,
+      played_at,
+      battle_type_id,
+      home_fighter_id,
+      home_character_id,
+      home_playing_character_id,
+      home_input_type_id,
+      home_mr,
+      home_lp,
+      home_rounds,
+      home_name,
+      away_fighter_id,
+      away_character_id,
+      away_playing_character_id,
+      away_input_type_id,
+      away_mr,
+      away_lp,
+      away_rounds,
+      away_name,
+      result
+     FROM ( SELECT p1_home_p2_away.replay_id,
+              p1_home_p2_away.played_at,
+              p1_home_p2_away.battle_type_id,
+              p1_home_p2_away.p1_fighter_id AS home_fighter_id,
+              p1_home_p2_away.p1_character_id AS home_character_id,
+              p1_home_p2_away.p1_playing_character_id AS home_playing_character_id,
+              p1_home_p2_away.p1_input_type_id AS home_input_type_id,
+              p1_home_p2_away.p1_mr AS home_mr,
+              p1_home_p2_away.p1_lp AS home_lp,
+              p1_home_p2_away.p1_rounds AS home_rounds,
+              p1_home_p2_away.p1_name AS home_name,
+              p1_home_p2_away.p2_fighter_id AS away_fighter_id,
+              p1_home_p2_away.p2_character_id AS away_character_id,
+              p1_home_p2_away.p2_playing_character_id AS away_playing_character_id,
+              p1_home_p2_away.p2_input_type_id AS away_input_type_id,
+              p1_home_p2_away.p2_mr AS away_mr,
+              p1_home_p2_away.p2_lp AS away_lp,
+              p1_home_p2_away.p2_rounds AS away_rounds,
+              p1_home_p2_away.p2_name AS away_name,
+                  CASE p1_home_p2_away.winner_side
                       WHEN 1 THEN 1
                       WHEN 2 THEN '-1'::integer
                       ELSE 0
                   END AS result
-             FROM battles) unnamed_subquery
-  UNION ALL
-   SELECT battles.replay_id,
-      battles.played_at,
-      battles.battle_type_id,
-      battles.p2_fighter_id AS home_fighter_id,
-      battles.p2_character_id AS home_character_id,
-      battles.p2_playing_character_id AS home_playing_character_id,
-      battles.p2_input_type_id AS home_input_type_id,
-      battles.p2_mr AS home_mr,
-      battles.p2_lp AS home_lp,
-      battles.p2_round_ids AS home_round_ids,
-      battles.p2_name AS home_name,
-      battles.p1_fighter_id AS away_fighter_id,
-      battles.p1_character_id AS away_character_id,
-      battles.p1_playing_character_id AS away_playing_character_id,
-      battles.p1_input_type_id AS away_input_type_id,
-      battles.p1_mr AS away_mr,
-      battles.p1_lp AS away_lp,
-      battles.p1_round_ids AS away_round_ids,
-      battles.p1_name AS away_name,
-          CASE battles.winner_side
-              WHEN 2 THEN 1
-              WHEN 1 THEN '-1'::integer
-              ELSE 0
-          END AS result
-     FROM battles;
-  SQL
-  create_view "ranked_steps", sql_definition: <<-SQL
-      SELECT unnamed_subquery.replay_id,
-      unnamed_subquery.played_at,
-      unnamed_subquery.fighter_id,
-      unnamed_subquery.character_id,
-      unnamed_subquery.mr,
-      unnamed_subquery.lp
-     FROM ( SELECT battles.replay_id,
-              battles.played_at,
-              battles.p1_fighter_id AS fighter_id,
-              battles.p1_character_id AS character_id,
-              battles.p1_mr AS mr,
-              battles.p1_lp AS lp
-             FROM battles
-            WHERE (battles.battle_type_id = 1)) unnamed_subquery
-  UNION ALL
-   SELECT battles.replay_id,
-      battles.played_at,
-      battles.p2_fighter_id AS fighter_id,
-      battles.p2_character_id AS character_id,
-      battles.p2_mr AS mr,
-      battles.p2_lp AS lp
-     FROM battles
-    WHERE (battles.battle_type_id = 1);
+             FROM battles p1_home_p2_away
+          UNION ALL
+           SELECT p2_home_p1_away.replay_id,
+              p2_home_p1_away.played_at,
+              p2_home_p1_away.battle_type_id,
+              p2_home_p1_away.p2_fighter_id AS home_fighter_id,
+              p2_home_p1_away.p2_character_id AS home_character_id,
+              p2_home_p1_away.p2_playing_character_id AS home_playing_character_id,
+              p2_home_p1_away.p2_input_type_id AS home_input_type_id,
+              p2_home_p1_away.p2_mr AS home_mr,
+              p2_home_p1_away.p2_lp AS home_lp,
+              p2_home_p1_away.p2_rounds AS home_rounds,
+              p2_home_p1_away.p2_name AS home_name,
+              p2_home_p1_away.p1_fighter_id AS away_fighter_id,
+              p2_home_p1_away.p1_character_id AS away_character_id,
+              p2_home_p1_away.p1_playing_character_id AS away_playing_character_id,
+              p2_home_p1_away.p1_input_type_id AS away_input_type_id,
+              p2_home_p1_away.p1_mr AS away_mr,
+              p2_home_p1_away.p1_lp AS away_lp,
+              p2_home_p1_away.p1_rounds AS away_rounds,
+              p2_home_p1_away.p1_name AS away_name,
+                  CASE p2_home_p1_away.winner_side
+                      WHEN 2 THEN 1
+                      WHEN 1 THEN '-1'::integer
+                      ELSE 0
+                  END AS result
+             FROM battles p2_home_p1_away) matches;
   SQL
 end

@@ -1,96 +1,86 @@
 pt-BR:
   buttons:
     search: Pesquisar
-    select: Selecionar
     reset: Resetar
     download: Download
-    locale_select: Selecionar Localização
-    repository: Repositório
-    chart: Gráfico
     close: Fechar
-  application:
-    theme_selector:
-      dark: Dark
-      light: Light
-      auto: Auto
-  homepage:
+  forms:
+    any: Qualquer
+  alerts:
+    no_data: Nenhum resultado encontrado
+    synchronization_success:
+      zero: "Nenhuma nova match"
+      one: "%{count} nova match"
+      other: "%{count} novas matches"
+    errors:
+      buckler_api_client/under_maintenance: Buckler está em manutenção
+      buckler_api_client/rate_limit_exceeded: Estamos enviando muitas solicitações para o site oficial no momento. Tente novamente em alguns minutos
+      generic: Ocorreu um erro
+  layouts:
+    application:
+      nav:
+        about: Sobre
+    fighter:
+      synchronized_at_html: "Sincronizado %{local_time_ago}"
+  pages:
     index:
       welcome: Bem vindo ao SFBUFF
       description: Um site de estatísticas para matches de SF6
-  fighters:
+  searches:
     search_form:
       placeholder: Nome ou ID
-    synchronizer:
-      response:
-        n_battles_imported:
-          one: "%{count} nova match importada"
-          other: "%{count} novas matches importadas"
-    matchups:
-      score_by_date_charts:
-        title: Gráfico de Resultados por Data
-  common:
-    chart: Gráfico
-    any: Qualquer
-  activerecord:
-    models:
-      matchup: Matches
-      battle:
-        one: Match
-        other: Matches
-      fighter:
-        one: Jogador
-        other: Jogadores
-    attributes:
-      fighter:
-        synchronized_at: Sincronizado
-      matchup:
-        home_fighter_id: Meu ID
-        home_name: Meu Nome
-        home_character: Meu Personagem
-        home_input_type: Meu Controle
-        home_challenger: Eu
-        away_fighter_id: Vs ID
-        away_name: VS name
-        away_character: Vs Personagem
-        away_input_type: Vs Controle
-        away_challenger: VS
-        replay_id: Replay ID
-        played_at: Data
-        battle_type: Tipo de Match
   activemodel:
     models:
-      matchup/matchup_chart: Matchup Chart
-      matchup/rivals: Rivais
       ranked_history: Histórico de Ranqueadas
+      matchup_chart: Matchup Chart
+      rivals: Rivais
+      character: Personagem
+      input_type: Controle
+      country: País
+      battle_type: Tipo de Match
+      result: Resultado
+      round: Round
     attributes:
-      matchup/score:
+      score:
         wins: Vitórias
-        losses: Derrota
+        losses: Derrotas
         draws: Empates
-        total: Total
         diff: Saldo
         ratio: Percentual
-      matchup/rivals:
+        total: Total
+      rivals:
         favorites: Favoritos
         victims: Vítimas
         tormentors: Carrascos
-      fighter_profile:
-        home: País
-        league_info: Liga
-        main_character: Main char
-        last_online_at: Última vez online
-        name: Nome
-        fighter_id: ID
-      ranked_history:
-        character: Meu Personagem
-  attributes:
-    played_from: De
-    played_to: Até
-  errors:
-    "ArgumentError": Parâmetro inválido
-    "BucklerApi::Errors::UnderMaintenance": Buckler está em manutenção
-    "BucklerApi::Errors::RateLimitExceeded": Estamos enviando muitas solicitações para o site oficial no momento. Tente novamente em alguns minutos
-    generic: Ocorreu um erro
-  alerts:
-    no_data: Nenhum resultado encontrado
-    too_many_requests: Muitas solicitações
+      matches_filter:
+        home_character_id: Meu Personagem
+        home_input_type_id: Meu Controle
+        away_character_id: Vs Personagem
+        away_input_type_id: Vs Controle
+        battle_type_id: Tipo de Match
+        played_from: De
+        played_to: Até
+      buckler_api_gateway/mappers/fighter_banner:
+        short_id: ID
+        fighter_id: Nome
+        home_id: País
+        last_play_at: Última vez online
+        favorite_character_id: Main Char
+        master_rating: MR
+        league_point: LP
+  activerecord:
+    models:
+      fighter:
+        one: Player
+        other: Players
+      match: 
+        one: Match
+        other: Matches
+    attributes:
+      match:
+        home_challenger: Eu
+        away_challenger: Vs
+        result: Resultado
+        battle_type: Match Type
+        replay_id: Replay ID
+        played_at: Jogado

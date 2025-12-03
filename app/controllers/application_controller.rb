@@ -1,30 +1,28 @@
 class ApplicationController < ActionController::Base
-  include VersionHeaders
-  include SwitchTimezone
+  include Pagy::Method
+  include Sessionizer
+  include ModalVariant
   include SwitchLocale
+  include SwitchTimezone
 
-  before_action :require_timezone
-  around_action :switch_timezone, :switch_locale
-  around_action :track_slow_requests
+  rescue_from ActionController::TooManyRequests, with: :too_many_requests
 
-  etag { I18n.locale.name }
-  etag { Rails.application.config.git_revision }
+  # Changes to the importmap will invalidate the etag for HTML responses
+  stale_when_importmap_changes
+
   fragment_cache_key { I18n.locale.name }
   fragment_cache_key { Time.zone.utc_offset }
+  fragment_cache_key { Rails.application.config.git_revision }
+  etag { Rails.application.config.git_revision }
+  etag { I18n.locale.name }
+  after_action -> { no_store } if Rails.env.development?
 
   private
 
   def too_many_requests
-    render partial: "application/too_many_requests", status: :too_many_requests
-  end
-
-  def track_slow_requests
-    start_time = Time.zone.now
-    yield
-    end_time = Time.zone.now
-    latency = end_time - start_time
-    if latency > 1.second
-      ahoy.track("slow_request", { params: params.to_unsafe_h, latency: }.to_json)
+    respond_to do |format|
+      format.html { render html: helpers.too_many_requests_toast_alert, layout: true }
+      format.turbo_stream { render turbo_stream: helpers.too_many_requests_toast_alert }
     end
   end
 end

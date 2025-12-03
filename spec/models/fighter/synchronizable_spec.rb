@@ -1,39 +1,45 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Fighter::Synchronizable do
-  describe "#synchronize_later" do
-    let(:fighter) { create(:fighter) }
+  let(:fighter) { create(:fighter) }
 
-    it "enqueues a Fighter::SynchronizeJob" do
-      expect { fighter.synchronize_later }.to \
-        have_enqueued_job(Fighter::SynchronizeJob).with(fighter)
+  describe "#synchronized?" do
+    subject(:synchronized) { fighter.synchronized? }
+
+    context "when the fighter last synchronization is older then or equal SYNCHRONIZATION_INTERVAL ago" do
+      before { create(:fighter_synchronization, :success, fighter:, created_at: Fighter.synchronization_interval.ago) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "when the fighter last synchronization is newer then SYNCHRONIZATION_INTERVAL ago" do
+      before { create(:fighter_synchronization, :success, fighter:, created_at: (Fighter.synchronization_interval - 1).ago) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "when there is no last synchronization" do
+      it { is_expected.to be_falsey }
     end
   end
 
-  describe "#synchronize_now" do
-    let(:synchronizer) { instance_double(Fighter::Synchronizer, synchronize: nil) }
+  describe "#synchronizing?" do
+    subject(:synchronizing) { fighter.synchronizing? }
 
-    before do
-      freeze_time
-      allow(Fighter::Synchronizer).to receive(:new).with(fighter).and_return(synchronizer)
+    context "when the last synchronization is not finished" do
+      before { create(:fighter_synchronization, :created, fighter:) }
+
+      it { is_expected.to be_truthy }
     end
 
-    context "when the fighter is not synchronized" do
-      let(:fighter) { create(:fighter, synchronized_at: described_class::SYNCHRONIZATION_THRESHOLD.ago) }
+    context "when the last synchronization is finished" do
+      before { create(:fighter_synchronization, :success, fighter:) }
 
-      it "updates player synchronized_at" do
-        fighter.synchronize_now
-        expect(synchronizer).to have_received(:synchronize)
-      end
+      it { is_expected.to be_falsey }
     end
 
-    context "when the fighter is synchronized" do
-      let(:fighter) { create(:fighter, synchronized_at: Time.zone.now) }
-
-      it "updates player synchronized_at" do
-        fighter.synchronize_now
-        expect(synchronizer).not_to have_received(:synchronize)
-      end
+    context "when there is no last synchronization" do
+      it { is_expected.to be_falsey }
     end
   end
 end

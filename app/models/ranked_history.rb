@@ -1,55 +1,67 @@
 class RankedHistory
-  include Enumerable
+  extend ActiveModel::Naming
   extend ActiveModel::Translation
+  include Enumerable
 
-  Step = Data.define(:played_at, :replay_id, :mr, :lp, :mr_variation, :lp_variation) do
-    def calibrating?
-      mr == 0 && lp == -1
-    end
+  Result = Struct.new(:mr, :lp, :mr_variation, :lp_variation, :played_at, :replay_id)
+
+  attr_accessor :fighter, :character_id, :played_at
+
+  def initialize(fighter, character_id: nil, played_at: nil)
+    @fighter = fighter
+    @character_id = character_id || fighter.main_character_id
+    @played_at = played_at || ..Time.zone.now
   end
 
-  attr_reader :fighter_id, :character_id, :from_date, :to_date
-
-  delegate :any?, to: :execute
-
-  def initialize(fighter_id:, character_id:, from_date: nil, to_date: nil)
-    @fighter_id = fighter_id
-    @character_id = character_id
-    @from_date = from_date || Time.zone.today
-    @to_date = to_date || Time.zone.today
-  end
-
-  def each(&)
-    data.each(&)
-  end
-
-  def extra_step
-    @extra_step ||= ExtraStep.new(fighter_id:, character_id:, date: to_date)
-  end
+  delegate :each, :empty?, to: :data
 
   private
 
   def data
-    @data ||= execute.chain([ extra_step ]).each_cons(2).map do |data1, data2|
-      Step.new(
-        played_at: data1["played_at"],
-        replay_id: data1["replay_id"],
-        mr: data1["mr"],
-        lp: data1["lp"],
-        mr_variation: data2.present? && data2["mr"] - data1["mr"],
-        lp_variation: data2.present? && data2["lp"] - data1["lp"],
-      )
+    @data ||= begin
+      matches_on_period.chain([ future_item ]).each_cons(2).map do |first, second|
+        if second.present?
+          mr_variation = second["home_mr"] - first["home_mr"]
+          lp_variation = second["home_lp"] - first["home_lp"]
+        end
+        Result.new(
+          played_at: first["played_at"],
+          replay_id:  first["replay_id"],
+          mr: first["home_mr"],
+          lp: first["home_lp"],
+          mr_variation:,
+          lp_variation:,
+        )
+      end
     end
   end
 
-  def execute
-    played_between = from_date.beginning_of_day .. to_date.end_of_day
-    ActiveRecord::Base
-      .lease_connection
-      .select_all(ranked_steps.where(played_at: played_between))
+  def future_item
+    if (mr, lp = future_item_from_matches || future_item_from_current_league_info)
+      { "home_mr"=> mr, "home_lp" => lp }
+    end
   end
 
-  def ranked_steps
-    RankedStep.where(fighter_id:, character_id:).sorted
+  def future_item_from_current_league_info
+    fighter.current_league_infos[character_id]&.values_at(:mr, :lp)
+  end
+
+  def future_item_from_matches
+    if last_match_on_period = matches_on_period.last
+      matches.where("played_at > ?", last_match_on_period.played_at).pick(:home_mr, :home_lp)
+    end
+  end
+
+  def matches_on_period
+    matches.where(played_at:)
+  end
+
+  def matches
+    @fighter
+      .matches
+      .ranked
+      .where(home_character_id: character_id)
+      .order("played_at")
+      .select("home_mr", "home_lp", "replay_id", "played_at")
   end
 end

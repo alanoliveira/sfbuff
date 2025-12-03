@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-between align-items-center">
+  <div class="col-10 text-center challenger-data">
+    <small class="d-flex justify-content-center gap-3">
+      <% if (mr = battle["p#{side}_mr"].to_i).positive? %>
+        <span><%= "#{mr} MR" %></span>
+      <% end %>
+      <% if (lp = battle["p#{side}_lp"].to_i).positive? %>
+        <span><%= "#{lp} LP" %></span>
+      <% end %>
+    </small>
+    <div class="text-truncate fs-2">
+      <%= link_to battle["p#{side}_name"], fighter_path(battle["p#{side}_fighter_id"]) %>
+    </div>
+    <small>
+      <%= human_enum_name battle.public_send("p#{side}_character") %>
+      <%= human_enum_name battle.public_send("p#{side}_input_type") %>
+    </small>
+  </div>
+  <div class="col-2 text-center align-self-center round-list">
+    <ul class="list-unstyled mb-1">
+      <% battle.public_send("p#{side}_rounds").each do |round| %>
+        <li><%= round_badge(round) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
