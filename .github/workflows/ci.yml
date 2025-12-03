@@ -98,4 +98,4 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           AHOY_DATABASE_URL: postgres://postgres:postgres@localhost:5432
-        run: bin/rails db:test:prepare && bin/spec
+        run: bin/rails db:test:prepare && bin/rspec
