@@ -16,9 +16,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    lifecycle:
-      post_start:
-        - "bin/thor buckler_api:reload_credentials"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/up"]
       interval: 60s
@@ -38,6 +35,8 @@ services:
     depends_on:
       web:
         condition: service_healthy
+    post_start:
+      - command: "bin/thor buckler_api:reload_credentials"
 
   db:
     image: postgres:16.2-alpine
