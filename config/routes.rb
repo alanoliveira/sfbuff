@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       end
     end
 
-    get "/" => redirect("/fighters/%{fighter_id}/matches"), on: :member
+    get "/" => redirect("/fighters/%{id}/matches"), on: :member
     post :synchronize, on: :member
 
     scope module: :fighters do
