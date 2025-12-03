@@ -21,7 +21,7 @@ FileUtils.chdir APP_ROOT do
   # end
 
   if ENV["SFBUFF_USE_LOCAL_ASSETS"]
-    system! "yarn install --modules-folder 'public/assets/'"
+    system! "bin/rails yarn:install"
   end
 
   puts "\n== Preparing database =="
