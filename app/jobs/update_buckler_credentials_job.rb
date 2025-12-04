@@ -9,7 +9,6 @@ class UpdateBucklerCredentialsJob < ApplicationJob
     retry_job if executions == 1
   rescue BucklerApiClient::Unauthorized
     renew_buckler_auth_cookie
-    raise
   end
 
   private
