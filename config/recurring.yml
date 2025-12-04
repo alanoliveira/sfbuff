@@ -22,4 +22,6 @@ production:
   periodic_cleanup_async_requests:
     class: DatabaseCleanupJob
     schedule: every hour at minute 21
-
+  periodic_stall_zombies_fighter_synchronizations:
+    class: FighterSynchronization::StallZombiesJob
+    schedule: every minute

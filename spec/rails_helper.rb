@@ -36,6 +36,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
+  config.include ActiveSupport::Testing::TimeHelpers
   config.include Capybara::RSpecMatchers, type: :request
 
   # Uncomment this line if you're using ActiveRecord and ActiveRecord fixtures

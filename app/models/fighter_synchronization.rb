@@ -1,9 +1,12 @@
 class FighterSynchronization < ApplicationRecord
-  enum :status, %w[ created processing success failure ], default: "created"
+  enum :status, %w[ created processing success failure stall ], default: "created"
   has_and_belongs_to_many :synchronized_battles, class_name: "Battle"
   belongs_to :fighter
 
-  def finished? = success? || failure?
+  scope :unfinished, -> { where(status: [ "created", "processing" ]) }
+
+  def finished? = success? || failure? || stall?
+  def unfinished? = !finished?
 
   def process!
     return unless created? && with_lock { processing! if created? }
