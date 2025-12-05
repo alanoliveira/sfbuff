@@ -2,16 +2,17 @@ module Sessionizer
   extend ActiveSupport::Concern
 
   included do
-    before_action :resume_or_start_new_session, unless: :user_is_a_bot?
+    before_action :resume_or_start_new_session
   end
 
   private
 
-  def user_is_a_bot?
-    DeviceDetector.new(request.user_agent).bot?
-  end
-
   def resume_or_start_new_session
+    if user_is_a_bot?
+      Rails.logger.info("Halting session creation for a probably bot")
+      return
+    end
+
     resume_session || start_new_session
   end
 
