@@ -9,7 +9,7 @@
       <% end %>
     </small>
     <div class="text-truncate fs-2">
-      <%= link_to battle["p#{side}_name"], fighter_path(battle["p#{side}_fighter_id"]) %>
+      <%= link_to_fighter battle["p#{side}_name"], battle["p#{side}_fighter_id"] %>
     </div>
     <small>
       <%= human_enum_name battle.public_send("p#{side}_character") %>

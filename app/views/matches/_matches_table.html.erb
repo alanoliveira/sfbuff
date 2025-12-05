@@ -10,11 +10,11 @@
   <tbody>
     <% matches.each do |match| %>
       <tr>
-        <td><%= link_to match.home_name, fighter_path(match.home_fighter_id) %></td>
+        <td><%= link_to_fighter match.home_name, match.home_fighter_id %></td>
         <td><%= human_enum_name match.home_character %></td>
         <td><%= human_enum_name match.home_input_type %></td>
         <td><%= result_badge match.result %></td>
-        <td><%= link_to match.away_name, fighter_path(match.away_fighter_id) %></td>
+        <td><%= link_to_fighter match.away_name, match.away_fighter_id %></td>
         <td><%= human_enum_name match.away_character %></td>
         <td><%= human_enum_name match.away_input_type %></td>
         <td><%= human_enum_name match.battle_type %></td>
