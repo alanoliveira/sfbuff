@@ -2,11 +2,12 @@ class BucklerApiClient < ApplicationClient
   self.base_url = ENV["BUCKLER_BASE_URL"] || "https://www.streetfighter.com"
 
   class BucklerApiHttpError < HttpError; end
-  class UnderMaintenance < BucklerApiHttpError; end
-  class RateLimitExceeded < BucklerApiHttpError; end
-  class Unauthorized < BucklerApiHttpError; end
-  class PageNotFound < BucklerApiHttpError; end
+  class RequestError < BucklerApiHttpError; end
   class ServerError < BucklerApiHttpError; end
+  class UnderMaintenance < ServerError; end
+  class RateLimitExceeded < RequestError; end
+  class Unauthorized < RequestError; end
+  class PageNotFound < RequestError; end
 
   attr_reader :build_id, :auth_cookie
 
