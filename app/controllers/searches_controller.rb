@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
-  rate_limit to: 10, within: 1.minutes, only: :create
+  rate_limit to: 5, within: 1.minutes, only: :create
 
   def show
     @query = params[:q].presence
