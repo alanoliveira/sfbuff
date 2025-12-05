@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       end
     end
 
+    get "/" => redirect("/fighters/search"), on: :collection
     get "/" => redirect("/fighters/%{id}/matches"), on: :member
 
     scope module: :fighters do
