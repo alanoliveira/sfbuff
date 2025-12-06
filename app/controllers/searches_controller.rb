@@ -1,5 +1,4 @@
 class SearchesController < ApplicationController
-  forbidden_for_bots only: :create
   rate_limit to: 5, within: 1.minutes, only: :create
 
   def show

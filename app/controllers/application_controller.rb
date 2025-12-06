@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include Pagy::Method
-  include DeviceDetection
   include Sessionizer
   include ModalVariant
   include SwitchLocale
@@ -19,6 +18,10 @@ class ApplicationController < ActionController::Base
   after_action -> { no_store } if Rails.env.development?
 
   private
+
+  def device_detector
+    @device_detector ||= DeviceDetector.new(request.user_agent)
+  end
 
   def too_many_requests
     respond_to do |format|

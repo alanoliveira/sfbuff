@@ -3,17 +3,27 @@ module Sessionizer
 
   included do
     before_action :resume_or_start_new_session
+    before_action :require_session
+  end
+
+  class_methods do
+    def allow_unsessionized_access(**options)
+      skip_before_action :require_session, **options
+    end
   end
 
   private
 
-  def resume_or_start_new_session
-    if user_is_a_bot?
-      Rails.logger.info("Halting session creation for a probably bot")
-      return
-    end
+  def require_session
+    head :forbidden unless Current.session.present?
+  end
 
-    resume_session || start_new_session
+  def resume_or_start_new_session
+    if device_detector.bot?
+      Rails.logger.info("Halting session creation for a likely bot")
+    else
+      resume_session || start_new_session
+    end
   end
 
   def resume_session

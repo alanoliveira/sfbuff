@@ -1,7 +1,6 @@
 class Fighters::SynchronizationsController < ApplicationController
   include FighterScoped
 
-  forbidden_for_bots only: :create
   rate_limit to: 5, within: 1.minutes, only: :create
 
   def create
