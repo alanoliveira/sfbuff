@@ -17,7 +17,7 @@
   <tbody>
     <% items.each do |item| %>
       <tr>
-        <td><%= item.name %></td>
+        <td><%= link_to_fighter item.name, item.fighter_id %></td>
         <td><%= human_enum_name item.character %></td>
         <td><%= human_enum_name item.input_type %></td>
         <td><%= item.score.total %></td>
