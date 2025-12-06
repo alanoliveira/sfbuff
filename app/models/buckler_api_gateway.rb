@@ -27,11 +27,12 @@ class BucklerApiGateway
   end
 
   def fetch_fighter_replays(short_id)
-    buckler_api_client.battlelog(short_id).flat_map do |result|
-      result["pageProps"]["replay_list"].map do
-        Mappers::Replay.new it
+    Enumerator.new do |yielder|
+      buckler_api_client.battlelog(short_id).map { it["pageProps"] }.each do |page_props|
+        page_props["replay_list"].each { yielder << Mappers::Replay.new(it) }
+        break if page_props["current_page"] == page_props["total_page"]
       end
-    end
+    end.lazy
   end
 
   def fetch_fighter_play_profile(fighter_id)
