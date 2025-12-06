@@ -6,34 +6,30 @@ servers:
   web:
     hosts:
      - sfbuff.site
-  job:
-    hosts:
-     - sfbuff.site
-    cmd: bin/jobs
 
 proxy:
   app_port: 3000
   ssl: true
   hosts:
     - sfbuff.site
-    - www.sfbuff.site
 
 registry:
   username: alanoliveira89
   password:
-    - KAMAL_REGISTRY_PASSWORD
+    - SFBUFF_KAMAL_REGISTRY_PASSWORD
 
 env:
   clear:
     RAILS_ENV: production
     SFBUFF_DATABASE_HOST: sfbuff-db
     SFBUFF_DATABASE_USERNAME: sfbuff
-    BUCKLER_EMAIL: <%= ENV.fetch("SFBUFF_BUCKLER_EMAIL") %>
-    BUCKLER_USER_AGENT: <%= ENV.fetch("SFBUFF_DEFAULT_USER_AGENT") %>
+    SFBUFF_BUCKLER_EMAIL: <%= ENV.fetch("SFBUFF_BUCKLER_EMAIL") %>
+    SFBUFF_DEFAULT_USER_AGENT: <%= ENV.fetch("SFBUFF_DEFAULT_USER_AGENT") %>
+    SOLID_QUEUE_IN_PUMA: 1
   secret:
-    - SECRET_KEY_BASE
+    - SECRET_KEY_BASE:SFBUFF_SECRET_KEY_BASE
     - SFBUFF_BUCKLER_PASSWORD
-    - SFBUFF_DATABASE_PASSWORD:POSTGRES_PASSWORD
+    - SFBUFF_DATABASE_PASSWORD
     - SFBUFF_SENTRY_DSN
 
 aliases:
@@ -59,12 +55,12 @@ accessories:
   db:
     image: postgres:16.2-alpine
     host: sfbuff.site
-    port: "127.0.0.1:5432:5432"
+    port: "5432:5432"
     env:
       clear:
         POSTGRES_USER: sfbuff
       secret:
-        - POSTGRES_PASSWORD
+        - POSTGRES_PASSWORD:SFBUFF_DATABASE_PASSWORD
     directories:
       - data:/var/lib/postgresql/data
     options:
