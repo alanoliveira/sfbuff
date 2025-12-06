@@ -19,7 +19,11 @@ module Fighter::Synchronizable
   end
 
   def synchronized_at
-    synchronizations.success.last.try(&:created_at)
+    last_success_synchronization.try(&:created_at)
+  end
+
+  def last_success_synchronization
+    synchronizations.success.last
   end
 
   def synchronize!(force: false)
