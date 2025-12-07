@@ -1,6 +1,6 @@
 class FighterSynchronization < ApplicationRecord
   enum :status, %w[ created processing success failure stall ], default: "created"
-  has_and_belongs_to_many :synchronized_battles, class_name: "Battle"
+  has_and_belongs_to_many :synchronized_battles, class_name: "Battle", dependent: :delete_all
   belongs_to :fighter
 
   scope :unfinished, -> { where(status: [ "created", "processing" ]) }

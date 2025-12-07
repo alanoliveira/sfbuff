@@ -3,7 +3,7 @@ module Fighter::Synchronizable
 
   included do
     class_attribute :synchronization_interval, instance_writer: false, default: 10.minutes
-    has_many :synchronizations, class_name: "FighterSynchronization"
+    has_many :synchronizations, class_name: "FighterSynchronization", dependent: :destroy
   end
 
   def synchronizing?
