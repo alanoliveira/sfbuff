@@ -23,13 +23,13 @@ env:
     RAILS_ENV: production
     SFBUFF_DATABASE_HOST: sfbuff-db
     SFBUFF_DATABASE_USERNAME: sfbuff
-    SFBUFF_BUCKLER_EMAIL: <%= ENV.fetch("SFBUFF_BUCKLER_EMAIL") %>
-    SFBUFF_DEFAULT_USER_AGENT: <%= ENV.fetch("SFBUFF_DEFAULT_USER_AGENT") %>
     SOLID_QUEUE_IN_PUMA: 1
   secret:
     - SECRET_KEY_BASE:SFBUFF_SECRET_KEY_BASE
+    - SFBUFF_BUCKLER_EMAIL
     - SFBUFF_BUCKLER_PASSWORD
     - SFBUFF_DATABASE_PASSWORD
+    - SFBUFF_DEFAULT_USER_AGENT
     - SFBUFF_SENTRY_DSN
 
 aliases:
@@ -49,7 +49,7 @@ builder:
   arch: amd64
 
 ssh:
-  user: <%= ENV.fetch("SFBUFF_DEPLOY_USER") %>
+  user: admin
 
 accessories:
   db:
