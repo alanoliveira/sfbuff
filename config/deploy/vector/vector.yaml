@@ -1,0 +1,247 @@
+sources:
+  docker_logs:
+    type: "docker_logs"
+    exclude_containers:
+      - "kamal-proxy"
+  docker_metrics:
+    type: "exec"
+    command: [ "docker", "stats", "--format", "json", "--no-stream" ]
+    decoding:
+      codec: "bytes"
+    mode: "scheduled"
+    scheduled:
+      exec_interval_secs: 30
+  host_metrics:
+    type: host_metrics
+    collectors: [ "filesystem" ]
+    filesystem:
+      mountpoints:
+        includes:
+          - /hostfs
+
+transforms:
+  better_stack_docker_logs_parser:
+    type: "remap"
+    inputs:
+      - "docker_logs"
+    source: |
+      del(.source_type)
+      del(.label)
+      .dt = del(.timestamp)
+      .docker = del(.)
+      .dt = del(.docker.dt)
+      .message = del(.docker.message)
+      .platform = "Docker"
+
+      .rails = parse_regex(.message, r'(?s)^(?P<severity>[A-Z]), \[(?P<dt>[^ ]+) \#[^\]]+\] +(?P<level>[A-Z]+) -- : (?P<message>.*)$') ?? {}
+      if .rails != {} {
+        .dt = del(.rails.dt)
+        .message = del(.rails.message)
+        # tags = parse_regex!(.message, r'(?P<tags>(?:(?:\[[^\]]+\] )*))').tags || ""
+        # .rails.tags = split(strip_whitespace(tags), " ")
+        if exists(.rails.level) { .level = downcase!(del(.rails.level)) }
+      } else {
+        del(.rails)
+      }
+
+      .postgres = parse_regex(.message, r'^(?P<dt>\d+-\d+-\d+ \d+:\d+:\d+\.\d+ \S+) \[(?P<pid>\d+)\] (?:(?:(?P<username>\S+)@(?P<database>\S+))?\s*(?P<level>\w+):\s*(?P<message>.*))?') ?? {}
+
+      if .postgres != {} {
+        .platform = "PostgreSQL"
+        if exists(.postgres.pid) { .postgres.pid = to_int!(.postgres.pid) }
+        if exists(.postgres.level) { .level = downcase!(del(.postgres.level)) }
+        if exists(.postgres.message) { .message = del(.postgres.message) }
+
+        if exists(.postgres.dt) {
+          parsed_dt = to_string(.postgres.dt)
+
+          if !ends_with(parsed_dt, " UTC") {
+            .postgres.local_date_time = del(.postgres.dt)
+          } else {
+            .dt = del(.postgres.dt)
+          }
+        }
+
+        # extract message metadata
+        tmp = string!(.message)
+        .message_metadata = {}
+
+        ips = parse_regex_all!(tmp, r'\b(?P<ip>(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\b')
+        if exists(ips[0].ip) { .message_metadata.ipv4_1 = ips[0].ip; tmp = replace(tmp, string!(ips[0].ip), "") }
+        if exists(ips[1].ip) { .message_metadata.ipv4_2 = ips[1].ip; tmp = replace(tmp, string!(ips[1].ip), "") }
+        if exists(ips[2].ip) { .message_metadata.ipv4_3 = ips[2].ip; tmp = replace(tmp, string!(ips[2].ip), "") }
+        if exists(ips[3].ip) { .message_metadata.ipv4_4 = ips[3].ip; tmp = replace(tmp, string!(ips[3].ip), "") }
+        if exists(ips[4].ip) { .message_metadata.ipv4_5 = ips[4].ip; tmp = replace(tmp, string!(ips[4].ip), "") }
+
+        # we match only full IPv6 addresses
+        ipv6s = parse_regex_all!(tmp, r'\b(?P<ip>(?:[a-fA-F0-9]{1,4}:){7}[a-fA-F0-9]{1,4})\b')
+        if exists(ipv6s[0].ip) { .message_metadata.ipv6_1 = ipv6s[0].ip; tmp = replace(tmp, string!(ipv6s[0].ip), "") }
+        if exists(ipv6s[1].ip) { .message_metadata.ipv6_2 = ipv6s[1].ip; tmp = replace(tmp, string!(ipv6s[1].ip), "") }
+        if exists(ipv6s[2].ip) { .message_metadata.ipv6_3 = ipv6s[2].ip; tmp = replace(tmp, string!(ipv6s[2].ip), "") }
+        if exists(ipv6s[3].ip) { .message_metadata.ipv6_4 = ipv6s[3].ip; tmp = replace(tmp, string!(ipv6s[3].ip), "") }
+        if exists(ipv6s[4].ip) { .message_metadata.ipv6_5 = ipv6s[4].ip; tmp = replace(tmp, string!(ipv6s[4].ip), "") }
+
+        numbers = parse_regex_all!(tmp, r'(?P<num>\b\d+(?:\.\d+)?\b)')
+        if exists(numbers[0].num) { .message_metadata.param1 = to_int(numbers[0].num) ?? to_float(numbers[0].num) ?? null }
+        if exists(numbers[1].num) { .message_metadata.param2 = to_int(numbers[1].num) ?? to_float(numbers[1].num) ?? null }
+        if exists(numbers[2].num) { .message_metadata.param3 = to_int(numbers[2].num) ?? to_float(numbers[2].num) ?? null }
+        if exists(numbers[3].num) { .message_metadata.param4 = to_int(numbers[3].num) ?? to_float(numbers[3].num) ?? null }
+        if exists(numbers[4].num) { .message_metadata.param5 = to_int(numbers[4].num) ?? to_float(numbers[4].num) ?? null }
+        if exists(numbers[5].num) { .message_metadata.param6 = to_int(numbers[5].num) ?? to_float(numbers[5].num) ?? null }
+        if exists(numbers[6].num) { .message_metadata.param7 = to_int(numbers[6].num) ?? to_float(numbers[6].num) ?? null }
+        if exists(numbers[7].num) { .message_metadata.param8 = to_int(numbers[7].num) ?? to_float(numbers[7].num) ?? null }
+        if exists(numbers[8].num) { .message_metadata.param9 = to_int(numbers[8].num) ?? to_float(numbers[8].num) ?? null }
+        if exists(numbers[9].num) { .message_metadata.param10 = to_int(numbers[9].num) ?? to_float(numbers[9].num) ?? null }
+      
+      } else {
+        del(.postgres)
+      } 
+
+  
+  better_stack_docker_metrics_parser:
+    type: "remap"
+    inputs:
+      - "docker_metrics"
+    source: |
+      del(.source_type)
+      .dt = del(.timestamp)
+      raw_data = .message
+      dt = .timestamp
+      host = .host
+      
+      . = []
+      data, err = parse_json(strip_ansi_escape_codes(string!(raw_data)))
+      if err == null {
+        container_id = data.Container
+        container_name = data.Name
+      
+        gauges = {
+          "cpu_percentage": to_float(replace(data.CPUPerc, "%", "") ?? "") ?? null,
+          "memory_percentage": to_float(replace(data.MemPerc, "%", "") ?? "") ?? null,
+          "memory_used_bytes": split(data.MemUsage, " / ")[0] ?? null,
+          "memory_limit_bytes": split(data.MemUsage, " / ")[1] ?? null,
+          "pids_count": to_int(data.PIDs) ?? null
+        }
+      
+        counters = {
+          "block_in_bytes": split(data.BlockIO, " / ")[0] ?? null,
+          "block_out_bytes": split(data.BlockIO, " / ")[1] ?? null,
+          "network_in_bytes": split(data.NetIO, " / ")[0] ?? null,
+          "network_out_bytes": split(data.NetIO, " / ")[1] ?? null
+        }
+      
+        gauges_bytes = map_values(gauges) -> |data| {
+          if !is_string(data) {
+            data
+          } else {
+            data = string!(data)
+            if !ends_with(data, "B") {
+              data
+            } else if ends_with(data, "TiB") {
+              round(1024 * 1024 * 1024 * 1024 * to_float(replace(data, "TiB", "")) ?? null) ?? null
+            } else if ends_with(data, "GiB") {
+              round(1024 * 1024 * 1024 * to_float(replace(data, "GiB", "")) ?? null) ?? null
+            } else if ends_with(data, "MiB") {
+              round(1024 * 1024 * to_float(replace(data, "MiB", "")) ?? null) ?? null
+            } else if ends_with(data, "KiB") {
+              round(1024 * to_float(replace(data, "KiB", "")) ?? null) ?? null
+            } else if ends_with(data, "TB") {
+              round(1000 * 1000 * 1000 * 1000 * to_float(replace(data, "TB", "")) ?? null) ?? null
+            } else if ends_with(data, "GB") {
+              round(1000 * 1000 * 1000 * to_float(replace(data, "GB", "")) ?? null) ?? null
+            } else if ends_with(data, "MB") {
+              round(1000 * 1000 * to_float(replace(data, "MB", "")) ?? null) ?? null
+            } else if ends_with(data, "kB") {
+              round(1000 * to_float(replace(data, "kB", "")) ?? null) ?? null
+            } else {
+              round(to_int(replace(data, "B", "")) ?? null) ?? null
+            }
+          }
+        }
+      
+        counters_bytes = map_values(counters) -> |data| {
+          if !is_string(data) {
+            data
+          } else {
+            data = string!(data)
+            if !ends_with(data, "B") {
+              data
+            } else if ends_with(data, "TiB") {
+              round(1024 * 1024 * 1024 * 1024 * to_float(replace(data, "TiB", "")) ?? null) ?? null
+            } else if ends_with(data, "GiB") {
+              round(1024 * 1024 * 1024 * to_float(replace(data, "GiB", "")) ?? null) ?? null
+            } else if ends_with(data, "MiB") {
+              round(1024 * 1024 * to_float(replace(data, "MiB", "")) ?? null) ?? null
+            } else if ends_with(data, "KiB") {
+              round(1024 * to_float(replace(data, "KiB", "")) ?? null) ?? null
+            } else if ends_with(data, "TB") {
+              round(1000 * 1000 * 1000 * 1000 * to_float(replace(data, "TB", "")) ?? null) ?? null
+            } else if ends_with(data, "GB") {
+              round(1000 * 1000 * 1000 * to_float(replace(data, "GB", "")) ?? null) ?? null
+            } else if ends_with(data, "MB") {
+              round(1000 * 1000 * to_float(replace(data, "MB", "")) ?? null) ?? null
+            } else if ends_with(data, "kB") {
+              round(1000 * to_float(replace(data, "kB", "")) ?? null) ?? null
+            } else {
+              round(to_int(replace(data, "B", "")) ?? null) ?? null
+            }
+          }
+        }
+      
+        for_each(gauges_bytes) -> |name, value| {
+          . = push(., {
+            "name": name,
+            "kind": "absolute",
+            "gauge": {
+              "value": value
+            },
+            "tags": {
+              "host": to_string!(host),
+              "container_id": to_string!(container_id),
+              "container_name": to_string!(container_name)
+            },
+            "dt": dt
+          })
+        }
+      
+        for_each(counters_bytes) -> |name, value| {
+          . = push(., {
+            "name": name,
+            "kind": "absolute",
+            "counter": {
+              "value": value
+            },
+            "tags": {
+              "host": to_string!(host),
+              "container_id": to_string!(container_id),
+              "container_name": to_string!(container_name)
+            },
+            "dt": dt
+          })
+        }
+      }
+
+sinks:
+  better_stack_logs_sink:
+    type: "http"
+    method: "post"
+    uri: "${SFBUFF_BETTER_STACK_INGESTING_HOST}"
+    encoding:
+      codec: "json"
+    compression: "gzip"
+    auth:
+      strategy: "bearer"
+      token: "${SFBUFF_BETTER_STACK_SOURCE_TOKEN}"
+    inputs: ["better_stack_docker_logs_parser"]
+
+  better_stack_metrics_sink:
+    type: "http"
+    method: "post"
+    uri: "${SFBUFF_BETTER_STACK_INGESTING_HOST}/metrics"
+    encoding:
+      codec: "json"
+    compression: "gzip"
+    auth:
+      strategy: "bearer"
+      token: "${SFBUFF_BETTER_STACK_SOURCE_TOKEN}"
+    inputs: ["better_stack_docker_metrics_parser", "host_metrics"]

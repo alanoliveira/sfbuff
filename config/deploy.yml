@@ -75,3 +75,19 @@ accessories:
        -c checkpoint_timeout=10min \
        -c wal_buffers=512kB \
        -c track_counts=off
+  # The current server can't afford ~100MiB used by vector container
+  # vector:
+  #   image: timberio/vector:0.51.1-alpine
+  #   host: sfbuff.site
+  #   options:
+  #     entrypoint: "sh"
+  #   cmd: -c 'apk add --no-cache docker-cli && vector'
+  #   env:
+  #     secret:
+  #       - SFBUFF_BETTER_STACK_INGESTING_HOST
+  #       - SFBUFF_BETTER_STACK_SOURCE_TOKEN
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /:/hostfs:ro
+  #   files:
+  #     - config/deploy/vector/vector.yaml:/etc/vector/vector.yaml
