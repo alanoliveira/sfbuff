@@ -2,6 +2,9 @@ class SearchRequest < ApplicationRecord
   belongs_to :session, default: -> { Current.session }
   enum :status, %w[ created processing success failure ], default: "created"
 
+  validates :query, length: { minimum: 4 }
+  normalizes :query, with: ->(query) { query.strip.downcase }
+
   after_save_commit -> { broadcast_replace_later_to session, :fighter_search }, if: :finished?
 
   def finished? = success? || failure?
