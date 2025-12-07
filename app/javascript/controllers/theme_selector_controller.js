@@ -9,7 +9,7 @@ export default class extends Controller {
   }
 
   get theme() {
-    return localStorage.getItem("theme")
+    return localStorage.getItem("theme") || "auto"
   }
 
   set theme(value) {
