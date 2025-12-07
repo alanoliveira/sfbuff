@@ -16,7 +16,7 @@ class SearchRequest < ApplicationRecord
   rescue => error
     self.error = error.class.name
     failure!
-    raise
+    raise unless error.is_a? BucklerApiClient::BucklerApiHttpError
   end
 
   def process_later!
