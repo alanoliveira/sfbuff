@@ -1,4 +1,6 @@
 class Match < ApplicationRecord
+  include MasterRatingCalculation
+
   composed_of_enum :home_rounds, :home_round_ids, class_name: "Round", array: true
   composed_of_enum :home_character, :home_character_id, class_name: "Character"
   composed_of_enum :home_playing_character, :home_playing_character_id, class_name: "Character"
@@ -11,6 +13,8 @@ class Match < ApplicationRecord
   composed_of_enum :result, :result
 
   scope :ranked, -> { where(battle_type: BattleType::RANKED) }
+
+  def ranked? = battle_type == BattleType::RANKED
 
   def self.aggregate_results
     ResultAggregation.new(all)
