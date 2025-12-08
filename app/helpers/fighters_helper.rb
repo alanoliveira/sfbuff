@@ -11,6 +11,6 @@ module FightersHelper
   end
 
   def link_to_fighter_buckler_profile(fighter, **, &)
-    link_to("https://www.streetfighter.com/6/buckler/profile/#{fighter.id}", target: "_blank", rel: "nofollow", **, &)
+    link_to("https://www.streetfighter.com/6/buckler/profile/#{fighter.id}/battlelog", target: "_blank", **, &)
   end
 end
