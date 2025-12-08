@@ -50,7 +50,7 @@ class BucklerApiClient < ApplicationClient
   def configure_connection(conn)
     conn.response :json
     conn.use ErrorHandlerMiddleware
-    conn.path_prefix = "/6/buckler/_next/data/#{build_id}/en/"
+    conn.path_prefix = "/6/buckler/_next/data/#{build_id || 'undefined'}/en/"
     conn.headers["Cookie"] = auth_cookie
   end
 end

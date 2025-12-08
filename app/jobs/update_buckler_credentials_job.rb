@@ -3,15 +3,26 @@ class UpdateBucklerCredentialsJob < ApplicationJob
   queue_as :default
 
   def perform
-    BucklerApiClient.new(build_id: (AppSetting.buckler_build_id || "undefined"), auth_cookie: AppSetting.buckler_auth_cookie).friends
-  rescue BucklerApiClient::PageNotFound
-    renew_buckler_build_id
-    retry_job if executions == 1
-  rescue BucklerApiClient::Unauthorized
-    renew_buckler_auth_cookie
+    begin
+      test_connection
+    rescue BucklerApiClient::Unauthorized, BucklerApiClient::PageNotFound => error
+      Rails.logger.info("reseting credentials due: #{error.class.name}")
+      AppSetting.buckler_auth_cookie = nil
+      AppSetting.buckler_build_id = nil
+    end
+
+    renew_buckler_build_id if AppSetting.buckler_build_id.blank?
+    renew_buckler_auth_cookie if AppSetting.buckler_auth_cookie.blank?
   end
 
   private
+
+  def test_connection
+    BucklerApiClient.new(
+      build_id: AppSetting.buckler_build_id,
+      auth_cookie: AppSetting.buckler_auth_cookie
+    ).friends
+  end
 
   def renew_buckler_build_id
     next_data = BucklerSiteClient.new.next_data

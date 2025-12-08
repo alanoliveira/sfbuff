@@ -11,11 +11,6 @@ class BucklerApi < Thor
     end
   end
 
-  desc "schedule_reload_credentials", "schedule a task to reload buckler credentials if expired"
-  def reload_credentials
-    UpdateBucklerCredentialsJob.perform_later
-  end
-
   desc "set_auth_cookie AUTH_COOKIE", "set buckler_api auth_cookie"
   def set_auth_cookie(auth_cookie)
     AppSetting.buckler_auth_cookie = auth_cookie
