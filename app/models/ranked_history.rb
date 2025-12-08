@@ -21,8 +21,8 @@ class RankedHistory
     @data ||= begin
       matches_on_period.chain([ future_item ]).each_cons(2).map do |first, second|
         if second.present?
-          mr_variation = second["home_mr"] - first["home_mr"]
-          lp_variation = second["home_lp"] - first["home_lp"]
+          mr_variation = second["home_mr"] - first["home_mr"] if second["home_mr"].positive?
+          lp_variation = second["home_lp"] - first["home_lp"] if second["home_lp"].positive?
         end
         Result.new(
           played_at: first["played_at"],

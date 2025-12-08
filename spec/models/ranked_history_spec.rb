@@ -54,4 +54,14 @@ RSpec.describe RankedHistory do
       )
     end
   end
+
+  context "when the 'next match' mr and/or lp values are not positive" do
+    before do
+      create(:current_league_info, fighter_id: fighter.id, character_id:, mr: 0, lp: -1)
+    end
+
+    it "does not calculate the variation" do
+      expect(ranked_history.to_a.last).to have_attributes(mr_variation: nil, lp_variation: nil)
+    end
+  end
 end
