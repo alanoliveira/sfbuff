@@ -18,11 +18,13 @@ class BucklerAuthenticator
     HttpAuthenticator.new(email:, password:, user_agent:, base_url:).login
   rescue => error
     Rails.logger.info("BucklerAuthenticator#http_authentication has failed: #{error.class}")
+    nil
   end
 
   def web_driver_authentication
     WebDriverAuthenticator.new(email:, password:, user_agent:, base_url:).login
   rescue => error
     Rails.logger.info("BucklerAuthenticator#web_driver_authentication has failed: #{error.class}")
+    nil
   end
 end

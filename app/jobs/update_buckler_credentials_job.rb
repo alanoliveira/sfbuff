@@ -5,9 +5,10 @@ class UpdateBucklerCredentialsJob < ApplicationJob
   def perform
     begin
       test_connection
-    rescue BucklerApiClient::Unauthorized, BucklerApiClient::PageNotFound => error
-      Rails.logger.info("reseting credentials due: #{error.class.name}")
+    rescue BucklerApiClient::Unauthorized
       AppSetting.buckler_auth_cookie = nil
+      AppSetting.buckler_build_id = nil
+    rescue BucklerApiClient::PageNotFound
       AppSetting.buckler_build_id = nil
     end
 
@@ -22,6 +23,9 @@ class UpdateBucklerCredentialsJob < ApplicationJob
       build_id: AppSetting.buckler_build_id,
       auth_cookie: AppSetting.buckler_auth_cookie
     ).friends
+  rescue => error
+    Rails.logger.info("test_connection rose: #{error.class.name}")
+    raise
   end
 
   def renew_buckler_build_id
