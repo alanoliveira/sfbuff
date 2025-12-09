@@ -2,19 +2,21 @@ Result = Data.define(:id, :name) do
   extend ActiveModel::Naming
   extend ActiveModel::Translation
 
-  const_set :ALL, [
-    [ 1, "win" ],
-    [ 0, "draw" ],
-    [ -1, "loss" ]
-  ].map { |id, name| const_set(name.upcase, new(id, name)) }
+  const_set :HASH, [
+    new(-1, "loss"),
+    new(0, "draw"),
+    new(1, "win")
+  ].index_by(&:id)
+
+  const_get(:HASH).values.each { const_set(it.name.upcase, it) }
 
   class << self
     def [](id)
-      all.find { it.id == id }
+      const_get(:HASH)[id] || new(id, "?")
     end
 
     def all
-      const_get(:ALL)
+      const_get(:HASH).values
     end
   end
 
