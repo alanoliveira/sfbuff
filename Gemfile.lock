@@ -188,7 +188,7 @@ GEM
     jbuilder (2.14.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
-    json (2.16.0)
+    json (2.17.1)
     kamal (2.9.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -250,7 +250,7 @@ GEM
     nokogiri (1.18.10-x86_64-linux-musl)
       racc (~> 1.4)
     ostruct (0.6.3)
-    pagy (43.1.8)
+    pagy (43.2.0)
       json
       yaml
     parallel (1.27.0)
@@ -493,7 +493,7 @@ DEPENDENCIES
   jbuilder
   kamal
   local_time (~> 3.0)
-  pagy (~> 43.1)
+  pagy (~> 43.2)
   pg (~> 1.1)
   propshaft
   puma (>= 5.0)
