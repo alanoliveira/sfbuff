@@ -3,9 +3,10 @@ module ModalsHelper
     turbo_frame_tag("modal", &)
   end
 
-  def modal_container(content = nil, &)
+  def modal_container(content = nil, data: {}, &)
+    data = { controller: "modal #{data.delete(:controller)}", turbo_temporary: 1 }.merge(data)
     modal_turbo_frame_tag do
-      content_tag(:div, content, class: "modal", tabindex: "-1", data: { controller: "modal", turbo_temporary: 1 }, &)
+      content_tag(:div, content, class: "modal", tabindex: "-1", data:, &)
     end
   end
 

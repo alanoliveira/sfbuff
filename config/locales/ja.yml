@@ -22,6 +22,10 @@ ja:
         about: 概要
     fighter:
       synchronized_at_html: "同期済み %{local_time_ago}"
+      fair_use:
+        agreement: 本サービスの利用をストリートファイター6プレイヤーのプレイ分析に限定し、配信者または第三者の監視を目的とした使用を行わないことに同意します。
+        agree: 同意する
+        disagree: 同意しない
   pages:
     index:
       welcome: SFBUFFにようこそ

@@ -1,0 +1,15 @@
+<%= modal_container data: { bs_backdrop: "static", bs_keyboard: false, controller: "fair-use" } do %>
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content bg-warning text-dark">
+      <div class="modal-body">
+        <div class="p-3 mb-2 ">
+          <%= t(".agreement") %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-action="click->fair-use#agree"><%= t(".agree") %></button>
+        <button class="btn btn-secondary" data-action="click->fair-use#disagree"><%= t(".disagree") %></button>
+      </div>
+    </div>
+  </div>
+<% end %>

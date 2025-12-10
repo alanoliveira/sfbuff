@@ -22,6 +22,10 @@ pt-BR:
         about: Sobre
     fighter:
       synchronized_at_html: "Sincronizado %{local_time_ago}"
+      fair_use:
+        agreement: Eu concordo em usar essa ferramenta apenas para analizar o resultado das batalhas e nao para monitorar streamers.
+        agree: Concordar
+        disagree: Discordar
   pages:
     index:
       welcome: Bem vindo ao SFBUFF

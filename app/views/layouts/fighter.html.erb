@@ -4,6 +4,10 @@
   <%= render "searches/search_form" %>
 <% end %>
 
+<% if I18n.locale == :ja && cookies["fair_use_agreement"] != "true" %>
+  <%= render "layouts/fighter/fair_use" %>
+<% end %>
+
 <% content_for :main do %>
   <% unless @fighter.synchronized? %>
     <%= turbo_stream_from Current.session, @fighter.id, :synchronization %>
