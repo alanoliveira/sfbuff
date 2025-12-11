@@ -1,4 +1,7 @@
-# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
-user-agent: *
-Allow: ^/$
-Disallow: *
+User-Agent: *
+Allow: /$
+Allow: /icon.svg
+Allow: /icon.png
+Allow: /favicon.ico
+Allow: /assets/*
+Disallow: /*
