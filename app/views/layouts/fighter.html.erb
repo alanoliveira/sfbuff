@@ -10,13 +10,15 @@
 
 <% content_for :main do %>
   <% unless @fighter.synchronized? %>
-    <%= turbo_stream_from Current.session, @fighter.id, :synchronization %>
-    <%= synchronization_request_form @fighter, data: { turbo_frame: "fighter_synchronization" } %>
+    <div id="<%= dom_id @fighter, "synchronization" %>" data-turbo-permanent>
+      <%= turbo_stream_from Current.session, @fighter.id, :synchronization %>
+      <%= synchronization_request_form @fighter, data: { turbo_frame: "fighter_synchronization" } %>
+      <%= synchronization_turbo_frame_tag %>
+    </div>
   <% end %>
 
   <%= turbo_frame_tag "fighter-content", data: { turbo_action: "advance" } do %>
     <div id="fighter-header">
-      <%= turbo_frame_tag "fighter_synchronization" %>
       <div class="d-flex align-items-center">
         <h1><%= @fighter.name %></h1>
         <%= link_to_fighter_buckler_profile @fighter, class: "ms-2 text-decoration-none align-self-start" do %>
