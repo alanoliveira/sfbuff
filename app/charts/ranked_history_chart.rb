@@ -69,7 +69,7 @@ class RankedHistoryChart < ApplicationChart
   end
 
   def cover_today?
-    ranked_history.to_date >= now.to_date
+    ranked_history.played_to >= now.to_date
   end
 
   def generate_label(value:, variation: nil)

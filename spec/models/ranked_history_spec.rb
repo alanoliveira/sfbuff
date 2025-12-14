@@ -1,11 +1,11 @@
 require "rails_helper"
 
 RSpec.describe RankedHistory do
-  let(:ranked_history) { described_class.new(fighter, character_id:, from_date:, to_date:) }
+  let(:ranked_history) { described_class.new(fighter, character_id:, played_from:, played_to:) }
   let(:fighter) { create(:fighter) }
   let(:character_id) { 2 }
-  let(:from_date) { Date.parse("2020-01-02").beginning_of_day }
-  let(:to_date) { Date.parse("2020-01-09").end_of_day }
+  let(:played_from) { Date.parse("2020-01-02").beginning_of_day }
+  let(:played_to) { Date.parse("2020-01-09").end_of_day }
 
   before do
     create(:battle, :ranked, replay_id: "DDD", p1_fighter_id: fighter.id, p1_character_id: 2, played_at: "2020-01-01 23:59:59")

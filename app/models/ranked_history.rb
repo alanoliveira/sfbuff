@@ -5,13 +5,13 @@ class RankedHistory
 
   Item = Struct.new(:mr, :lp, :mr_variation, :lp_variation, :played_at, :replay_id)
 
-  attr_reader :fighter, :character_id, :from_date, :to_date
+  attr_reader :fighter, :character_id, :played_from, :played_to
 
-  def initialize(fighter, character_id: nil, from_date: nil, to_date: nil)
+  def initialize(fighter, character_id: nil, played_from: nil, played_to: nil)
     @fighter = fighter
     @character_id = character_id || fighter.main_character_id
-    @from_date = from_date
-    @to_date = to_date
+    @played_from = played_from
+    @played_to = played_to
   end
 
   delegate :each, :empty?, to: :data
@@ -35,7 +35,7 @@ class RankedHistory
     fighter
       .matches
       .ranked
-      .where(played_at: from_date..to_date, home_character_id: character_id)
+      .where(played_at: played_from..played_to, home_character_id: character_id)
       .order("played_at")
       .select("home_mr", "home_lp", "away_mr", "result", "battle_type_id", "replay_id", "played_at")
   end

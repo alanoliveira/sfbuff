@@ -9,8 +9,8 @@ class Fighters::RankedHistoriesController < ApplicationController
     @ranked_history = RankedHistory.new(
       @fighter,
       character_id: @matches_filter.home_character_id,
-      from_date: @matches_filter.played_from,
-      to_date: @matches_filter.played_to,
+      played_from: @matches_filter.played_from,
+      played_to: @matches_filter.played_to,
     )
   end
 
