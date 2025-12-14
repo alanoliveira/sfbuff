@@ -33,6 +33,9 @@ en:
   searches:
     search_form:
       placeholder: Name or ID
+  charts:
+    ranked_history_chart:
+      current: Current
   activemodel:
     models:
       ranked_history: Ranked History

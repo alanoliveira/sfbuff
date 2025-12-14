@@ -33,6 +33,9 @@ pt-BR:
   searches:
     search_form:
       placeholder: Nome ou ID
+  charts:
+    ranked_history_chart:
+      current: Atual
   activemodel:
     models:
       ranked_history: Histórico de Ranqueadas

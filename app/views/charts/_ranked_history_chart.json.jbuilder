@@ -44,14 +44,14 @@ json.options do
   end
 
   json.scales do
-    if this.lp_matches.any?
+    if this.lp_data.any?
       json.lp do
         json.stack "ranked"
         json.offset "true"
       end
     end
 
-    if this.mr_matches.any?
+    if this.mr_data.any?
       json.mr do
         json.stack "ranked"
         json.offset "true"
@@ -80,7 +80,7 @@ end
 
 json.data do
   json.datasets do
-    if this.mr_matches.any?
+    if this.mr_data.any?
       json.child! do
         json.yAxisID "mr"
         json.label "MR"
@@ -89,22 +89,9 @@ json.data do
         json.borderColor ApplicationChart::CHART_COLORS[:blue]
         json.backgroundColor ApplicationChart::CHART_COLORS[:blue]
       end
-
-      json.child! do
-        json.yAxisID "mr"
-        json.data this.future_mr_data
-        json.tension 0.4
-        json.borderColor ApplicationChart::CHART_COLORS[:blue]
-        json.backgroundColor ApplicationChart::CHART_COLORS[:blue]
-        json.borderDash [ 5, 5 ]
-        json.fill false
-        json.pointRadius 0
-        json.pointHoverRadius 0
-        json.pointHitRadius 0
-      end
     end
 
-    if this.lp_matches.any?
+    if this.lp_data.any?
       json.child! do
         json.yAxisID "lp"
         json.label "LP"
@@ -112,19 +99,6 @@ json.data do
         json.tension 0.4
         json.borderColor ApplicationChart::CHART_COLORS[:red]
         json.backgroundColor ApplicationChart::CHART_COLORS[:red]
-      end
-
-      json.child! do
-        json.yAxisID "lp"
-        json.data this.future_lp_data
-        json.tension 0.4
-        json.borderColor ApplicationChart::CHART_COLORS[:red]
-        json.backgroundColor ApplicationChart::CHART_COLORS[:red]
-        json.borderDash [ 5, 5 ]
-        json.fill false
-        json.pointRadius 0
-        json.pointHoverRadius 0
-        json.pointHitRadius 0
       end
     end
   end

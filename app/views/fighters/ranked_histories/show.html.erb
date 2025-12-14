@@ -4,6 +4,6 @@
 
 <%= empty_alert_if @ranked_history.empty? do %>
   <div class="card card-body">
-    <%= render RankedHistoryChart.new(@ranked_history) %>
+    <%= render RankedHistoryChart.new(@ranked_history, @current_league) %>
   </div>
 <% end %>
