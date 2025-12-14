@@ -5,12 +5,13 @@ class RankedHistory
 
   Result = Struct.new(:mr, :lp, :mr_variation, :lp_variation, :played_at, :replay_id)
 
-  attr_accessor :fighter, :character_id, :played_at
+  attr_reader :fighter, :character_id, :from_date, :to_date
 
-  def initialize(fighter, character_id: nil, played_at: nil)
+  def initialize(fighter, character_id: nil, from_date: nil, to_date: nil)
     @fighter = fighter
     @character_id = character_id || fighter.main_character_id
-    @played_at = played_at || ..Time.zone.now
+    @from_date = from_date
+    @to_date = to_date
   end
 
   delegate :each, :empty?, to: :data
@@ -53,7 +54,7 @@ class RankedHistory
   end
 
   def matches_on_period
-    matches.where(played_at:)
+    matches.where(played_at: from_date..to_date)
   end
 
   def matches

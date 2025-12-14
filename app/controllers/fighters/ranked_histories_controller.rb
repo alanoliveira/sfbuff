@@ -7,8 +7,9 @@ class Fighters::RankedHistoriesController < ApplicationController
   def show
     @ranked_history = RankedHistory.new(
       @fighter,
-      played_at: @matches_filter.played_from..@matches_filter.played_to,
-      character_id: @matches_filter.home_character_id.presence
+      character_id: @matches_filter.home_character_id,
+      from_date: @matches_filter.played_from,
+      to_date: @matches_filter.played_to,
     )
   end
 

@@ -1,11 +1,11 @@
 require "rails_helper"
 
 RSpec.describe RankedHistory do
-  let(:ranked_history) { described_class.new(fighter, character_id:, played_at: played_from..played_to) }
+  let(:ranked_history) { described_class.new(fighter, character_id:, from_date:, to_date:) }
   let(:fighter) { create(:fighter) }
   let(:character_id) { 2 }
-  let(:played_from) { Date.parse("2020-01-02").beginning_of_day }
-  let(:played_to) { Date.parse("2020-01-09").end_of_day }
+  let(:from_date) { Date.parse("2020-01-02").beginning_of_day }
+  let(:to_date) { Date.parse("2020-01-09").end_of_day }
 
   before do
     create(:battle, :ranked, replay_id: "DDD", p1_fighter_id: fighter.id, p1_character_id: 2, played_at: "2020-01-01 23:59:59")
@@ -17,7 +17,7 @@ RSpec.describe RankedHistory do
     create(:battle, :casual_match, replay_id: "NON_RANKED", p1_fighter_id: fighter.id, p1_character_id: 2, played_at: "2020-01-02 00:00:00")
   end
 
-  context "when there is a match after the 'played_to'" do
+  context "when there is a match after the 'to_date'" do
     before do
       create(:battle, :ranked, replay_id: "EEE", p1_fighter_id: fighter.id, p1_character_id: 2, p1_mr: 14, p1_lp: 128, played_at: "2020-01-10 00:00:00")
     end
@@ -31,7 +31,7 @@ RSpec.describe RankedHistory do
     end
   end
 
-  context "when there no match after 'played_to' but there is a current_league_info" do
+  context "when there no match after 'to_date' but there is a current_league_info" do
     before do
       create(:current_league_info, fighter_id: fighter.id, character_id:, mr: 15, lp: 129)
     end
@@ -45,7 +45,7 @@ RSpec.describe RankedHistory do
     end
   end
 
-  context "when there no match after 'played_to' or current_league_info" do
+  context "when there no match after 'to_date' or current_league_info" do
     it "does not calculates the last item variations" do
       expect(ranked_history).to include(
         an_object_having_attributes(replay_id: "AAA", mr: 10, lp: 100, mr_variation: 5, lp_variation: 30),
