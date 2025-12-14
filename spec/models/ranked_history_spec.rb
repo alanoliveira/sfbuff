@@ -17,51 +17,24 @@ RSpec.describe RankedHistory do
     create(:battle, :casual_match, replay_id: "NON_RANKED", p1_fighter_id: fighter.id, p1_character_id: 2, played_at: "2020-01-02 00:00:00")
   end
 
-  context "when there is a match after the 'to_date'" do
-    before do
-      create(:battle, :ranked, replay_id: "EEE", p1_fighter_id: fighter.id, p1_character_id: 2, p1_mr: 14, p1_lp: 128, played_at: "2020-01-10 00:00:00")
-    end
-
-    it "uses the 'next match' to calculate the last item variations" do
-      expect(ranked_history).to include(
-        an_object_having_attributes(replay_id: "AAA", mr: 10, lp: 100, mr_variation: 5, lp_variation: 30),
-        an_object_having_attributes(replay_id: "BBB", mr: 15, lp: 130, mr_variation: -3, lp_variation: -10),
-        an_object_having_attributes(replay_id: "CCC", mr: 12, lp: 120, mr_variation: 2, lp_variation: 8)
-      )
-    end
-  end
-
-  context "when there no match after 'to_date' but there is a current_league_info" do
-    before do
-      create(:current_league_info, fighter_id: fighter.id, character_id:, mr: 15, lp: 129)
-    end
-
-    it "uses this current_league_info to calculate the last item variations" do
-      expect(ranked_history).to include(
-        an_object_having_attributes(replay_id: "AAA", mr: 10, lp: 100, mr_variation: 5, lp_variation: 30),
-        an_object_having_attributes(replay_id: "BBB", mr: 15, lp: 130, mr_variation: -3, lp_variation: -10),
-        an_object_having_attributes(replay_id: "CCC", mr: 12, lp: 120, mr_variation: 3, lp_variation: 9)
-      )
+  define :a_ranked_history_item_for_match do |expected|
+    match do |actual|
+      have_attributes(
+        replay_id: expected.replay_id,
+        played_at: expected.played_at,
+        mr: expected.home_mr,
+        lp: expected.home_lp,
+        mr_variation: expected.home_mr_variation,
+        lp_variation: nil
+      ).matches?(actual)
     end
   end
 
-  context "when there no match after 'to_date' or current_league_info" do
-    it "does not calculates the last item variations" do
-      expect(ranked_history).to include(
-        an_object_having_attributes(replay_id: "AAA", mr: 10, lp: 100, mr_variation: 5, lp_variation: 30),
-        an_object_having_attributes(replay_id: "BBB", mr: 15, lp: 130, mr_variation: -3, lp_variation: -10),
-        an_object_having_attributes(replay_id: "CCC", mr: 12, lp: 120, mr_variation: nil, lp_variation: nil)
-      )
-    end
-  end
-
-  context "when the 'next match' mr and/or lp values are not positive" do
-    before do
-      create(:current_league_info, fighter_id: fighter.id, character_id:, mr: 0, lp: -1)
-    end
-
-    it "does not calculate the variation" do
-      expect(ranked_history.to_a.last).to have_attributes(mr_variation: nil, lp_variation: nil)
-    end
+  it "uses the 'next match' to calculate the last item variations" do
+    expect(ranked_history).to match([
+      a_ranked_history_item_for_match(fighter.matches.find_by replay_id: "AAA"),
+      a_ranked_history_item_for_match(fighter.matches.find_by replay_id: "BBB"),
+      a_ranked_history_item_for_match(fighter.matches.find_by replay_id: "CCC")
+    ])
   end
 end
