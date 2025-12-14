@@ -9,11 +9,14 @@ class ApplicationChart
     grey: "rgb(201, 203, 207)"
   }
 
+  delegate_missing_to :@view_context
+
   def render_in(view_context)
-    chartjs_data_value = view_context.render partial: partial_path, formats: :json, locals: { this: self }
-    view_context.tag.div data: { controller: "chartjs", chartjs_data_value: } do
-      view_context.concat view_context.tag.button view_context.bs_icon("download"), class: "btn", data: { chartjs_target: "downloadButton" }
-      view_context.concat view_context.tag.canvas data: { chartjs_target: "canvas" }
+    @view_context = view_context
+    chartjs_data_value = render partial: partial_path, formats: :json, locals: { this: self }
+    tag.div data: { controller: "chartjs", chartjs_data_value: } do
+      concat tag.button bs_icon("download"), class: "btn", data: { chartjs_target: "downloadButton" }
+      concat tag.canvas data: { chartjs_target: "canvas" }
     end
   end
 
