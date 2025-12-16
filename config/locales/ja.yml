@@ -33,6 +33,9 @@ ja:
   searches:
     search_form:
       placeholder: プレイヤーネームまたID
+  charts:
+    ranked_history_chart:
+      current: 現在
   activemodel:
     models:
       ranked_history: ランク統計

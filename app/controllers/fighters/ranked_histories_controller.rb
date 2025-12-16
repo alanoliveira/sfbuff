@@ -5,10 +5,12 @@ class Fighters::RankedHistoriesController < ApplicationController
   layout "fighter"
 
   def show
+    @current_league = @fighter.current_league_infos[@matches_filter.home_character_id]
     @ranked_history = RankedHistory.new(
       @fighter,
-      played_at: @matches_filter.played_from..@matches_filter.played_to,
-      character_id: @matches_filter.home_character_id.presence
+      character_id: @matches_filter.home_character_id,
+      played_from: @matches_filter.played_from,
+      played_to: @matches_filter.played_to,
     )
   end
 
