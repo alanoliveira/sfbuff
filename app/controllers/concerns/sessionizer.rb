@@ -2,7 +2,7 @@ module Sessionizer
   extend ActiveSupport::Concern
 
   included do
-    rate_limit to: 10, within: 1.minutes, unless: -> { cookies.signed[:session_id].present? }
+    rate_limit to: 10, within: 1.minutes, name: "session_limit", unless: -> { cookies.signed[:session_id].present? }
     before_action :resume_or_start_new_session
     before_action :require_session
   end
