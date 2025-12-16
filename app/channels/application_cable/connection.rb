@@ -12,7 +12,7 @@ module ApplicationCable
     private
 
     def set_current_session
-      if session = Session.find_by(id: cookies.signed[:session_id])
+      if session = Session.active.find_by(id: cookies.signed[:session_id])
         self.current_session = session
       end
     end
