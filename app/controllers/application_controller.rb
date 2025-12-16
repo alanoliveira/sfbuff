@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
   include ModalVariant
   include SwitchLocale
   include SwitchTimezone
-
-  rescue_from ActionController::TooManyRequests, with: :too_many_requests
+  include TooManyRequestsHandler
 
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
@@ -21,12 +20,5 @@ class ApplicationController < ActionController::Base
 
   def device_detector
     @device_detector ||= DeviceDetector.new(request.user_agent)
-  end
-
-  def too_many_requests
-    respond_to do |format|
-      format.html { render html: helpers.too_many_requests_toast_alert, layout: true }
-      format.turbo_stream { render turbo_stream: helpers.too_many_requests_toast_alert }
-    end
   end
 end
