@@ -1,4 +1,5 @@
 <%= synchronization_turbo_frame_tag do %>
+  <%= worker_stream_from @synchronization_request %>
   <div class="position-absolute start-50" id="<%= dom_id @synchronization_request %>">
     <div class="badge rounded-pill text-bg-light opacity-50">
       <div class="spinner-border" role="status">

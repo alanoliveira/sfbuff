@@ -1,9 +1,9 @@
 class SynchronizationRequest < ApplicationRecord
+  include Broadcastable
+
   belongs_to :session, default: -> { Current.session }
   enum :status, %w[ created processing success failure ], default: "created"
   store_accessor :result, :new_battles_count
-
-  after_save_commit -> { broadcast_replace_later_to session, fighter_id, :synchronization }, if: :finished?
 
   def finished? = success? || failure?
 

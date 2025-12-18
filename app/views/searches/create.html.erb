@@ -1,4 +1,5 @@
 <%= turbo_frame_tag "fighter_search" do %>
+  <%= worker_stream_from @search_request %>
   <div id="<%= dom_id @search_request %>">
     <div class="text-center">
       <div class="spinner-border" role="status">

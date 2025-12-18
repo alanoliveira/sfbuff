@@ -8,9 +8,7 @@ class SearchesController < ApplicationController
   def create
     @search_request = SearchRequest.new(query: params[:query])
 
-    if @search_request.save
-      @search_request.process_later!
-    else
+    unless @search_request.save
       head :unprocessable_content
     end
   end

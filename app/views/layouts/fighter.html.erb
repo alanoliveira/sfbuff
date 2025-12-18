@@ -11,7 +11,6 @@
 <% content_for :main do %>
   <% unless @fighter.synchronized? %>
     <div id="<%= dom_id @fighter, "synchronization" %>" data-turbo-permanent>
-      <%= turbo_stream_from Current.session, @fighter.id, :synchronization %>
       <%= synchronization_request_form @fighter, data: { turbo_frame: "fighter_synchronization" } %>
       <%= synchronization_turbo_frame_tag %>
     </div>
