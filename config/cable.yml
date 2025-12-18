@@ -13,5 +13,5 @@ production:
   connects_to:
     database:
       writing: cable
-  polling_interval: <%= [ ENV["SFBUFF_SOLID_CABLE_POLLING_INTERVAL"].to_f, 0.1 ].max.seconds %>
+  polling_interval: <%= [ ENV["SFBUFF_SOLID_CABLE_POLLING_INTERVAL"].to_f, 0.1 ].max %>.seconds
   message_retention: 1.day
