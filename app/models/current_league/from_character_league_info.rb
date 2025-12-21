@@ -1,4 +1,4 @@
-module CurrentLeagueInfo::FromCharacterLeagueInfo
+module CurrentLeague::FromCharacterLeagueInfo
   extend ActiveSupport::Concern
 
   def from_character_league_info(character_league_info)

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :current_league_info do
+  factory :current_league do
     character_id { 1 }
     mr { 1 }
     lp { 1 }

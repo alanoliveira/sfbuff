@@ -20,8 +20,8 @@ RSpec.describe Fighter::Synchronization::ProfileSynchronizer do
       expect { profile_synchronizer.synchronize! }.to change(profile_synchronizer.fighter, :name).to("NewName")
     end
 
-    it "updates fighter current_league_infos" do
-      expect { profile_synchronizer.synchronize! }.to change { fighter.current_league_infos[1] }
+    it "updates fighter current_leagues" do
+      expect { profile_synchronizer.synchronize! }.to change { fighter.current_leagues[1] }
         .to an_object_having_attributes(mr: 100, lp: 2000)
     end
   end

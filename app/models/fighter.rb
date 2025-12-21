@@ -2,7 +2,7 @@ class Fighter < ApplicationRecord
   include Synchronizable
   include FromFighterBanner
 
-  has_many :current_league_infos, dependent: :delete_all do
+  has_many :current_leagues, dependent: :delete_all do
     def [](character)
       to_a.find { it.character_id == character.to_i }
     end

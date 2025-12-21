@@ -18,7 +18,7 @@ class Fighter::Synchronization::ProfileSynchronizer
 
   def synchronize_current_league!
     play_profile.character_league_infos.each do |character_league_info|
-      current_league = fighter.current_league_infos[character_league_info.character_id] || fighter.current_league_infos.new
+      current_league = fighter.current_leagues[character_league_info.character_id] || fighter.current_leagues.new
       current_league.from_character_league_info(character_league_info).save
     end
   end

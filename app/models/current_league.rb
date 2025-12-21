@@ -1,4 +1,4 @@
-class CurrentLeagueInfo < ApplicationRecord
+class CurrentLeague < ApplicationRecord
   include FromCharacterLeagueInfo
   belongs_to :fighter
   composed_of_enum :character, :character_id

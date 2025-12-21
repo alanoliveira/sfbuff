@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_21_072208) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_21_072342) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -58,15 +58,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_21_072208) do
     t.index ["fighter_synchronization_id", "battle_id"], name: "idx_on_fighter_synchronization_id_battle_id_e05ed78f24"
   end
 
-  create_table "current_league_infos", force: :cascade do |t|
+  create_table "current_leagues", force: :cascade do |t|
     t.integer "character_id", null: false
     t.datetime "created_at", null: false
     t.bigint "fighter_id", null: false
     t.integer "lp"
     t.integer "mr"
     t.datetime "updated_at", null: false
-    t.index ["fighter_id", "character_id"], name: "index_current_league_infos_on_fighter_id_and_character_id", unique: true
-    t.index ["fighter_id"], name: "index_current_league_infos_on_fighter_id"
+    t.index ["fighter_id", "character_id"], name: "index_current_leagues_on_fighter_id_and_character_id", unique: true
+    t.index ["fighter_id"], name: "index_current_leagues_on_fighter_id"
   end
 
   create_table "fighter_searches", force: :cascade do |t|
@@ -122,7 +122,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_21_072208) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "current_league_infos", "fighters"
+  add_foreign_key "current_leagues", "fighters"
   add_foreign_key "fighter_synchronizations", "fighters"
   add_foreign_key "search_requests", "sessions"
   add_foreign_key "synchronization_requests", "sessions"
