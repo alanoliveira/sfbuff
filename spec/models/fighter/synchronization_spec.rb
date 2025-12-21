@@ -15,43 +15,42 @@ RSpec.describe Fighter::Synchronization do
   end
 
   describe "#process!" do
-    let(:play_profile) { instance_double BucklerApiGateway::Mappers::PlayProfile, character_league_infos:, fighter_banner: spy }
-    let(:character_league_infos) { [ instance_double(BucklerApiGateway::Mappers::CharacterLeagueInfo, character_id: 1, master_rating: 100, league_point: 2000) ] }
-    let(:replays) { 5.times.map { instance_double(BucklerApiGateway::Mappers::Replay, replay_id: generate(:replay_id)) } }
+    let(:battles_synchronzier) { instance_double Fighter::Synchronization::BattlesSynchronizer, { synchronize!: synchronized_battles } }
+    let(:profile_synchronzier) { instance_double Fighter::Synchronization::ProfileSynchronizer, { synchronize!: nil } }
+    let(:synchronized_battles) { create_list(:battle, 3) }
 
     before do
-      allow(BucklerApiGateway).to receive_messages(
-        fetch_fighter_play_profile: play_profile,
-        fetch_fighter_replays: replays
-      )
-      allow(fighter_synchronization).to receive(:with_lock).and_yield # prevent reload the model
-      allow(Battle).to receive(:create_or_find_by) { |replay_id:| Battle.find_by(replay_id:) || create(:battle, replay_id:) }
-      allow(fighter_synchronization.fighter).to receive(:from_fighter_banner).with(play_profile.fighter_banner) do
-        fighter_synchronization.fighter.name = "NewName"
-        fighter_synchronization.fighter
+      allow(Fighter::Synchronization::BattlesSynchronizer).to receive(:new).and_return(battles_synchronzier)
+      allow(Fighter::Synchronization::ProfileSynchronizer).to receive(:new).and_return(profile_synchronzier)
+    end
+
+    context "when synchronization succeeded" do
+      it "sets status to success" do
+        expect { fighter_synchronization.process! }.to change(fighter_synchronization, :status).to("success")
+      end
+
+      it "synchronizes fighter profile" do
+        fighter_synchronization.process!
+        expect(profile_synchronzier).to have_received(:synchronize!)
+      end
+
+      it "synchronizes fighter battles" do
+        expect { fighter_synchronization.process! }.to change(fighter_synchronization, :synchronized_battles).to(synchronized_battles)
       end
     end
 
-    it "updates fighter data" do
-      expect { fighter_synchronization.process! }.to change(fighter_synchronization.fighter, :name).to("NewName")
-    end
-
-    it "updates fighter current_league_infos" do
-      expect { fighter_synchronization.process! }.to change { fighter.current_league_infos[1] }
-        .to an_object_having_attributes(mr: 100, lp: 2000)
-    end
-
-    it "save new battles" do
-      expect { fighter_synchronization.process! }.to change(fighter_synchronization.synchronized_battles, :count).to(5)
-    end
-
-    context "when it finds the last imported battle" do
+    context "when synchronization fails" do
       before do
-        create(:fighter_synchronization, fighter:, synchronized_battles: [ create(:battle, replay_id: replays[3].replay_id) ])
+        allow(battles_synchronzier).to receive(:synchronize!).and_raise("boom")
       end
 
-      it "stops to import" do
-        expect { fighter_synchronization.process! }.to change(fighter_synchronization.synchronized_battles, :count).to(3)
+      it "raises the error" do
+        expect { fighter_synchronization.process! }.to raise_error("boom")
+      end
+
+      it "sets the status to failure" do
+        fighter_synchronization.process! rescue nil
+        expect(fighter_synchronization).to be_failure
       end
     end
   end

@@ -9,9 +9,9 @@ class Fighter::Synchronization < ApplicationRecord
   def unfinished? = !finished?
 
   def process!
-    return unless created? && with_lock { processing! if created? }
+    return unless start_processing!
     synchronize_battles!
-    synchronize_fighter!
+    synchronize_profile!
     success!
   rescue
     failure!
@@ -20,28 +20,15 @@ class Fighter::Synchronization < ApplicationRecord
 
   private
 
+  def start_processing!
+    created? && with_lock { processing! if created? }
+  end
+
   def synchronize_battles!
-    self.synchronized_battles = BucklerApiGateway
-      .fetch_fighter_replays(fighter.id)
-      .map { |replay| Battle.create_or_find_by(replay_id: replay.replay_id) { it.from_replay(replay) } }
-      .take_while { it.replay_id != fighter_last_synchronized_replay_id }
-      .entries
+    self.synchronized_battles = BattlesSynchronizer.new(fighter).synchronize!
   end
 
-  def synchronize_fighter!
-    play_profile = BucklerApiGateway.fetch_fighter_play_profile(fighter.id)
-    fighter.from_fighter_banner(play_profile.fighter_banner).save
-    play_profile.character_league_infos.each do |character_league_info|
-      (fighter.current_league_infos[character_league_info.character_id] || fighter.current_league_infos.new)
-        .from_character_league_info(character_league_info).save
-    end
-  end
-
-  def fighter_last_synchronized_replay_id
-    Fighter::Synchronization
-      .where(fighter:)
-      .joins(:synchronized_battles)
-      .order(played_at: :desc)
-      .pick(:replay_id)
+  def synchronize_profile!
+    ProfileSynchronizer.new(fighter).synchronize!
   end
 end

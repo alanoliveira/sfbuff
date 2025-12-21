@@ -6,16 +6,16 @@ module Fighter::Synchronizable
     has_many :synchronizations, dependent: :destroy
   end
 
+  def synchronizable?
+    !synchronizing? && !synchronized?
+  end
+
   def synchronizing?
     synchronizations.last.try { !it.finished? }
   end
 
   def synchronized?
     synchronized_at.try { it.after?(synchronization_interval.ago) }
-  end
-
-  def synchronizable?
-    !synchronized? && !synchronizing?
   end
 
   def synchronized_at
@@ -26,8 +26,8 @@ module Fighter::Synchronizable
     synchronizations.success.last
   end
 
-  def synchronize!(force: false)
-    return unless synchronizable? || force
+  def synchronize!
+    return unless synchronizable?
     synchronizations.create.tap(&:process!)
   end
 end
