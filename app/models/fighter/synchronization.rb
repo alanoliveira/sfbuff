@@ -1,6 +1,6 @@
-class FighterSynchronization < ApplicationRecord
+class Fighter::Synchronization < ApplicationRecord
   enum :status, %w[ created processing success failure stall ], default: "created"
-  has_and_belongs_to_many :synchronized_battles, class_name: "Battle", dependent: :delete_all
+  has_and_belongs_to_many :synchronized_battles, foreign_key: "fighter_synchronization_id", class_name: "Battle", dependent: :delete_all
   belongs_to :fighter
 
   scope :unfinished, -> { where(status: [ "created", "processing" ]) }
@@ -38,7 +38,7 @@ class FighterSynchronization < ApplicationRecord
   end
 
   def fighter_last_synchronized_replay_id
-    FighterSynchronization
+    Fighter::Synchronization
       .where(fighter:)
       .joins(:synchronized_battles)
       .order(played_at: :desc)

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FighterSynchronization::StallZombiesJob do
+RSpec.describe Fighter::Synchronization::StallZombiesJob do
   let(:zombie_threshold) { 3.minutes }
 
   before do
@@ -16,7 +16,7 @@ RSpec.describe FighterSynchronization::StallZombiesJob do
 
   it do
     described_class.perform_now
-    expect(FighterSynchronization.stall).to have_attributes(count: 3).and all(
+    expect(Fighter::Synchronization.stall).to have_attributes(count: 3).and all(
       have_attributes(created_at: a_value <= zombie_threshold.ago)
     )
   end

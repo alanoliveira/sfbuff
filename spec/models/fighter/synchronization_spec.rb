@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FighterSynchronization do
+RSpec.describe Fighter::Synchronization do
   let(:fighter_synchronization) { described_class.create(fighter:) }
   let(:fighter) { create(:fighter) }
 
