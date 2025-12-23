@@ -1,0 +1,7 @@
+<% if @fighter_search.success? %>
+  <%= turbo_stream.replace @fighter_search %>
+<% end %>
+
+<% if @fighter_search.error? %>
+  <%= turbo_stream_toast human_error_message(@fighter_search.error), kind: "danger" %>
+<% end %>

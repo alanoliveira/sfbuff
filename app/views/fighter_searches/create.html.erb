@@ -1,10 +1,12 @@
-<%= turbo_frame_tag "fighter_search" do %>
-  <%= worker_stream_from @search_request %>
-  <div id="<%= dom_id @search_request %>">
+<%= turbo_frame_tag "fighter_searches" do %>
+  <%= content_tag :div, id: dom_id(@fighter_search), data: {
+    controller: "turbo-stream-loader",
+    turbo_stream_loader_url_value: url_for(@fighter_search)
+  } do %>
     <div class="text-center">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>

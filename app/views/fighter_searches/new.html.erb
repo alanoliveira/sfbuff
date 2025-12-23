@@ -1,10 +1,10 @@
-<div class="mb-3" data-turbo-frame="fighter_search" data-turbo-action="advance">
+<div class="mb-3">
   <%= render "form" %>
 </div>
 
 <% if @query %>
   <div class="card card-body table-responsive">
-    <%= turbo_frame_tag "fighter_search" do %>
+    <%= turbo_frame_tag "fighter_searches" do %>
       <%= search_request_form(@query) %>
     <% end %>
   </div>
