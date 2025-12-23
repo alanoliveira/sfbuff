@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@rails/request.js": "^0.0.13",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "local-time": "^3.0.3",
