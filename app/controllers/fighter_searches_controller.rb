@@ -1,7 +1,7 @@
-class SearchesController < ApplicationController
+class FighterSearchesController < ApplicationController
   rate_limit to: 5, within: 1.minutes, only: :create
 
-  def show
+  def new
     @query = params[:q].presence
   end
 

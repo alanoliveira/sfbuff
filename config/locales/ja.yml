@@ -30,8 +30,8 @@ ja:
     index:
       welcome: SFBUFFにようこそ
       description: スト6の対戦を分析するサイト
-  searches:
-    search_form:
+  fighter_searches:
+    form:
       placeholder: プレイヤーネームまたID
   charts:
     ranked_history_chart:

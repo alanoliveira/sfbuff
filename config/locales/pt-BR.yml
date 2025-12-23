@@ -30,8 +30,8 @@ pt-BR:
     index:
       welcome: Bem vindo ao SFBUFF
       description: Um site de estatísticas para matches de SF6
-  searches:
-    search_form:
+  fighter_searches:
+    form:
       placeholder: Nome ou ID
   charts:
     ranked_history_chart:

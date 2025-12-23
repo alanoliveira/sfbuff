@@ -1,5 +1,4 @@
-<%# locals: (form_options: {}) %>
-<%= form_with url: search_path, method: :get, **form_options do |f| %>
+<%= form_with url: search_fighters_path, method: :get do |f| %>
   <div class="input-group">
     <%= f.search_field :q, autocomplete: "sfbuff-fighter", value: params["q"], placeholder: t(".placeholder"),
       minlength: 4, required: 1, class: "form-control" %>

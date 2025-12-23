@@ -1,5 +1,5 @@
-<div class="mb-3">
-  <%= render "search_form", form_options: { data: { turbo_frame: "fighter_search", turbo_action: "advance" } } %>
+<div class="mb-3" data-turbo-frame="fighter_search" data-turbo-action="advance">
+  <%= render "form" %>
 </div>
 
 <% if @query %>
