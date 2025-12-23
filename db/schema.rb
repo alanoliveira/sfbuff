@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_21_072342) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_23_072614) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -71,11 +71,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_21_072342) do
 
   create_table "fighter_searches", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.datetime "performed_at"
+    t.string "error"
     t.string "query", null: false
     t.json "result"
+    t.integer "status"
     t.datetime "updated_at", null: false
-    t.index ["query"], name: "index_fighter_searches_on_query", unique: true
   end
 
   create_table "fighter_synchronizations", force: :cascade do |t|
