@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_24_083400) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_24_100659) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -100,6 +100,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_24_083400) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "session_events", force: :cascade do |t|
+    t.datetime "created_at"
+    t.string "name", null: false
+    t.json "params"
+    t.bigint "session_id", null: false
+    t.index ["session_id"], name: "index_session_events_on_session_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -120,6 +128,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_24_083400) do
 
   add_foreign_key "current_leagues", "fighters"
   add_foreign_key "fighter_synchronizations", "fighters"
+  add_foreign_key "session_events", "sessions"
   add_foreign_key "synchronization_requests", "sessions"
 
   create_view "matches", sql_definition: <<-SQL

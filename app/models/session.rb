@@ -2,6 +2,8 @@ class Session < ApplicationRecord
   class_attribute :activity_refresh_rate, instance_writer: false, default: 1.hour
   class_attribute :inactive_threshold, instance_writer: false, default: 2.hour
 
+  has_many :events, dependent: :delete_all
+
   scope :active, -> { where(last_active_at: inactive_threshold.ago..) }
 
   before_create { self.last_active_at ||= Time.zone.now }

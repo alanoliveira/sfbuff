@@ -49,4 +49,12 @@ module Sessionizer
     Current.session.destroy
     cookies.delete(:session_id)
   end
+
+  def log_session_event(name: "#{controller_name}##{action_name}", **)
+    if session = Current.session
+      session.events.create!(name:, **)
+    else
+      Rails.logger.warn("impossible to log an event for a null session")
+    end
+  end
 end

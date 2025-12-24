@@ -7,6 +7,8 @@ class FighterSearchesController < ApplicationController
   end
 
   def create
+    log_session_event(params: params[:query])
+
     @fighter_search = FighterSearch.new(query: params[:query])
 
     if @fighter_search.save
