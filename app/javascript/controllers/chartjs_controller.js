@@ -40,8 +40,8 @@ export default class extends Controller {
     canvas.height = "600"
     const downloadChart = new Chart(canvas, Chart.helpers.merge(this.dataValue, DOWNLOAD_OPTIONS))
     const anchor = document.createElement("a")
-    anchor.target = "_blank"
     anchor.href = downloadChart.toBase64Image()
+    anchor.download = (new Date()).toISOString()
     anchor.click()
   }
 }
