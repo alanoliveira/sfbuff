@@ -5,7 +5,7 @@ class Fighters::SynchronizationsController < ApplicationController
   before_action :set_synchronization, only: :show
 
   def create
-    log_session_event(params: @fighter_id)
+    log_session_event(params: @fighter.id)
 
     @fighter.save if @fighter.new_record?
     @synchronization = @fighter.synchronize_later || @fighter.current_synchronization
