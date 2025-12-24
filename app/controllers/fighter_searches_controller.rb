@@ -23,6 +23,6 @@ class FighterSearchesController < ApplicationController
   private
 
   def set_fighter_search
-    @fighter_search = FighterSearch.find(params[:id])
+    @fighter_search = FighterSearch.find_by!(uuid: params[:uuid])
   end
 end

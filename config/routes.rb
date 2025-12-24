@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :fighter_searches, only: [ :create, :show ]
+  resources :fighter_searches, param: :uuid, only: [ :create, :show ]
   resources :battles, param: :replay_id, only: :show
   resources :fighters, only: [], constraints: { id: Patterns::SHORT_ID_REGEXP } do
     get "search" => "fighter_searches#new", on: :collection
