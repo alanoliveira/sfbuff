@@ -6,7 +6,7 @@ RSpec.describe Fighter::Synchronization do
 
   describe ".unfinished" do
     before do
-      described_class.statuses.keys.each { create(:fighter_synchronization, it, fighter:) }
+      described_class.statuses.keys.each { create(:fighter_synchronization, it, fighter: create(:fighter)) }
     end
 
     it do

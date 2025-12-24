@@ -27,7 +27,14 @@ module Fighter::Synchronizable
   end
 
   def synchronize
-    return unless synchronizable?
-    synchronizations.create.tap(&:process)
+    create_synchronization&.tap(&:process)
+  end
+
+  private
+
+  def create_synchronization
+    synchronizations.create if synchronizable?
+  rescue PG::UniqueViolation
+    # there is already and active synchronization
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_24_053629) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_24_075918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -88,6 +88,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_24_053629) do
     t.datetime "updated_at", null: false
     t.string "uuid"
     t.index ["created_at"], name: "index_fighter_synchronizations_on_created_at"
+    t.index ["fighter_id"], name: "idx_unique_unfinished_synchronization", unique: true, where: "(status = ANY (ARRAY[0, 1]))"
     t.index ["fighter_id"], name: "index_fighter_synchronizations_on_fighter_id"
   end
 
