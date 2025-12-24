@@ -22,14 +22,14 @@ pt-BR:
         about: Sobre
     fighter:
       synchronized_at_html: "Sincronizado %{local_time_ago}"
-      fair_use:
-        agreement: Eu concordo em usar essa ferramenta apenas para analizar o resultado das batalhas e nao para monitorar streamers.
-        agree: Concordar
-        disagree: Discordar
   pages:
     index:
       welcome: Bem vindo ao SFBUFF
       description: Um site de estatísticas para matches de SF6
+    fair_use_agreement:
+      agreement: Eu concordo em usar essa ferramenta apenas para analizar o resultado das batalhas e nao para monitorar streamers.
+      agree: Concordar
+      disagree: Discordar
   fighter_searches:
     form:
       placeholder: Nome ou ID

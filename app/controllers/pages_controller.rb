@@ -7,4 +7,7 @@ class PagesController < ApplicationController
 
   def about
   end
+
+  def fair_use_agreement
+  end
 end

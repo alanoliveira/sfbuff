@@ -1,6 +1,6 @@
 module ModalsHelper
-  def modal_turbo_frame_tag(&)
-    turbo_frame_tag("modal", &)
+  def modal_turbo_frame_tag(**, &)
+    turbo_frame_tag(modal_turbo_frame_name, **, &)
   end
 
   def modal_container(content = nil, data: {}, &)
@@ -15,7 +15,11 @@ module ModalsHelper
   end
 
   def link_to_modal(*, data: {}, **, &)
-    data[:turbo_frame] = "modal"
+    data[:turbo_frame] = modal_turbo_frame_name
     link_to(*, data:, **, &)
+  end
+
+  def modal_turbo_frame_name
+    "modal"
   end
 end
