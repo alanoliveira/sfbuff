@@ -8,7 +8,7 @@ module FighterScoped
   class_methods do
     def fresh_when_synchronized_at_changed(**)
       before_action(**) do
-        fresh_when @fighter, last_modified: @fighter.synchronized_at
+        fresh_when @fighter, last_modified: @fighter.synchronized_at if @fighter.synchronized?
       end
     end
   end
