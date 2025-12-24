@@ -7,19 +7,27 @@ module Fighter::Synchronizable
   end
 
   def synchronizable?
-    !synchronizing? && !synchronized?
-  end
-
-  def synchronizing?
-    synchronizations.last.try { !it.finished? }
+    !synchronized? && !synchronizing?
   end
 
   def synchronized?
     synchronized_at.try { it.after?(synchronization_interval.ago) }
   end
 
+  def synchronizing?
+    current_synchronization.try { !it.finished? }
+  end
+
+  def current_synchronization
+    synchronizations.last
+  end
+
   def synchronize
     create_synchronization&.tap(&:process)
+  end
+
+  def synchronize_later
+    create_synchronization&.tap(&:process_later)
   end
 
   private

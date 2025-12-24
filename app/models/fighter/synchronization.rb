@@ -21,6 +21,18 @@ class Fighter::Synchronization < ApplicationRecord
     raise
   end
 
+  def process_later
+    ProcessJob.perform_later(self)
+  end
+
+  def to_param
+    uuid
+  end
+
+  def to_key
+    [ uuid ]
+  end
+
   private
 
   def start_processing
