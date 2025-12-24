@@ -37,6 +37,13 @@ RSpec.describe Fighter::Synchronization do
       it "synchronizes fighter battles" do
         expect { fighter_synchronization.process }.to change(fighter_synchronization, :synchronized_battles).to(synchronized_battles)
       end
+
+      it "touches fighter's synchronized_at" do
+        freeze_time do
+          fighter_synchronization.process
+          expect(fighter.reload.synchronized_at).to eq(Time.zone.now)
+        end
+      end
     end
 
     context "when synchronization fails" do

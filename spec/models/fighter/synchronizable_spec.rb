@@ -6,19 +6,21 @@ RSpec.describe Fighter::Synchronizable do
   describe "#synchronized?" do
     subject(:synchronized) { fighter.synchronized? }
 
-    context "when the fighter last synchronization is older then or equal SYNCHRONIZATION_INTERVAL ago" do
-      before { create(:fighter_synchronization, :success, fighter:, created_at: Fighter.synchronization_interval.ago) }
+    context "when fighter's synchronized_at is older then or equal SYNCHRONIZATION_INTERVAL ago" do
+      before { fighter.update(synchronized_at: Fighter.synchronization_interval.ago) }
 
       it { is_expected.to be_falsey }
     end
 
-    context "when the fighter last synchronization is newer then SYNCHRONIZATION_INTERVAL ago" do
-      before { create(:fighter_synchronization, :success, fighter:, created_at: (Fighter.synchronization_interval - 1).ago) }
+    context "when fighter's synchronized_at is newer then SYNCHRONIZATION_INTERVAL ago" do
+      before { fighter.update(synchronized_at: (Fighter.synchronization_interval - 1).ago) }
 
       it { is_expected.to be_truthy }
     end
 
-    context "when there is no last synchronization" do
+    context "when fighter's synchronized_at is nil" do
+      before { fighter.update(synchronized_at: nil) }
+
       it { is_expected.to be_falsey }
     end
   end

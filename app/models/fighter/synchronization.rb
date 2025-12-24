@@ -13,6 +13,7 @@ class Fighter::Synchronization < ApplicationRecord
     return unless start_processing
     synchronize_battles
     synchronize_profile
+    fighter.touch(:synchronized_at)
     success!
   rescue => error
     self[:error] = error.class.name
