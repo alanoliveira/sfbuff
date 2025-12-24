@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_24_100659) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_24_130252) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -116,20 +116,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_24_100659) do
     t.string "user_agent"
   end
 
-  create_table "synchronization_requests", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "error"
-    t.bigint "fighter_id", null: false
-    t.json "result"
-    t.bigint "session_id", null: false
-    t.integer "status", null: false
-    t.datetime "updated_at", null: false
-  end
-
   add_foreign_key "current_leagues", "fighters"
   add_foreign_key "fighter_synchronizations", "fighters"
   add_foreign_key "session_events", "sessions"
-  add_foreign_key "synchronization_requests", "sessions"
 
   create_view "matches", sql_definition: <<-SQL
       SELECT replay_id,
