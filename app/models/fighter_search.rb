@@ -1,5 +1,6 @@
 class FighterSearch < ApplicationRecord
   enum :status, %w[ created processing success failure ], default: "created"
+  attribute :uuid, default: -> { SecureRandom.uuid }
   attribute :result, :fighter_banner, json_array: true
   alias_attribute :fighter_banners, :result
 
