@@ -1,12 +1,8 @@
 Rails.application.routes.draw do
+  resources :fighter_searches, only: [ :create, :show ]
   resources :battles, param: :replay_id, only: :show
   resources :fighters, only: [], constraints: { id: Patterns::SHORT_ID_REGEXP } do
-    collection do
-      resource :search, only: :show do
-        post "/:query", action: :create, as: "query"
-      end
-    end
-
+    get "search" => "fighter_searches#new", on: :collection
     get "/" => redirect("/fighters/search"), on: :collection
     get "/" => redirect("/fighters/%{id}/matches"), on: :member
 
