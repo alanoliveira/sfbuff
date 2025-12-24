@@ -26,8 +26,8 @@ module Fighter::Synchronizable
     synchronizations.success.last
   end
 
-  def synchronize!
+  def synchronize
     return unless synchronizable?
-    synchronizations.create.tap(&:process!)
+    synchronizations.create.tap(&:process)
   end
 end

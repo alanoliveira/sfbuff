@@ -9,10 +9,10 @@ class Fighter::Synchronization < ApplicationRecord
   def finished? = success? || failure? || stall?
   def unfinished? = !finished?
 
-  def process!
-    return unless start_processing!
-    synchronize_battles!
-    synchronize_profile!
+  def process
+    return unless start_processing
+    synchronize_battles
+    synchronize_profile
     success!
   rescue => error
     self[:error] = error.class.name
@@ -22,15 +22,15 @@ class Fighter::Synchronization < ApplicationRecord
 
   private
 
-  def start_processing!
+  def start_processing
     created? && with_lock { processing! if created? }
   end
 
-  def synchronize_battles!
-    self.synchronized_battles = BattlesSynchronizer.new(fighter).synchronize!
+  def synchronize_battles
+    self.synchronized_battles = BattlesSynchronizer.new(fighter).synchronize
   end
 
-  def synchronize_profile!
-    ProfileSynchronizer.new(fighter).synchronize!
+  def synchronize_profile
+    ProfileSynchronizer.new(fighter).synchronize
   end
 end

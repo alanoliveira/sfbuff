@@ -4,7 +4,7 @@ RSpec.describe Fighter::Synchronization::BattlesSynchronizer do
   let(:battles_synchronizer) { described_class.new(fighter) }
   let(:fighter) { create(:fighter) }
 
-  describe "#synchronize!" do
+  describe "#synchronize" do
     let(:replays) { 5.times.map { instance_double(BucklerApiGateway::Mappers::Replay, replay_id: generate(:replay_id)) } }
 
     before do
@@ -13,7 +13,7 @@ RSpec.describe Fighter::Synchronization::BattlesSynchronizer do
     end
 
     it "save new battles" do
-      expect { battles_synchronizer.synchronize! }.to change(Battle, :count).by(5)
+      expect { battles_synchronizer.synchronize }.to change(Battle, :count).by(5)
     end
 
     context "when it finds the fighter's last imported battle" do
@@ -22,7 +22,7 @@ RSpec.describe Fighter::Synchronization::BattlesSynchronizer do
       end
 
       it "stops to import" do
-        expect { battles_synchronizer.synchronize! }.to change(Battle, :count).by(3)
+        expect { battles_synchronizer.synchronize }.to change(Battle, :count).by(3)
       end
     end
   end

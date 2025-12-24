@@ -7,11 +7,11 @@ class SynchronizationRequest < ApplicationRecord
 
   def finished? = success? || failure?
 
-  def process!
+  def process
     return unless created? && with_lock { processing! if created? }
 
     fighter = Fighter.find_or_create_by(id: fighter_id)
-    synchronization = fighter.synchronize! || fighter.synchronizations.last
+    synchronization = fighter.synchronize || fighter.synchronizations.last
     self.new_battles_count = synchronization.synchronized_battles.count
     success!
   rescue => error
@@ -20,7 +20,7 @@ class SynchronizationRequest < ApplicationRecord
     raise unless error.is_a? BucklerApiClient::BucklerApiHttpError
   end
 
-  def process_later!
+  def process_later
     ProcessJob.perform_later(self)
   end
 end

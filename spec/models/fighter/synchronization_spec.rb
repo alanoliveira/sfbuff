@@ -14,9 +14,9 @@ RSpec.describe Fighter::Synchronization do
     end
   end
 
-  describe "#process!" do
-    let(:battles_synchronzier) { instance_double Fighter::Synchronization::BattlesSynchronizer, { synchronize!: synchronized_battles } }
-    let(:profile_synchronzier) { instance_double Fighter::Synchronization::ProfileSynchronizer, { synchronize!: nil } }
+  describe "#process" do
+    let(:battles_synchronzier) { instance_double Fighter::Synchronization::BattlesSynchronizer, { synchronize: synchronized_battles } }
+    let(:profile_synchronzier) { instance_double Fighter::Synchronization::ProfileSynchronizer, { synchronize: nil } }
     let(:synchronized_battles) { create_list(:battle, 3) }
 
     before do
@@ -26,35 +26,35 @@ RSpec.describe Fighter::Synchronization do
 
     context "when synchronization succeeded" do
       it "sets status to success" do
-        expect { fighter_synchronization.process! }.to change(fighter_synchronization, :status).to("success")
+        expect { fighter_synchronization.process }.to change(fighter_synchronization, :status).to("success")
       end
 
       it "synchronizes fighter profile" do
-        fighter_synchronization.process!
-        expect(profile_synchronzier).to have_received(:synchronize!)
+        fighter_synchronization.process
+        expect(profile_synchronzier).to have_received(:synchronize)
       end
 
       it "synchronizes fighter battles" do
-        expect { fighter_synchronization.process! }.to change(fighter_synchronization, :synchronized_battles).to(synchronized_battles)
+        expect { fighter_synchronization.process }.to change(fighter_synchronization, :synchronized_battles).to(synchronized_battles)
       end
     end
 
     context "when synchronization fails" do
       before do
-        allow(battles_synchronzier).to receive(:synchronize!).and_raise("boom")
+        allow(battles_synchronzier).to receive(:synchronize).and_raise("boom")
       end
 
       it "raises the error" do
-        expect { fighter_synchronization.process! }.to raise_error("boom")
+        expect { fighter_synchronization.process }.to raise_error("boom")
       end
 
       it "sets the status to failure" do
-        fighter_synchronization.process! rescue nil
+        fighter_synchronization.process rescue nil
         expect(fighter_synchronization).to be_failure
       end
 
       it "sets the error to error class name" do
-        fighter_synchronization.process! rescue nil
+        fighter_synchronization.process rescue nil
         expect(fighter_synchronization.error).to eq "RuntimeError"
       end
     end
