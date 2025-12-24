@@ -7,7 +7,7 @@ It gathers match information from the official website and provides various insi
 
 ### Prerequisites
 
-- Ruby 3.4.7
+- Ruby 3.4.8
 - Bundler 2.7.1
 - PostgreSQL 16.2
 - Chromium (used as a fallback for login if the attempt using HTTP fails)
