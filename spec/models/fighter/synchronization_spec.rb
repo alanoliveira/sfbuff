@@ -52,6 +52,11 @@ RSpec.describe Fighter::Synchronization do
         fighter_synchronization.process! rescue nil
         expect(fighter_synchronization).to be_failure
       end
+
+      it "sets the error to error class name" do
+        fighter_synchronization.process! rescue nil
+        expect(fighter_synchronization.error).to eq "RuntimeError"
+      end
     end
   end
 end

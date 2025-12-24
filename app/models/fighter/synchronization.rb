@@ -14,7 +14,8 @@ class Fighter::Synchronization < ApplicationRecord
     synchronize_battles!
     synchronize_profile!
     success!
-  rescue
+  rescue => error
+    self[:error] = error.class.name
     failure!
     raise
   end
