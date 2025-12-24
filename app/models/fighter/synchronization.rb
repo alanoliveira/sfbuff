@@ -1,5 +1,6 @@
 class Fighter::Synchronization < ApplicationRecord
   enum :status, %w[ created processing success failure stall ], default: "created"
+  attribute :uuid, default: -> { SecureRandom.uuid }
   has_and_belongs_to_many :synchronized_battles, foreign_key: "fighter_synchronization_id", class_name: "Battle", dependent: :delete_all
   belongs_to :fighter
 
