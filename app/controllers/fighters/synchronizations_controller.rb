@@ -2,12 +2,20 @@ class Fighters::SynchronizationsController < ApplicationController
   include FighterScoped
 
   rate_limit to: 5, within: 1.minutes, only: :create
+  before_action :set_synchronization, only: :show
 
   def create
-    if @fighter.synchronized?
-      return redirect_back fallback_location: fighter_path(@fighter), status: :see_other
-    end
+    @fighter.save if @fighter.new_record?
+    @synchronization = @fighter.synchronize_later || @fighter.current_synchronization
+  end
 
-    @synchronization_request = SynchronizationRequest.create!(fighter_id: @fighter.id)
+  def show
+    head :accepted unless @synchronization&.finished?
+  end
+
+  private
+
+  def set_synchronization
+    @synchronization = @fighter.current_synchronization
   end
 end

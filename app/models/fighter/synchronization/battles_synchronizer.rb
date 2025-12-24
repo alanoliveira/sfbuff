@@ -5,7 +5,7 @@ class Fighter::Synchronization::BattlesSynchronizer
     @fighter = fighter
   end
 
-  def synchronize!
+  def synchronize
     @synchronized_battles = BucklerApiGateway
       .fetch_fighter_replays(fighter.id)
       .map { |replay| Battle.create_or_find_by(replay_id: replay.replay_id) { it.from_replay(replay) } }

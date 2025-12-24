@@ -10,10 +10,9 @@
 
 <% content_for :main do %>
   <% unless @fighter.synchronized? %>
-    <div id="<%= dom_id @fighter, "synchronization" %>" data-turbo-permanent>
-      <%= synchronization_request_form @fighter, data: { turbo_frame: "fighter_synchronization" } %>
-      <%= synchronization_turbo_frame_tag %>
-    </div>
+    <%= fighter_synchronization_turbo_frame_tag do %>
+      <%= fighter_synchronization_request_form @fighter %>
+    <% end %>
   <% end %>
 
   <%= turbo_frame_tag "fighter-content", data: { turbo_action: "advance" } do %>

@@ -7,27 +7,34 @@ module Fighter::Synchronizable
   end
 
   def synchronizable?
-    !synchronizing? && !synchronized?
-  end
-
-  def synchronizing?
-    synchronizations.last.try { !it.finished? }
+    !synchronized? && !synchronizing?
   end
 
   def synchronized?
     synchronized_at.try { it.after?(synchronization_interval.ago) }
   end
 
-  def synchronized_at
-    last_success_synchronization.try(&:created_at)
+  def synchronizing?
+    current_synchronization.try { !it.finished? }
   end
 
-  def last_success_synchronization
-    synchronizations.success.last
+  def current_synchronization
+    synchronizations.last
   end
 
-  def synchronize!
-    return unless synchronizable?
-    synchronizations.create.tap(&:process!)
+  def synchronize
+    create_synchronization&.tap(&:process)
+  end
+
+  def synchronize_later
+    create_synchronization&.tap(&:process_later)
+  end
+
+  private
+
+  def create_synchronization
+    synchronizations.create if synchronizable?
+  rescue PG::UniqueViolation
+    # there is already and active synchronization
   end
 end

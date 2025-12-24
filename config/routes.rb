@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get "/" => redirect("/fighters/%{id}/matches"), on: :member
 
     scope module: :fighters do
-      resource :synchronization, only: :create
+      resource :synchronization, only: [ :create, :show ]
       resource :matches, only: :show
       resource :daily_results_chart, only: :show
       resource :rivals, only: :show

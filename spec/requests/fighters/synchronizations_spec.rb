@@ -16,7 +16,7 @@ RSpec.describe "/fighters/synchronizations" do
         create(:fighter_synchronization, :success, fighter: create(:fighter, id: 111222333))
         post "/fighters/111222333/synchronization"
 
-        expect(response).to have_http_status(:see_other).and redirect_to(fighter_path(111222333))
+        expect(response).to have_http_status(:ok)
       end
     end
   end
