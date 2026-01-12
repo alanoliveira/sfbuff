@@ -4,8 +4,6 @@
   <%= render "fighter_searches/form" %>
 <% end %>
 
-<%= render "layouts/shared/ads" %>
-
 <% content_for :main do %>
   <% if I18n.locale == :ja && cookies["fair_use_agreement"] != "true" %>
     <%= link_to_modal nil, fair_use_agreement_path, data: { controller: "auto-click" }, class: "d-none" %>
