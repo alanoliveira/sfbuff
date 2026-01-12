@@ -13,4 +13,5 @@ class AppSetting < ApplicationRecord
   setting :buckler_auth_cookie, encrypted: true
   setting :footer_sns_accounts
   setting :general_alerts
+  setting :google_ads_tag
 end
