@@ -387,7 +387,7 @@ GEM
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
     securerandom (0.4.1)
-    selenium-webdriver (4.39.0)
+    selenium-webdriver (4.40.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -499,7 +499,7 @@ DEPENDENCIES
   rubocop-rails-omakase
   rubocop-rspec_rails (~> 2.32)
   scenic (~> 1.9)
-  selenium-webdriver (~> 4.39)
+  selenium-webdriver (~> 4.40)
   sentry-rails
   sentry-ruby
   solid_cable
