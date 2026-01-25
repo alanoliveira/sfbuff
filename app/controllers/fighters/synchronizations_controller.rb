@@ -2,6 +2,7 @@ class Fighters::SynchronizationsController < ApplicationController
   include FighterScoped
 
   rate_limit to: 5, within: 1.minutes, only: :create
+  before_action :require_session, only: :create
   before_action :set_synchronization, only: :show
 
   def create

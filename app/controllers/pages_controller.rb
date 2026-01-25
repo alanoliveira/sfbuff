@@ -1,5 +1,4 @@
 class PagesController < ApplicationController
-  allow_unsessionized_access
   allow_ignore_timezone
 
   def index

@@ -21,7 +21,9 @@ module SwitchTimezone
   end
 
   def require_timezone
-    render inline: "<p>Setting timezone...</p>", layout: "application" unless cookies["timezone"]
+    unless device_detector.bot?
+      render inline: "<p>Setting timezone...</p>", layout: "application" unless cookies["timezone"]
+    end
   end
 
   private
