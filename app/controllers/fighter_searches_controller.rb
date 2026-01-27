@@ -1,5 +1,5 @@
 class FighterSearchesController < ApplicationController
-  rate_limit to: 5, within: 1.minutes, only: :create
+  rate_limit to: 5, within: 2.minutes, only: :create
   before_action :require_session, only: :create
   before_action :set_fighter_search, only: :show
 
