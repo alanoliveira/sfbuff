@@ -19,7 +19,7 @@ export default class extends Controller {
   }
 
   disconnect() {
-    clearTimeout(this.intervalId)
+    clearInterval(this.intervalId)
   }
 
   async #loadTurboStream() {
@@ -27,7 +27,7 @@ export default class extends Controller {
 
     const { response } = await get(this.urlValue, { responseKind: "turbo-stream" })
     if(response.status != ACCEPTED_STATUS || this.#attempt >= this.maxAtemptsValue) {
-      clearTimeout(this.intervalId)
+      clearInterval(this.intervalId)
     }
   }
 }
