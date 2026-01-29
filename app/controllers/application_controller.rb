@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include SwitchLocale
   include SwitchTimezone
   include TooManyRequestsHandler
+  include Unindexable
 
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes

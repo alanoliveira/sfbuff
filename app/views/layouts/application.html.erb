@@ -7,6 +7,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Sfbuff">
     <meta name="mobile-web-app-capable" content="yes">
+    <% if @unindexable %>
+      <meta name="robots" content="noindex">
+    <% end %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
