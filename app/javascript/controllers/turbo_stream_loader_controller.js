@@ -15,19 +15,18 @@ export default class extends Controller {
   }
 
   connect() {
-    this.intervalId = setInterval(this.#loadTurboStream.bind(this), this.intervalValue)
+    this.#loadTurboStream()
   }
 
   disconnect() {
-    clearInterval(this.intervalId)
+    clearTimeout(this.intervalId)
   }
 
   async #loadTurboStream() {
     this.#attempt += 1
-
     const { response } = await get(this.urlValue, { responseKind: "turbo-stream" })
-    if(response.status != ACCEPTED_STATUS || this.#attempt >= this.maxAtemptsValue) {
-      clearInterval(this.intervalId)
+    if(response.status == ACCEPTED_STATUS && this.#attempt < this.maxAtemptsValue) {
+      this.timeoutId = setTimeout(this.#loadTurboStream.bind(this), this.intervalValue)
     }
   }
 }
