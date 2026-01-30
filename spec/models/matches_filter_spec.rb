@@ -1,14 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe MatchesFilter do
-  let(:matches_filter) { described_class.new }
+  let(:matches_filter) { described_class.new(played_from: 6.month.ago, played_to: Time.zone.today) }
   let(:filtered_matches) { matches_filter.filter(Match.all) }
+
+  before do
+    travel_to Time.zone.parse("2024-02-01 00:00:00")
+    freeze_time
+  end
 
   context "when battle_type_id is present" do
     before do
       matches_filter.battle_type_id = 1
-      create(:battle, battle_type_id: 1)
-      create(:battle, battle_type_id: 2)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), battle_type_id: 1)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), battle_type_id: 2)
     end
 
     it "filter by battle_type_id" do
@@ -52,9 +57,9 @@ RSpec.describe MatchesFilter do
   context "when home_fighter_id is present" do
     before do
       matches_filter.home_fighter_id = 111_111_111
-      create(:battle, p1_fighter_id: 111_111_111, p2_fighter_id: 222_222_222)
-      create(:battle, p1_fighter_id: 222_222_222, p2_fighter_id: 111_111_111)
-      create(:battle, p1_fighter_id: 222_222_222, p2_fighter_id: 333_333_333)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_fighter_id: 111_111_111, p2_fighter_id: 222_222_222)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_fighter_id: 222_222_222, p2_fighter_id: 111_111_111)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_fighter_id: 222_222_222, p2_fighter_id: 333_333_333)
     end
 
     it "filter by home_fighter_id" do
@@ -66,9 +71,9 @@ RSpec.describe MatchesFilter do
   context "when home_character_id is present" do
     before do
       matches_filter.home_character_id = 1
-      create(:battle, p1_character_id: 1, p2_character_id: 2)
-      create(:battle, p1_character_id: 2, p2_character_id: 1)
-      create(:battle, p1_character_id: 2, p2_character_id: 2)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_character_id: 1, p2_character_id: 2)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_character_id: 2, p2_character_id: 1)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_character_id: 2, p2_character_id: 2)
     end
 
     it "filter by home_character_id" do
@@ -80,9 +85,9 @@ RSpec.describe MatchesFilter do
   context "when home_input_type_id is present" do
     before do
       matches_filter.home_input_type_id = 1
-      create(:battle, p1_input_type_id: 1, p2_input_type_id: 2)
-      create(:battle, p1_input_type_id: 2, p2_input_type_id: 1)
-      create(:battle, p1_input_type_id: 2, p2_input_type_id: 2)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_input_type_id: 1, p2_input_type_id: 2)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_input_type_id: 2, p2_input_type_id: 1)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_input_type_id: 2, p2_input_type_id: 2)
     end
 
     it "filter by home_input_type_id" do
@@ -94,9 +99,9 @@ RSpec.describe MatchesFilter do
   context "when away_fighter_id is present" do
     before do
       matches_filter.away_fighter_id = 111_111_111
-      create(:battle, p1_fighter_id: 111_111_111, p2_fighter_id: 222_222_222)
-      create(:battle, p1_fighter_id: 222_222_222, p2_fighter_id: 111_111_111)
-      create(:battle, p1_fighter_id: 222_222_222, p2_fighter_id: 333_333_333)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_fighter_id: 111_111_111, p2_fighter_id: 222_222_222)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_fighter_id: 222_222_222, p2_fighter_id: 111_111_111)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_fighter_id: 222_222_222, p2_fighter_id: 333_333_333)
     end
 
     it "filter by away_fighter_id" do
@@ -108,9 +113,9 @@ RSpec.describe MatchesFilter do
   context "when away_character_id is present" do
     before do
       matches_filter.away_character_id = 1
-      create(:battle, p1_character_id: 1, p2_character_id: 2)
-      create(:battle, p1_character_id: 2, p2_character_id: 1)
-      create(:battle, p1_character_id: 2, p2_character_id: 2)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_character_id: 1, p2_character_id: 2)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_character_id: 2, p2_character_id: 1)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_character_id: 2, p2_character_id: 2)
     end
 
     it "filter by away_character_id" do
@@ -122,9 +127,9 @@ RSpec.describe MatchesFilter do
   context "when away_input_type_id is present" do
     before do
       matches_filter.away_input_type_id = 1
-      create(:battle, p1_input_type_id: 1, p2_input_type_id: 2)
-      create(:battle, p1_input_type_id: 2, p2_input_type_id: 1)
-      create(:battle, p1_input_type_id: 2, p2_input_type_id: 2)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_input_type_id: 1, p2_input_type_id: 2)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_input_type_id: 2, p2_input_type_id: 1)
+      create(:battle, played_at: Time.zone.parse("2024-01-01 00:00:00"), p1_input_type_id: 2, p2_input_type_id: 2)
     end
 
     it "filter by away_input_type_id" do

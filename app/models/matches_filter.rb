@@ -1,4 +1,6 @@
 class MatchesFilter
+  PLAYED_AT_RANGE_LIMIT = 6.month
+
   include ActiveModel::Model
   include ActiveModel::Attributes
 
@@ -26,10 +28,10 @@ class MatchesFilter
   end
 
   def played_from
-    super&.beginning_of_day
+    super&.beginning_of_day || Time.zone.today
   end
 
   def played_to
-    super&.end_of_day
+    [ (super&.end_of_day || Time.zone.today), played_from + PLAYED_AT_RANGE_LIMIT ].min
   end
 end
