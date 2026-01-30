@@ -10,7 +10,7 @@ export default class extends Controller {
 
   static values = {
     url: String,
-    interval: { type: Number, default: 1000 },
+    interval: { type: Number, default: 3000 },
     maxAtempts: { type: Number, default: 30 },
   }
 
