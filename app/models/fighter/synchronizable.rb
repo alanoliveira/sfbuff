@@ -34,7 +34,7 @@ module Fighter::Synchronizable
 
   def create_synchronization
     synchronizations.create if synchronizable?
-  rescue PG::UniqueViolation
-    # there is already and active synchronization
+  rescue ActiveRecord::RecordNotUnique
+    # there is already an active synchronization
   end
 end
