@@ -1,5 +1,5 @@
 class MatchesFilter
-  PLAYED_AT_RANGE_LIMIT = 6.month
+  PLAYED_AT_RANGE_LIMIT = 1.year
 
   include ActiveModel::Model
   include ActiveModel::Attributes
