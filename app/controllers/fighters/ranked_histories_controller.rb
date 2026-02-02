@@ -1,4 +1,5 @@
 class Fighters::RankedHistoriesController < ApplicationController
+  include AdsenseEligible
   include FighterScoped
   include SetMatchesFilter
   fresh_when_synchronized_at_changed
