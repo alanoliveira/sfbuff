@@ -13,9 +13,3 @@ LocalTime.start()
 document.addEventListener("turbo:morph", () => {
   LocalTime.run()
 })
-
-import { setCookie, getCookie } from "helpers/cookie_helpers"
-if(!getCookie("timezone")) {
-  setCookie("timezone", Intl.DateTimeFormat().resolvedOptions().timeZone)
-  Turbo.visit(window.location)
-}
