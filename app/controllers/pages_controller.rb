@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  allow_ignore_timezone
   allow_indexing only: :index
 
   def index
