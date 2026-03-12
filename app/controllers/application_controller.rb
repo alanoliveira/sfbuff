@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   include Unindexable
   include Adsenses
 
+  before_action -> { head :forbidden if device_detector.bot? }
+
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
