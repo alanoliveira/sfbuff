@@ -14,7 +14,7 @@ module Sessionizer
 
   def resume_or_start_new_session
     if device_detector.bot?
-      Rails.logger.info("Halting session creation for a likely bot")
+      Rails.logger.info("Halting session creation for a likely bot (#{device_detector.bot_name})")
     else
       resume_session || start_new_session
     end
