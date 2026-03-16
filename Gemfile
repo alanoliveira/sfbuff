@@ -59,7 +59,7 @@ gem "pagy", "~> 43.2"
 gem "device_detector", "~> 1.1"
 
 # markdown renderer
-gem "commonmarker", "~> 2.6"
+gem "commonmarker", "~> 2.7"
 
 # Used to login on buckler
 gem "faraday-cookie_jar", "~> 0.0.7"
