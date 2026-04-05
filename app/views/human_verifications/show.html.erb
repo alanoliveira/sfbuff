@@ -1,2 +1,5 @@
-<h1>HumanVerifications#show</h1>
-<p>Find me in app/views/human_verifications/show.html.erb</p>
+<h1>Verify you are human</h1>
+
+<%= form_with url: human_verification_validation_path, data: { controller: "turnstile-form", turnstile_form_sitekey_value: ENV["SFBUFF_CF_TURNSTILE_SITE_KEY"] } do |f| %>
+  <div data-turnstile-form-target="widget"></div>
+<% end %>

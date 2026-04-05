@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   end
 
   resource :human_verification, only: :show do
+    scope module: :human_verifications do
+      resource :validation, only: :create
+    end
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
