@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  skip_human_verification
   allow_indexing only: :index
 
   def index
