@@ -5,7 +5,7 @@ class HumanVerificationsController < ApplicationController
     human_verification = HumanVerification.new(verification_params)
     if human_verification.valid?
       session[:verified_at] = Time.zone.now
-      redirect_to root_url
+      redirect_to session.delete(:return_to_after_authenticating) || root_url
     else
       head :forbidden
     end

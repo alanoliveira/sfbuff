@@ -16,6 +16,7 @@ module Turnstile
   def require_human_verification
     return if session[:verified_at] && session[:verified_at] > 1.day.ago
 
+    session[:return_to_after_authenticating] = request.url
     redirect_to turnstile_path
   end
 end
