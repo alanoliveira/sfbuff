@@ -18,11 +18,8 @@ Rails.application.routes.draw do
     match "/*", to: redirect { |params, _req| "/fighters/#{params[:fighter_id]}" }, via: :get
   end
 
-  resource :human_verification, only: :show do
-    scope module: :human_verifications do
-      resource :validation, only: :create
-    end
-  end
+  resource :turnstile, only: :show
+  resource :human_verification, only: :create
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

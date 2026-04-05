@@ -1,4 +1,4 @@
-module HumanVerification
+module Turnstile
   extend ActiveSupport::Concern
 
   included do
@@ -16,6 +16,6 @@ module HumanVerification
   def require_human_verification
     return if session[:human_verified]
 
-    redirect_to human_verification_path
+    redirect_to turnstile_path
   end
 end

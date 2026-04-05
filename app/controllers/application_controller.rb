@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   include TooManyRequestsHandler
   include Unindexable
   include Adsenses
-  include HumanVerification
+  include Turnstile
 
   before_action -> { head :forbidden if device_detector.bot? }
 
