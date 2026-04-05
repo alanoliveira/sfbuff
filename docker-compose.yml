@@ -11,6 +11,8 @@ services:
     build: .
     environment:
       <<: *common-env
+      SFBUFF_CF_TURNSTILE_SITE_KEY:
+      SFBUFF_CF_TURNSTILE_SECRET_KEY:
     ports:
       - "3000:3000"
     depends_on:

@@ -32,6 +32,8 @@ env:
     - SFBUFF_DATABASE_PASSWORD
     - SFBUFF_DEFAULT_USER_AGENT
     - SFBUFF_SENTRY_DSN
+    - SFBUFF_CF_TURNSTILE_SITE_KEY
+    - SFBUFF_CF_TURNSTILE_SECRET_KEY
 
 aliases:
   console: app exec --interactive --reuse "bin/rails console"
