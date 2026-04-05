@@ -4,7 +4,7 @@ class HumanVerificationsController < ApplicationController
   def create
     human_verification = HumanVerification.new(verification_params)
     if human_verification.valid?
-      session[:human_verified] = true
+      session[:verified_at] = Time.zone.now
       redirect_to root_url
     else
       head :forbidden

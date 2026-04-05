@@ -14,7 +14,7 @@ module Turnstile
   private
 
   def require_human_verification
-    return if session[:human_verified]
+    return if session[:verified_at] && session[:verified_at] > 1.day.ago
 
     redirect_to turnstile_path
   end
