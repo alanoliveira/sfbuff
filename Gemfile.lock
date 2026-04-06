@@ -87,7 +87,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (4.0.1)
+    bigdecimal (4.1.1)
     bindex (0.8.1)
     bootsnap (1.23.0)
       msgpack (~> 1.2)
@@ -165,8 +165,8 @@ GEM
       raabro (~> 1.4)
     globalid (1.3.0)
       activesupport (>= 6.1)
-    groupdate (6.7.0)
-      activesupport (>= 7.1)
+    groupdate (6.8.0)
+      activesupport (>= 7.2)
     hashdiff (1.2.1)
     http-cookie (1.1.0)
       domain_name (~> 0.5)
@@ -188,7 +188,7 @@ GEM
     jbuilder (2.14.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
-    json (2.19.1)
+    json (2.19.3)
     json-schema (6.2.0)
       addressable (~> 2.8)
       bigdecimal (>= 3.1, < 5)
@@ -223,7 +223,7 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
-    minitest (6.0.2)
+    minitest (6.0.3)
       drb (~> 2.0)
       prism (~> 1.5)
     msgpack (1.8.0)
@@ -493,7 +493,7 @@ DEPENDENCIES
   faraday (~> 2.14)
   faraday-cookie_jar (~> 0.0.7)
   faraday-follow_redirects (~> 0.4.0)
-  groupdate (~> 6.7)
+  groupdate (~> 6.8)
   image_processing (~> 1.2)
   importmap-rails
   jbuilder

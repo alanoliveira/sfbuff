@@ -50,7 +50,7 @@ gem "local_time", "~> 3.0"
 gem "scenic", "~> 1.9"
 
 # AcitveRecord helpers to group by date
-gem "groupdate", "~> 6.7"
+gem "groupdate", "~> 6.8"
 
 # Pagination
 gem "pagy", "~> 43.2"
