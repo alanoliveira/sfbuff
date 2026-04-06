@@ -8,7 +8,7 @@ export default class extends Controller {
   }
 
   connect() {
-    document.addEventListener("turbo:load", this.#turboLoad.bind(this))
+    document.addEventListener("turbo:load", this.#turboLoad.bind(this), { once: true })
   }
 
   #turboLoad() {
