@@ -8,14 +8,16 @@ export default class extends Controller {
   }
 
   connect() {
-    document.addEventListener("turbo:load", this.#turboLoad.bind(this), { once: true })
-  }
+    const intervalId = setInterval(() => {
+      if(!window.turnstile)
+        return;
 
-  #turboLoad() {
-    turnstile.render(this.widgetTarget, {
-      sitekey: this.sitekeyValue,
-      callback: this.#onSuccess.bind(this)
-    })
+      clearInterval(intervalId)
+      turnstile.render(this.widgetTarget, {
+        sitekey: this.sitekeyValue,
+        callback: this.#onSuccess.bind(this)
+      })
+    }, 400)
   }
 
   #onSuccess() {
