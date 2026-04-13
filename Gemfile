@@ -53,7 +53,7 @@ gem "scenic", "~> 1.9"
 gem "groupdate", "~> 6.7"
 
 # Pagination
-gem "pagy", "~> 43.2"
+gem "pagy", "~> 43.5"
 
 # user agent parser
 gem "device_detector", "~> 1.1"
