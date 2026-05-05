@@ -5,7 +5,7 @@ retain_containers: 3
 servers:
   web:
     hosts:
-     - sfbuff.site
+     - deploy.sfbuff.site
 
 proxy:
   app_port: 3000
@@ -55,7 +55,7 @@ ssh:
 accessories:
   db:
     image: postgres:16.2-alpine
-    host: sfbuff.site
+    host: deploy.sfbuff.site
     port: "5432:5432"
     env:
       clear:
@@ -79,7 +79,7 @@ accessories:
   # The current server can't afford ~100MiB used by vector container
   # vector:
   #   image: timberio/vector:0.51.1-alpine
-  #   host: sfbuff.site
+  #   host: deploy.sfbuff.site
   #   options:
   #     entrypoint: "sh"
   #   cmd: -c 'apk add --no-cache docker-cli && vector'
