@@ -32,6 +32,7 @@ Character = Data.define(:id, :name) do
     new(29,  "elena"),
     new(30,  "c_viper"),
     new(31,  "alex"),
+    new(32,  "ingrid"),
     new(254, "random")
   ].index_by(&:id)
 
