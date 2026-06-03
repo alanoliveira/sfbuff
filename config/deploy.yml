@@ -12,6 +12,7 @@ proxy:
   ssl: true
   hosts:
     - sfbuff.site
+    - www.sfbuff.site
 
 registry:
   username: alanoliveira89
