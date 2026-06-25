@@ -16,11 +16,9 @@ class BucklerApiClient < ApplicationClient
     @auth_cookie = auth_cookie
   end
 
-  def fighterslist(short_id: nil, fighter_id: nil)
-    params = { short_id:, fighter_id: }.compact
-    raise ArgumentError, "short_id XOR fighter_id is required" if params.length != 1
-
-    get "fighterslist/search/result.json", params
+  def fighterslist(short_id: nil, fighter_id: nil, page: 1)
+    raise ArgumentError, "short_id XOR fighter_id is required" if [ short_id, fighter_id ].compact_blank.empty?
+    get "fighterslist/search/result.json", { short_id:, fighter_id:, page:, order_type: "last_play", order_order: 0 }.compact
   end
 
   def battlelog(short_id)

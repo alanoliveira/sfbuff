@@ -46,15 +46,15 @@ RSpec.describe BucklerApiClient do
     let(:fighter_id) { "player" }
 
     before do
-      stub_request(:get, "fighterslist/search/result.json?short_id=#{short_id}")
+      stub_request(:get, "fighterslist/search/result.json?short_id=#{short_id}&page=1&order_type=last_play&order_order=0")
         .to_return(body: { "data" => "ok" }.to_json, headers: { "Content-Type" => "application/json" })
 
-      stub_request(:get, "fighterslist/search/result.json?fighter_id=#{fighter_id}")
+      stub_request(:get, "fighterslist/search/result.json?fighter_id=#{fighter_id}&page=1&order_type=last_play&order_order=0")
         .to_return(body: { "data" => "ok" }.to_json, headers: { "Content-Type" => "application/json" })
     end
 
     it_behaves_like "a buckler api dependent method" do
-      let(:stubbed_request) { stub_request(:get, "fighterslist/search/result.json?short_id=#{short_id}") }
+      let(:stubbed_request) { stub_request(:get, "fighterslist/search/result.json?short_id=#{short_id}&page=1&order_type=last_play&order_order=0") }
       let(:execute) { buckler_api_client.fighterslist(short_id:) }
     end
 
